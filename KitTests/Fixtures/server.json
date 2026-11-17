@@ -1,0 +1,12 @@
+{
+    "name": "Mealplanner",
+    "content_locale": "de",
+    "supported_locales": [
+        "de",
+        "en"
+    ],
+    "auth_methods": [
+        "password"
+    ],
+    "oidc": null
+}

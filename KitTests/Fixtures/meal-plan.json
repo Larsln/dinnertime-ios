@@ -1,0 +1,68 @@
+{
+    "data": [
+        {
+            "id": 2,
+            "date": "2026-11-16",
+            "meal": "dinner",
+            "servings": 2,
+            "cooked_at": null,
+            "recipe": {
+                "id": 1,
+                "title": "Zwiebelkuchen",
+                "slug": "zwiebelkuchen",
+                "description": "Herzhaft",
+                "servings": 4,
+                "yield_text": null,
+                "prep_minutes": 20,
+                "cook_minutes": 45,
+                "cover_url": null,
+                "tags": [
+                    {
+                        "id": 3,
+                        "type": "meal",
+                        "key": "dinner",
+                        "name": "Abendessen"
+                    },
+                    {
+                        "id": 16,
+                        "type": "tag",
+                        "key": "vegetarian",
+                        "name": "Vegetarisch"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 1,
+            "date": "2026-11-18",
+            "meal": "dinner",
+            "servings": 4,
+            "cooked_at": "2026-11-17T21:15:34.000000Z",
+            "recipe": {
+                "id": 1,
+                "title": "Zwiebelkuchen",
+                "slug": "zwiebelkuchen",
+                "description": "Herzhaft",
+                "servings": 4,
+                "yield_text": null,
+                "prep_minutes": 20,
+                "cook_minutes": 45,
+                "cover_url": null,
+                "tags": [
+                    {
+                        "id": 3,
+                        "type": "meal",
+                        "key": "dinner",
+                        "name": "Abendessen"
+                    },
+                    {
+                        "id": 16,
+                        "type": "tag",
+                        "key": "vegetarian",
+                        "name": "Vegetarisch"
+                    }
+                ]
+            }
+        }
+    ]
+}

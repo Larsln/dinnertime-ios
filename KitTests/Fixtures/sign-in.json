@@ -1,0 +1,9 @@
+{
+    "token": "2|fixture-token",
+    "user": {
+        "id": 1,
+        "username": "iostest",
+        "name": "iostest",
+        "email": null
+    }
+}

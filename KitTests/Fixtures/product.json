@@ -1,0 +1,46 @@
+{
+    "data": {
+        "id": 1,
+        "name": "Schmand",
+        "plural_name": null,
+        "base_unit": "g",
+        "is_pantry_staple": false,
+        "shelf_life_opened_days": 5,
+        "status": "confirmed",
+        "enriched_at": null,
+        "recipe_count": 1,
+        "store_section": {
+            "id": 3,
+            "key": "chilled",
+            "name": "Kühlregal",
+            "position": 3
+        },
+        "aliases": [],
+        "conversions": [
+            {
+                "id": 1,
+                "unit": {
+                    "id": 5,
+                    "key": "tablespoon",
+                    "code": "EL",
+                    "name": "Esslöffel",
+                    "plural_name": "Esslöffel",
+                    "kind": "product_specific",
+                    "factor_to_base": null
+                },
+                "amount_in_base": 15,
+                "status": "confirmed",
+                "source": "user"
+            }
+        ],
+        "packages": [
+            {
+                "id": 1,
+                "label": "Becher",
+                "amount_in_base": 200,
+                "status": "confirmed",
+                "source": "user"
+            }
+        ]
+    }
+}

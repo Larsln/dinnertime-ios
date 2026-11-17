@@ -1,0 +1,111 @@
+{
+    "data": {
+        "id": 1,
+        "title": "Zwiebelkuchen",
+        "slug": "zwiebelkuchen",
+        "description": "Herzhaft",
+        "servings": 4,
+        "yield_text": null,
+        "prep_minutes": 20,
+        "cook_minutes": 45,
+        "cover_url": null,
+        "tags": [
+            {
+                "id": 3,
+                "type": "meal",
+                "key": "dinner",
+                "name": "Abendessen"
+            },
+            {
+                "id": 16,
+                "type": "tag",
+                "key": "vegetarian",
+                "name": "Vegetarisch"
+            }
+        ],
+        "source_url": "https://example.com/zwiebelkuchen",
+        "source_platform": null,
+        "meal_tags_locked": true,
+        "ingredients": [
+            {
+                "id": 1,
+                "position": 1,
+                "section": "Belag",
+                "quantity": 300,
+                "unit": {
+                    "id": 1,
+                    "key": "gram",
+                    "code": "g",
+                    "name": "Gramm",
+                    "plural_name": "Gramm",
+                    "kind": "mass",
+                    "factor_to_base": 1
+                },
+                "product": {
+                    "id": 1,
+                    "name": "Schmand",
+                    "plural_name": null,
+                    "base_unit": "g",
+                    "is_pantry_staple": false,
+                    "shelf_life_opened_days": 5,
+                    "status": "confirmed",
+                    "enriched_at": null
+                },
+                "note": null,
+                "is_estimated": false,
+                "raw_text": null
+            },
+            {
+                "id": 2,
+                "position": 2,
+                "section": "Belag",
+                "quantity": 3,
+                "unit": null,
+                "product": {
+                    "id": 2,
+                    "name": "Zwiebel",
+                    "plural_name": "Zwiebeln",
+                    "base_unit": "piece",
+                    "is_pantry_staple": false,
+                    "shelf_life_opened_days": null,
+                    "status": "confirmed",
+                    "enriched_at": null
+                },
+                "note": "gewürfelt",
+                "is_estimated": true,
+                "raw_text": null
+            },
+            {
+                "id": 3,
+                "position": 3,
+                "section": null,
+                "quantity": null,
+                "unit": null,
+                "product": null,
+                "note": null,
+                "is_estimated": false,
+                "raw_text": "Salz und Pfeffer"
+            }
+        ],
+        "steps": [
+            {
+                "id": 1,
+                "position": 1,
+                "title": "Belag",
+                "text": "Zwiebeln anschwitzen."
+            },
+            {
+                "id": 2,
+                "position": 2,
+                "title": null,
+                "text": "Backen."
+            }
+        ],
+        "tools": [
+            {
+                "id": 1,
+                "name": "Backblech"
+            }
+        ]
+    }
+}

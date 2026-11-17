@@ -1,0 +1,16 @@
+{
+    "name": "Mealplanner",
+    "content_locale": "de",
+    "supported_locales": [
+        "de",
+        "en"
+    ],
+    "auth_methods": [
+        "password",
+        "oidc"
+    ],
+    "oidc": {
+        "issuer": "https://id.example.org/realms/home",
+        "client_id": "mealplanner"
+    }
+}

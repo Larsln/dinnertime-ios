@@ -1,0 +1,117 @@
+{
+    "data": {
+        "id": 1,
+        "starts_on": "2026-11-16",
+        "ends_on": "2026-11-22",
+        "leftovers_stocked_at": "2026-11-17T21:15:52.000000Z",
+        "items": [
+            {
+                "id": 2,
+                "label": null,
+                "is_manual": false,
+                "needed_amount": 3,
+                "purchase_amount": 3,
+                "packages": [],
+                "leftover_amount": 0,
+                "wasted_amount": 0,
+                "uses": [
+                    {
+                        "date": "2026-11-18",
+                        "recipe_id": 1,
+                        "title": "Zwiebelkuchen",
+                        "amount": 3
+                    }
+                ],
+                "is_approximate": false,
+                "checked_at": null,
+                "product": {
+                    "id": 2,
+                    "name": "Zwiebel",
+                    "plural_name": "Zwiebeln",
+                    "base_unit": "piece",
+                    "is_pantry_staple": false,
+                    "shelf_life_opened_days": null,
+                    "status": "confirmed",
+                    "enriched_at": null,
+                    "store_section": {
+                        "id": 1,
+                        "key": "produce",
+                        "name": "Obst & Gemüse",
+                        "position": 1
+                    }
+                }
+            },
+            {
+                "id": 1,
+                "label": null,
+                "is_manual": false,
+                "needed_amount": 300,
+                "purchase_amount": 400,
+                "packages": [
+                    {
+                        "package_id": 1,
+                        "label": "Becher",
+                        "amount": 200,
+                        "count": 2
+                    }
+                ],
+                "leftover_amount": 100,
+                "wasted_amount": 0,
+                "uses": [
+                    {
+                        "date": "2026-11-18",
+                        "recipe_id": 1,
+                        "title": "Zwiebelkuchen",
+                        "amount": 300
+                    }
+                ],
+                "is_approximate": false,
+                "checked_at": "2026-11-17T21:15:35.000000Z",
+                "product": {
+                    "id": 1,
+                    "name": "Schmand",
+                    "plural_name": null,
+                    "base_unit": "g",
+                    "is_pantry_staple": false,
+                    "shelf_life_opened_days": 5,
+                    "status": "confirmed",
+                    "enriched_at": null,
+                    "store_section": {
+                        "id": 3,
+                        "key": "chilled",
+                        "name": "Kühlregal",
+                        "position": 3
+                    }
+                }
+            },
+            {
+                "id": 4,
+                "label": "Küchenrolle",
+                "is_manual": true,
+                "needed_amount": null,
+                "purchase_amount": null,
+                "packages": [],
+                "leftover_amount": 0,
+                "wasted_amount": 0,
+                "uses": [],
+                "is_approximate": false,
+                "checked_at": null,
+                "product": null
+            },
+            {
+                "id": 3,
+                "label": "Salz und Pfeffer",
+                "is_manual": false,
+                "needed_amount": null,
+                "purchase_amount": null,
+                "packages": [],
+                "leftover_amount": 0,
+                "wasted_amount": 0,
+                "uses": [],
+                "is_approximate": false,
+                "checked_at": null,
+                "product": null
+            }
+        ]
+    }
+}

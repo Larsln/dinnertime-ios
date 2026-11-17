@@ -1,0 +1,184 @@
+{
+    "data": [
+        {
+            "id": 6,
+            "type": "category",
+            "key": "breakfast",
+            "name": "Frühstück"
+        },
+        {
+            "id": 7,
+            "type": "category",
+            "key": "lunch",
+            "name": "Mittagessen"
+        },
+        {
+            "id": 8,
+            "type": "category",
+            "key": "dinner",
+            "name": "Abendessen"
+        },
+        {
+            "id": 9,
+            "type": "category",
+            "key": "dessert",
+            "name": "Dessert"
+        },
+        {
+            "id": 10,
+            "type": "category",
+            "key": "snack",
+            "name": "Snack"
+        },
+        {
+            "id": 11,
+            "type": "category",
+            "key": "side",
+            "name": "Beilage"
+        },
+        {
+            "id": 12,
+            "type": "category",
+            "key": "salad",
+            "name": "Salat"
+        },
+        {
+            "id": 13,
+            "type": "category",
+            "key": "soup",
+            "name": "Suppe"
+        },
+        {
+            "id": 14,
+            "type": "category",
+            "key": "baking",
+            "name": "Backen"
+        },
+        {
+            "id": 15,
+            "type": "category",
+            "key": "beverage",
+            "name": "Getränk"
+        },
+        {
+            "id": 1,
+            "type": "meal",
+            "key": "breakfast",
+            "name": "Frühstück"
+        },
+        {
+            "id": 2,
+            "type": "meal",
+            "key": "lunch",
+            "name": "Mittagessen"
+        },
+        {
+            "id": 3,
+            "type": "meal",
+            "key": "dinner",
+            "name": "Abendessen"
+        },
+        {
+            "id": 4,
+            "type": "meal",
+            "key": "dessert",
+            "name": "Dessert"
+        },
+        {
+            "id": 5,
+            "type": "meal",
+            "key": "snack",
+            "name": "Snack"
+        },
+        {
+            "id": 16,
+            "type": "tag",
+            "key": "vegetarian",
+            "name": "Vegetarisch"
+        },
+        {
+            "id": 17,
+            "type": "tag",
+            "key": "vegan",
+            "name": "Vegan"
+        },
+        {
+            "id": 18,
+            "type": "tag",
+            "key": "quick",
+            "name": "Schnell"
+        },
+        {
+            "id": 19,
+            "type": "tag",
+            "key": "low_carb",
+            "name": "Low Carb"
+        },
+        {
+            "id": 20,
+            "type": "tag",
+            "key": "high_protein",
+            "name": "Proteinreich"
+        },
+        {
+            "id": 21,
+            "type": "tag",
+            "key": "meal_prep",
+            "name": "Meal Prep"
+        },
+        {
+            "id": 22,
+            "type": "tag",
+            "key": "asian",
+            "name": "Asiatisch"
+        },
+        {
+            "id": 23,
+            "type": "tag",
+            "key": "italian",
+            "name": "Italienisch"
+        },
+        {
+            "id": 24,
+            "type": "tag",
+            "key": "mexican",
+            "name": "Mexikanisch"
+        },
+        {
+            "id": 25,
+            "type": "tag",
+            "key": "middle_eastern",
+            "name": "Orientalisch"
+        },
+        {
+            "id": 26,
+            "type": "tag",
+            "key": "german",
+            "name": "Deutsch"
+        },
+        {
+            "id": 27,
+            "type": "tag",
+            "key": "summer",
+            "name": "Sommer"
+        },
+        {
+            "id": 28,
+            "type": "tag",
+            "key": "winter",
+            "name": "Winter"
+        },
+        {
+            "id": 29,
+            "type": "tag",
+            "key": "kids",
+            "name": "Kinder"
+        },
+        {
+            "id": 30,
+            "type": "tag",
+            "key": "party",
+            "name": "Party"
+        }
+    ]
+}

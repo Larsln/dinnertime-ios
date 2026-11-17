@@ -1,0 +1,19 @@
+// Settings shared by all targets. Local overrides go into Config/Local.xcconfig,
+// which is ignored by git.
+
+// Name shown on the home screen and in the share sheet.
+APP_DISPLAY_NAME = Mealplanner
+
+// Bundle identifier of the app; the share extension appends ".share".
+APP_BUNDLE_ID = io.github.larsln.mealplanner
+
+// Keychain access group through which app and share extension share the credentials.
+KEYCHAIN_GROUP = $(APP_BUNDLE_ID).shared
+
+// Apple developer team used for signing. Set it in Config/Local.xcconfig.
+DEVELOPMENT_TEAM =
+
+MARKETING_VERSION = 0.1.0
+CURRENT_PROJECT_VERSION = 1
+
+#include? "Local.xcconfig"

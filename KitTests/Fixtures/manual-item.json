@@ -1,0 +1,15 @@
+{
+    "data": {
+        "id": 4,
+        "label": "Küchenrolle",
+        "is_manual": true,
+        "needed_amount": null,
+        "purchase_amount": null,
+        "packages": [],
+        "leftover_amount": null,
+        "wasted_amount": null,
+        "uses": [],
+        "is_approximate": null,
+        "checked_at": null
+    }
+}

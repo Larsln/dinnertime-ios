@@ -1,0 +1,26 @@
+{
+    "data": [
+        {
+            "id": 2,
+            "amount": 50,
+            "opened_on": "2026-11-22",
+            "expires_on": "2026-11-27",
+            "product": {
+                "id": 1,
+                "name": "Schmand",
+                "plural_name": null,
+                "base_unit": "g",
+                "is_pantry_staple": false,
+                "shelf_life_opened_days": 5,
+                "status": "confirmed",
+                "enriched_at": null,
+                "store_section": {
+                    "id": 3,
+                    "key": "chilled",
+                    "name": "Kühlregal",
+                    "position": 3
+                }
+            }
+        }
+    ]
+}

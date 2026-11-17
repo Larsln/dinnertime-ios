@@ -1,0 +1,76 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Close": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließen"
+          }
+        }
+      }
+    },
+    "Sending link…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link wird gesendet …"
+          }
+        }
+      }
+    },
+    "The link could not be imported.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Link konnte nicht importiert werden."
+          }
+        }
+      }
+    },
+    "The recipe is being imported.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Rezept wird importiert."
+          }
+        }
+      }
+    },
+    "The shared content contains no link.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der geteilte Inhalt enthält keinen Link."
+          }
+        }
+      }
+    },
+    "This recipe is already in your collection.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieses Rezept ist bereits in deiner Sammlung."
+          }
+        }
+      }
+    },
+    "You are not signed in. Open %@ and sign in first.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du bist nicht angemeldet. Öffne %@ und melde dich zuerst an."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,64 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "Zwiebelkuchen",
+            "slug": "zwiebelkuchen",
+            "description": "Herzhaft",
+            "servings": 4,
+            "yield_text": null,
+            "prep_minutes": 20,
+            "cook_minutes": 45,
+            "cover_url": null,
+            "tags": [
+                {
+                    "id": 3,
+                    "type": "meal",
+                    "key": "dinner",
+                    "name": "Abendessen"
+                },
+                {
+                    "id": 16,
+                    "type": "tag",
+                    "key": "vegetarian",
+                    "name": "Vegetarisch"
+                }
+            ]
+        }
+    ],
+    "links": {
+        "first": "http://localhost:8000/api/v1/recipes?page=1",
+        "last": "http://localhost:8000/api/v1/recipes?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "page": null,
+                "active": false
+            },
+            {
+                "url": "http://localhost:8000/api/v1/recipes?page=1",
+                "label": "1",
+                "page": 1,
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "page": null,
+                "active": false
+            }
+        ],
+        "path": "http://localhost:8000/api/v1/recipes",
+        "per_page": 50,
+        "to": 1,
+        "total": 1
+    }
+}

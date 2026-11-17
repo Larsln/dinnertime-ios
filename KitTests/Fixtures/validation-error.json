@@ -1,0 +1,8 @@
+{
+    "message": "The url field must be a valid URL.",
+    "errors": {
+        "url": [
+            "The url field must be a valid URL."
+        ]
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "url": "https://example.com/zwiebelkuchen",
+            "status": "completed",
+            "error": null,
+            "error_message": null,
+            "created_at": "2026-11-17T21:15:35.000000Z",
+            "recipe": {
+                "id": 1,
+                "title": "Zwiebelkuchen",
+                "slug": "zwiebelkuchen",
+                "description": "Herzhaft",
+                "servings": 4,
+                "yield_text": null,
+                "prep_minutes": 20,
+                "cook_minutes": 45,
+                "cover_url": null,
+                "tags": [
+                    {
+                        "id": 3,
+                        "type": "meal",
+                        "key": "dinner",
+                        "name": "Abendessen"
+                    },
+                    {
+                        "id": 16,
+                        "type": "tag",
+                        "key": "vegetarian",
+                        "name": "Vegetarisch"
+                    }
+                ]
+            }
+        }
+    ]
+}

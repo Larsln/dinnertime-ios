@@ -1,0 +1,96 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%@ pcs": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Stück"
+          }
+        }
+      }
+    },
+    "The credentials could not be accessed (%lld).": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf die Zugangsdaten konnte nicht zugegriffen werden (%lld)."
+          }
+        }
+      }
+    },
+    "The server answered with an error (%lld).": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Server hat mit einem Fehler geantwortet (%lld)."
+          }
+        }
+      }
+    },
+    "The server could not be reached.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Server ist nicht erreichbar."
+          }
+        }
+      }
+    },
+    "The server sent an unexpected answer.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Server hat eine unerwartete Antwort gesendet."
+          }
+        }
+      }
+    },
+    "The sign-in at the provider failed.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Anmeldung beim Anmeldedienst ist fehlgeschlagen."
+          }
+        }
+      }
+    },
+    "The sign-in provider could not be reached.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Anmeldedienst ist nicht erreichbar."
+          }
+        }
+      }
+    },
+    "The sign-in provider did not confirm the sign-in.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Anmeldedienst hat die Anmeldung nicht bestätigt."
+          }
+        }
+      }
+    },
+    "Your session has expired. Please sign in again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Sitzung ist abgelaufen. Bitte melde dich erneut an."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
