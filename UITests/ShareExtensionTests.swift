@@ -17,6 +17,9 @@ final class ShareExtensionTests: XCTestCase {
         continueAfterFailure = false
     }
 
+    /// Share entry of the page menu by its label, for systems that give it no identifier.
+    private static let shareLabels = NSPredicate(format: "label BEGINSWITH[c] 'Teilen' OR label BEGINSWITH[c] 'Share'")
+
     func testShareLinkFromSafari() throws {
         guard let address = ProcessInfo.processInfo.environment["MEALPLANNER_SHARE_URL"], let url = URL(string: address) else {
             throw XCTSkip("Set MEALPLANNER_SHARE_URL to run the share test.")
@@ -47,11 +50,13 @@ final class ShareExtensionTests: XCTestCase {
         let share = safari.buttons["ShareButton"]
 
         if !share.waitForExistence(timeout: 5) {
-            safari.buttons["PageFormatMenuButton"].firstMatch.tap()
+            let menus = NSPredicate(format: "identifier IN %@", ["PageFormatMenuButton", "MoreMenuButton"])
+            safari.buttons.matching(menus).firstMatch.tap()
         }
 
-        XCTAssertTrue(share.waitForExistence(timeout: Self.timeout), "Safari shows no share button\n\(safari.debugDescription)")
-        share.tap()
+        let entry = share.waitForExistence(timeout: 5) ? share : safari.buttons.matching(Self.shareLabels).firstMatch
+        XCTAssertTrue(entry.waitForExistence(timeout: Self.timeout), "Safari shows no share button\n\(safari.debugDescription)")
+        entry.tap()
     }
 
     /// Scrolls the row of share targets until the element shows up, then falls back to the complete list.
