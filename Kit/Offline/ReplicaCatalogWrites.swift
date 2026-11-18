@@ -127,24 +127,15 @@ extension Replica {
         guard request.method != .get else {
             return nil
         }
-        if let result = try writeRecipe(request, key: key) {
-            return result
-        }
-        if let result = try writePlan(request, now: now) {
-            return result
-        }
-        if let result = try writePantry(request, now: now) {
-            return result
-        }
-        if let result = try writeShopping(request, key: key, now: now) {
-            return result
-        }
-        if let result = try writeProduct(request) {
-            return result
-        }
-        if let result = try writeTool(request) {
-            return result
-        }
-        return writeSettings(request)
+        let repairs = repairs(for: request)
+        var result = try writeRecipe(request, key: key)
+        result = try result ?? writePlan(request, now: now)
+        result = try result ?? writePantry(request, now: now)
+        result = try result ?? writeShopping(request, key: key, now: now)
+        result = try result ?? writeProduct(request)
+        result = try result ?? writeTool(request)
+        result = result ?? writeSettings(request)
+        result?.change?.repairs = repairs
+        return result
     }
 }

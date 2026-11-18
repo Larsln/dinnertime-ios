@@ -17,8 +17,8 @@ struct Replica {
     var household: JSONObject = [:]
     /// Version of the feed up to which the copy is complete; zero before the first sync.
     var version = 0
-    /// Whether the next sync has to replace the whole copy, after a change was turned away.
-    var needsFullSync = false
+    /// Parts of the copy that have to be read from the server again, after a change to them was turned away.
+    var pendingRepairs: [RecordRepair] = []
     /// The id the next record created offline gets; temporary ids are negative and count down.
     var nextTemporaryID = -1
     /// Answers of read-only endpoints that are not part of the feed, by path.
@@ -97,25 +97,6 @@ struct Replica {
         return areas
     }
 
-    /// Replaces the whole copy by the pages of a feed read from version zero.
-    ///
-    /// Records the feed does not name are removed, except those created offline that still wait to be sent.
-    mutating func replace(with pages: [SyncChanges]) -> Set<RealtimeArea> {
-        let named = Set(pages.flatMap { page in
-            RecordKind.allCases.flatMap { kind in (page.changed[kind] ?? []).compactMap(\.recordID).map { RecordReference(kind: kind, id: $0) } }
-        })
-        for (kind, byID) in records {
-            for id in byID.keys where id > 0 && !named.contains(RecordReference(kind: kind, id: id)) {
-                remove(kind, id)
-            }
-        }
-        for page in pages {
-            _ = apply(page)
-        }
-        needsFullSync = false
-        return Set(RealtimeArea.allCases)
-    }
-
     /// Replaces a temporary id by the real one everywhere in the copy.
     mutating func replaceID(_ temporary: Int, with real: Int) {
         for (kind, byID) in records {
@@ -131,6 +112,7 @@ struct Replica {
                 }
             }
         }
+        pendingRepairs = pendingRepairs.map { $0.replacing(temporary, with: real) }
         itemIDsByCreationKey = itemIDsByCreationKey.mapValues { $0 == temporary ? real : $0 }
         if let time = itemActionTimes.removeValue(forKey: temporary) {
             itemActionTimes[real] = time

@@ -66,6 +66,8 @@ struct QueuedChange {
     var createdKind: RecordKind?
     /// The shopping item the change acts on, for the exchange between devices.
     var shoppingItem: Int?
+    /// What has to be read from the server again if it turns the change away.
+    var repairs: [RecordRepair] = []
 }
 
 extension Replica {

@@ -7,11 +7,11 @@ struct ReplicaFiles {
     /// What is stored besides the records.
     private struct Meta: Codable {
         var version = 0
-        var needsFullSync = false
         var nextTemporaryID = -1
         var itemIDsByCreationKey: [String: Int] = [:]
         var itemActionTimes: [Int: Date] = [:]
         var knownShoppingKeys: [String]?
+        var pendingRepairs: [RecordRepair]?
     }
 
     /// Directory of the copy.
@@ -47,11 +47,11 @@ struct ReplicaFiles {
         _ = replica.takeChanges()
         if let data = try? Data(contentsOf: metaFile), let meta = try? JSONDecoder().decode(Meta.self, from: data) {
             replica.version = meta.version
-            replica.needsFullSync = meta.needsFullSync
             replica.nextTemporaryID = meta.nextTemporaryID
             replica.itemIDsByCreationKey = meta.itemIDsByCreationKey
             replica.itemActionTimes = meta.itemActionTimes
             replica.knownShoppingKeys = meta.knownShoppingKeys ?? []
+            replica.pendingRepairs = meta.pendingRepairs ?? []
         }
         replica.household = (try? Data(contentsOf: householdFile)).flatMap { try? JSONValue.object(from: $0) } ?? [:]
         replica.cachedAnswers = (try? Data(contentsOf: answersFile)).flatMap { try? JSONValue.object(from: $0) } ?? [:]
@@ -74,11 +74,11 @@ struct ReplicaFiles {
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         let meta = Meta(
             version: replica.version,
-            needsFullSync: replica.needsFullSync,
             nextTemporaryID: replica.nextTemporaryID,
             itemIDsByCreationKey: replica.itemIDsByCreationKey,
             itemActionTimes: replica.itemActionTimes,
-            knownShoppingKeys: replica.knownShoppingKeys
+            knownShoppingKeys: replica.knownShoppingKeys,
+            pendingRepairs: replica.pendingRepairs
         )
         try JSONEncoder().encode(meta).write(to: metaFile, options: .atomic)
         try JSONValue.data(replica.household).write(to: householdFile, options: .atomic)

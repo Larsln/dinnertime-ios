@@ -17,6 +17,46 @@
         }
       }
     },
+    "%lld changes have not been sent yet and will be lost.": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Änderung wurde noch nicht gesendet und geht verloren."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Änderungen wurden noch nicht gesendet und gehen verloren."
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld change has not been sent yet and will be lost."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld changes have not been sent yet and will be lost."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld changes waiting": {
       "localizations": {
         "de": {

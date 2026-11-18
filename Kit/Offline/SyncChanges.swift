@@ -50,10 +50,42 @@ public enum SyncEndpoints {
 
     /// `GET /sync`: the changes after `version`; the raw answer is handed to the local copy.
     public static func changes(since version: Int) -> Endpoint<Data> {
-        let query = [
+        Endpoint(.get, "sync", query: query(since: version)) { $0 }
+    }
+
+    /// `GET /sync` with `kinds[]`: records of one kind after `version`, to load the kind again.
+    ///
+    /// The version of such an answer is not the overall position of the feed.
+    public static func records(of kind: RecordKind, since version: Int = 0) -> Endpoint<Data> {
+        Endpoint(.get, "sync", query: query(since: version) + [URLQueryItem(name: "kinds[]", value: kind.rawValue)]) { $0 }
+    }
+
+    /// `GET <path>`: the raw answer of a detail endpoint, to load one record again.
+    public static func record(at path: String) -> Endpoint<Data> {
+        Endpoint(.get, path) { $0 }
+    }
+
+    private static func query(since version: Int) -> [URLQueryItem] {
+        [
             URLQueryItem(name: "since", value: String(version)),
             URLQueryItem(name: "limit", value: String(limit)),
         ]
-        return Endpoint(.get, "sync", query: query) { $0 }
+    }
+}
+
+/// Where an answer of the feed stands: its version and whether more follows.
+public struct SyncPosition: Equatable, Sendable {
+    public let version: Int
+    public let hasMore: Bool
+
+    public init(version: Int, hasMore: Bool) {
+        self.version = version
+        self.hasMore = hasMore
+    }
+
+    /// Reads the position of a page of the feed.
+    public init(page: Data) throws {
+        let changes = try SyncChanges(data: page)
+        self.init(version: changes.version, hasMore: changes.hasMore)
     }
 }

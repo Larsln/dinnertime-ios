@@ -124,68 +124,131 @@ struct OutboxTests {
         #expect(await store.syncVersion == 126)
     }
 
-    @Test func staleAndMissingChangesAreDroppedAndTheServerStateIsRestored() async throws {
+    @Test func staleAndMissingChangesAreDroppedAndOnlyWhatTheyTouchedIsReadAgain() async throws {
         let store = try await OfflineSupport.syncedStore()
         _ = try await store.answer(PantryEndpoints.setAmount(7, id: 16))
         _ = try await store.answer(MealPlanEndpoints.delete(id: 21))
+        _ = try await store.answer(ShoppingEndpoints.setChecked(true, itemID: 39))
         let stale = DeliveryResult.response(status: 409, body: Data(#"{"message":"x","code":"stale"}"#.utf8))
         let report = await drain(store, Server([stale, .response(status: 404, body: Data())]))
 
-        #expect(report.delivered == 0)
+        #expect(report.delivered == 1)
         #expect(report.rejections.isEmpty)
         #expect(!report.needsRetry)
         #expect(await store.pendingCount == 0)
-        #expect(await store.syncVersion == 0)
-
-        _ = try await store.applySync(OfflineSupport.feed())
-
         #expect(await store.syncVersion == 126)
-        #expect(try #require(await store.answer(PantryEndpoints.list)).response.first { $0.id == 16 }?.amount == 4)
+        #expect(await store.pendingRepairs == [.kind(.pantryItems), .kind(.mealPlanEntries)])
+    }
+
+    @Test func aKindIsReplacedByTheAnswerForThatKindWithoutMovingTheVersion() async throws {
+        let directory = OfflineSupport.directory()
+        let store = try await OfflineSupport.syncedStore(in: directory)
+        _ = try await store.answer(PantryEndpoints.setAmount(7, id: 16))
+        _ = await drain(store, Server([.response(status: 409, body: Data(#"{"code":"stale"}"#.utf8))]))
+        let waiting = try #require(await store.answer(PantryEndpoints.create(productID: 95, amount: 1, openedOn: nil, expiresOn: nil))).response
+        let kept: [String: Any] = ["id": 16, "amount": 4, "opened_on": NSNull(), "expires_on": NSNull(), "product": ["id": 77, "name": "Koriander", "base_unit": "piece", "status": "confirmed"]]
+        let first = try OfflineSupport.page(version: 400, hasMore: true, changed: ["pantry_items": [kept]])
+        let second = try OfflineSupport.page(version: 900, changed: ["pantry_items": []])
+        let areas = try await store.finish(.kind(.pantryItems), withPages: [first, second])
+        let pantry = try #require(await OfflineStore(directory: directory).answer(PantryEndpoints.list)).response
+
+        #expect(areas == [.pantry])
+        #expect(pantry.map(\.id).sorted() == [waiting.id, 16])
+        #expect(pantry.first { $0.id == 16 }?.amount == 4)
+        #expect(await store.syncVersion == 126)
+        #expect(await store.pendingRepairs.isEmpty)
         #expect(try #require(await store.answer(RecipeEndpoints.list())).response.total == 4)
     }
 
-    @Test func refusedChangesAreReportedAndWhatTheyCreatedIsRemoved() async throws {
+    @Test func aRefusedRecipeChangeReadsOnlyThatRecipeAgain() async throws {
         let store = try await OfflineSupport.syncedStore()
-        let created = try #require(await store.answer(RecipeEndpoints.create(RecipeInput(title: "")))).response
+        _ = try await store.answer(RecipeEndpoints.update(id: 95, RecipeInput(title: "")))
         let refusal = DeliveryResult.response(status: 422, body: Data(#"{"message":"The title is required."}"#.utf8))
         let report = await drain(store, Server([refusal]))
+        let repair = RecordRepair.record(kind: .recipes, id: 95)
+
+        #expect(report.rejections == ["The title is required."])
+        #expect(await store.pendingRepairs == [repair])
+        #expect(repair.detailPath == "recipes/95")
+        #expect(RecordRepair.kind(.tools).detailPath == nil)
+
+        let answer = try JSONSerialization.data(withJSONObject: ["data": OfflineSupport.recipe(id: 95, title: "Crispy Chicken Tacos")])
+        _ = try await store.finish(repair, withRecord: answer)
+
+        #expect(try #require(await store.answer(RecipeEndpoints.detail(id: 95))).response.summary.title == "Crispy Chicken Tacos")
+        #expect(await store.pendingRepairs.isEmpty)
+        #expect(await store.syncVersion == 126)
+    }
+
+    @Test func aRecordTheServerNoLongerHasIsRemoved() async throws {
+        let store = try await OfflineSupport.syncedStore()
+        let input = ProductInput(name: "Käse", icon: nil, storeSectionID: nil, baseUnit: .gram, isPantryStaple: false, shelfLifeOpenedDays: nil)
+        _ = try await store.answer(ProductEndpoints.update(id: 94, input))
+        _ = await drain(store, Server([.response(status: 404, body: Data())]))
+
+        #expect(await store.pendingRepairs == [.record(kind: .products, id: 94)])
+
+        _ = try await store.finish(.record(kind: .products, id: 94), withRecord: nil)
+
+        await #expect(throws: APIError.server(status: 404, message: nil)) {
+            _ = try await store.answer(ProductEndpoints.detail(id: 94))
+        }
+        #expect(await store.pendingRepairs.isEmpty)
+    }
+
+    @Test func whatARefusedCreationMadeIsRemovedWithoutARepair() async throws {
+        let store = try await OfflineSupport.syncedStore()
+        let created = try #require(await store.answer(RecipeEndpoints.create(RecipeInput(title: "")))).response
+        let report = await drain(store, Server([.response(status: 422, body: Data(#"{"message":"The title is required."}"#.utf8))]))
 
         #expect(created.id < 0)
         #expect(report.rejections == ["The title is required."])
-        #expect(await store.pendingCount == 0)
         #expect(try #require(await store.answer(RecipeEndpoints.list())).response.total == 4)
-        #expect(await store.syncVersion == 0)
+        #expect(await store.pendingRepairs.isEmpty)
+        #expect(await store.syncVersion == 126)
     }
 
-    @Test func aFullSyncRemovesWhatTheServerNoLongerHasButKeepsWaitingCreations() async throws {
+    @Test func repairsNameWhatAChangeTouched() async throws {
         let store = try await OfflineSupport.syncedStore()
-        _ = try await store.applySync(OfflineSupport.page(version: 127, changed: ["recipes": [OfflineSupport.recipe(id: 500, title: "Nur lokal")]]))
-        _ = try await store.answer(PantryEndpoints.setAmount(7, id: 16))
-        _ = await drain(store, Server([.response(status: 422, body: Data(#"{"message":"no"}"#.utf8))]))
-        let offline = try #require(await store.answer(RecipeEndpoints.create(RecipeInput(title: "Offline angelegt")))).response
-        _ = try await store.applySync(OfflineSupport.feed())
-        let titles = try #require(await store.answer(RecipeEndpoints.list())).response.items.map(\.title)
+        _ = try await store.answer(RecipeEndpoints.delete(id: 98))
+        _ = try await store.answer(ProductValueEndpoints.deletePackage(id: 91))
+        _ = try await store.answer(ToolEndpoints.rename(id: 21, to: "Bratpfanne"))
+        _ = try await store.answer(ShoppingEndpoints.addItem(label: "Kerzen", listID: 11))
+        _ = try await store.answer(HouseholdSettingsEndpoints.setDefaultServings(3))
+        let repairs = await store.pendingChanges.map { $0.repairs ?? [] }
 
-        #expect(!titles.contains("Nur lokal"))
-        #expect(titles.contains("Offline angelegt"))
-        #expect(offline.id < 0)
-        #expect(await store.pendingCount == 1)
+        #expect(repairs == [
+            [.record(kind: .recipes, id: 98), .kind(.mealPlanEntries)],
+            [.record(kind: .products, id: 94)],
+            [.kind(.tools)],
+            [.kind(.shoppingLists)],
+            [],
+        ])
     }
 
-    @Test func aFullSyncOverSeveralPagesIsAppliedAtTheEnd() async throws {
+    @Test func repairsOfRecordsCreatedOfflineFollowTheRealId() async throws {
         let store = try await OfflineSupport.syncedStore()
-        _ = try await store.answer(PantryEndpoints.setAmount(7, id: 16))
-        _ = await drain(store, Server([.response(status: 422, body: Data(#"{"message":"no"}"#.utf8))]))
-        let first = try await store.applySync(OfflineSupport.page(version: 3, hasMore: true, changed: ["recipes": [OfflineSupport.recipe(id: 1, title: "A")]]))
+        let recipe = try #require(await store.answer(RecipeEndpoints.create(RecipeInput(title: "Offline-Kuchen")))).response
+        _ = try await store.answer(RecipeMarkEndpoints.rate(8, id: recipe.id))
+        let server = Server([OfflineSupport.created(id: 700), .response(status: 422, body: Data(#"{"message":"no"}"#.utf8))])
+        _ = await drain(store, server)
 
-        #expect(first.areas.isEmpty)
-        #expect(await store.syncVersion == 3)
-        #expect(try #require(await store.answer(RecipeEndpoints.list())).response.total == 4)
+        #expect(await store.pendingRepairs == [.record(kind: .recipes, id: 700)])
+    }
 
-        _ = try await store.applySync(OfflineSupport.page(version: 6, changed: ["recipes": [OfflineSupport.recipe(id: 2, title: "B")]]))
+    @Test func kindRequestsNameTheKindAndKeepPaging() throws {
+        let builder = RequestBuilder(baseURL: ServerAddress.apiBaseURL(for: try #require(URL(string: "https://meals.example.org"))), token: "t", languages: ["en"])
+        let request = try builder.request(for: SyncEndpoints.records(of: .mealPlanEntries, since: 40))
+        let items = URLComponents(url: try #require(request.url), resolvingAgainstBaseURL: false)?.queryItems
+        let position = try SyncPosition(page: OfflineSupport.page(version: 12, hasMore: true))
 
-        #expect(await store.syncVersion == 6)
-        #expect(try #require(await store.answer(RecipeEndpoints.list())).response.items.map(\.title) == ["A", "B"])
+        #expect(items == [
+            URLQueryItem(name: "since", value: "40"),
+            URLQueryItem(name: "limit", value: "200"),
+            URLQueryItem(name: "kinds[]", value: "meal_plan_entries"),
+        ])
+        #expect(position == SyncPosition(version: 12, hasMore: true))
+        #expect(try builder.request(for: SyncEndpoints.record(at: "recipes/95")).url?.path() == "/api/v1/recipes/95")
     }
 
     @Test func recordsCreatedOfflineGetTheirRealIdInLaterChanges() async throws {

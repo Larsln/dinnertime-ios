@@ -7,6 +7,7 @@ struct SettingsView: View {
 
     @Environment(\.dismiss) private var dismiss
     @State private var isSigningOut = false
+    @State private var confirmsSignOut = false
 
     var body: some View {
         NavigationStack {
@@ -29,9 +30,18 @@ struct SettingsView: View {
                 ImportSettingsSection(session: session)
                 Section {
                     Button("Sign out", role: .destructive) {
-                        signOut()
+                        if session.offline.pendingCount > 0 {
+                            confirmsSignOut = true
+                        } else {
+                            signOut()
+                        }
                     }
                     .disabled(isSigningOut)
+                    .confirmationDialog("Sign out", isPresented: $confirmsSignOut, titleVisibility: .visible) {
+                        Button("Sign out", role: .destructive, action: signOut)
+                    } message: {
+                        Text("\(session.offline.pendingCount) changes have not been sent yet and will be lost.")
+                    }
                 } footer: {
                     Text(verbatim: "\(AppConfiguration.displayName) \(version)")
                 }

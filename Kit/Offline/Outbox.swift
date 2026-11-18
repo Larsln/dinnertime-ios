@@ -26,6 +26,8 @@ public struct OutboxEntry: Codable, Equatable, Identifiable, Sendable {
     public var createdKind: RecordKind?
     /// Whether the change acts on the shopping list and is shared with devices nearby.
     public var isShoppingChange: Bool
+    /// What has to be read from the server again if it turns the change away.
+    public var repairs: [RecordRepair]?
 
     public var id: String {
         key
@@ -39,6 +41,7 @@ public struct OutboxEntry: Codable, Equatable, Identifiable, Sendable {
     /// Replaces a temporary id by the real one in the path and the body.
     mutating func replaceID(_ temporary: Int, with real: Int) {
         path = path.split(separator: "/").map { $0 == String(temporary) ? String(real) : String($0) }.joined(separator: "/")
+        repairs = repairs?.map { $0.replacing(temporary, with: real) }
         if let body, let value = try? JSONSerialization.jsonObject(with: body) {
             self.body = try? JSONValue.data(JSONValue.replacing(temporary, with: real, in: value))
         }

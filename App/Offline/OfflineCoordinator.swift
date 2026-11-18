@@ -15,35 +15,35 @@ final class OfflineCoordinator {
     private static let rememberedPaths: Set<String> = ["auth/user", "courses", "imports", "settings/import"]
 
     /// Whether the last attempt to reach the server worked and the device has a network.
-    private(set) var isOnline = true
+    var isOnline = true
     /// Number of changes that wait to be sent.
-    private(set) var pendingCount = 0
+    var pendingCount = 0
     /// Whether the copy was filled at least once, so that the screens have something to show.
-    private(set) var hasSynced = false
+    var hasSynced = false
     /// Whether the first sync failed for lack of a connection.
-    private(set) var firstSyncFailed = false
+    var firstSyncFailed = false
     /// Counts the completed syncs, for what has to be read again after each.
-    private(set) var syncCount = 0
+    var syncCount = 0
     /// Links that wait for a connection to be imported.
-    private(set) var pendingLinks: [URL] = []
+    var pendingLinks: [URL] = []
     /// What the server refused to save, for an alert.
     var rejectionMessage: String?
 
     /// Downloaded cover images.
     let images: ImageStore
 
-    private var revisions: [RealtimeArea: Int] = [:]
-    private var credentials: Credentials?
-    private var isRefreshing = false
-    private var wantsAnotherRefresh = false
-    private var failures = 0
-    private var retry: Task<Void, Never>?
-    private var hasNetwork = true
-    private var peers: PeerLink?
-    private let store: OfflineStore
-    private let links = PendingLinks()
-    private let peerKeys = PeerKeyStore()
-    private let monitor = NWPathMonitor()
+    var revisions: [RealtimeArea: Int] = [:]
+    var credentials: Credentials?
+    var isRefreshing = false
+    var wantsAnotherRefresh = false
+    var failures = 0
+    var retry: Task<Void, Never>?
+    var hasNetwork = true
+    var peers: PeerLink?
+    let store: OfflineStore
+    let links = PendingLinks()
+    let peerKeys = PeerKeyStore()
+    let monitor = NWPathMonitor()
 
     init(directory: URL = URL.applicationSupportDirectory.appending(path: "Offline")) {
         store = OfflineStore(directory: directory.appending(path: "store"))
@@ -128,179 +128,14 @@ final class OfflineCoordinator {
         return endpoint.method == .get ? await store.rememberedAnswer(forPath: endpoint.path) : nil
     }
 
-    /// Starts exchanging shopping list changes with phones of the household nearby, while the list is on screen.
-    ///
-    /// The exchange runs whether or not the server can be reached: every change carries its own
-    /// key, so one that arrives by both ways is only applied once.
-    func startSharingShoppingList() {
-        guard peers == nil, let key = peerKeys.load() else {
-            return
-        }
-        let link = PeerLink(peerKey: key) { [weak self] in
-            Task { @MainActor in
-                await self?.sendQueuedShoppingChanges()
-            }
-        } onReceive: { [weak self] changes in
-            Task { @MainActor in
-                await self?.receive(changes)
-            }
-        }
-        peers = link
-        link.start()
-    }
-
-    /// Ends the exchange with phones nearby.
-    func stopSharingShoppingList() {
-        peers?.stop()
-        peers = nil
-    }
-
-    private func sendQueuedShoppingChanges() async {
-        peers?.send(await store.shoppingChanges)
-    }
-
-    private func receive(_ changes: [PeerChange]) async {
-        bump(await store.apply(changes))
-        pendingCount = await store.pendingCount
-        refreshSoon()
-    }
-
     /// Keeps a link to import it once the server can be reached.
     func keep(_ link: URL) {
         links.add(link)
         pendingLinks = links.links
     }
 
-    /// Refreshes soon without making the caller wait.
-    func refreshSoon() {
-        Task {
-            await refresh()
-        }
-    }
-
-    /// Sends the queued changes, fetches the changes of the server, submits waiting links and downloads missing images.
-    ///
-    /// Calls that arrive while a refresh runs are folded into one more run after it.
-    func refresh() async {
-        guard let credentials else {
-            return
-        }
-        guard !isRefreshing else {
-            wantsAnotherRefresh = true
-            return
-        }
-        isRefreshing = true
-        repeat {
-            wantsAnotherRefresh = false
-            await runRefresh(credentials)
-        } while wantsAnotherRefresh
-        isRefreshing = false
-    }
-
-    private func runRefresh(_ credentials: Credentials) async {
-        let client = APIClient(serverURL: credentials.serverURL, token: credentials.token)
-        let report = await store.drain { entry, upload in
-            await client.deliver(entry.urlRequest(serverURL: credentials.serverURL, token: credentials.token, upload: upload))
-        }
-        pendingCount = await store.pendingCount
-        bump(report.areas)
-        if let message = report.rejections.first {
-            rejectionMessage = message
-        }
-        do {
-            try await sync(client)
-            markReachable()
-            firstSyncFailed = false
-            await submitLinks(client)
-            await fetchImages()
-        } catch {
-            firstSyncFailed = !hasSynced
-            if error as? APIError == .unreachable {
-                markUnreachable()
-            }
-        }
-        if report.needsRetry || !isOnline {
-            scheduleRetry()
-        }
-    }
-
-    private func sync(_ client: APIClient) async throws {
-        var hasMore = true
-        while hasMore {
-            let page = try await client.body(of: SyncEndpoints.changes(since: await store.syncVersion))
-            let progress = try await store.applySync(page)
-            hasMore = progress.hasMore
-            bump(progress.areas)
-            if let key = progress.peerKey, key != peerKeys.load() {
-                peerKeys.save(key)
-            }
-        }
-        hasSynced = await store.hasSynced
-        syncCount += 1
-    }
-
-    private func submitLinks(_ client: APIClient) async {
-        for link in links.links {
-            if (try? await client.send(ImportEndpoints.create(url: link))) != nil {
-                links.remove(link)
-            }
-        }
-        pendingLinks = links.links
-    }
-
-    /// Downloads the covers that are not stored yet and removes those no recipe refers to any more.
-    private func fetchImages() async {
-        let addresses = await store.imageAddresses
-        images.prune(keeping: addresses)
-        for address in addresses where !images.contains(address) {
-            guard let url = URL(string: address), url.scheme != nil, let (data, response) = try? await URLSession.shared.data(from: url) else {
-                continue
-            }
-            if (response as? HTTPURLResponse)?.statusCode == 200 {
-                images.store(data, for: address)
-            }
-        }
-    }
-
-    private func networkChanged(isAvailable: Bool) {
-        let wasAvailable = hasNetwork
-        hasNetwork = isAvailable
-        if !isAvailable {
-            isOnline = false
-        } else if !wasAvailable {
-            refreshSoon()
-        }
-    }
-
-    private func markReachable() {
-        failures = 0
-        retry?.cancel()
-        isOnline = hasNetwork
-    }
-
-    private func markUnreachable() {
-        isOnline = false
-        scheduleRetry()
-    }
-
-    /// Tries again after a pause that grows with every failure, as long as something waits or the server is away.
-    private func scheduleRetry() {
-        guard retry == nil || retry?.isCancelled == true else {
-            return
-        }
-        failures += 1
-        let delay = ReconnectBackoff.delay(beforeAttempt: failures)
-        retry = Task {
-            try? await Task.sleep(for: .seconds(delay))
-            guard !Task.isCancelled else {
-                return
-            }
-            retry = nil
-            await refresh()
-        }
-    }
-
-    private func bump(_ areas: Set<RealtimeArea>) {
+    /// Tells the screens of `areas` that their data changed.
+    func bump(_ areas: Set<RealtimeArea>) {
         for area in areas {
             revisions[area, default: 0] += 1
         }
