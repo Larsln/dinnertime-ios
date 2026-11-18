@@ -20,7 +20,6 @@ final class ShareViewController: UIViewController {
         addChild(host)
         host.view.frame = view.bounds
         host.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        host.view.backgroundColor = .clear
         view.addSubview(host.view)
         host.didMove(toParent: self)
     }

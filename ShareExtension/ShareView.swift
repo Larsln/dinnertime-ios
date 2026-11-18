@@ -1,7 +1,7 @@
 import MealplannerKit
 import SwiftUI
 
-/// A card with the progress of an import and its outcome.
+/// Fills the share sheet with the progress of an import and its outcome.
 struct ShareView: View {
     /// Name of the button that starts the import, for the interface tests.
     static let startIdentifier = "startImport"
@@ -22,12 +22,10 @@ struct ShareView: View {
             }
             content
         }
-        .padding(24)
         .frame(maxWidth: 420)
-        .background(.background, in: .rect(cornerRadius: 24))
-        .padding(20)
+        .padding(24)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.black.opacity(0.25))
+        .background(.background)
     }
 
     @ViewBuilder
