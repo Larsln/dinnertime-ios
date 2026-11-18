@@ -28,7 +28,7 @@ struct IngredientEditorView: View {
             Section {
                 LabeledContent("Quantity") {
                     TextField("Quantity", value: $line.quantity, format: .number)
-                        .keyboardType(.decimalPad)
+                        .numericKeyboard(.decimalPad)
                         .multilineTextAlignment(.trailing)
                 }
                 Picker("Unit", selection: $line.unitID) {

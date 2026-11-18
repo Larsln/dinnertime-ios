@@ -10,7 +10,7 @@ struct AmountField: View {
         LabeledContent("Amount") {
             HStack {
                 TextField("Amount", value: $amount, format: .number)
-                    .keyboardType(.decimalPad)
+                    .numericKeyboard(.decimalPad)
                     .multilineTextAlignment(.trailing)
                 Text(verbatim: unit.label)
                     .foregroundStyle(.secondary)

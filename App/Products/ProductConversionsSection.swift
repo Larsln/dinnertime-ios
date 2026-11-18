@@ -13,7 +13,7 @@ struct ProductConversionsSection: View {
                 VStack(spacing: 8) {
                     LabeledContent {
                         TextField(draft.baseUnit.label, value: $conversion.amount, format: .number)
-                            .keyboardType(.decimalPad)
+                            .numericKeyboard(.decimalPad)
                             .multilineTextAlignment(.trailing)
                             .disabled(!conversion.isConvertible)
                             .opacity(conversion.isConvertible ? 1 : 0.4)

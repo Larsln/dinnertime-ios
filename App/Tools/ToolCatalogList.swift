@@ -38,7 +38,6 @@ struct ToolCatalogList: View {
                 ContentUnavailableView("No tools", systemImage: "frying.pan", description: Text("Tools are added in the recipe editor or by imports."))
             }
         }
-        .searchable(text: $model.searchText, prompt: "Search tools")
         .refreshesFromServer {
             await model.search()
         }

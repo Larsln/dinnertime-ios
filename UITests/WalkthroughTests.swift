@@ -71,6 +71,20 @@ final class WalkthroughTests: XCTestCase {
         app.buttons["Done"].tap()
     }
 
+    func testSwitchProductLists() throws {
+        let account = try Account.fromEnvironment()
+
+        signInIfNeeded(with: account)
+        app.tabBars.buttons["Products"].tap()
+
+        for list in ["All products", "Tools"] {
+            app.buttons[list].tap()
+            XCTAssertTrue(app.textFields.firstMatch.waitForExistence(timeout: Self.timeout), "\(list) cannot be searched")
+            waitUntilLoaded()
+            record(list)
+        }
+    }
+
     func testOpenProductEditor() throws {
         let account = try Account.fromEnvironment()
 
@@ -91,6 +105,14 @@ final class WalkthroughTests: XCTestCase {
         XCTAssertTrue(app.buttons["Save"].waitForExistence(timeout: Self.timeout), "The product editor did not open")
         waitUntilLoaded()
         record("Product editor")
+
+        app.buttons["Add package"].firstMatch.tap()
+        let amount = app.textFields.matching(NSPredicate(format: "placeholderValue IN %@", ["g", "ml", "pieces"])).allElementsBoundByIndex.last
+        amount?.tap()
+        XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: Self.timeout), "The number pad did not open")
+        record("Package amount")
+        app.toolbars.buttons["Done"].tap()
+        XCTAssertTrue(app.keyboards.firstMatch.waitForNonExistence(timeout: Self.timeout), "The number pad cannot be closed")
         app.navigationBars.buttons.firstMatch.tap()
     }
 

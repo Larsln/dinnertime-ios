@@ -8,7 +8,7 @@ struct NumberField: View {
     var body: some View {
         LabeledContent(title) {
             TextField(title, value: $value, format: .number)
-                .keyboardType(.numberPad)
+                .numericKeyboard(.numberPad)
                 .multilineTextAlignment(.trailing)
                 .labelsHidden()
         }

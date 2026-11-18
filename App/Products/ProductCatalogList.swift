@@ -25,7 +25,6 @@ struct ProductCatalogList: View {
                 ContentUnavailableView.search(text: model.searchText)
             }
         }
-        .searchable(text: $model.searchText, prompt: "Search products")
         .refreshesFromServer {
             await model.search()
         }

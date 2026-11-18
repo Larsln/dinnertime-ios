@@ -39,16 +39,26 @@ struct ReviewView: View {
                 }
             }
             .safeAreaInset(edge: .top, spacing: 0) {
-                Picker("List", selection: $segment) {
-                    Text("All products")
-                        .tag(Segment.products)
-                    Text("To review (\(model.total))")
-                        .tag(Segment.review)
-                    Text("Tools")
-                        .tag(Segment.tools)
+                VStack(spacing: 8) {
+                    Picker("List", selection: $segment) {
+                        Text("All products")
+                            .tag(Segment.products)
+                        Text("To review (\(model.total))")
+                            .tag(Segment.review)
+                        Text("Tools")
+                            .tag(Segment.tools)
+                    }
+                    .pickerStyle(.segmented)
+                    .labelsHidden()
+                    switch segment {
+                    case .products:
+                        SearchField(prompt: "Search products", text: $catalog.searchText)
+                    case .tools:
+                        SearchField(prompt: "Search tools", text: $tools.searchText)
+                    case .review:
+                        EmptyView()
+                    }
                 }
-                .pickerStyle(.segmented)
-                .labelsHidden()
                 .padding(.horizontal)
                 .padding(.vertical, 8)
                 .background(.bar)

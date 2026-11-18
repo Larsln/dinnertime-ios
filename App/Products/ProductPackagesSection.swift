@@ -11,7 +11,7 @@ struct ProductPackagesSection: View {
                 HStack {
                     TextField("Label, e.g. tub", text: $package.label)
                     TextField(draft.baseUnit.label, value: $package.amount, format: .number)
-                        .keyboardType(.decimalPad)
+                        .numericKeyboard(.decimalPad)
                         .multilineTextAlignment(.trailing)
                         .frame(width: 90)
                 }

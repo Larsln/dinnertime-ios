@@ -18,6 +18,7 @@ struct RecipeStepsSection: View {
                                 .monospacedDigit()
                                 .foregroundStyle(.secondary)
                             TextField("Step", text: $step.text, axis: .vertical)
+                                .keyboardDoneButton()
                         }
                     }
                     .onMove { offsets, destination in

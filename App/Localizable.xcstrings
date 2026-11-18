@@ -687,6 +687,16 @@
         }
       }
     },
+    "Clear": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löschen"
+          }
+        }
+      }
+    },
     "Confirm": {
       "localizations": {
         "de": {
