@@ -53,7 +53,7 @@ struct StarRatingControl: View {
     }
 
     private var valueText: Text {
-        shown.map { Text("\($0) of \(RecipeSummary.ratingRange.upperBound)") } ?? Text("not rated")
+        shown.map { Text("\(StarScale.starsText(points: $0)) of \(StarScale.starCount)") } ?? Text("not rated")
     }
 
     private var width: CGFloat {

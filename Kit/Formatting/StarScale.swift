@@ -1,3 +1,5 @@
+import Foundation
+
 /// Maps a rating in points to a row of stars in half steps: every half star is one point.
 public enum StarScale {
     /// How much of a star is filled.
@@ -7,6 +9,11 @@ public enum StarScale {
 
     /// Number of stars that show the whole range of ratings.
     public static let starCount = (RecipeSummary.ratingRange.upperBound + 1) / 2
+
+    /// A rating of `points` named in stars, such as "3.5".
+    public static func starsText(points: Int, locale: Locale = .current) -> String {
+        (Double(points) / 2).formatted(.number.precision(.fractionLength(0...1)).locale(locale))
+    }
 
     /// The fill of the star at `index`, counted from zero, for a rating of `points`.
     public static func fill(ofStar index: Int, points: Int) -> Fill {

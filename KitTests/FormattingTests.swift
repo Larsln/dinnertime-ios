@@ -42,8 +42,10 @@ struct FormattingTests {
         let rated = try RecipeEndpoints.detail(id: 1).decode(Fixture.data("recipe")).summary
         let unrated = try RecipeEndpoints.list().decode(Fixture.data("recipes-page")).items[0]
 
-        #expect(rated.averageRatingText(locale: Locale(identifier: "en_US")) == "7.5")
-        #expect(rated.averageRatingText(locale: Locale(identifier: "de_DE")) == "7,5")
+        #expect(rated.averageRatingText(locale: Locale(identifier: "en_US")) == "3.8")
+        #expect(StarScale.starsText(points: 7, locale: Locale(identifier: "de_DE")) == "3,5")
+        #expect(StarScale.starsText(points: 8, locale: Locale(identifier: "de_DE")) == "4")
+        #expect(rated.averageRatingText(locale: Locale(identifier: "de_DE")) == "3,8")
         #expect(unrated.averageRatingText() == nil)
     }
 

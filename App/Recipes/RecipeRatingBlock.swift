@@ -26,7 +26,7 @@ struct RecipeRatingBlock: View {
                 }
             }
             if let average = model.summary.averageRatingText() {
-                Text("Ø \(average) from \(model.summary.ratingCount) ratings")
+                Text("Ø \(average) of 5 from \(model.summary.ratingCount) ratings")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -35,7 +35,7 @@ struct RecipeRatingBlock: View {
     }
 
     private var valueText: Text {
-        model.summary.rating.map { Text("\($0) of \(RecipeSummary.ratingRange.upperBound)") } ?? Text("not rated")
+        model.summary.rating.map { Text("\(StarScale.starsText(points: $0)) of \(StarScale.starCount)") } ?? Text("not rated")
     }
 
     private func rate(_ rating: Int?) {

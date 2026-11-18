@@ -1,6 +1,22 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "%@ of %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ von %2$lld"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ of %2$lld"
+          }
+        }
+      }
+    },
     "%lld matching recipes for %lld meals": {
       "localizations": {
         "de": {
@@ -47,16 +63,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "%lld of %lld": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$lld von %2$lld"
           }
         }
       }
@@ -2542,7 +2548,7 @@
         }
       }
     },
-    "Ø %@ from %lld ratings": {
+    "Ø %@ of 5 from %lld ratings": {
       "localizations": {
         "de": {
           "variations": {
@@ -2550,13 +2556,13 @@
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Ø %1$@ aus %2$lld Bewertung"
+                  "value": "Ø %1$@ von 5 aus %2$lld Bewertung"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Ø %1$@ aus %2$lld Bewertungen"
+                  "value": "Ø %1$@ von 5 aus %2$lld Bewertungen"
                 }
               }
             }
@@ -2568,13 +2574,13 @@
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Ø %1$@ from %2$lld rating"
+                  "value": "Ø %1$@ of 5 from %2$lld rating"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Ø %1$@ from %2$lld ratings"
+                  "value": "Ø %1$@ of 5 from %2$lld ratings"
                 }
               }
             }
