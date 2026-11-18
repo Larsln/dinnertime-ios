@@ -6,8 +6,14 @@ public struct ProductOffer: Decodable, Hashable, Identifiable, Sendable {
     public static let storeLimit = 100
 
     public let id: Int
+    /// Id of the shop in the list of shops; `nil` for offers stored before shops were a list.
+    public let storeID: Int?
     /// Name of the shop.
     public let store: String
+    /// Whether the household buys at the shop at the moment.
+    ///
+    /// The server does not send this; the local copy states it from its list of shops.
+    public let isStoreActive: Bool
     /// Size of the package in the base unit of the product; `nil` when it is not known.
     public let amountInBase: Double?
     /// Price of the package in the currency of the household; `nil` when it is not known.
@@ -15,12 +21,16 @@ public struct ProductOffer: Decodable, Hashable, Identifiable, Sendable {
 
     private enum CodingKeys: String, CodingKey {
         case id, store, amountInBase, price
+        case storeID = "storeId"
+        case isStoreActive = "storeIsActive"
     }
 
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
+        storeID = try container.decodeIfPresent(Int.self, forKey: .storeID)
         store = try container.decode(String.self, forKey: .store)
+        isStoreActive = try container.decodeIfPresent(Bool.self, forKey: .isStoreActive) ?? true
         amountInBase = Self.number(in: container, forKey: .amountInBase)
         price = Self.number(in: container, forKey: .price)
     }
@@ -40,9 +50,21 @@ public struct ProductOffer: Decodable, Hashable, Identifiable, Sendable {
     }
 }
 
+extension Sequence where Element == ProductOffer {
+    /// The offers with those of paused shops after the others; the order is kept otherwise.
+    public var activeFirst: [ProductOffer] {
+        filter(\.isStoreActive) + filter { !$0.isStoreActive }
+    }
+
+    /// Whether there are offers and every one of them is at a paused shop.
+    public var areAllPaused: Bool {
+        contains { _ in true } && allSatisfy { !$0.isStoreActive }
+    }
+}
+
 extension Product {
-    /// Whether the household stated something about buying the product: a note or a shop.
+    /// Whether the household stated something about buying the product: a note or a shop it buys at.
     public var hasBuyingHints: Bool {
-        note != nil || !offers.isEmpty
+        note != nil || offers.contains(where: \.isStoreActive)
     }
 }

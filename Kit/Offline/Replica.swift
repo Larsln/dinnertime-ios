@@ -80,17 +80,22 @@ struct Replica {
 
     /// Applies one page of the feed and answers with the areas it touched.
     ///
+    /// Shops also touch the shopping list, whose tiles mark the products that have one, and a deleted shop takes its offers along.
     /// The version is only taken over with the last page, so that an interrupted sync starts over.
     mutating func apply(_ changes: SyncChanges) -> Set<RealtimeArea> {
         var areas: Set<RealtimeArea> = []
         for kind in RecordKind.allCases {
+            let touched: Set<RealtimeArea> = kind == .stores ? [kind.area, .shopping] : [kind.area]
             for record in changes.changed[kind] ?? [] {
                 put(kind, record)
-                areas.insert(kind.area)
+                areas.formUnion(touched)
             }
             for id in changes.deleted[kind] ?? [] where record(kind, id) != nil {
+                if kind == .stores {
+                    removeOffers(ofStore: id)
+                }
                 remove(kind, id)
-                areas.insert(kind.area)
+                areas.formUnion(touched)
             }
         }
         if let household = changes.household {

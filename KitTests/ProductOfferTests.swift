@@ -23,14 +23,17 @@ struct ProductOfferTests {
     }
 
     private func offer(_ json: String) throws -> ProductOffer {
-        try ProductOfferEndpoints.add(productID: 1, store: "x").decode(Data(#"{"data": \#(json)}"#.utf8))
+        try ProductOfferEndpoints.add(productID: 1, storeID: 1).decode(Data(#"{"data": \#(json)}"#.utf8))
     }
 
     @Test func readsTheOffersOfAProduct() throws {
-        let offers = try product(#", "offers": [{"id": 3, "store": "Lidl", "amount_in_base": 225, "price": 2.59}, {"id": 4, "store": "Rewe", "amount_in_base": null, "price": null}]"#).offers
+        let offers = try product(#", "offers": [{"id": 3, "store_id": 7, "store": "Lidl", "amount_in_base": 225, "price": 2.59}, {"id": 4, "store": "Rewe", "amount_in_base": null, "price": null}]"#).offers
 
         #expect(offers.map(\.id) == [3, 4])
         #expect(offers[0].store == "Lidl")
+        #expect(offers[0].storeID == 7)
+        #expect(offers[1].storeID == nil)
+        #expect(offers.map(\.isStoreActive) == [true, true])
         #expect(offers[0].amountInBase == 225)
         #expect(offers[0].price == 2.59)
         #expect(offers[1].amountInBase == nil)
@@ -67,32 +70,28 @@ struct ProductOfferTests {
     }
 
     @Test func addsAnOfferWithoutTheMissingValues() throws {
-        let full = try builder.request(for: ProductOfferEndpoints.add(productID: 95, store: "Lidl", amountInBase: 225, price: 2.59))
-        let bare = try builder.request(for: ProductOfferEndpoints.add(productID: 95, store: "Lidl"))
+        let full = try builder.request(for: ProductOfferEndpoints.add(productID: 95, storeID: 7, amountInBase: 225, price: 2.59))
+        let bare = try builder.request(for: ProductOfferEndpoints.add(productID: 95, storeID: 7))
 
         #expect(full.httpMethod == "POST")
         #expect(full.url?.path() == "/api/v1/products/95/offers")
-        #expect(try json(full) as NSDictionary == ["store": "Lidl", "amount_in_base": 225, "price": 2.59])
-        #expect(try json(bare) as NSDictionary == ["store": "Lidl"])
+        #expect(try json(full) as NSDictionary == ["store_id": 7, "amount_in_base": 225, "price": 2.59])
+        #expect(try json(bare) as NSDictionary == ["store_id": 7])
     }
 
     @Test func correctsAnOfferAndClearsMissingValuesWithNull() throws {
-        let request = try builder.request(for: ProductOfferEndpoints.update(id: 3, store: "Rewe", amountInBase: nil, price: 1.99))
+        let request = try builder.request(for: ProductOfferEndpoints.update(id: 3, storeID: 8, amountInBase: nil, price: 1.99))
 
         #expect(request.httpMethod == "PATCH")
         #expect(request.url?.path() == "/api/v1/product-offers/3")
-        #expect(try json(request) as NSDictionary == ["store": "Rewe", "amount_in_base": NSNull(), "price": 1.99])
+        #expect(try json(request) as NSDictionary == ["store_id": 8, "amount_in_base": NSNull(), "price": 1.99])
     }
 
-    @Test func deletesAnOfferAndAsksForTheStores() throws {
+    @Test func deletesAnOffer() throws {
         let deletion = try builder.request(for: ProductOfferEndpoints.delete(id: 3))
-        let stores = try builder.request(for: ProductOfferEndpoints.stores)
 
         #expect(deletion.httpMethod == "DELETE")
         #expect(deletion.url?.path() == "/api/v1/product-offers/3")
-        #expect(stores.httpMethod == "GET")
-        #expect(stores.url?.path() == "/api/v1/stores")
-        #expect(try ProductOfferEndpoints.stores.decode(Data(#"{"data": ["Lidl", "Rewe"]}"#.utf8)) == ["Lidl", "Rewe"])
     }
 
     @Test func householdSettingsCarryTheCurrency() throws {

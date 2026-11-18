@@ -6,6 +6,7 @@ public enum RecordKind: String, CaseIterable, Codable, Sendable {
     case storeSections = "store_sections"
     case tags
     case tools
+    case stores
     case products
     case recipes
     case mealPlanEntries = "meal_plan_entries"
@@ -15,7 +16,7 @@ public enum RecordKind: String, CaseIterable, Codable, Sendable {
     /// The part of the app that shows records of this kind.
     public var area: RealtimeArea {
         switch self {
-        case .units, .storeSections, .products: .products
+        case .units, .storeSections, .stores, .products: .products
         case .tags, .recipes: .recipes
         case .tools: .tools
         case .mealPlanEntries: .plan

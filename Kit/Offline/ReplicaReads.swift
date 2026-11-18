@@ -10,9 +10,12 @@ extension Replica {
         return record(kind, id) ?? snapshot
     }
 
-    /// A product with its store section as stored now and the number of ingredient lines that use it.
+    /// A product with its store section and the shops of its offers as stored now and the number of ingredient lines that use it.
     func shownProduct(_ product: JSONObject) -> JSONObject {
         var product = product
+        if let offers = product["offers"] as? [JSONObject] {
+            product["offers"] = offers.map(shownOffer)
+        }
         product["store_section"] = current(.storeSections, product["store_section"])
         product["recipe_count"] = all(.recipes).reduce(0) { count, recipe in
             count + (recipe["ingredients"] as? [JSONObject] ?? []).filter { ($0["product"] as? JSONObject)?.recordID == product.recordID }.count
@@ -155,7 +158,7 @@ extension Replica {
             return resource(shownList(try existing(.shoppingLists, request.id(at: 1))))
         }
         if request.matches(.get, "stores") {
-            return resource(knownStores)
+            return resource(sorted(all(.stores), by: "name").map(shownStore))
         }
         if request.matches(.get, "settings", "household") {
             return resource(household)

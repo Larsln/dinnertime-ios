@@ -1,30 +1,31 @@
 import Foundation
 
-/// The shops that sell the products: writes to the offers of a product and the names of the shops in use, on the local copy.
+/// The shops that sell the products: writes to the offers of a product, on the local copy.
 extension Replica {
-    private static let offerFields = ["store", "amount_in_base", "price"]
+    private static let offerFields = ["store_id", "amount_in_base", "price"]
 
-    /// The names of the shops the offers of all products name, most used first and equally used ones by name.
-    var knownStores: [String] {
-        let names = all(.products).flatMap { offers(of: $0) }.compactMap { $0["store"] as? String }
-        let uses = Dictionary(names.map { ($0, 1) }, uniquingKeysWith: +)
-        return uses.keys.sorted { first, second in
-            let (firstUses, secondUses) = (uses[first] ?? 0, uses[second] ?? 0)
-            return firstUses == secondUses ? first.localizedStandardCompare(second) == .orderedAscending : firstUses > secondUses
+    /// An offer with the name of its shop as stored now and whether the household buys there at the moment.
+    ///
+    /// An offer whose shop the copy does not hold stays as it is and counts as one of an active shop.
+    func shownOffer(_ offer: JSONObject) -> JSONObject {
+        guard let store = (offer["store_id"] as? Int).flatMap({ record(.stores, $0) }) else {
+            return offer
         }
+        return offer.merging(["store": store["name"] ?? "", "store_is_active": store["is_active"] as? Bool ?? true]) { _, new in new }
     }
 
     /// Answers a write to an offer of a product; `nil` for other calls.
     mutating func writeOffer(_ request: LocalRequest) throws -> LocalResult? {
         if request.matches(.post, "products", "*", "offers") {
             var product = try existing(.products, request.id(at: 1))
+            let store = try existing(.stores, request.body["store_id"] as? Int)
             let offer: JSONObject = [
-                "id": makeTemporaryID(), "store": request.body["store"] ?? "",
+                "id": makeTemporaryID(), "store_id": store.recordID ?? 0, "store": store["name"] ?? "",
                 "amount_in_base": request.body["amount_in_base"] ?? NSNull(), "price": request.body["price"] ?? NSNull(),
             ]
             product["offers"] = offers(of: product) + [offer]
             put(.products, product)
-            return LocalResult(body: resource(offer), areas: [.products, .shopping], change: QueuedChange(created: [offer.recordID ?? 0]))
+            return LocalResult(body: resource(shownOffer(offer)), areas: [.products, .shopping], change: QueuedChange(created: [offer.recordID ?? 0]))
         }
         guard request.matches(.patch, "product-offers", "*") || request.matches(.delete, "product-offers", "*") else {
             return nil
@@ -39,8 +40,11 @@ extension Replica {
             if request.method == .delete {
                 offers.remove(at: index)
             } else {
+                if let storeID = request.body["store_id"] as? Int {
+                    offers[index]["store"] = try existing(.stores, storeID)["name"] ?? ""
+                }
                 offers[index].merge(request.body.filter { Self.offerFields.contains($0.key) }) { _, new in new }
-                answer = resource(offers[index])
+                answer = resource(shownOffer(offers[index]))
             }
         }
         product["offers"] = offers
@@ -53,7 +57,13 @@ extension Replica {
         all(.products).first { offers(of: $0).contains { $0.recordID == id } }
     }
 
-    private func offers(of product: JSONObject) -> [JSONObject] {
+    /// The products with an offer of the shop with `id`.
+    func productsHolding(offersOf id: Int?) -> [JSONObject] {
+        all(.products).filter { offers(of: $0).contains { $0["store_id"] as? Int == id } }
+    }
+
+    /// The offers a product record carries.
+    func offers(of product: JSONObject) -> [JSONObject] {
         product["offers"] as? [JSONObject] ?? []
     }
 }

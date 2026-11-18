@@ -77,7 +77,7 @@ final class WalkthroughTests: XCTestCase {
         signInIfNeeded(with: account)
         app.tabBars.buttons["Products"].tap()
 
-        for list in ["All products", "Tools"] {
+        for list in ["All", "Tools", "Stores"] {
             app.buttons[list].tap()
             XCTAssertTrue(app.textFields.firstMatch.waitForExistence(timeout: Self.timeout), "\(list) cannot be searched")
             waitUntilLoaded()
@@ -130,7 +130,7 @@ final class WalkthroughTests: XCTestCase {
         if reviewEntry.waitForExistence(timeout: 5) {
             reviewEntry.tap()
         } else {
-            app.buttons["All products"].tap()
+            app.buttons["All"].tap()
             let firstProduct = app.collectionViews.cells.firstMatch
             XCTAssertTrue(firstProduct.waitForExistence(timeout: Self.timeout), "The product catalog is empty")
             firstProduct.tap()

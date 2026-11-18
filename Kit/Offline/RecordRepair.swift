@@ -49,6 +49,9 @@ extension Replica {
             return [.kind(.shoppingLists)]
         case "tools":
             return [.kind(.tools)]
+        case "stores":
+            let emptied = request.method == .delete ? productsHolding(offersOf: request.id(at: 1)).compactMap(\.recordID) : []
+            return [.kind(.stores)] + emptied.sorted().map { .record(kind: .products, id: $0) }
         default:
             return []
         }

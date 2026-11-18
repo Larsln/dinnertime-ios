@@ -9,7 +9,7 @@ struct ProductOfferEntry: View {
     }
 
     @Binding var draft: OfferDraft
-    /// Names of the known shops, most used first.
+    /// Names of the shops to choose from, most used first.
     let stores: [String]
     /// Unit the size is given in.
     let unit: BaseUnit

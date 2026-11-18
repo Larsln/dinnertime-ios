@@ -17,6 +17,16 @@
         }
       }
     },
+    "%@ · paused": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · pausiert"
+          }
+        }
+      }
+    },
     "%lld changes have not been sent yet and will be lost.": {
       "localizations": {
         "de": {
@@ -140,6 +150,46 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld meals"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld products": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Produkt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Produkte"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld product"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld products"
                 }
               }
             }
@@ -447,6 +497,16 @@
         }
       }
     },
+    "All": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle"
+          }
+        }
+      }
+    },
     "All courses": {
       "localizations": {
         "de": {
@@ -473,16 +533,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle Mahlzeiten"
-          }
-        }
-      }
-    },
-    "All products": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle Produkte"
           }
         }
       }
@@ -827,6 +877,16 @@
         }
       }
     },
+    "Currently in no active store.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Derzeit in keinem aktiven Laden."
+          }
+        }
+      }
+    },
     "Day": {
       "localizations": {
         "de": {
@@ -873,6 +933,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rezept löschen"
+          }
+        }
+      }
+    },
+    "Delete store": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laden löschen"
           }
         }
       }
@@ -1447,6 +1517,16 @@
         }
       }
     },
+    "New store": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neuer Laden"
+          }
+        }
+      }
+    },
     "New tool": {
       "localizations": {
         "de": {
@@ -1553,6 +1633,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keine Einkaufsliste"
+          }
+        }
+      }
+    },
+    "No stores": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Läden"
           }
         }
       }
@@ -2027,6 +2117,16 @@
         }
       }
     },
+    "Rename store": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laden umbenennen"
+          }
+        }
+      }
+    },
     "Rename tool": {
       "localizations": {
         "de": {
@@ -2067,6 +2167,16 @@
         }
       }
     },
+    "Review (%lld)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prüfen (%lld)"
+          }
+        }
+      }
+    },
     "Save": {
       "localizations": {
         "de": {
@@ -2083,6 +2193,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Produkte suchen"
+          }
+        }
+      }
+    },
+    "Search stores": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Läden suchen"
           }
         }
       }
@@ -2327,6 +2447,26 @@
         }
       }
     },
+    "Stores": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Läden"
+          }
+        }
+      }
+    },
+    "Stores are added here or when you note where a product is sold.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Läden entstehen hier oder wenn du notierst, wo es ein Produkt gibt."
+          }
+        }
+      }
+    },
     "Suggest": {
       "localizations": {
         "de": {
@@ -2463,16 +2603,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Einkaufen"
-          }
-        }
-      }
-    },
-    "To review (%lld)": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zu prüfen (%lld)"
           }
         }
       }
@@ -2964,6 +3094,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "„%@“ wird endgültig gelöscht."
+          }
+        }
+      }
+    },
+    "“%@” will be deleted together with what is noted for it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ wird mit allem gelöscht, was dort notiert ist."
           }
         }
       }

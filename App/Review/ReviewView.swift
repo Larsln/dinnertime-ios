@@ -2,11 +2,11 @@ import MealplannerKit
 import SwiftUI
 
 /// The products tab: the catalog of all products, the products whose estimated values wait
-/// for confirmation and the tools of the household.
+/// for confirmation, the tools of the household and the shops it buys at.
 struct ReviewView: View {
     /// The lists the tab switches between.
     private enum Segment: Hashable {
-        case products, review, tools
+        case products, review, tools, stores
     }
 
     let session: AppSession
@@ -14,6 +14,7 @@ struct ReviewView: View {
     @State private var model: ReviewModel
     @State private var catalog: ProductSearchModel
     @State private var tools: ToolCatalogModel
+    @State private var stores: StoreCatalogModel
     @State private var segment = Segment.products
     @State private var hasChosenSegment = false
     @State private var asksForName = false
@@ -24,6 +25,7 @@ struct ReviewView: View {
         _model = State(initialValue: ReviewModel(session: session))
         _catalog = State(initialValue: ProductSearchModel(session: session))
         _tools = State(initialValue: ToolCatalogModel(session: session))
+        _stores = State(initialValue: StoreCatalogModel(session: session))
     }
 
     var body: some View {
@@ -36,17 +38,21 @@ struct ReviewView: View {
                     ReviewList(model: model)
                 case .tools:
                     ToolCatalogList(session: session, model: tools)
+                case .stores:
+                    StoreCatalogList(model: stores)
                 }
             }
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 8) {
                     Picker("List", selection: $segment) {
-                        Text("All products")
+                        Text("All")
                             .tag(Segment.products)
-                        Text("To review (\(model.total))")
+                        Text("Review (\(model.total))")
                             .tag(Segment.review)
                         Text("Tools")
                             .tag(Segment.tools)
+                        Text("Stores")
+                            .tag(Segment.stores)
                     }
                     .pickerStyle(.segmented)
                     .labelsHidden()
@@ -55,6 +61,8 @@ struct ReviewView: View {
                         SearchField(prompt: "Search products", text: $catalog.searchText)
                     case .tools:
                         SearchField(prompt: "Search tools", text: $tools.searchText)
+                    case .stores:
+                        SearchField(prompt: "Search stores", text: $stores.searchText)
                     case .review:
                         EmptyView()
                     }
@@ -94,7 +102,11 @@ struct ReviewView: View {
     }
 
     private var creationTitle: LocalizedStringKey {
-        segment == .tools ? "New tool" : "New product"
+        switch segment {
+        case .tools: "New tool"
+        case .stores: "New store"
+        case .products, .review: "New product"
+        }
     }
 
     /// Opens the review once when the tab is first shown and something waits there.
@@ -108,13 +120,18 @@ struct ReviewView: View {
         }
     }
 
-    /// Creates a tool, or a product whose editor opens at once.
+    /// Creates a tool, a shop, or a product whose editor opens at once.
     private func create(named name: String) {
         Task {
-            if segment == .tools {
+            switch segment {
+            case .tools:
                 await tools.create(name: name)
-            } else if let product = await catalog.create(name: name) {
-                path.append(product)
+            case .stores:
+                await stores.create(name: name)
+            case .products, .review:
+                if let product = await catalog.create(name: name) {
+                    path.append(product)
+                }
             }
         }
     }
@@ -123,6 +140,9 @@ struct ReviewView: View {
         await model.reload()
         if catalog.hasLoaded {
             await catalog.search()
+        }
+        if stores.hasLoaded {
+            await stores.load()
         }
     }
 }

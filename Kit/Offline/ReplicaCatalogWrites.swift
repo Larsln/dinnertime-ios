@@ -2,7 +2,7 @@ import Foundation
 
 /// Writes to products, their values, tools and the household settings, applied to the local copy.
 ///
-/// The offers of a product are written in `ReplicaOffers.swift`.
+/// The offers of a product are written in `ReplicaOffers.swift` and the shops in `ReplicaStores.swift`.
 extension Replica {
     /// Answers a write to a product or one of its values; `nil` for other calls, among them merging, which needs the server.
     mutating func writeProduct(_ request: LocalRequest) throws -> LocalResult? {
@@ -136,6 +136,7 @@ extension Replica {
         result = try result ?? writePantry(request, now: now)
         result = try result ?? writeShopping(request, key: key, now: now)
         result = try result ?? writeOffer(request)
+        result = try result ?? writeStore(request)
         result = try result ?? writeProduct(request)
         result = try result ?? writeTool(request)
         result = result ?? writeSettings(request)

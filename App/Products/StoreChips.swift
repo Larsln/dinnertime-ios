@@ -3,7 +3,7 @@ import SwiftUI
 /// The choice of a shop: the known ones as chips to tap, and a field to type a new name.
 struct StoreChips: View {
     @Binding var selection: String
-    /// Names of the known shops in the order they are offered.
+    /// Names of the shops the household buys at, in the order they are offered.
     let stores: [String]
     /// Called once a shop is chosen, to move on to the next field.
     let onChoose: () -> Void

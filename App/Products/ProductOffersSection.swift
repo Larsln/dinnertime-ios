@@ -4,6 +4,7 @@ import SwiftUI
 /// The shops that sell a product, one line each, with the entry for another one below.
 ///
 /// Swiping a line removes the offer; tapping it puts its values into the entry to correct them.
+/// Offers of paused shops come last and are dimmed.
 struct ProductOffersSection: View {
     @Bindable var model: ProductOffersModel
     /// Unit the package sizes are given in.
@@ -16,11 +17,16 @@ struct ProductOffersSection: View {
 
     var body: some View {
         Section("Where to buy") {
+            if model.hasOnlyPausedOffers {
+                Text("Currently in no active store.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
             ForEach(model.offers) { offer in
                 Button {
                     edit(offer)
                 } label: {
-                    Text(verbatim: offer.text(unit: unit, amounts: amounts, prices: prices))
+                    line(for: offer)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(.rect)
                 }
@@ -28,12 +34,12 @@ struct ProductOffersSection: View {
                 .listRowBackground(draft.offerID == offer.id ? Color.accentColor.opacity(0.15) : nil)
             }
             .onDelete(perform: delete)
-            ProductOfferEntry(draft: $draft, stores: model.stores, unit: unit, currencySymbol: prices.symbol, onSave: save)
+            ProductOfferEntry(draft: $draft, stores: model.storeNames, unit: unit, currencySymbol: prices.symbol, onSave: save)
                 .task {
+                    await model.load()
                     if draft == OfferDraft() {
                         draft = newDraft
                     }
-                    await model.load()
                 }
                 .errorAlert($model.errorMessage)
         }
@@ -43,9 +49,21 @@ struct ProductOffersSection: View {
         PriceFormatter(currencyCode: household.currency)
     }
 
-    /// An empty entry with the shop that was used last.
+    /// An empty entry with the shop that was used last, unless that one is paused.
     private var newDraft: OfferDraft {
-        OfferDraft(store: household.lastStore ?? "")
+        OfferDraft(store: model.preselected(household.lastStore))
+    }
+
+    /// The offer in one line; one of a paused shop is dimmed and says so.
+    @ViewBuilder
+    private func line(for offer: ProductOffer) -> some View {
+        let text = offer.text(unit: unit, amounts: amounts, prices: prices)
+        if offer.isStoreActive {
+            Text(verbatim: text)
+        } else {
+            Text("\(text) · paused")
+                .foregroundStyle(.secondary)
+        }
     }
 
     /// Puts the values of an offer into the entry, or empties the entry if they are there already.
@@ -57,7 +75,7 @@ struct ProductOffersSection: View {
         let saved = draft
         Task {
             if await model.save(saved) {
-                household.lastStore = saved.storedStore
+                household.lastStore = model.stores.first(named: saved.store)?.name ?? saved.storedStore
                 draft = newDraft
             }
         }
