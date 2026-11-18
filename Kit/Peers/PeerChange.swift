@@ -9,8 +9,10 @@ public struct PeerChange: Codable, Equatable, Sendable {
     public enum Action: Codable, Equatable, Sendable {
         /// The item was checked off or brought back.
         case check(Bool)
-        /// A manual item with this label was added to the list.
-        case add(label: String, listID: Int)
+        /// A manual item was added to the list, as free text or for the product with `productID`.
+        ///
+        /// The label of an item with a product is the name of the product, for devices that do not know it.
+        case add(label: String, listID: Int, productID: Int? = nil)
         /// The manual item was deleted.
         case delete
     }

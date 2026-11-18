@@ -64,13 +64,7 @@ extension Replica {
     /// A shopping list whose items carry their products as stored now.
     func shownList(_ list: JSONObject) -> JSONObject {
         var list = list
-        list["items"] = (list["items"] as? [JSONObject] ?? []).map { item in
-            var item = item
-            if let product = current(.products, item["product"]) as? JSONObject {
-                item["product"] = shownProduct(product)
-            }
-            return item
-        }
+        list["items"] = (list["items"] as? [JSONObject] ?? []).map(shownItem)
         return list
     }
 

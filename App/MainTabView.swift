@@ -60,7 +60,7 @@ struct MainTabView: View {
             Tab("Pantry", systemImage: "refrigerator", value: Area.pantry) {
                 PantryView(session: session)
             }
-            Tab("Review", systemImage: "checklist", value: Area.review) {
+            Tab("Products", systemImage: "carrot", value: Area.review) {
                 ReviewView(session: session)
             }
         }

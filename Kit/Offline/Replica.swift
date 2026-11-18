@@ -30,6 +30,9 @@ struct Replica {
     /// When the latest known action on a shopping item happened, by item id.
     var itemActionTimes: [Int: Date] = [:]
 
+    /// The real ids of records created offline by the temporary ids they had, for screens that still hold the old ones.
+    private(set) var realIDs: [Int: Int] = [:]
+
     /// Records written since the last call of ``takeChanges()``.
     private var written: Set<RecordReference> = []
     /// Records removed since the last call of ``takeChanges()``.
@@ -112,6 +115,7 @@ struct Replica {
                 }
             }
         }
+        realIDs[temporary] = real
         pendingRepairs = pendingRepairs.map { $0.replacing(temporary, with: real) }
         itemIDsByCreationKey = itemIDsByCreationKey.mapValues { $0 == temporary ? real : $0 }
         if let time = itemActionTimes.removeValue(forKey: temporary) {

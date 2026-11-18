@@ -8,7 +8,7 @@ import XCTest
 /// The test is skipped when they are missing.
 @MainActor
 final class WalkthroughTests: XCTestCase {
-    private static let tabs = ["Recipes", "Plan", "Shopping", "Pantry", "Review"]
+    private static let tabs = ["Recipes", "Plan", "Shopping", "Pantry", "Products"]
     private static let timeout: TimeInterval = 20
 
     private let app = XCUIApplication()
@@ -75,7 +75,7 @@ final class WalkthroughTests: XCTestCase {
         let account = try Account.fromEnvironment()
 
         signInIfNeeded(with: account)
-        app.tabBars.buttons["Review"].tap()
+        app.tabBars.buttons["Products"].tap()
         waitUntilLoaded()
 
         let reviewEntry = app.buttons["Edit"].firstMatch

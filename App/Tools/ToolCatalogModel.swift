@@ -38,6 +38,12 @@ final class ToolCatalogModel: ErrorReporting {
         guard let name = creatableName else {
             return nil
         }
+        return await create(name: name)
+    }
+
+    /// Creates a tool with `name` and lists it.
+    @discardableResult
+    func create(name: String) async -> Tool? {
         var created: Tool?
         await attempt {
             let tool = try await session.send(ToolEndpoints.create(name: name))

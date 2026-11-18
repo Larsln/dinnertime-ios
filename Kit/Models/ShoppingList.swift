@@ -13,8 +13,8 @@ public struct ShoppingList: Decodable, Hashable, Identifiable, Sendable {
 
 /// One position of a shopping list.
 ///
-/// Generated items name a product and the packages to buy. Items without a product are
-/// manual entries or ingredient lines without a product; they carry no amounts.
+/// Generated items name a product and the packages to buy. Manual items name a product or
+/// carry free text. Items without a product carry no amounts.
 public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable {
     /// A package size and how often to buy it.
     public struct PackagePurchase: Decodable, Hashable, Sendable {
@@ -71,9 +71,10 @@ public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable {
         checkedAt != nil
     }
 
-    /// Name to show for the item.
+    /// Name to show for the item: its label, else the name of its product.
     public var title: String {
-        product?.name ?? label ?? ""
+        let label = label.flatMap { $0.isEmpty ? nil : $0 }
+        return label ?? product?.name ?? ""
     }
 
     private enum CodingKeys: String, CodingKey {

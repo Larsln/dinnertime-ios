@@ -7,6 +7,12 @@ struct ReviewList: View {
 
     var body: some View {
         List {
+            if !model.products.isEmpty {
+                Text("These values were estimated by the AI. Confirm or correct them so the shopping list and conversions are right.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .listRowBackground(Color.clear)
+            }
             ForEach(model.products) { product in
                 Section {
                     ReviewProductDetails(product: product)
@@ -33,7 +39,7 @@ struct ReviewList: View {
         }
         .overlay {
             if model.hasLoaded, model.products.isEmpty {
-                ContentUnavailableView("Nothing to review", systemImage: "checkmark.seal", description: Text("New products from imports appear here with suggested values."))
+                ContentUnavailableView("All reviewed", systemImage: "checkmark.circle", description: Text("New products from imports appear here with suggested values."))
             }
         }
         .refreshesFromServer {

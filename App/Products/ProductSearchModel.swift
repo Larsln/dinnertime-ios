@@ -54,6 +54,11 @@ final class ProductSearchModel: ErrorReporting {
         guard let name = creatableName else {
             return nil
         }
+        return await create(name: name)
+    }
+
+    /// Creates a product with `name`; the server suggests its other values.
+    func create(name: String) async -> Product? {
         var created: Product?
         await attempt {
             created = try await session.send(ProductEndpoints.create(name: name))

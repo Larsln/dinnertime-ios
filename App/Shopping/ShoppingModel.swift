@@ -58,16 +58,35 @@ final class ShoppingModel: ErrorReporting {
         }
     }
 
-    /// Adds a manual item.
+    /// Adds a manual item from free text; the server links a product of that name.
     func addItem(label: String) async {
         let label = label.trimmingCharacters(in: .whitespaces)
         guard let listID = list?.id, !label.isEmpty else {
             return
         }
         await attempt {
-            let item = try await session.send(ShoppingEndpoints.addItem(label: label, listID: listID))
-            list?.items.append(item)
+            show(try await session.send(ShoppingEndpoints.addItem(label: label, listID: listID)))
         }
+    }
+
+    /// Adds a product as manual item; one that is on the list already is brought back unchecked.
+    func addItem(_ product: Product) async {
+        guard let listID = list?.id else {
+            return
+        }
+        await attempt {
+            show(try await session.send(ShoppingEndpoints.addItem(productID: product.id, listID: listID)))
+        }
+    }
+
+    /// The first `limit` products whose name or alias contains `text`, those that start with it first.
+    func products(matching text: String, limit: Int = 6) async -> [Product] {
+        guard let found = try? await session.send(ProductEndpoints.search(text)).items else {
+            return []
+        }
+        let leading = found.filter { $0.name.range(of: text, options: [.caseInsensitive, .anchored]) != nil }
+        let ids = Set(leading.map(\.id))
+        return Array((leading + found.filter { !ids.contains($0.id) }).prefix(limit))
     }
 
     /// Removes an item.
@@ -96,6 +115,14 @@ final class ShoppingModel: ErrorReporting {
         isWorking = true
         defer { isWorking = false }
         await attempt(operation)
+    }
+
+    private func show(_ item: ShoppingListItem) {
+        if list?.items.contains(where: { $0.id == item.id }) == true {
+            replace(item)
+        } else {
+            list?.items.append(item)
+        }
     }
 
     private func replace(_ item: ShoppingListItem) {

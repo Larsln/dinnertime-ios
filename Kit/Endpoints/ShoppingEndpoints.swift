@@ -11,6 +11,10 @@ public enum ShoppingEndpoints {
         let label: String
     }
 
+    private struct ProductBody: Encodable {
+        let productId: Int
+    }
+
     private struct CheckedBody: Encodable {
         let checked: Bool
     }
@@ -30,9 +34,18 @@ public enum ShoppingEndpoints {
         .resource(.post, "shopping-lists/\(listID)/stock-leftovers")
     }
 
-    /// `POST /shopping-lists/{id}/items`: adds a manual item.
+    /// `POST /shopping-lists/{id}/items`: adds a manual item from free text.
+    ///
+    /// The server links a product whose name or alias equals `label`, ignoring case.
     public static func addItem(label: String, listID: Int) -> Endpoint<ShoppingListItem> {
         .resource(.post, "shopping-lists/\(listID)/items", body: LabelBody(label: label))
+    }
+
+    /// `POST /shopping-lists/{id}/items`: adds a product as manual item.
+    ///
+    /// A list that already has a manual item for the product answers with that item, unchecked.
+    public static func addItem(productID: Int, listID: Int) -> Endpoint<ShoppingListItem> {
+        .resource(.post, "shopping-lists/\(listID)/items", body: ProductBody(productId: productID))
     }
 
     /// `PATCH /shopping-list-items/{id}`: checks an item off or on again.

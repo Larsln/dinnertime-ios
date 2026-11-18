@@ -8,6 +8,18 @@ public struct ShoppingSection: Identifiable, Sendable {
         case unassigned
         /// Manual entries and ingredient lines without a product.
         case freeText
+
+        /// Place in the walking order: the areas of the store by position, then products without area, then free text.
+        fileprivate var rank: Int {
+            switch self {
+            case let .store(section):
+                section.position
+            case .unassigned:
+                Int.max - 1
+            case .freeText:
+                Int.max
+            }
+        }
     }
 
     public let kind: Kind
@@ -20,6 +32,8 @@ public struct ShoppingSection: Identifiable, Sendable {
 
 extension ShoppingList {
     /// The items that are still to buy, grouped by area in walking order.
+    ///
+    /// Items added on this device stand at the end of the list, so the areas are put in order here.
     public var openSections: [ShoppingSection] {
         Self.sections(of: items.filter { !$0.isChecked })
     }
@@ -39,7 +53,8 @@ extension ShoppingList {
             }
             groups[kind, default: []].append(item)
         }
-        return order.map { ShoppingSection(kind: $0, items: groups[$0] ?? []) }
+        let ranked = order.enumerated().sorted { ($0.element.rank, $0.offset) < ($1.element.rank, $1.offset) }.map(\.element)
+        return ranked.map { ShoppingSection(kind: $0, items: groups[$0] ?? []) }
     }
 }
 

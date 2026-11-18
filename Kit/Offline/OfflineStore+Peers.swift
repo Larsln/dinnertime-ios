@@ -16,7 +16,10 @@ extension OfflineStore {
         let body = entry.body.flatMap { try? JSONValue.object(from: $0) } ?? [:]
         if entry.method == .post, path.count == 3, let listID = Int(path[1]) {
             let item = PeerChange.Item(serverID: nil, creationKey: entry.key)
-            return PeerChange(key: entry.key, clientTime: entry.clientTime, item: item, action: .add(label: body["label"] as? String ?? "", listID: listID))
+            let productID = body["product_id"] as? Int
+            let label = body["label"] as? String ?? productID.flatMap { replica.record(.products, $0)?["name"] as? String } ?? ""
+            let action = PeerChange.Action.add(label: label, listID: listID, productID: productID.flatMap { $0 > 0 ? $0 : nil })
+            return PeerChange(key: entry.key, clientTime: entry.clientTime, item: item, action: action)
         }
         guard path.count == 2, let id = Int(path[1]) else {
             return nil
@@ -75,11 +78,13 @@ extension OfflineStore {
     /// The call that repeats the change of another device on this one; `nil` when its item or list is unknown here.
     func request(for change: PeerChange) -> LocalRequest? {
         switch change.action {
-        case let .add(label, listID):
+        case let .add(label, listID, productID):
             guard itemID(for: change.item) == nil, replica.record(.shoppingLists, listID) != nil else {
                 return nil
             }
-            return LocalRequest(method: .post, path: "shopping-lists/\(listID)/items", body: ["label": label])
+            let knownProductID = productID.flatMap { replica.record(.products, $0)?.recordID }
+            let body: JSONObject = knownProductID.map { ["product_id": $0] } ?? ["label": label]
+            return LocalRequest(method: .post, path: "shopping-lists/\(listID)/items", body: body)
         case let .check(checked):
             return itemID(for: change.item).map { LocalRequest(method: .patch, path: "shopping-list-items/\($0)", body: ["checked": checked]) }
         case .delete:

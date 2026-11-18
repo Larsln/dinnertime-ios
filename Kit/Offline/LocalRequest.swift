@@ -34,6 +34,16 @@ struct LocalRequest {
         self.init(method: endpoint.method, path: endpoint.path, query: query, body: body, upload: upload)
     }
 
+    /// The request with temporary ids replaced by the real ones the server has given out since.
+    func resolving(_ realIDs: [Int: Int]) -> LocalRequest {
+        guard !realIDs.isEmpty else {
+            return self
+        }
+        let path = path.map { component in Int(component).flatMap { realIDs[$0] }.map(String.init) ?? component }
+        let body = realIDs.reduce(body) { body, id in JSONValue.replacing(id.key, with: id.value, in: body) as? JSONObject ?? body }
+        return LocalRequest(method: method, path: path.joined(separator: "/"), query: query, body: body, upload: upload)
+    }
+
     /// The path component at `index` as record id.
     func id(at index: Int) -> Int? {
         path.indices.contains(index) ? Int(path[index]) : nil

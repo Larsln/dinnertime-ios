@@ -427,6 +427,16 @@
         }
       }
     },
+    "Add “%@”": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ hinzufügen"
+          }
+        }
+      }
+    },
     "Address": {
       "localizations": {
         "de": {
@@ -473,6 +483,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle Produkte"
+          }
+        }
+      }
+    },
+    "All reviewed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles geprüft"
           }
         }
       }
@@ -743,6 +763,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Speisenkategorie"
+          }
+        }
+      }
+    },
+    "Create": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anlegen"
           }
         }
       }
@@ -1337,6 +1367,16 @@
         }
       }
     },
+    "New product": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neues Produkt"
+          }
+        }
+      }
+    },
     "New products from imports appear here with suggested values.": {
       "localizations": {
         "de": {
@@ -1353,6 +1393,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Neues Rezept"
+          }
+        }
+      }
+    },
+    "New tool": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neues Utensil"
           }
         }
       }
@@ -1523,16 +1573,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nichts geplant"
-          }
-        }
-      }
-    },
-    "Nothing to review": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nichts zu prüfen"
           }
         }
       }
@@ -1787,6 +1827,16 @@
         }
       }
     },
+    "Products": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produkte"
+          }
+        }
+      }
+    },
     "Quantity": {
       "localizations": {
         "de": {
@@ -1953,16 +2003,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle neu"
-          }
-        }
-      }
-    },
-    "Review": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prüfen"
           }
         }
       }
@@ -2303,6 +2343,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Danach Einkaufsliste erstellen"
+          }
+        }
+      }
+    },
+    "These values were estimated by the AI. Confirm or correct them so the shopping list and conversions are right.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Werte hat die KI geschätzt. Bestätige oder korrigiere sie, damit Einkaufsliste und Umrechnungen stimmen."
           }
         }
       }

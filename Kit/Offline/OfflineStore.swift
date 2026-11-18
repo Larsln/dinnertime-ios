@@ -67,7 +67,7 @@ public actor OfflineStore {
     ///
     /// Throws what the server would answer, for example `404` for a record the copy does not hold.
     public func answer<Response>(_ endpoint: Endpoint<Response>, now: Date = .now) throws -> LocalAnswer<Response>? {
-        let request = try LocalRequest(endpoint)
+        let request = try LocalRequest(endpoint).resolving(replica.realIDs)
         if let body = try replica.read(request) {
             return LocalAnswer(response: try endpoint.decode(JSONValue.data(body)), areas: [], shoppingChange: nil)
         }

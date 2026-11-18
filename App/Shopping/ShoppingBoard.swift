@@ -8,13 +8,12 @@ struct ShoppingBoard: View {
     let list: ShoppingList
     let model: ShoppingModel
 
-    @State private var newItemLabel = ""
     @State private var detailedItem: ShoppingListItem?
 
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
-                addField
+                ShoppingAddField(model: model)
                 Text(verbatim: list.startsOn.rangeText(until: list.endsOn))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
@@ -33,19 +32,6 @@ struct ShoppingBoard: View {
         }
         .sheet(item: $detailedItem) { item in
             ShoppingItemDetails(item: item, onDelete: item.isManual ? { delete(item) } : nil)
-        }
-    }
-
-    private var addField: some View {
-        HStack {
-            TextField("Add item", text: $newItemLabel)
-                .textFieldStyle(.roundedBorder)
-                .submitLabel(.done)
-                .onSubmit(addItem)
-            Button("Add", systemImage: "plus.circle.fill", action: addItem)
-                .labelStyle(.iconOnly)
-                .font(.title2)
-                .disabled(newItemLabel.nilIfBlank == nil)
         }
     }
 
@@ -76,14 +62,6 @@ struct ShoppingBoard: View {
             Text("Other products")
         case .freeText:
             Text("Other items")
-        }
-    }
-
-    private func addItem() {
-        let label = newItemLabel
-        newItemLabel = ""
-        Task {
-            await model.addItem(label: label)
         }
     }
 
