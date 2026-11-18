@@ -154,6 +154,9 @@ extension Replica {
         if request.matches(.get, "shopping-lists", "*") {
             return resource(shownList(try existing(.shoppingLists, request.id(at: 1))))
         }
+        if request.matches(.get, "stores") {
+            return resource(knownStores)
+        }
         if request.matches(.get, "settings", "household") {
             return resource(household)
         }

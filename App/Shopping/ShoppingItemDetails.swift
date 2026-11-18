@@ -1,7 +1,8 @@
 import MealplannerKit
 import SwiftUI
 
-/// What stands behind a position of the shopping list: need, leftovers, spoilage, the recipes that use it and the note of its product.
+/// What stands behind a position of the shopping list: need, leftovers, spoilage, the recipes that use it,
+/// and the shops and the note of its product.
 struct ShoppingItemDetails: View {
     let item: ShoppingListItem
     /// Deletes the item; `nil` for items that come from the plan.
@@ -11,16 +12,18 @@ struct ShoppingItemDetails: View {
 
     @State private var note: String
     @State private var savedNote: String?
+    @State private var offers: ProductOffersModel?
     @Environment(\.dismiss) private var dismiss
 
     private let formatter = AmountFormatter()
 
-    init(item: ShoppingListItem, onDelete: (() -> Void)?, onSaveNote: @escaping (String?) -> Void) {
+    init(session: AppSession, item: ShoppingListItem, onDelete: (() -> Void)?, onSaveNote: @escaping (String?) -> Void) {
         self.item = item
         self.onDelete = onDelete
         self.onSaveNote = onSaveNote
         _note = State(initialValue: item.product?.note ?? "")
         _savedNote = State(initialValue: item.product?.note)
+        _offers = State(initialValue: item.product.map { ProductOffersModel(session: session, product: $0) })
     }
 
     var body: some View {
@@ -37,6 +40,9 @@ struct ShoppingItemDetails: View {
                             Text("The amount rests on an unconfirmed conversion.")
                         }
                     }
+                }
+                if let product = item.product, let offers {
+                    ProductOffersSection(model: offers, unit: product.baseUnit)
                 }
                 if item.product != nil {
                     Section("Note") {

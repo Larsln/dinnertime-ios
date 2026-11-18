@@ -102,6 +102,21 @@ final class WalkthroughTests: XCTestCase {
         record("Shopping item details")
 
         XCTAssertTrue(app.staticTexts["Note"].waitForExistence(timeout: Self.timeout), "The details offer no note")
+
+        guard let shop = ProcessInfo.processInfo.environment["MEALPLANNER_TEST_SHOP"] else {
+            return
+        }
+        app.textFields["Shop"].tap()
+        app.typeText("\(shop)\n150")
+        let price = app.textFields.matching(NSPredicate(format: "placeholderValue == %@", "Price")).firstMatch
+        sleep(2)
+        price.tap()
+        price.typeText("1.99")
+        app.buttons.matching(NSPredicate(format: "label == %@", "Add")).allElementsBoundByIndex.last?.tap()
+
+        let line = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "\(shop) ·")).firstMatch
+        XCTAssertTrue(line.waitForExistence(timeout: Self.timeout), "The offer was not added")
+        record("Offer added")
     }
 
     func testOpenProductEditor() throws {

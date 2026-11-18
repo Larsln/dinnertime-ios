@@ -15,7 +15,7 @@ public enum ReviewStatus: String, Decodable, Sendable {
 /// Something that can be bought.
 ///
 /// Lists embed a short form; `recipeCount`, `conversions` and `packages` are only
-/// present on the detail and review endpoints.
+/// present on the detail and review endpoints. Lists that leave out `offers` decode as none.
 public struct Product: Decodable, Hashable, Identifiable, Sendable {
     /// Longest note the server stores.
     public static let noteLimit = 500
@@ -29,7 +29,7 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
     public let isPantryStaple: Bool?
     /// Days an opened package stays usable.
     public let shelfLifeOpenedDays: Int?
-    /// What the household noted about the product, such as a shop, a size or a price.
+    /// What the household noted about the product beyond the shops that sell it.
     public var note: String?
     public let status: ReviewStatus
     public let enrichedAt: Date?
@@ -38,6 +38,33 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
     public let aliases: [String]?
     public let conversions: [ProductConversion]?
     public let packages: [ProductPackage]?
+    /// The shops that sell the product, with package size and price.
+    public var offers: [ProductOffer]
+
+    private enum CodingKeys: String, CodingKey {
+        case id, name, pluralName, icon, baseUnit, isPantryStaple, shelfLifeOpenedDays, note, status
+        case enrichedAt, recipeCount, storeSection, aliases, conversions, packages, offers
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        pluralName = try container.decodeIfPresent(String.self, forKey: .pluralName)
+        icon = try container.decodeIfPresent(String.self, forKey: .icon)
+        baseUnit = try container.decode(BaseUnit.self, forKey: .baseUnit)
+        isPantryStaple = try container.decodeIfPresent(Bool.self, forKey: .isPantryStaple)
+        shelfLifeOpenedDays = try container.decodeIfPresent(Int.self, forKey: .shelfLifeOpenedDays)
+        note = try container.decodeIfPresent(String.self, forKey: .note)
+        status = try container.decode(ReviewStatus.self, forKey: .status)
+        enrichedAt = try container.decodeIfPresent(Date.self, forKey: .enrichedAt)
+        recipeCount = try container.decodeIfPresent(Int.self, forKey: .recipeCount)
+        storeSection = try container.decodeIfPresent(StoreSection.self, forKey: .storeSection)
+        aliases = try container.decodeIfPresent([String].self, forKey: .aliases)
+        conversions = try container.decodeIfPresent([ProductConversion].self, forKey: .conversions)
+        packages = try container.decodeIfPresent([ProductPackage].self, forKey: .packages)
+        offers = try container.decodeIfPresent([ProductOffer].self, forKey: .offers) ?? []
+    }
 
     /// A note as it is stored: without surrounding space, cut to the limit, `nil` when nothing remains.
     public static func storedNote(_ text: String?) -> String? {

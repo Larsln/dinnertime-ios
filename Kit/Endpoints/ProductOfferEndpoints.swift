@@ -1,0 +1,48 @@
+import Foundation
+
+/// The shops that sell a product, and the names of the shops the household uses.
+public enum ProductOfferEndpoints {
+    /// The values of an offer; a missing size or price is left out when adding and sent as `null` when changing, which clears it.
+    private struct OfferBody: Encodable {
+        let store: String
+        let amountInBase: Double?
+        let price: Double?
+        let clearsMissing: Bool
+
+        private enum CodingKeys: String, CodingKey {
+            case store, amountInBase, price
+        }
+
+        func encode(to encoder: any Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(store, forKey: .store)
+            if clearsMissing {
+                try container.encode(amountInBase, forKey: .amountInBase)
+                try container.encode(price, forKey: .price)
+            } else {
+                try container.encodeIfPresent(amountInBase, forKey: .amountInBase)
+                try container.encodeIfPresent(price, forKey: .price)
+            }
+        }
+    }
+
+    /// `POST /products/{id}/offers`: states a shop that sells the product, optionally with package size and price.
+    public static func add(productID: Int, store: String, amountInBase: Double? = nil, price: Double? = nil) -> Endpoint<ProductOffer> {
+        .resource(.post, "products/\(productID)/offers", body: OfferBody(store: store, amountInBase: amountInBase, price: price, clearsMissing: false))
+    }
+
+    /// `PATCH /product-offers/{id}`: corrects an offer; a missing size or price clears the stored one.
+    public static func update(id: Int, store: String, amountInBase: Double?, price: Double?) -> Endpoint<ProductOffer> {
+        .resource(.patch, "product-offers/\(id)", body: OfferBody(store: store, amountInBase: amountInBase, price: price, clearsMissing: true))
+    }
+
+    /// `DELETE /product-offers/{id}`: removes an offer.
+    public static func delete(id: Int) -> Endpoint<Void> {
+        .empty(.delete, "product-offers/\(id)")
+    }
+
+    /// `GET /stores`: the names of the shops used so far, most used first.
+    public static var stores: Endpoint<[String]> {
+        .resource(.get, "stores")
+    }
+}

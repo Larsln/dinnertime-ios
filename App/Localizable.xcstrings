@@ -1087,6 +1087,16 @@
         }
       }
     },
+    "Has a shop": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hat einen Laden"
+          }
+        }
+      }
+    },
     "Hide additional meals": {
       "localizations": {
         "de": {
@@ -1193,6 +1203,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Instagram zeigt manche Videos nur angemeldeten Nutzern. Exportiere dafür die Cookies eines angemeldeten Browsers als cookies.txt (Netscape-Format) und lade die Datei hier hoch. Nimm am besten ein Zweitkonto."
+          }
+        }
+      }
+    },
+    "Known shops": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bekannte Läden"
           }
         }
       }
@@ -1417,6 +1437,16 @@
         }
       }
     },
+    "New shop": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neuer Laden"
+          }
+        }
+      }
+    },
     "New tool": {
       "localizations": {
         "de": {
@@ -1583,16 +1613,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Notiz"
-          }
-        }
-      }
-    },
-    "Note, e.g. shop, size or price": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Notiz, z. B. Laden, Größe oder Preis"
           }
         }
       }
@@ -1843,6 +1863,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vorherige Woche"
+          }
+        }
+      }
+    },
+    "Price": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preis"
           }
         }
       }
@@ -2137,6 +2167,16 @@
         }
       }
     },
+    "Shop": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laden"
+          }
+        }
+      }
+    },
     "Shopping": {
       "localizations": {
         "de": {
@@ -2193,6 +2233,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Anmeldung für Videoplattformen"
+          }
+        }
+      }
+    },
+    "Size": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Größe"
           }
         }
       }
@@ -2643,6 +2693,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wochenende"
+          }
+        }
+      }
+    },
+    "Where to buy": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wo es das gibt"
           }
         }
       }

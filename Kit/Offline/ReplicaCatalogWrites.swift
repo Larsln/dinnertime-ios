@@ -1,6 +1,8 @@
 import Foundation
 
 /// Writes to products, their values, tools and the household settings, applied to the local copy.
+///
+/// The offers of a product are written in `ReplicaOffers.swift`.
 extension Replica {
     /// Answers a write to a product or one of its values; `nil` for other calls, among them merging, which needs the server.
     mutating func writeProduct(_ request: LocalRequest) throws -> LocalResult? {
@@ -13,6 +15,7 @@ extension Replica {
                 "id": makeTemporaryID(), "name": name, "plural_name": NSNull(), "icon": NSNull(), "base_unit": "g",
                 "is_pantry_staple": false, "shelf_life_opened_days": NSNull(), "note": NSNull(), "status": "confirmed", "enriched_at": NSNull(),
                 "store_section": NSNull(), "aliases": [String](), "conversions": [JSONObject](), "packages": [JSONObject](),
+                "offers": [JSONObject](),
             ]
             put(.products, product)
             return LocalResult(body: resource(shownProduct(product)), areas: [.products], change: QueuedChange(created: [product.recordID ?? 0], createdKind: .products))
@@ -132,6 +135,7 @@ extension Replica {
         result = try result ?? writePlan(request, now: now)
         result = try result ?? writePantry(request, now: now)
         result = try result ?? writeShopping(request, key: key, now: now)
+        result = try result ?? writeOffer(request)
         result = try result ?? writeProduct(request)
         result = try result ?? writeTool(request)
         result = result ?? writeSettings(request)

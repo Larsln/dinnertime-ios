@@ -4,7 +4,7 @@ import SwiftUI
 /// A square tile of the shopping list: a line icon, the product's name and a short amount.
 ///
 /// Tapping it checks the product off or brings it back; a short long press opens the details.
-/// A small mark in the corner tells that the product carries a note.
+/// A small mark in the corner tells that the product carries a note or a shop that sells it.
 struct ShoppingTile: View {
     let item: ShoppingListItem
     let onToggle: () -> Void
@@ -45,12 +45,12 @@ struct ShoppingTile: View {
         .foregroundStyle(item.isChecked ? AnyShapeStyle(.secondary) : AnyShapeStyle(.white))
         .background(item.isChecked ? AnyShapeStyle(Color.secondary.opacity(0.15)) : AnyShapeStyle(.tint), in: .rect(cornerRadius: 12))
         .overlay(alignment: .topTrailing) {
-            if item.product?.note != nil {
+            if let product = item.product, product.hasBuyingHints {
                 Image(systemName: "note.text")
                     .font(.system(size: 9, weight: .semibold))
                     .foregroundStyle(item.isChecked ? AnyShapeStyle(.secondary) : AnyShapeStyle(.white.opacity(0.85)))
                     .padding(5)
-                    .accessibilityLabel(Text("Has a note"))
+                    .accessibilityLabel(product.note == nil ? Text("Has a shop") : Text("Has a note"))
             }
         }
         .contentShape(.rect(cornerRadius: 12))

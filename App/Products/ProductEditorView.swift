@@ -1,12 +1,15 @@
 import MealplannerKit
 import SwiftUI
 
-/// Edits a product with its packages and conversions, confirms, merges or deletes it.
+/// Edits a product with its offers, packages and conversions, confirms, merges or deletes it.
+///
+/// Offers are stored as they are entered; everything else is stored with the save button.
 struct ProductEditorView: View {
     /// Called after the product changed on the server.
     let onChange: () async -> Void
 
     @State private var model: ProductEditorModel
+    @State private var offers: ProductOffersModel
     @State private var showsMerge = false
     @State private var confirmsDeletion = false
     @State private var didMerge = false
@@ -16,12 +19,14 @@ struct ProductEditorView: View {
     init(session: AppSession, product: Product, onChange: @escaping () async -> Void) {
         self.onChange = onChange
         _model = State(initialValue: ProductEditorModel(session: session, product: product))
+        _offers = State(initialValue: ProductOffersModel(session: session, product: product))
     }
 
     var body: some View {
         Form {
             ProductFactsSection(product: model.product)
             ProductDetailsSection(draft: $model.draft, storeSections: model.storeSections)
+            ProductOffersSection(model: offers, unit: model.draft.baseUnit)
             Section("Note") {
                 ProductNoteField(text: $model.draft.note)
             }

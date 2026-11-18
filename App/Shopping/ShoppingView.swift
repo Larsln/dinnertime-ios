@@ -43,7 +43,7 @@ struct ShoppingView: View {
     @ViewBuilder
     private var content: some View {
         if let list = model.list {
-            ShoppingBoard(list: list, model: model)
+            ShoppingBoard(session: session, list: list, model: model)
         } else if model.hasLoaded {
             ContentUnavailableView {
                 Label("No shopping list", systemImage: "cart")

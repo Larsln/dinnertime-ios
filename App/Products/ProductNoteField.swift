@@ -6,7 +6,7 @@ struct ProductNoteField: View {
     @Binding var text: String
 
     var body: some View {
-        TextField("Note, e.g. shop, size or price", text: $text, axis: .vertical)
+        TextField("Note", text: $text, axis: .vertical)
             .lineLimit(1...6)
             .keyboardDoneButton()
             .onChange(of: text) {

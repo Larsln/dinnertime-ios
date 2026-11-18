@@ -5,6 +5,7 @@ import SwiftUI
 struct ShoppingBoard: View {
     private static let columns = Array(repeating: GridItem(.flexible(), spacing: 6), count: 4)
 
+    let session: AppSession
     let list: ShoppingList
     let model: ShoppingModel
 
@@ -31,7 +32,7 @@ struct ShoppingBoard: View {
             .padding()
         }
         .sheet(item: $detailedItem) { item in
-            ShoppingItemDetails(item: item, onDelete: item.isManual ? { delete(item) } : nil) { note in
+            ShoppingItemDetails(session: session, item: item, onDelete: item.isManual ? { delete(item) } : nil) { note in
                 saveNote(note, of: item)
             }
         }

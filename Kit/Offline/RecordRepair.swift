@@ -39,6 +39,8 @@ extension Replica {
         case "product-packages":
             let holder = all(.products).first { ($0["packages"] as? [JSONObject] ?? []).contains { $0.recordID == request.id(at: 1) } }
             return holder?.recordID.map { [.record(kind: .products, id: $0)] } ?? []
+        case "product-offers":
+            return productHolding(offer: request.id(at: 1))?.recordID.map { [.record(kind: .products, id: $0)] } ?? []
         case "meal-plan":
             return [.kind(.mealPlanEntries)]
         case "pantry":
