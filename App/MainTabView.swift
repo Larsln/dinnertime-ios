@@ -11,6 +11,13 @@ struct MainTabView: View {
 
     @State private var area = Area.recipes
     @State private var router = ImportRouter.shared
+    @State private var realtime: RealtimeClient
+    @Environment(\.scenePhase) private var scenePhase
+
+    init(session: AppSession) {
+        self.session = session
+        _realtime = State(initialValue: RealtimeClient(session: session))
+    }
     @State private var weekSelection = WeekSelection()
 
     var body: some View {
@@ -31,6 +38,12 @@ struct MainTabView: View {
             }
             Tab("Review", systemImage: "checklist", value: Area.review) {
                 ReviewView(session: session)
+            }
+        }
+        .environment(realtime)
+        .task(id: scenePhase == .active) {
+            if scenePhase == .active {
+                await realtime.run()
             }
         }
         .onChange(of: router.destination, initial: true) { _, destination in

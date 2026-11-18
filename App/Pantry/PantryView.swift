@@ -57,6 +57,9 @@ struct PantryView: View {
             .task {
                 await model.load()
             }
+            .reloadsOnChange(of: .pantry) {
+                await model.load()
+            }
             .errorAlert($model.errorMessage)
         }
     }

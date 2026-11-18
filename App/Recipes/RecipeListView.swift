@@ -57,6 +57,9 @@ struct RecipeListView: View {
                 await permission.refresh()
                 await model.loadFilters()
             }
+            .reloadsOnChange(of: .recipes) {
+                await model.reload()
+            }
             .task(id: router.destination) {
                 await follow(router.destination)
             }

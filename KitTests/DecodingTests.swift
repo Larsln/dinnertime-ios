@@ -119,11 +119,11 @@ struct DecodingTests {
 
     @Test func shoppingListSectionsKeepWalkingOrder() throws {
         let list = try ShoppingEndpoints.current.decode(Fixture.data("shopping-list"))
-        let kinds = list.sections.map(\.kind)
+        let kinds = list.openSections.map(\.kind)
 
-        #expect(kinds.count == 3)
+        #expect(kinds.first != .freeText)
         #expect(kinds.last == .freeText)
-        #expect(list.sections.last?.items.map(\.title) == ["Küchenrolle", "Salz und Pfeffer"])
+        #expect(list.openSections.last?.items.map(\.title) == ["Küchenrolle", "Salz und Pfeffer"])
     }
 
     @Test func manualItemWithoutProductAndAmounts() throws {

@@ -21,9 +21,11 @@ struct RecipeBasicsSection: View {
         }
         Section {
             NumberField(title: "Servings", value: $draft.servings)
-            LabeledContent("Yield") {
-                TextField("Yield", text: $draft.yieldText)
-                    .multilineTextAlignment(.trailing)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Number of pieces or amount")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                TextField("e.g. 12 cinnamon rolls or 1 tray", text: $draft.yieldText)
             }
             NumberField(title: "Preparation (min)", value: $draft.prepMinutes)
             NumberField(title: "Cooking (min)", value: $draft.cookMinutes)

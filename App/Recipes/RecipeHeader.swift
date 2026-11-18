@@ -1,13 +1,14 @@
 import MealplannerKit
 import SwiftUI
 
-/// Cover image, description, times, course, tags and household rating at the top of a recipe.
+/// Cover image, description, rating, times, course and tags at the top of a recipe.
 struct RecipeHeader: View {
     private static let imageHeight: CGFloat = 220
 
-    let recipe: RecipeSummary
+    let model: RecipeDetailModel
 
     var body: some View {
+        let recipe = model.summary
         if recipe.coverURL != nil {
             CoverImage(url: recipe.coverURL)
                 .frame(maxWidth: .infinity)
@@ -17,6 +18,7 @@ struct RecipeHeader: View {
         if let description = recipe.description {
             Text(verbatim: description)
         }
+        RecipeRatingBlock(model: model)
         if let yieldText = recipe.yieldText {
             LabeledContent("Yield", value: yieldText)
         }
@@ -25,14 +27,6 @@ struct RecipeHeader: View {
         }
         if let minutes = recipe.cookMinutes {
             LabeledContent("Cooking", value: Duration.text(minutes: minutes))
-        }
-        if let average = recipe.averageRatingText() {
-            LabeledContent("Household rating") {
-                HStack(spacing: 6) {
-                    AverageRatingLabel(text: average)
-                    Text("(\(recipe.ratingCount) ratings)")
-                }
-            }
         }
         if !recipe.labelLine.isEmpty {
             Text(verbatim: recipe.labelLine)

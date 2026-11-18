@@ -6,13 +6,14 @@ own server; the app asks for its address on first launch and talks to nothing el
 - Browse, search and filter recipes by course, tag and favorites, scale
   ingredients to the servings you need
 - Create, edit and delete recipes with ingredients, steps, tools and a cover photo
-- Rate recipes from 0 to 10 and mark favorites
 - Import recipes from links, in the app or through the share sheet of TikTok,
   Instagram, Safari and other apps, with live progress and a notification
   about the outcome
 - Plan the week, by hand or in three steps: choose days and meals, set
   preferences, then lock or re-roll the proposals before they are saved
-- Shopping list in package sizes, grouped by the areas of the store
+- Shopping list in package sizes as large tiles, grouped by the areas of the
+  store; changes of other devices show within a second
+- Rate recipes with stars in half steps and mark favorites
 - Pantry with expiry dates
 - Review of the values the server suggests for new products, and editors for
   all products with their package sizes and unit conversions and for the tools

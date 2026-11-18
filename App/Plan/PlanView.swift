@@ -70,6 +70,9 @@ struct PlanView: View {
             .task(id: selection.week) {
                 await model.load(selection.week)
             }
+            .reloadsOnChange(of: .plan) {
+                await model.load(selection.week)
+            }
             .errorAlert($model.errorMessage)
         }
     }

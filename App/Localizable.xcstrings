@@ -1,16 +1,6 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "%lld / %lld": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$lld / %2$lld"
-          }
-        }
-      }
-    },
     "%lld matching recipes for %lld meals": {
       "localizations": {
         "de": {
@@ -57,6 +47,16 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "%lld of %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld von %2$lld"
           }
         }
       }
@@ -134,46 +134,6 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld servings"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "(%lld ratings)": {
-      "localizations": {
-        "de": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "(%lld Bewertung)"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "(%lld Bewertungen)"
-                }
-              }
-            }
-          }
-        },
-        "en": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "(%lld rating)"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "(%lld ratings)"
                 }
               }
             }
@@ -266,7 +226,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gang hinzufügen"
+            "value": "Speisenkategorie hinzufügen"
           }
         }
       }
@@ -396,7 +356,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Gänge"
+            "value": "Alle Speisenkategorien"
           }
         }
       }
@@ -686,7 +646,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gang"
+            "value": "Speisenkategorie"
           }
         }
       }
@@ -811,6 +771,16 @@
         }
       }
     },
+    "Details": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Details"
+          }
+        }
+      }
+    },
     "Dinner": {
       "localizations": {
         "de": {
@@ -827,6 +797,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fertig"
+          }
+        }
+      }
+    },
+    "Done (%lld)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erledigt (%lld)"
           }
         }
       }
@@ -871,12 +851,12 @@
         }
       }
     },
-    "Expires unused: %@": {
+    "Expires unused": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verfällt ungenutzt: %@"
+            "value": "Verdirbt"
           }
         }
       }
@@ -971,16 +951,6 @@
         }
       }
     },
-    "Household rating": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bewertung im Haushalt"
-          }
-        }
-      }
-    },
     "Identify as a browser": {
       "localizations": {
         "de": {
@@ -1071,12 +1041,12 @@
         }
       }
     },
-    "Leftover: %@": {
+    "Leftover": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rest: %@"
+            "value": "Rest"
           }
         }
       }
@@ -1211,6 +1181,16 @@
         }
       }
     },
+    "Needed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bedarf"
+          }
+        }
+      }
+    },
     "New ingredient": {
       "localizations": {
         "de": {
@@ -1276,7 +1256,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kein Gang"
+            "value": "Keine"
           }
         }
       }
@@ -1361,16 +1341,6 @@
         }
       }
     },
-    "Not rated": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nicht bewertet"
-          }
-        }
-      }
-    },
     "Note": {
       "localizations": {
         "de": {
@@ -1397,6 +1367,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nichts zu prüfen"
+          }
+        }
+      }
+    },
+    "Number of pieces or amount": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stückzahl oder Menge"
           }
         }
       }
@@ -1517,16 +1497,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Passwort"
-          }
-        }
-      }
-    },
-    "Period": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zeitraum"
           }
         }
       }
@@ -2076,7 +2046,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vorschläge stehen aus"
+            "value": "KI-Vorschläge stehen aus"
           }
         }
       }
@@ -2111,6 +2081,16 @@
         }
       }
     },
+    "The amount rests on an unconfirmed conversion.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menge beruht auf einer unbestätigten Umrechnung"
+          }
+        }
+      }
+    },
     "The image could not be read.": {
       "localizations": {
         "de": {
@@ -2137,6 +2117,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Titel"
+          }
+        }
+      }
+    },
+    "To buy": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einkaufen"
           }
         }
       }
@@ -2241,6 +2231,16 @@
         }
       }
     },
+    "Used for": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verwendung"
+          }
+        }
+      }
+    },
     "Used in ingredient lines": {
       "localizations": {
         "de": {
@@ -2336,7 +2336,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bewertung zurückziehen"
+            "value": "Bewertung zurücknehmen"
           }
         }
       }
@@ -2381,16 +2381,6 @@
         }
       }
     },
-    "approx. %@": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ca. %@"
-          }
-        }
-      }
-    },
     "based on the plan so far": {
       "localizations": {
         "de": {
@@ -2411,6 +2401,16 @@
         }
       }
     },
+    "e.g. 12 cinnamon rolls or 1 tray": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "z. B. 12 Zimtschnecken oder 1 Blech"
+          }
+        }
+      }
+    },
     "favorites and well rated recipes": {
       "localizations": {
         "de": {
@@ -2427,6 +2427,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "kein Gericht doppelt, nicht zweimal hintereinander dieselbe Küche"
+          }
+        }
+      }
+    },
+    "not rated": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nicht bewertet"
           }
         }
       }
@@ -2528,6 +2538,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "hinterlegt"
+          }
+        }
+      }
+    },
+    "Ø %@ from %lld ratings": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ø %1$@ aus %2$lld Bewertung"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ø %1$@ aus %2$lld Bewertungen"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ø %1$@ from %2$lld rating"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ø %1$@ from %2$lld ratings"
+                }
+              }
+            }
           }
         }
       }

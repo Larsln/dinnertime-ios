@@ -19,8 +19,17 @@ public struct ShoppingSection: Identifiable, Sendable {
 }
 
 extension ShoppingList {
-    /// Items grouped by area, keeping the walking order of the list.
-    public var sections: [ShoppingSection] {
+    /// The items that are still to buy, grouped by area in walking order.
+    public var openSections: [ShoppingSection] {
+        Self.sections(of: items.filter { !$0.isChecked })
+    }
+
+    /// The items that were checked off, in the order of the list.
+    public var checkedItems: [ShoppingListItem] {
+        items.filter(\.isChecked)
+    }
+
+    private static func sections(of items: [ShoppingListItem]) -> [ShoppingSection] {
         var order: [ShoppingSection.Kind] = []
         var groups: [ShoppingSection.Kind: [ShoppingListItem]] = [:]
         for item in items {

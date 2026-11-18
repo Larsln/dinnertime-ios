@@ -1,7 +1,7 @@
 import MealplannerKit
 import SwiftUI
 
-/// A recipe with its ingredients and method on two segments, the marks of the user and the ways to change it.
+/// A recipe with its rating at the top, its ingredients and method on two segments and the ways to change it.
 struct RecipeDetailView: View {
     let session: AppSession
     let onUpdate: (RecipeSummary) -> Void
@@ -27,7 +27,7 @@ struct RecipeDetailView: View {
     var body: some View {
         List {
             Section {
-                RecipeHeader(recipe: model.summary)
+                RecipeHeader(model: model)
             }
             if let recipe = model.recipe {
                 content(of: recipe)
@@ -78,7 +78,6 @@ struct RecipeDetailView: View {
         case .method:
             RecipeMethodList(recipe: recipe)
         }
-        RecipeRatingSection(model: model)
         if let url = recipe.sourceURL {
             Section {
                 Link(destination: url) {

@@ -58,6 +58,12 @@ struct ReviewView: View {
             .task {
                 await model.reload()
             }
+            .reloadsOnChange(of: .products, reload: reload)
+            .reloadsOnChange(of: .tools) {
+                if tools.hasLoaded {
+                    await tools.search()
+                }
+            }
             .errorAlert($model.errorMessage)
         }
     }
