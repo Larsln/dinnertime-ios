@@ -1,68 +1,65 @@
 import MealplannerKit
 import SwiftUI
 
-/// One import with its status, the resulting recipe or their number, or the reason it failed.
+/// One import as a card: its recipes once it is done, its progress while it runs, or the reason it failed.
 struct ImportRow: View {
     let item: RecipeImport
     let onRetry: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
-                status
-                Spacer()
-                Text(item.createdAt, format: .relative(presentation: .named))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-            if item.recipes.count > 1 {
-                Text("\(item.recipes.count) recipes")
-                    .font(.headline)
-            } else if let recipe = item.recipes.first {
-                NavigationLink(value: recipe) {
-                    Text(verbatim: recipe.title)
-                        .font(.headline)
+        VStack(alignment: .leading, spacing: 12) {
+            switch item.status {
+            case .completed where !item.recipes.isEmpty:
+                ForEach(item.recipes) { recipe in
+                    ImportedRecipeLink(recipe: recipe)
                 }
-            }
-            Text(verbatim: item.url)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
-                .truncationMode(.middle)
-            if item.status == .failed {
-                if let message = item.errorMessage {
-                    Text(verbatim: message)
-                        .font(.callout)
+            case .failed:
+                HStack(spacing: 12) {
+                    ImportStatusLine(symbol: "exclamationmark.triangle.fill", tint: .red, title: source, detail: item.errorMessage)
+                    Spacer(minLength: 0)
+                    Button("Try again", systemImage: "arrow.clockwise", action: onRetry)
+                        .labelStyle(.iconOnly)
+                        .buttonStyle(.bordered)
+                        .buttonBorderShape(.circle)
                 }
-                Button("Try again", systemImage: "arrow.clockwise", action: onRetry)
-                    .buttonStyle(.bordered)
+            default:
+                ImportStatusLine(symbol: "arrow.down.circle", tint: .accentColor, title: source, detail: stageText)
+                ProgressView(value: progress)
             }
+            footer
         }
+        .importCard()
     }
 
-    @ViewBuilder
-    private var status: some View {
-        switch item.status {
-        case .pending:
-            Label("Waiting", systemImage: "clock")
-                .foregroundStyle(.secondary)
-        case .processing:
-            Label {
-                if let stage = item.stage {
-                    Text(verbatim: stage.label)
-                } else {
-                    Text("Importing")
-                }
-            } icon: {
-                Image(systemName: "arrow.triangle.2.circlepath")
+    private var footer: some View {
+        HStack(spacing: 4) {
+            if item.status == .completed {
+                Text(verbatim: source)
+                Text(verbatim: "·")
             }
-            .foregroundStyle(.blue)
-        case .completed:
-            Label("Imported", systemImage: "checkmark.circle.fill")
-                .foregroundStyle(.green)
-        case .failed:
-            Label("Failed", systemImage: "exclamationmark.triangle.fill")
-                .foregroundStyle(.red)
+            Text(item.createdAt, format: .relative(presentation: .named))
         }
+        .font(.caption)
+        .foregroundStyle(.secondary)
+        .lineLimit(1)
+    }
+
+    /// Site the link points to, without the leading "www".
+    private var source: String {
+        let host = URL(string: item.url)?.host() ?? item.url
+
+        return host.hasPrefix("www.") ? String(host.dropFirst(4)) : host
+    }
+
+    private var stageText: String {
+        item.stage?.label ?? String(localized: "Waiting")
+    }
+
+    /// Share of the stages that are done, counting the running one as half.
+    private var progress: Double {
+        let stages = RecipeImport.Stage.allCases
+        let current = item.stage.flatMap(stages.firstIndex(of:)) ?? 0
+
+        return (Double(current) + 0.5) / Double(stages.count)
     }
 }

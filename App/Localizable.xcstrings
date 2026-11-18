@@ -2307,6 +2307,16 @@
         }
       }
     },
+    "TikTok, Instagram, YouTube or a web page": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TikTok, Instagram, YouTube oder Webseite"
+          }
+        }
+      }
+    },
     "Title": {
       "localizations": {
         "de": {

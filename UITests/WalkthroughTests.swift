@@ -58,6 +58,19 @@ final class WalkthroughTests: XCTestCase {
         app.buttons["Cancel"].tap()
     }
 
+    func testOpenImports() throws {
+        let account = try Account.fromEnvironment()
+
+        signInIfNeeded(with: account)
+        app.tabBars.buttons["Recipes"].tap()
+        app.buttons["Import"].firstMatch.tap()
+
+        XCTAssertTrue(app.textFields.firstMatch.waitForExistence(timeout: Self.timeout), "The import screen did not open")
+        waitUntilLoaded()
+        record("Imports")
+        app.buttons["Done"].tap()
+    }
+
     func testOpenProductEditor() throws {
         let account = try Account.fromEnvironment()
 

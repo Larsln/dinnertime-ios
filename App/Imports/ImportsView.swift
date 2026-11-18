@@ -15,50 +15,29 @@ struct ImportsView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    TextField("Link to a recipe or video", text: $model.link)
-                        .keyboardType(.URL)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                    DishCountPicker(selection: $model.dishCount)
-                    HStack {
-                        PasteButton(payloadType: String.self) { texts in
-                            paste(texts)
-                        }
-                        .labelStyle(.titleAndIcon)
-                        Spacer()
-                        Button("Import", action: submit)
-                            .buttonStyle(.borderedProminent)
-                            .disabled(model.url == nil || model.isSubmitting)
-                    }
-                }
-                if !session.offline.pendingLinks.isEmpty {
-                    Section("Waiting for a connection") {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 12) {
+                    ImportComposer(model: model, onSubmit: submit)
+                    if !session.offline.pendingLinks.isEmpty {
+                        heading("Waiting for a connection")
                         ForEach(session.offline.pendingLinks, id: \.self) { link in
-                            Label {
-                                Text(verbatim: link.url.absoluteString)
-                                    .lineLimit(1)
-                                    .truncationMode(.middle)
-                            } icon: {
-                                Image(systemName: "clock")
+                            ImportStatusLine(symbol: "clock", tint: .secondary, title: link.url.host() ?? link.url.absoluteString, detail: nil)
+                                .importCard()
+                        }
+                    }
+                    if !model.imports.isEmpty {
+                        heading("Recent imports")
+                        ForEach(model.imports) { item in
+                            ImportRow(item: item) {
+                                retry(item)
                             }
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
                         }
                     }
                 }
-                Section("Recent imports") {
-                    ForEach(model.imports) { item in
-                        ImportRow(item: item) {
-                            retry(item)
-                        }
-                        if item.recipes.count > 1 {
-                            ImportRecipeLinks(recipes: item.recipes)
-                        }
-                    }
-                }
+                .padding(16)
             }
+            .background(Color(.systemGroupedBackground))
+            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Import")
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: RecipeSummary.self) { recipe in
@@ -79,10 +58,11 @@ struct ImportsView: View {
         }
     }
 
-    private func paste(_ texts: [String]) {
-        Task { @MainActor in
-            model.link = texts.first ?? ""
-        }
+    private func heading(_ title: LocalizedStringKey) -> some View {
+        Text(title)
+            .font(.title3.bold())
+            .padding(.top, 12)
+            .padding(.leading, 4)
     }
 
     private func submit() {
