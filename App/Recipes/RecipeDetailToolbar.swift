@@ -16,7 +16,6 @@ struct RecipeDetailToolbar: ToolbarContent {
                     await model.toggleFavorite()
                 }
             }
-            .disabled(model.isMarking)
             Menu("Actions", systemImage: "ellipsis.circle") {
                 Button("Edit", systemImage: "pencil") {
                     showsEditor = true

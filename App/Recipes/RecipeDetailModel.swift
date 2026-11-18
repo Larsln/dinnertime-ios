@@ -20,8 +20,8 @@ final class RecipeDetailModel: ErrorReporting {
     /// What is known about the recipe before and after it is loaded, including the marks of the user.
     private(set) var summary: RecipeSummary
     private(set) var recipe: Recipe?
-    /// Whether a rating or favorite change waits for the server.
-    private(set) var isMarking = false
+    /// Counts the rating and favorite changes, so that only the answer to the latest one is taken over.
+    private var markCount = 0
 
     private let session: AppSession
 
@@ -75,19 +75,21 @@ final class RecipeDetailModel: ErrorReporting {
         }
     }
 
-    /// Applies a change at once and undoes it if the server rejects it.
+    /// Applies a change at once and undoes it if the server rejects it; a newer change keeps what it set.
     private func mark(_ endpoint: Endpoint<RecipeSummary>, optimistically change: (inout RecipeSummary) -> Void) async {
-        guard !isMarking else {
-            return
-        }
-        isMarking = true
-        defer { isMarking = false }
+        markCount += 1
+        let number = markCount
         let previous = summary
         change(&summary)
         do {
-            summary = try await session.send(endpoint)
+            let answer = try await session.send(endpoint)
+            if number == markCount {
+                summary = answer
+            }
         } catch {
-            summary = previous
+            if number == markCount {
+                summary = previous
+            }
             report(error)
         }
     }

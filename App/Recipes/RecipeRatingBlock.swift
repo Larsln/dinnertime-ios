@@ -29,7 +29,6 @@ struct RecipeRatingBlock: View {
                 }
             }
         }
-        .disabled(model.isMarking)
     }
 
     private func rate(_ rating: Int?) {
