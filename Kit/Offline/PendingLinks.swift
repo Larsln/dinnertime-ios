@@ -14,18 +14,18 @@ public struct PendingLinks: Sendable {
     }
 
     /// The waiting links, oldest first.
-    public var links: [URL] {
-        (try? Data(contentsOf: file)).flatMap { try? JSONDecoder().decode([URL].self, from: $0) } ?? []
+    public var links: [PendingLink] {
+        (try? Data(contentsOf: file)).flatMap { try? JSONDecoder().decode([PendingLink].self, from: $0) } ?? []
     }
 
-    /// Adds a link unless it waits already.
-    public func add(_ link: URL) {
-        save(links.filter { $0 != link } + [link])
+    /// Adds a link with the number of dishes it shows; a link that waits already moves to the end with the new number.
+    public func add(_ link: URL, dishCount: Int? = nil) {
+        save(links.filter { $0.url != link } + [PendingLink(url: link, dishCount: dishCount)])
     }
 
     /// Takes a link off the list once it was submitted.
     public func remove(_ link: URL) {
-        save(links.filter { $0 != link })
+        save(links.filter { $0.url != link })
     }
 
     /// Forgets all links.
@@ -33,7 +33,7 @@ public struct PendingLinks: Sendable {
         try? FileManager.default.removeItem(at: file)
     }
 
-    private func save(_ links: [URL]) {
+    private func save(_ links: [PendingLink]) {
         try? FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
         try? JSONEncoder().encode(links).write(to: file, options: .atomic)
     }

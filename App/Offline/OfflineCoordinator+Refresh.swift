@@ -77,8 +77,8 @@ extension OfflineCoordinator {
 
     func submitLinks(_ client: APIClient) async {
         for link in links.links {
-            if (try? await client.send(ImportEndpoints.create(url: link))) != nil {
-                links.remove(link)
+            if (try? await client.send(ImportEndpoints.create(url: link.url, dishCount: link.dishCount))) != nil {
+                links.remove(link.url)
             }
         }
         pendingLinks = links.links

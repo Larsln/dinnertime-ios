@@ -61,6 +61,8 @@ struct DecodingTests {
         #expect(imports[0].status == .completed)
         #expect(!imports[0].isActive)
         #expect(imports[0].recipe?.id == 1)
+        #expect(imports[0].recipes.map(\.id) == [1])
+        #expect(imports[0].dishCount == nil)
         #expect(imports[0].createdAt == Date(timeIntervalSince1970: 1_794_950_135))
     }
 

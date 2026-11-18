@@ -3,6 +3,9 @@ import SwiftUI
 
 /// A card with the progress of an import and its outcome.
 struct ShareView: View {
+    /// Name of the button that starts the import, for the interface tests.
+    static let startIdentifier = "startImport"
+
     let model: ShareModel
     let onClose: () -> Void
 
@@ -30,6 +33,17 @@ struct ShareView: View {
     @ViewBuilder
     private var content: some View {
         switch model.state {
+        case .preparing:
+            ProgressView()
+        case .choosing:
+            DishCountPicker(selection: Bindable(model).dishCount)
+            Button("Import") {
+                Task {
+                    await model.start()
+                }
+            }
+            .buttonStyle(.borderedProminent)
+            .accessibilityIdentifier(Self.startIdentifier)
         case .sending:
             ProgressView()
             Text("Sending link…")
@@ -40,10 +54,20 @@ struct ShareView: View {
             Button("Continue in background", action: onClose)
                 .buttonStyle(.bordered)
         case let .imported(item, wasKnown):
-            Label(wasKnown ? "Already in your collection" : "Recipe imported", systemImage: "checkmark.circle.fill")
-                .font(.headline)
-                .foregroundStyle(.green)
-            if let recipe = item.recipe {
+            Label {
+                if wasKnown {
+                    Text("Already in your collection")
+                } else {
+                    Text(verbatim: ImportProgress.completionTitle(recipeCount: item.recipes.count))
+                }
+            } icon: {
+                Image(systemName: "checkmark.circle.fill")
+            }
+            .font(.headline)
+            .foregroundStyle(.green)
+            if item.recipes.count > 1 {
+                ImportedRecipeTitles(recipes: item.recipes)
+            } else if let recipe = item.recipes.first {
                 ImportedRecipeView(recipe: recipe, serverURL: model.serverURL)
             }
             Button("Done", action: onClose)

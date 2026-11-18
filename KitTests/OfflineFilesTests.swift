@@ -60,11 +60,11 @@ struct OfflineFilesTests {
         links.add(second)
         links.add(first)
 
-        #expect(links.links == [second, first])
+        #expect(links.links.map(\.url) == [second, first])
 
         links.remove(second)
 
-        #expect(links.links == [first])
+        #expect(links.links.map(\.url) == [first])
 
         links.removeAll()
 

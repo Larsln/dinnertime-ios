@@ -1,7 +1,7 @@
 import MealplannerKit
 import SwiftUI
 
-/// One import with its status, the resulting recipe or the reason it failed.
+/// One import with its status, the resulting recipe or their number, or the reason it failed.
 struct ImportRow: View {
     let item: RecipeImport
     let onRetry: () -> Void
@@ -15,7 +15,10 @@ struct ImportRow: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            if let recipe = item.recipe {
+            if item.recipes.count > 1 {
+                Text("\(item.recipes.count) recipes")
+                    .font(.headline)
+            } else if let recipe = item.recipes.first {
                 NavigationLink(value: recipe) {
                     Text(verbatim: recipe.title)
                         .font(.headline)

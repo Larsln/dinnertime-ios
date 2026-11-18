@@ -1,3 +1,5 @@
+import Foundation
+
 /// How far an import got, as a list of steps to show.
 public enum ImportProgress {
     /// State of one step.
@@ -20,6 +22,13 @@ public enum ImportProgress {
             let current = item.stage.flatMap(stages.firstIndex(of:)) ?? 0
             return position < current ? .done : position == current ? .active : .upcoming
         }
+    }
+
+    /// Headline of a completed import, which names the number of recipes when it produced several.
+    public static func completionTitle(recipeCount: Int) -> String {
+        recipeCount > 1
+            ? String(localized: "\(recipeCount) recipes imported", bundle: .kit)
+            : String(localized: "Recipe imported", bundle: .kit)
     }
 }
 

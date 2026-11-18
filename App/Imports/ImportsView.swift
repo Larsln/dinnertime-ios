@@ -21,6 +21,7 @@ struct ImportsView: View {
                         .keyboardType(.URL)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                    DishCountPicker(selection: $model.dishCount)
                     HStack {
                         PasteButton(payloadType: String.self) { texts in
                             paste(texts)
@@ -36,7 +37,7 @@ struct ImportsView: View {
                     Section("Waiting for a connection") {
                         ForEach(session.offline.pendingLinks, id: \.self) { link in
                             Label {
-                                Text(verbatim: link.absoluteString)
+                                Text(verbatim: link.url.absoluteString)
                                     .lineLimit(1)
                                     .truncationMode(.middle)
                             } icon: {
@@ -51,6 +52,9 @@ struct ImportsView: View {
                     ForEach(model.imports) { item in
                         ImportRow(item: item) {
                             retry(item)
+                        }
+                        if item.recipes.count > 1 {
+                            ImportRecipeLinks(recipes: item.recipes)
                         }
                     }
                 }

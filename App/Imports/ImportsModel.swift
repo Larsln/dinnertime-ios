@@ -10,6 +10,8 @@ final class ImportsModel: ErrorReporting {
 
     /// Text of the input field, a link or text that contains one.
     var link = ""
+    /// Number of dishes the user says the video shows; `nil` lets the server find out.
+    var dishCount: Int?
     var errorMessage: String?
     private(set) var imports: [RecipeImport] = []
     private(set) var isSubmitting = false
@@ -40,20 +42,25 @@ final class ImportsModel: ErrorReporting {
         isSubmitting = true
         defer { isSubmitting = false }
         guard session.offline.isOnline else {
-            session.offline.keep(url)
-            link = ""
+            session.offline.keep(url, dishCount: dishCount)
+            clearInput()
             return
         }
         await attempt {
             do {
-                let created = try await session.send(ImportEndpoints.create(url: url))
+                let created = try await session.send(ImportEndpoints.create(url: url, dishCount: dishCount))
                 imports.removeAll { $0.id == created.id }
                 imports.insert(created, at: 0)
             } catch APIError.unreachable {
-                session.offline.keep(url)
+                session.offline.keep(url, dishCount: dishCount)
             }
-            link = ""
+            clearInput()
         }
+    }
+
+    private func clearInput() {
+        link = ""
+        dishCount = nil
     }
 
     /// Queues a failed import again.

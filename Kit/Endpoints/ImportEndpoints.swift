@@ -4,11 +4,12 @@ import Foundation
 public enum ImportEndpoints {
     private struct CreateBody: Encodable {
         let url: String
+        let dishCount: Int?
     }
 
-    /// `POST /imports`: queues the import of a link.
-    public static func create(url: URL) -> Endpoint<RecipeImport> {
-        .resource(.post, "imports", body: CreateBody(url: url.absoluteString))
+    /// `POST /imports`: queues the import of a link; without `dishCount` the server finds out how many dishes it shows.
+    public static func create(url: URL, dishCount: Int? = nil) -> Endpoint<RecipeImport> {
+        .resource(.post, "imports", body: CreateBody(url: url.absoluteString, dishCount: dishCount))
     }
 
     /// `GET /imports`: the most recent imports.

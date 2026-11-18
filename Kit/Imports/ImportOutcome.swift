@@ -2,8 +2,8 @@ import Foundation
 
 /// What a request to `GET /imports/{id}/wait` said about an import.
 public enum ImportOutcome: Equatable, Sendable {
-    /// The recipe with this title was imported.
-    case imported(importID: Int, title: String)
+    /// The recipes with these titles were imported, in the order of the import.
+    case imported(importID: Int, titles: [String])
     /// The import failed for the reason the server explains in `message`.
     case failed(importID: Int, message: String?)
     /// The server gave up waiting; the import is still running.
@@ -21,7 +21,7 @@ public enum ImportOutcome: Equatable, Sendable {
     public init(_ item: RecipeImport) {
         switch item.status {
         case .completed:
-            self = .imported(importID: item.id, title: item.recipe?.title ?? "")
+            self = .imported(importID: item.id, titles: item.recipes.map(\.title))
         case .failed:
             self = .failed(importID: item.id, message: item.errorMessage)
         case .pending, .processing:
@@ -40,8 +40,13 @@ public enum ImportOutcome: Equatable, Sendable {
     /// The notification that tells the user about the outcome; `nil` while the import is still running.
     public var notice: ImportNotice? {
         switch self {
-        case let .imported(importID, title):
-            ImportNotice(importID: importID, title: String(localized: "Recipe imported", bundle: .kit), body: title, opensRecipe: true)
+        case let .imported(importID, titles):
+            ImportNotice(
+                importID: importID,
+                title: ImportProgress.completionTitle(recipeCount: titles.count),
+                body: ListFormatter.localizedString(byJoining: titles),
+                opensRecipe: titles.count <= 1
+            )
         case let .failed(importID, message):
             ImportNotice(
                 importID: importID,
@@ -63,7 +68,7 @@ public struct ImportNotice: Equatable, Sendable {
     public let importID: Int
     public let title: String
     public let body: String
-    /// Whether tapping the notification opens the imported recipe instead of the list of imports.
+    /// Whether tapping the notification opens the imported recipe instead of the list of imports, which offers each of several recipes.
     public let opensRecipe: Bool
 
     /// What the notification carries to find its way back when it is tapped.

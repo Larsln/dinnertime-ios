@@ -67,6 +67,15 @@ struct RequestBuilderTests {
         #expect(body as? [String: String] == ["url": "https://www.tiktok.com/@cook/video/1?lang=de"])
     }
 
+    @Test func encodesImportWithDishCount() throws {
+        let url = try #require(URL(string: "https://www.tiktok.com/@cook/video/1"))
+        let body = try json(builder.request(for: ImportEndpoints.create(url: url, dishCount: 3)))
+
+        #expect(body.count == 2)
+        #expect(body["url"] as? String == "https://www.tiktok.com/@cook/video/1")
+        #expect(body["dish_count"] as? Int == 3)
+    }
+
     @Test func encodesMealPlanEntry() throws {
         let day = DayDate(year: 2026, month: 11, day: 18)
         let body = try json(builder.request(for: MealPlanEndpoints.create(date: day, meal: .dinner, recipeID: 4, servings: 2)))

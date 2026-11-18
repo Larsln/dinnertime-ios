@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-/// Entry point of the share extension: queues the shared link and shows the import until the user closes the sheet.
+/// Entry point of the share extension: offers the shared link for import and shows the import until the user closes the sheet.
 final class ShareViewController: UIViewController {
     private let model = ShareModel()
 
@@ -11,7 +11,7 @@ final class ShareViewController: UIViewController {
             self?.close()
         })
         Task {
-            await model.share(extensionContext?.inputItems.compactMap { $0 as? NSExtensionItem } ?? [])
+            await model.prepare(extensionContext?.inputItems.compactMap { $0 as? NSExtensionItem } ?? [])
         }
     }
 

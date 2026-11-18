@@ -32,6 +32,11 @@ final class ShareExtensionTests: XCTestCase {
         XCTAssertTrue(target.exists, "The share sheet does not offer the app")
         target.tap()
 
+        record("Share offered")
+        let start = safari.buttons["startImport"]
+        XCTAssertTrue(start.waitForExistence(timeout: Self.timeout), "The extension does not offer to start the import")
+        start.tap()
+
         record("Share started")
         sleep(4)
         record("Share outcome")

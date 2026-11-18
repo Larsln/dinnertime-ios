@@ -25,7 +25,7 @@ final class OfflineCoordinator {
     /// Counts the completed syncs, for what has to be read again after each.
     var syncCount = 0
     /// Links that wait for a connection to be imported.
-    var pendingLinks: [URL] = []
+    var pendingLinks: [PendingLink] = []
     /// What the server refused to save, for an alert.
     var rejectionMessage: String?
 
@@ -128,9 +128,9 @@ final class OfflineCoordinator {
         return endpoint.method == .get ? await store.rememberedAnswer(forPath: endpoint.path) : nil
     }
 
-    /// Keeps a link to import it once the server can be reached.
-    func keep(_ link: URL) {
-        links.add(link)
+    /// Keeps a link and the number of dishes it shows to import it once the server can be reached.
+    func keep(_ link: URL, dishCount: Int? = nil) {
+        links.add(link, dishCount: dishCount)
         pendingLinks = links.links
     }
 

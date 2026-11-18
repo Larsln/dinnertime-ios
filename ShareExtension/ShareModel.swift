@@ -2,7 +2,7 @@ import Foundation
 import MealplannerKit
 import Observation
 
-/// Sends a shared link to the import queue of the server and follows the import while the sheet is open.
+/// Lets the user say how many dishes a shared link shows, sends it to the import queue of the server and follows the import while the sheet is open.
 ///
 /// A background transfer waits for the outcome as well, so that the app can notify the user
 /// after the sheet was closed. It is cancelled once the sheet itself showed the outcome.
@@ -11,6 +11,10 @@ import Observation
 final class ShareModel {
     /// Progress of the share.
     enum State: Equatable {
+        /// The shared content is searched for a link.
+        case preparing
+        /// The link waits for the user to choose the number of dishes and start the import.
+        case choosing
         case sending
         /// The server works on the import.
         case importing(RecipeImport)
@@ -26,12 +30,15 @@ final class ShareModel {
 
     private static let pollInterval: Duration = .seconds(2)
 
-    private(set) var state = State.sending
+    private(set) var state = State.preparing
+    /// Number of dishes the user says the video shows; `nil` lets the server find out.
+    var dishCount: Int?
     /// Host of the shared link.
     private(set) var host: String?
     /// Root of the server, to load cover images from.
     private(set) var serverURL: URL?
 
+    private var link: URL?
     private let credentialStore: CredentialStore
     private let shown: ShownImportOutcomes
     private let waitSession: URLSession
@@ -42,8 +49,8 @@ final class ShareModel {
         waitSession = URLSession(configuration: ImportWaitSession(owner: .shareExtension).configuration)
     }
 
-    /// Extracts the link from the shared `items`, queues its import and follows it to its outcome.
-    func share(_ items: [NSExtensionItem]) async {
+    /// Extracts the link from the shared `items` and offers the choice of the number of dishes.
+    func prepare(_ items: [NSExtensionItem]) async {
         guard let credentials = try? credentialStore.load() else {
             state = .failed(message: Self.signInMessage)
             return
@@ -52,14 +59,29 @@ final class ShareModel {
             state = .failed(message: String(localized: "The shared content contains no link."))
             return
         }
+        self.link = link
         host = link.host()
         serverURL = credentials.serverURL
+        state = .choosing
+    }
+
+    /// Queues the import of the link with the chosen number of dishes and follows it to its outcome.
+    func start() async {
+        guard state == .choosing, let link else {
+            return
+        }
+        guard let credentials = try? credentialStore.load() else {
+            state = .failed(message: Self.signInMessage)
+            return
+        }
+        let dishCount = dishCount
+        state = .sending
         await run(credentials) { client in
             do {
-                let created = try await client.send(ImportEndpoints.create(url: link))
+                let created = try await client.send(ImportEndpoints.create(url: link, dishCount: dishCount))
                 return (created, created.status == .completed)
             } catch APIError.unreachable {
-                PendingLinks().add(link)
+                PendingLinks().add(link, dishCount: dishCount)
                 throw LinkKept()
             }
         }

@@ -68,7 +68,7 @@ struct ImportOutcomeTests {
         let outcome = try #require(ImportOutcome(waitAnswer: answer(status: "completed", title: "Zwiebelkuchen")))
         let notice = try #require(outcome.notice)
 
-        #expect(outcome == .imported(importID: 12, title: "Zwiebelkuchen"))
+        #expect(outcome == .imported(importID: 12, titles: ["Zwiebelkuchen"]))
         #expect(notice.body == "Zwiebelkuchen")
         #expect(notice.opensRecipe)
         #expect(ImportNotice.destination(for: notice.userInfo) == .recipe(importID: 12))
@@ -111,7 +111,7 @@ struct ImportOutcomeTests {
         shown.insert(12)
         #expect(shown.contains(12))
         #expect(!shown.shouldNotify(about: outcome))
-        #expect(shown.shouldNotify(about: .imported(importID: 13, title: "y")))
+        #expect(shown.shouldNotify(about: .imported(importID: 13, titles: ["y"])))
     }
 
     @Test func retriedImportsNotifyAgain() {
