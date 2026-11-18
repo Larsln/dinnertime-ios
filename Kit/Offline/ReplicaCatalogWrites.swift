@@ -11,7 +11,7 @@ extension Replica {
             }
             let product: JSONObject = [
                 "id": makeTemporaryID(), "name": name, "plural_name": NSNull(), "icon": NSNull(), "base_unit": "g",
-                "is_pantry_staple": false, "shelf_life_opened_days": NSNull(), "status": "confirmed", "enriched_at": NSNull(),
+                "is_pantry_staple": false, "shelf_life_opened_days": NSNull(), "note": NSNull(), "status": "confirmed", "enriched_at": NSNull(),
                 "store_section": NSNull(), "aliases": [String](), "conversions": [JSONObject](), "packages": [JSONObject](),
             ]
             put(.products, product)
@@ -32,7 +32,7 @@ extension Replica {
             remove(.products, id)
             return LocalResult(areas: [.products], change: QueuedChange())
         } else if request.matches(.patch, "products", "*") {
-            for field in ["name", "plural_name", "icon", "base_unit", "is_pantry_staple", "shelf_life_opened_days"] {
+            for field in ["name", "plural_name", "icon", "base_unit", "is_pantry_staple", "shelf_life_opened_days", "note"] {
                 if let value = request.body[field] {
                     product[field] = value
                 }

@@ -1077,6 +1077,16 @@
         }
       }
     },
+    "Has a note": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hat eine Notiz"
+          }
+        }
+      }
+    },
     "Hide additional meals": {
       "localizations": {
         "de": {
@@ -1573,6 +1583,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Notiz"
+          }
+        }
+      }
+    },
+    "Note, e.g. shop, size or price": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notiz, z. B. Laden, Größe oder Preis"
           }
         }
       }

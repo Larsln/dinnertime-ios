@@ -31,7 +31,9 @@ struct ShoppingBoard: View {
             .padding()
         }
         .sheet(item: $detailedItem) { item in
-            ShoppingItemDetails(item: item, onDelete: item.isManual ? { delete(item) } : nil)
+            ShoppingItemDetails(item: item, onDelete: item.isManual ? { delete(item) } : nil) { note in
+                saveNote(note, of: item)
+            }
         }
     }
 
@@ -62,6 +64,15 @@ struct ShoppingBoard: View {
             Text("Other products")
         case .freeText:
             Text("Other items")
+        }
+    }
+
+    private func saveNote(_ note: String?, of item: ShoppingListItem) {
+        guard let product = item.product else {
+            return
+        }
+        Task {
+            await model.setNote(note, of: product)
         }
     }
 

@@ -10,6 +10,19 @@ public enum ProductEndpoints {
         let into: Int
     }
 
+    private struct NoteBody: Encodable {
+        let note: String?
+
+        func encode(to encoder: any Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(note, forKey: .note)
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case note
+        }
+    }
+
     /// `GET /products`: one page of products whose name or alias contains `search`.
     public static func search(_ search: String, page: Int = 1) -> Endpoint<Page<Product>> {
         let query = [
@@ -32,6 +45,11 @@ public enum ProductEndpoints {
     /// `PATCH /products/{id}`: changes the values of a product.
     public static func update(id: Int, _ input: ProductInput) -> Endpoint<Product> {
         .resource(.patch, "products/\(id)", body: input)
+    }
+
+    /// `PATCH /products/{id}`: changes only the note of a product; `nil` clears it.
+    public static func setNote(_ note: String?, id: Int) -> Endpoint<Product> {
+        .resource(.patch, "products/\(id)", body: NoteBody(note: note))
     }
 
     /// `DELETE /products/{id}`: deletes a product; answers `409` while a recipe uses it.

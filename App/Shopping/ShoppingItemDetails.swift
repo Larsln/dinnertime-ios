@@ -1,15 +1,27 @@
 import MealplannerKit
 import SwiftUI
 
-/// What stands behind a position of the shopping list: need, leftovers, spoilage and the recipes that use it.
+/// What stands behind a position of the shopping list: need, leftovers, spoilage, the recipes that use it and the note of its product.
 struct ShoppingItemDetails: View {
     let item: ShoppingListItem
     /// Deletes the item; `nil` for items that come from the plan.
     let onDelete: (() -> Void)?
+    /// Stores the note of the item's product; `nil` clears it.
+    let onSaveNote: (String?) -> Void
 
+    @State private var note: String
+    @State private var savedNote: String?
     @Environment(\.dismiss) private var dismiss
 
     private let formatter = AmountFormatter()
+
+    init(item: ShoppingListItem, onDelete: (() -> Void)?, onSaveNote: @escaping (String?) -> Void) {
+        self.item = item
+        self.onDelete = onDelete
+        self.onSaveNote = onSaveNote
+        _note = State(initialValue: item.product?.note ?? "")
+        _savedNote = State(initialValue: item.product?.note)
+    }
 
     var body: some View {
         NavigationStack {
@@ -24,6 +36,12 @@ struct ShoppingItemDetails: View {
                         if item.isApproximate {
                             Text("The amount rests on an unconfirmed conversion.")
                         }
+                    }
+                }
+                if item.product != nil {
+                    Section("Note") {
+                        ProductNoteField(text: $note)
+                            .onSubmit(saveNote)
                     }
                 }
                 if let product = item.product, !item.uses.isEmpty {
@@ -58,6 +76,17 @@ struct ShoppingItemDetails: View {
             }
         }
         .presentationDetents([.medium, .large])
+        .onDisappear(perform: saveNote)
+    }
+
+    /// Stores the note if it differs from what was stored last.
+    private func saveNote() {
+        let edited = Product.storedNote(note)
+        guard item.product != nil, edited != savedNote else {
+            return
+        }
+        savedNote = edited
+        onSaveNote(edited)
     }
 
     @ViewBuilder

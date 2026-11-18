@@ -22,6 +22,9 @@ struct ProductEditorView: View {
         Form {
             ProductFactsSection(product: model.product)
             ProductDetailsSection(draft: $model.draft, storeSections: model.storeSections)
+            Section("Note") {
+                ProductNoteField(text: $model.draft.note)
+            }
             ProductPackagesSection(draft: $model.draft)
             ProductConversionsSection(draft: $model.draft, addableUnits: model.addableUnits)
             actions

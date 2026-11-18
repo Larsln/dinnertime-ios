@@ -85,6 +85,25 @@ final class WalkthroughTests: XCTestCase {
         }
     }
 
+    func testOpenShoppingItemDetails() throws {
+        let account = try Account.fromEnvironment()
+
+        signInIfNeeded(with: account)
+        app.tabBars.buttons["Shopping"].tap()
+        waitUntilLoaded()
+
+        let tile = app.scrollViews.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", "Käse")).firstMatch
+        XCTAssertTrue(tile.waitForExistence(timeout: Self.timeout), "The shopping list has no tile to press")
+        app.swipeUp()
+        app.swipeDown()
+        XCTAssertTrue(tile.isHittable, "Scrolling the list moved or checked the tile")
+        tile.press(forDuration: 0.4)
+        sleep(1)
+        record("Shopping item details")
+
+        XCTAssertTrue(app.staticTexts["Note"].waitForExistence(timeout: Self.timeout), "The details offer no note")
+    }
+
     func testOpenProductEditor() throws {
         let account = try Account.fromEnvironment()
 

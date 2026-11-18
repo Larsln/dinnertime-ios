@@ -42,6 +42,8 @@ struct ProductDraft {
     var isPantryStaple: Bool
     /// Days an opened package stays usable; `nil` for products that keep.
     var shelfLife: Int?
+    /// What the household noted about the product; empty for none.
+    var note: String
     var packages: [Package]
     var conversions: [Conversion]
 
@@ -52,6 +54,7 @@ struct ProductDraft {
         baseUnit = product.baseUnit
         isPantryStaple = product.isPantryStaple ?? false
         shelfLife = product.shelfLifeOpenedDays
+        note = product.note ?? ""
         packages = (product.packages ?? []).map { Package(packageID: $0.id, label: $0.label, amount: $0.amountInBase) }
         conversions = (product.conversions ?? []).map { Conversion(unit: $0.unit, amount: $0.amountInBase, isConvertible: $0.amountInBase != nil) }
     }
@@ -69,7 +72,8 @@ struct ProductDraft {
             storeSectionID: storeSectionID,
             baseUnit: baseUnit,
             isPantryStaple: isPantryStaple,
-            shelfLifeOpenedDays: shelfLife
+            shelfLifeOpenedDays: shelfLife,
+            note: Product.storedNote(note)
         )
     }
 }

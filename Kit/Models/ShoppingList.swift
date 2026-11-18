@@ -64,7 +64,7 @@ public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable {
     /// Whether the amounts rest on unconfirmed conversions.
     public let isApproximate: Bool
     public var checkedAt: Date?
-    public let product: Product?
+    public var product: Product?
 
     /// Whether the item was checked off.
     public var isChecked: Bool {

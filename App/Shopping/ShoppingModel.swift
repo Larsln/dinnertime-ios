@@ -89,6 +89,17 @@ final class ShoppingModel: ErrorReporting {
         return Array((leading + found.filter { !ids.contains($0.id) }).prefix(limit))
     }
 
+    /// Changes the note of a product; it shows at once on every item of the product and is undone if the server rejects it.
+    func setNote(_ note: String?, of product: Product) async {
+        showNote(note, ofProduct: product.id)
+        do {
+            showNote(try await session.send(ProductEndpoints.setNote(note, id: product.id)).note, ofProduct: product.id)
+        } catch {
+            showNote(product.note, ofProduct: product.id)
+            report(error)
+        }
+    }
+
     /// Removes an item.
     func delete(_ item: ShoppingListItem) async {
         await attempt {
@@ -122,6 +133,12 @@ final class ShoppingModel: ErrorReporting {
             replace(item)
         } else {
             list?.items.append(item)
+        }
+    }
+
+    private func showNote(_ note: String?, ofProduct id: Int) {
+        for index in list?.items.indices ?? 0..<0 where list?.items[index].product?.id == id {
+            list?.items[index].product?.note = note
         }
     }
 

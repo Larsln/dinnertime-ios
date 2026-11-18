@@ -17,6 +17,9 @@ public enum ReviewStatus: String, Decodable, Sendable {
 /// Lists embed a short form; `recipeCount`, `conversions` and `packages` are only
 /// present on the detail and review endpoints.
 public struct Product: Decodable, Hashable, Identifiable, Sendable {
+    /// Longest note the server stores.
+    public static let noteLimit = 500
+
     public let id: Int
     public let name: String
     public let pluralName: String?
@@ -26,6 +29,8 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
     public let isPantryStaple: Bool?
     /// Days an opened package stays usable.
     public let shelfLifeOpenedDays: Int?
+    /// What the household noted about the product, such as a shop, a size or a price.
+    public var note: String?
     public let status: ReviewStatus
     public let enrichedAt: Date?
     public let recipeCount: Int?
@@ -33,6 +38,12 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
     public let aliases: [String]?
     public let conversions: [ProductConversion]?
     public let packages: [ProductPackage]?
+
+    /// A note as it is stored: without surrounding space, cut to the limit, `nil` when nothing remains.
+    public static func storedNote(_ text: String?) -> String? {
+        let text = (text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).prefix(noteLimit)
+        return text.isEmpty ? nil : String(text)
+    }
 }
 
 /// States how much of the base unit one `unit` of a product is.
