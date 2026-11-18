@@ -27,7 +27,7 @@ struct RecipeHeader: View {
             LabeledContent("Cooking", value: Self.durationText(minutes: minutes))
         }
         if !recipe.tags.isEmpty {
-            Text(verbatim: recipe.tags.map(\.name).joined(separator: " · "))
+            Text(verbatim: recipe.tags.displayLine)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }

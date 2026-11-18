@@ -124,7 +124,28 @@ targets:
     dependencies:
       - target: MealplannerKit
 
+  MealplannerUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - UITests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(APP_BUNDLE_ID).uitests
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: Mealplanner
+
 schemes:
+  MealplannerUITests:
+    build:
+      targets:
+        Mealplanner: all
+        MealplannerUITests: [test]
+    test:
+      config: Debug
+      targets:
+        - MealplannerUITests
   Mealplanner:
     build:
       targets:

@@ -16,7 +16,7 @@ struct RecipeRow: View {
                 Text(verbatim: recipe.title)
                     .font(.headline)
                 if !recipe.tags.isEmpty {
-                    Text(verbatim: recipe.tags.map(\.name).joined(separator: " · "))
+                    Text(verbatim: recipe.tags.displayLine)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .lineLimit(2)
