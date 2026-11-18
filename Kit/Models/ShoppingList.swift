@@ -42,12 +42,20 @@ public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable {
         }
     }
 
+    /// A need in a recipe unit that cannot be converted for the product and is bought in addition.
+    public struct ExtraAmount: Decodable, Hashable, Sendable {
+        public let quantity: Double
+        public let unitCode: String
+    }
+
     public let id: Int
     public let label: String?
     public let isManual: Bool
     public let neededAmount: Double?
     public let purchaseAmount: Double?
     public let packages: [PackagePurchase]
+    /// Needs that are bought in addition to the packages or the purchase amount.
+    public let extraAmounts: [ExtraAmount]
     /// Amount that remains usable after the period.
     public let leftoverAmount: Double?
     /// Amount that expires before a recipe uses it.
@@ -69,7 +77,7 @@ public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case id, label, isManual, neededAmount, purchaseAmount, packages
+        case id, label, isManual, neededAmount, purchaseAmount, packages, extraAmounts
         case leftoverAmount, wastedAmount, uses, isApproximate, checkedAt, product
     }
 
@@ -81,6 +89,7 @@ public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable {
         neededAmount = try container.decodeIfPresent(Double.self, forKey: .neededAmount)
         purchaseAmount = try container.decodeIfPresent(Double.self, forKey: .purchaseAmount)
         packages = try container.decodeIfPresent([PackagePurchase].self, forKey: .packages) ?? []
+        extraAmounts = try container.decodeIfPresent([ExtraAmount].self, forKey: .extraAmounts) ?? []
         leftoverAmount = try container.decodeIfPresent(Double.self, forKey: .leftoverAmount)
         wastedAmount = try container.decodeIfPresent(Double.self, forKey: .wastedAmount)
         uses = try container.decodeIfPresent([Use].self, forKey: .uses) ?? []

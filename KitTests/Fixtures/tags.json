@@ -1,66 +1,6 @@
 {
     "data": [
         {
-            "id": 6,
-            "type": "category",
-            "key": "breakfast",
-            "name": "Frühstück"
-        },
-        {
-            "id": 7,
-            "type": "category",
-            "key": "lunch",
-            "name": "Mittagessen"
-        },
-        {
-            "id": 8,
-            "type": "category",
-            "key": "dinner",
-            "name": "Abendessen"
-        },
-        {
-            "id": 9,
-            "type": "category",
-            "key": "dessert",
-            "name": "Dessert"
-        },
-        {
-            "id": 10,
-            "type": "category",
-            "key": "snack",
-            "name": "Snack"
-        },
-        {
-            "id": 11,
-            "type": "category",
-            "key": "side",
-            "name": "Beilage"
-        },
-        {
-            "id": 12,
-            "type": "category",
-            "key": "salad",
-            "name": "Salat"
-        },
-        {
-            "id": 13,
-            "type": "category",
-            "key": "soup",
-            "name": "Suppe"
-        },
-        {
-            "id": 14,
-            "type": "category",
-            "key": "baking",
-            "name": "Backen"
-        },
-        {
-            "id": 15,
-            "type": "category",
-            "key": "beverage",
-            "name": "Getränk"
-        },
-        {
             "id": 1,
             "type": "meal",
             "key": "breakfast",

@@ -42,9 +42,43 @@ final class WalkthroughTests: XCTestCase {
         XCTAssertTrue(firstRecipe.waitForExistence(timeout: Self.timeout), "The recipe list is empty")
         firstRecipe.staticTexts.firstMatch.tap()
 
-        XCTAssertTrue(app.staticTexts["Ingredients"].waitForExistence(timeout: Self.timeout), "The recipe did not open")
+        XCTAssertTrue(app.buttons["Ingredients"].waitForExistence(timeout: Self.timeout), "The recipe did not open")
         waitUntilLoaded()
         record("Recipe detail")
+
+        app.buttons["Method"].tap()
+        record("Recipe method")
+
+        app.buttons["Actions"].tap()
+        XCTAssertTrue(app.buttons["Edit"].waitForExistence(timeout: Self.timeout), "The recipe offers no editing")
+        app.buttons["Edit"].tap()
+        XCTAssertTrue(app.navigationBars["Edit recipe"].waitForExistence(timeout: Self.timeout), "The recipe editor did not open")
+        waitUntilLoaded()
+        record("Recipe editor")
+        app.buttons["Cancel"].tap()
+    }
+
+    func testOpenProductEditor() throws {
+        let account = try Account.fromEnvironment()
+
+        signInIfNeeded(with: account)
+        app.tabBars.buttons["Review"].tap()
+        waitUntilLoaded()
+
+        let reviewEntry = app.buttons["Edit"].firstMatch
+        if reviewEntry.waitForExistence(timeout: 5) {
+            reviewEntry.tap()
+        } else {
+            app.buttons["All products"].tap()
+            let firstProduct = app.collectionViews.cells.firstMatch
+            XCTAssertTrue(firstProduct.waitForExistence(timeout: Self.timeout), "The product catalog is empty")
+            firstProduct.tap()
+        }
+
+        XCTAssertTrue(app.buttons["Save"].waitForExistence(timeout: Self.timeout), "The product editor did not open")
+        waitUntilLoaded()
+        record("Product editor")
+        app.navigationBars.buttons.firstMatch.tap()
     }
 
     private func signInIfNeeded(with account: Account) {

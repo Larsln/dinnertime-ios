@@ -1,7 +1,7 @@
 import MealplannerKit
 import SwiftUI
 
-/// Shows the server and the account and offers to sign out.
+/// Shows the server, the account and the settings of the importer and offers to sign out.
 struct SettingsView: View {
     let session: AppSession
 
@@ -25,6 +25,7 @@ struct SettingsView: View {
                         }
                     }
                 }
+                ImportSettingsSection(session: session)
                 Section {
                     Button("Sign out", role: .destructive) {
                         signOut()

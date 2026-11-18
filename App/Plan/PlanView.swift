@@ -1,30 +1,45 @@
 import MealplannerKit
 import SwiftUI
 
-/// The meal plan of one week.
+/// The meal plan of one week: a strip of its days above one section of cards per day.
 struct PlanView: View {
     let session: AppSession
+    /// Switches to the shopping list after one was created from the plan.
+    let onShowShopping: () -> Void
 
     @Bindable var selection: WeekSelection
     @State private var model: PlanModel
     @State private var draft: PlanEntryDraft?
-    @State private var showsGenerator = false
+    @State private var showsWizard = false
 
-    init(session: AppSession, selection: WeekSelection) {
+    init(session: AppSession, selection: WeekSelection, onShowShopping: @escaping () -> Void) {
         self.session = session
+        self.onShowShopping = onShowShopping
         self.selection = selection
         _model = State(initialValue: PlanModel(session: session))
     }
 
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(selection.week.days, id: \.self) { day in
-                    Section {
-                        rows(for: day)
-                    } header: {
-                        header(for: day)
+            ScrollViewReader { proxy in
+                List {
+                    ForEach(selection.week.days, id: \.self) { day in
+                        PlanDaySection(day: day, model: model) {
+                            draft = PlanEntryDraft(day: day)
+                        }
                     }
+                }
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    VStack(spacing: 8) {
+                        PlanWeekHeader(week: $selection.week)
+                        WeekStrip(week: selection.week, plannedDays: model.plannedDays) { day in
+                            withAnimation {
+                                proxy.scrollTo(day, anchor: .top)
+                            }
+                        }
+                    }
+                    .padding(.vertical, 8)
+                    .background(.bar)
                 }
             }
             .navigationTitle("Plan")
@@ -32,22 +47,22 @@ struct PlanView: View {
             .navigationDestination(for: RecipeSummary.self) { recipe in
                 RecipeDetailView(session: session, summary: recipe)
             }
-            .safeAreaInset(edge: .top) {
-                WeekSwitcher(week: $selection.week)
-            }
             .settingsToolbar(session: session)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Generate", systemImage: "wand.and.stars") {
-                        showsGenerator = true
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("Plan week", systemImage: "wand.and.stars") {
+                        showsWizard = true
+                    }
+                    Button("Plan a meal", systemImage: "plus") {
+                        draft = PlanEntryDraft(day: defaultDay)
                     }
                 }
             }
             .sheet(item: $draft) { draft in
                 AddEntryView(session: session, draft: draft, onAdd: model.add)
             }
-            .sheet(isPresented: $showsGenerator) {
-                GeneratePlanView(week: selection.week, onGenerate: model.generate)
+            .sheet(isPresented: $showsWizard) {
+                PlanWizardView(session: session, weeks: selection, plan: model, onFinish: finishPlanning)
             }
             .refreshable {
                 await model.load(selection.week)
@@ -59,43 +74,18 @@ struct PlanView: View {
         }
     }
 
-    @ViewBuilder
-    private func rows(for day: DayDate) -> some View {
-        let entries = model.entries(on: day)
-        if entries.isEmpty {
-            Text("Nothing planned")
-                .foregroundStyle(.secondary)
-        }
-        ForEach(entries) { entry in
-            NavigationLink(value: entry.recipe) {
-                PlanEntryRow(entry: entry)
-            }
-            .swipeActions(edge: .trailing) {
-                Button("Delete", systemImage: "trash", role: .destructive) {
-                    Task {
-                        await model.delete(entry)
-                    }
-                }
-            }
-            .swipeActions(edge: .leading) {
-                Button(entry.isCooked ? "Not cooked" : "Cooked", systemImage: entry.isCooked ? "arrow.uturn.backward" : "checkmark") {
-                    Task {
-                        await model.toggleCooked(entry)
-                    }
-                }
-                .tint(.green)
+    /// Reloads the plan after proposals were saved and, if asked to, creates the shopping list and shows it.
+    private func finishPlanning(createsShoppingList: Bool) {
+        Task {
+            await model.load(selection.week)
+            if createsShoppingList, await model.createShoppingList() {
+                onShowShopping()
             }
         }
     }
 
-    private func header(for day: DayDate) -> some View {
-        HStack {
-            Text(verbatim: day.longText)
-            Spacer()
-            Button("Plan a meal", systemImage: "plus") {
-                draft = PlanEntryDraft(day: day)
-            }
-            .labelStyle(.iconOnly)
-        }
+    /// The day a meal added from the toolbar starts on: today, or the first day of another week.
+    private var defaultDay: DayDate {
+        selection.week.isCurrent ? DayDate(.now) : selection.week.start
     }
 }

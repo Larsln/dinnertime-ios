@@ -7,6 +7,8 @@ import Observation
 final class ReviewModel: ErrorReporting {
     var errorMessage: String?
     private(set) var products: [Product] = []
+    /// Number of products awaiting confirmation across all pages.
+    private(set) var total = 0
     private(set) var hasMore = false
     private(set) var hasLoaded = false
     private(set) var confirmingIDs: Set<Int> = []
@@ -23,6 +25,7 @@ final class ReviewModel: ErrorReporting {
         await attempt {
             let page = try await session.send(ProductEndpoints.review())
             products = page.items
+            total = page.total
             hasMore = page.hasMore
             nextPage = page.currentPage + 1
             hasLoaded = true
@@ -47,6 +50,7 @@ final class ReviewModel: ErrorReporting {
         await attempt {
             _ = try await session.send(ProductEndpoints.confirm(id: product.id))
             products.removeAll { $0.id == product.id }
+            total = max(total - 1, 0)
         }
     }
 }

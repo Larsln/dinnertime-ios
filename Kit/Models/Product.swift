@@ -1,7 +1,7 @@
 import Foundation
 
 /// Unit in which all amounts of a product are given.
-public enum BaseUnit: String, Decodable, Sendable {
+public enum BaseUnit: String, Codable, CaseIterable, Sendable {
     case gram = "g"
     case milliliter = "ml"
     case piece
@@ -37,7 +37,8 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
 public struct ProductConversion: Decodable, Hashable, Identifiable, Sendable {
     public let id: Int
     public let unit: MeasureUnit
-    public let amountInBase: Double
+    /// Amount of the base unit; `nil` when the unit cannot be converted for this product.
+    public let amountInBase: Double?
     public let status: ReviewStatus
     /// `ai`, `user` or `import`.
     public let source: String

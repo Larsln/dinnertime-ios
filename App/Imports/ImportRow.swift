@@ -44,8 +44,16 @@ struct ImportRow: View {
             Label("Waiting", systemImage: "clock")
                 .foregroundStyle(.secondary)
         case .processing:
-            Label("Importing", systemImage: "arrow.triangle.2.circlepath")
-                .foregroundStyle(.blue)
+            Label {
+                if let stage = item.stage {
+                    Text(verbatim: stage.label)
+                } else {
+                    Text("Importing")
+                }
+            } icon: {
+                Image(systemName: "arrow.triangle.2.circlepath")
+            }
+            .foregroundStyle(.blue)
         case .completed:
             Label("Imported", systemImage: "checkmark.circle.fill")
                 .foregroundStyle(.green)

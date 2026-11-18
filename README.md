@@ -3,13 +3,19 @@
 Native iOS client for the self-hosted Mealplanner server. Every household runs its
 own server; the app asks for its address on first launch and talks to nothing else.
 
-- Browse and search recipes, scale ingredients to the servings you need
+- Browse, search and filter recipes by course, tag and favorites, scale
+  ingredients to the servings you need
+- Create, edit and delete recipes with ingredients, steps, tools and a cover photo
+- Rate recipes from 0 to 10 and mark favorites
 - Import recipes from links, in the app or through the share sheet of TikTok,
-  Instagram, Safari and other apps
-- Plan the week, by hand or generated so that opened packages are used up
+  Instagram, Safari and other apps, with live progress and a notification
+  about the outcome
+- Plan the week, by hand or in three steps: choose days and meals, set
+  preferences, then lock or re-roll the proposals before they are saved
 - Shopping list in package sizes, grouped by the areas of the store
 - Pantry with expiry dates
-- Review of the values the server suggests for new products
+- Review of the values the server suggests for new products, and editors for
+  all products with their package sizes and unit conversions and for the tools
 
 The app is written in SwiftUI and Swift 6 and has no third-party dependencies.
 The interface is available in English and German.
@@ -57,9 +63,14 @@ ignores. Create it with your team:
 DEVELOPMENT_TEAM = ABCDE12345
 ```
 
-`Config/Shared.xcconfig` holds the display name, the bundle identifier and the
-Keychain group. If you change the bundle identifier, the share extension and
-the Keychain group follow.
+`Config/Shared.xcconfig` holds the display name, the bundle identifier, the
+Keychain group and the App Group. If you change the bundle identifier, the
+share extension and both groups follow.
+
+The app and the share extension belong to the App Group
+`group.<bundle identifier>`. With automatic signing Xcode registers the group
+for your team on the first build with `-allowProvisioningUpdates`; with manual
+signing add it to both App IDs in the developer account.
 
 ## Layout
 
@@ -79,12 +90,23 @@ After sign-in the app stores the server address and the API token as one item
 in the Keychain. The item belongs to the access group
 `$(AppIdentifierPrefix)$(KEYCHAIN_GROUP)`, which both the app and the share
 extension list in their entitlements. The extension reads the item, sends the
-shared link to `POST /imports` and closes. Nothing is kept in `UserDefaults`
-except the server address used last, and no App Group is needed.
+shared link to `POST /imports` and follows the import. The credentials are
+never kept in `UserDefaults`; the App Group only holds the transfers that wait
+for imports and the list of imports whose outcome the share sheet showed.
 
 The shared group requires a signed build. Without a development team there is
 no application identifier prefix; the app then uses its private Keychain and
 the share extension reports that nobody is signed in.
+
+## Notifications about imports
+
+The share sheet shows an import until it is finished. If it is closed
+earlier, a background transfer of the share extension keeps waiting at
+`GET /imports/{id}/wait`. It writes into the container of the App Group, so
+the system hands its answer to the app, which posts a local notification
+about the imported recipe or the reason the import failed. No push server is
+involved. The app asks for the permission on the recipe list after sign-in;
+without it everything else works the same.
 
 ## Single sign-on
 
@@ -96,8 +118,9 @@ exchanges the ID token at the server. Register the redirect URI
 ## UI tests on a device
 
 The scheme `MealplannerUITests` drives the installed app against a real
-server: it signs in, visits every tab, opens a recipe and shares a page from
-Safari to the share extension. Screenshots are attached to the test result.
+server: it signs in, visits every tab, opens a recipe with its method and its
+editor, opens the editor of a product and shares a page from Safari to the
+share extension. Nothing is saved. Screenshots are attached to the test result.
 The tests are skipped unless the server and account are given:
 
 ```sh

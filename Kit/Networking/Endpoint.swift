@@ -8,8 +8,8 @@ public struct Endpoint<Response: Sendable>: Sendable {
     public let path: String
     /// Query parameters appended to the path.
     public let query: [URLQueryItem]
-    /// JSON body, encoded with snake case keys.
-    public let body: (any Encodable & Sendable)?
+    /// Body sent along, if any.
+    public let body: RequestBody?
     /// Whether the bearer token is sent along.
     public let requiresAuthentication: Bool
     /// Turns the body of a successful answer into the response value.
@@ -19,7 +19,7 @@ public struct Endpoint<Response: Sendable>: Sendable {
         _ method: HTTPMethod,
         _ path: String,
         query: [URLQueryItem] = [],
-        body: (any Encodable & Sendable)? = nil,
+        body: RequestBody? = nil,
         requiresAuthentication: Bool = true,
         decode: @escaping @Sendable (Data) throws -> Response
     ) {
@@ -40,7 +40,14 @@ extension Endpoint where Response: Decodable {
         query: [URLQueryItem] = [],
         body: (any Encodable & Sendable)? = nil
     ) -> Endpoint {
-        Endpoint(method, path, query: query, body: body) { data in
+        Endpoint(method, path, query: query, body: body.map(RequestBody.json)) { data in
+            try JSONCoding.makeDecoder().decode(DataEnvelope<Response>.self, from: data).data
+        }
+    }
+
+    /// Endpoint that uploads a file and answers with a resource wrapped in `{"data": ...}`.
+    static func upload(_ path: String, form: MultipartForm) -> Endpoint {
+        Endpoint(.post, path, body: .multipart(form)) { data in
             try JSONCoding.makeDecoder().decode(DataEnvelope<Response>.self, from: data).data
         }
     }
@@ -53,7 +60,7 @@ extension Endpoint where Response: Decodable {
         body: (any Encodable & Sendable)? = nil,
         requiresAuthentication: Bool = true
     ) -> Endpoint {
-        Endpoint(method, path, query: query, body: body, requiresAuthentication: requiresAuthentication) { data in
+        Endpoint(method, path, query: query, body: body.map(RequestBody.json), requiresAuthentication: requiresAuthentication) { data in
             try JSONCoding.makeDecoder().decode(Response.self, from: data)
         }
     }

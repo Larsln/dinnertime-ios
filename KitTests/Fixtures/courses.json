@@ -1,0 +1,40 @@
+{
+    "data": [
+        {
+            "key": "starter",
+            "name": "Vorspeise"
+        },
+        {
+            "key": "soup",
+            "name": "Suppe"
+        },
+        {
+            "key": "salad",
+            "name": "Salat"
+        },
+        {
+            "key": "main",
+            "name": "Hauptgericht"
+        },
+        {
+            "key": "side",
+            "name": "Beilage"
+        },
+        {
+            "key": "dessert",
+            "name": "Dessert"
+        },
+        {
+            "key": "baking",
+            "name": "Backen"
+        },
+        {
+            "key": "snack",
+            "name": "Snack"
+        },
+        {
+            "key": "drink",
+            "name": "Getränk"
+        }
+    ]
+}

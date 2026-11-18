@@ -13,11 +13,8 @@ public enum MealPlanEndpoints {
         let cooked: Bool
     }
 
-    private struct GenerateBody: Encodable {
-        let from: DayDate
-        let to: DayDate
-        let meals: [MealType]
-        let servings: Int
+    private struct BatchBody: Encodable {
+        let entries: [MealPlanBatchEntry]
     }
 
     /// `GET /meal-plan`: the entries between two days, both included.
@@ -44,8 +41,13 @@ public enum MealPlanEndpoints {
         .empty(.delete, "meal-plan/\(id)")
     }
 
-    /// `POST /meal-plan/generate`: fills the free meals of a period and answers with the added entries.
-    public static func generate(from: DayDate, to: DayDate, meals: [MealType], servings: Int) -> Endpoint<[MealPlanEntry]> {
-        .resource(.post, "meal-plan/generate", body: GenerateBody(from: from, to: to, meals: meals, servings: servings))
+    /// `POST /meal-plan/suggest`: proposes recipes for slots without saving anything.
+    public static func suggest(_ request: MealPlanSuggestionRequest) -> Endpoint<MealSuggestions> {
+        .plain(.post, "meal-plan/suggest", body: request)
+    }
+
+    /// `POST /meal-plan/batch`: saves accepted proposals and answers with the added entries.
+    public static func save(_ entries: [MealPlanBatchEntry]) -> Endpoint<[MealPlanEntry]> {
+        .resource(.post, "meal-plan/batch", body: BatchBody(entries: entries))
     }
 }

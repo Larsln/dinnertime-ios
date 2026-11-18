@@ -21,6 +21,11 @@ public enum ImportEndpoints {
         .resource(.get, "imports/\(id)")
     }
 
+    /// `GET /imports/{id}/wait`: answers as soon as the import is completed or failed, at the latest after four minutes with its current state.
+    public static func wait(id: Int) -> Endpoint<RecipeImport> {
+        .resource(.get, "imports/\(id)/wait")
+    }
+
     /// `POST /imports/{id}/retry`: queues a failed import again.
     public static func retry(id: Int) -> Endpoint<RecipeImport> {
         .resource(.post, "imports/\(id)/retry")

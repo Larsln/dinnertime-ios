@@ -31,6 +31,21 @@
                 "amount_in_base": 15,
                 "status": "confirmed",
                 "source": "user"
+            },
+            {
+                "id": 2,
+                "unit": {
+                    "id": 8,
+                    "key": "piece",
+                    "code": "Stück",
+                    "name": "Stück",
+                    "plural_name": "Stück",
+                    "kind": "product_specific",
+                    "factor_to_base": null
+                },
+                "amount_in_base": null,
+                "status": "suggested",
+                "source": "ai"
             }
         ],
         "packages": [

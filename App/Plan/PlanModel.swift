@@ -7,7 +7,6 @@ import Observation
 final class PlanModel: ErrorReporting {
     var errorMessage: String?
     private(set) var entries: [MealPlanEntry] = []
-    private(set) var isGenerating = false
 
     private var week: Week?
     private let session: AppSession
@@ -46,16 +45,23 @@ final class PlanModel: ErrorReporting {
         }
     }
 
-    /// Fills the free `meals` of the loaded week; returns whether the server accepted the request.
-    func generate(meals: [MealType], servings: Int) async -> Bool {
+    /// The days of the loaded week that have an entry.
+    var plannedDays: Set<DayDate> {
+        Set(entries.map(\.date))
+    }
+
+    /// The slots of the loaded week that have an entry.
+    var plannedSlots: Set<MealSlot> {
+        Set(entries.map { MealSlot(date: $0.date, meal: $0.meal) })
+    }
+
+    /// Creates or refreshes the shopping list of the loaded week; returns whether the server accepted it.
+    func createShoppingList() async -> Bool {
         guard let week else {
             return false
         }
-        isGenerating = true
-        defer { isGenerating = false }
         return await attempt {
-            let endpoint = MealPlanEndpoints.generate(from: week.start, to: week.end, meals: meals, servings: servings)
-            insert(try await session.send(endpoint))
+            _ = try await session.send(ShoppingEndpoints.create(from: week.start, to: week.end))
         }
     }
 

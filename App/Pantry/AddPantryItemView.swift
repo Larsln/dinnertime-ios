@@ -3,8 +3,6 @@ import SwiftUI
 
 /// Finds a product and adds an amount of it to the pantry.
 struct AddPantryItemView: View {
-    private static var searchDelay: Duration { .milliseconds(300) }
-
     let onAdd: (PantryItemDraft) async -> Bool
 
     @State private var model: ProductSearchModel
@@ -49,14 +47,7 @@ struct AddPantryItemView: View {
                     }
                 }
             }
-            .task(id: model.searchText) {
-                if model.hasLoaded {
-                    try? await Task.sleep(for: Self.searchDelay)
-                }
-                if !Task.isCancelled {
-                    await model.search()
-                }
-            }
+            .debouncedSearch(model.searchText, isFirst: !model.hasLoaded, search: model.search)
             .errorAlert($model.errorMessage)
         }
     }

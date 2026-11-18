@@ -25,6 +25,16 @@ public enum AppConfiguration {
         return prefix + group
     }
 
+    /// App Group through which the app receives the transfers the share extension starts.
+    public static var appGroup: String? {
+        value(for: "AppGroup")
+    }
+
+    /// Bundle identifier of the app, also within the share extension.
+    public static var appBundleIdentifier: String {
+        value(for: "KeychainService") ?? ""
+    }
+
     /// Redirect URI registered at the OpenID Connect provider.
     public static let oidcRedirectURI = "mealplanner://oidc"
 

@@ -1,24 +1,36 @@
 import MealplannerKit
 import SwiftUI
 
-/// A recipe with scalable ingredients, steps, tools and the link to its source.
+/// A recipe with its ingredients and method on two segments, the marks of the user and the ways to change it.
 struct RecipeDetailView: View {
-    @State private var model: RecipeDetailModel
+    let session: AppSession
+    let onUpdate: (RecipeSummary) -> Void
+    let onDelete: () -> Void
 
-    init(session: AppSession, summary: RecipeSummary) {
+    @State private var model: RecipeDetailModel
+    @State private var showsEditor = false
+    @State private var confirmsDeletion = false
+    @Environment(\.dismiss) private var dismiss
+
+    init(
+        session: AppSession,
+        summary: RecipeSummary,
+        onUpdate: @escaping (RecipeSummary) -> Void = { _ in },
+        onDelete: @escaping () -> Void = {}
+    ) {
+        self.session = session
+        self.onUpdate = onUpdate
+        self.onDelete = onDelete
         _model = State(initialValue: RecipeDetailModel(session: session, summary: summary))
     }
 
     var body: some View {
         List {
             Section {
-                RecipeHeader(recipe: model.recipe?.summary ?? model.summary)
+                RecipeHeader(recipe: model.summary)
             }
             if let recipe = model.recipe {
-                ingredients(of: recipe)
-                steps(of: recipe)
-                tools(of: recipe)
-                source(of: recipe)
+                content(of: recipe)
             } else if model.errorMessage == nil {
                 ProgressView()
                     .frame(maxWidth: .infinity)
@@ -26,69 +38,61 @@ struct RecipeDetailView: View {
         }
         .navigationTitle(Text(verbatim: model.summary.title))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            RecipeDetailToolbar(model: model, showsEditor: $showsEditor, confirmsDeletion: $confirmsDeletion)
+        }
+        .sheet(isPresented: $showsEditor) {
+            RecipeEditorView(session: session, recipe: model.recipe, onSave: model.show)
+        }
+        .confirmationDialog("Delete recipe", isPresented: $confirmsDeletion, titleVisibility: .visible) {
+            Button("Delete", role: .destructive, action: delete)
+        } message: {
+            Text("“\(model.summary.title)” will be deleted permanently.")
+        }
         .task {
             await model.load()
+        }
+        .onChange(of: model.summary) { _, summary in
+            onUpdate(summary)
         }
         .errorAlert($model.errorMessage)
     }
 
     @ViewBuilder
-    private func ingredients(of recipe: Recipe) -> some View {
-        if model.canScale {
-            Section("Ingredients") {
-                Stepper("Servings: \(model.servings)", value: $model.servings, in: RecipeDetailModel.servingsRange)
+    private func content(of recipe: Recipe) -> some View {
+        Section {
+            Picker("Content", selection: $model.segment) {
+                Text("Ingredients")
+                    .tag(RecipeDetailModel.Segment.ingredients)
+                Text("Method")
+                    .tag(RecipeDetailModel.Segment.method)
             }
+            .pickerStyle(.segmented)
+            .labelsHidden()
+            .listRowInsets(EdgeInsets())
+            .listRowBackground(Color.clear)
         }
-        ForEach(recipe.ingredientGroups) { group in
-            Section {
-                ForEach(group.ingredients) { ingredient in
-                    IngredientRow(ingredient: ingredient, scale: model.scale)
-                }
-            } header: {
-                if let title = group.title {
-                    Text(verbatim: title)
-                } else if !model.canScale, group.id == 0 {
-                    Text("Ingredients")
-                }
-            }
+        switch model.segment {
+        case .ingredients:
+            RecipeIngredientList(recipe: recipe, model: model)
+        case .method:
+            RecipeMethodList(recipe: recipe)
         }
-    }
-
-    @ViewBuilder
-    private func steps(of recipe: Recipe) -> some View {
-        if !recipe.steps.isEmpty {
-            Section("Steps") {
-                ForEach(recipe.steps) { step in
-                    VStack(alignment: .leading, spacing: 4) {
-                        if let title = step.title {
-                            Text(verbatim: title)
-                                .font(.headline)
-                        }
-                        Text(verbatim: "\(step.position). \(step.text)")
-                    }
-                }
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func tools(of recipe: Recipe) -> some View {
-        if !recipe.tools.isEmpty {
-            Section("Tools") {
-                ForEach(recipe.tools) { tool in
-                    Text(verbatim: tool.name)
-                }
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func source(of recipe: Recipe) -> some View {
+        RecipeRatingSection(model: model)
         if let url = recipe.sourceURL {
             Section {
                 Link(destination: url) {
                     Label("View original", systemImage: "safari")
                 }
+            }
+        }
+    }
+
+    private func delete() {
+        Task {
+            if await model.delete() {
+                onDelete()
+                dismiss()
             }
         }
     }

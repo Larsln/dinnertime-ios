@@ -1,34 +1,14 @@
 import Foundation
 
-/// The part of a recipe that lists and plan entries carry.
-public struct RecipeSummary: Decodable, Hashable, Identifiable, Sendable {
-    public let id: Int
-    public let title: String
-    public let slug: String
-    public let description: String?
-    public let servings: Int?
-    public let yieldText: String?
-    public let prepMinutes: Int?
-    public let cookMinutes: Int?
-    /// Address of the cover image; may be relative to the server.
-    public let coverURL: URL?
-    public let tags: [Tag]
-
-    private enum CodingKeys: String, CodingKey {
-        case id, title, slug, description, servings, yieldText, prepMinutes, cookMinutes, tags
-        case coverURL = "coverUrl"
-    }
-}
-
 /// A complete recipe.
 public struct Recipe: Decodable, Hashable, Identifiable, Sendable {
-    public let summary: RecipeSummary
+    public var summary: RecipeSummary
     public let sourceURL: URL?
     public let sourcePlatform: String?
     public let mealTagsLocked: Bool
     public let ingredients: [Ingredient]
     public let steps: [RecipeStep]
-    public let tools: [RecipeTool]
+    public let tools: [Tool]
 
     public var id: Int {
         summary.id
@@ -47,7 +27,7 @@ public struct Recipe: Decodable, Hashable, Identifiable, Sendable {
         mealTagsLocked = try container.decode(Bool.self, forKey: .mealTagsLocked)
         ingredients = try container.decode([Ingredient].self, forKey: .ingredients)
         steps = try container.decode([RecipeStep].self, forKey: .steps)
-        tools = try container.decode([RecipeTool].self, forKey: .tools)
+        tools = try container.decode([Tool].self, forKey: .tools)
     }
 }
 
@@ -72,13 +52,7 @@ public struct Ingredient: Decodable, Hashable, Identifiable, Sendable {
 public struct RecipeStep: Decodable, Hashable, Identifiable, Sendable {
     public let id: Int
     public let position: Int
-    /// Heading at the start of a component.
-    public let title: String?
+    /// Heading of the component the step belongs to, such as "Filling".
+    public let section: String?
     public let text: String
-}
-
-/// A utensil needed for a recipe.
-public struct RecipeTool: Decodable, Hashable, Identifiable, Sendable {
-    public let id: Int
-    public let name: String
 }

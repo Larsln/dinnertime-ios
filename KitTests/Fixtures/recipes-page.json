@@ -5,6 +5,8 @@
             "title": "Zwiebelkuchen",
             "slug": "zwiebelkuchen",
             "description": "Herzhaft",
+            "course": "main",
+            "course_name": "Hauptgericht",
             "servings": 4,
             "yield_text": null,
             "prep_minutes": 20,
@@ -23,7 +25,11 @@
                     "key": "vegetarian",
                     "name": "Vegetarisch"
                 }
-            ]
+            ],
+            "rating": null,
+            "is_favorite": false,
+            "average_rating": null,
+            "rating_count": 0
         }
     ],
     "links": {

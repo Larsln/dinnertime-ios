@@ -4,6 +4,8 @@
         "title": "Zwiebelkuchen",
         "slug": "zwiebelkuchen",
         "description": "Herzhaft",
+        "course": "main",
+        "course_name": "Hauptgericht",
         "servings": 4,
         "yield_text": null,
         "prep_minutes": 20,
@@ -23,6 +25,10 @@
                 "name": "Vegetarisch"
             }
         ],
+        "rating": 8,
+        "is_favorite": true,
+        "average_rating": 7.5,
+        "rating_count": 2,
         "source_url": "https://example.com/zwiebelkuchen",
         "source_platform": null,
         "meal_tags_locked": true,
@@ -91,20 +97,21 @@
             {
                 "id": 1,
                 "position": 1,
-                "title": "Belag",
+                "section": "Belag",
                 "text": "Zwiebeln anschwitzen."
             },
             {
                 "id": 2,
                 "position": 2,
-                "title": null,
+                "section": null,
                 "text": "Backen."
             }
         ],
         "tools": [
             {
                 "id": 1,
-                "name": "Backblech"
+                "name": "Backblech",
+                "is_owned": false
             }
         ]
     }

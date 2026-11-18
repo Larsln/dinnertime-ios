@@ -10,6 +10,9 @@ APP_BUNDLE_ID = io.github.larsln.mealplanner
 // Keychain access group through which app and share extension share the credentials.
 KEYCHAIN_GROUP = $(APP_BUNDLE_ID).shared
 
+// App Group through which the app receives the transfers the share extension starts.
+APP_GROUP = group.$(APP_BUNDLE_ID)
+
 // Apple developer team used for signing. Set it in Config/Local.xcconfig.
 DEVELOPMENT_TEAM =
 

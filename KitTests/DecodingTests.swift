@@ -50,8 +50,9 @@ struct DecodingTests {
         #expect(recipe.ingredients[1].isEstimated)
         #expect(recipe.ingredients[2].product == nil)
         #expect(recipe.ingredients[2].rawText == "Salz und Pfeffer")
-        #expect(recipe.steps.map(\.title) == ["Belag", nil])
+        #expect(recipe.steps.map(\.section) == ["Belag", nil])
         #expect(recipe.tools.map(\.name) == ["Backblech"])
+        #expect(recipe.tools.map(\.isOwned) == [false])
     }
 
     @Test func imports() throws {
@@ -90,6 +91,7 @@ struct DecodingTests {
         #expect(product.shelfLifeOpenedDays == 5)
         #expect(product.conversions?.first?.unit.code == "EL")
         #expect(product.conversions?.first?.amountInBase == 15)
+        #expect(product.conversions?.last?.amountInBase == nil)
         #expect(product.packages?.first?.label == "Becher")
     }
 
@@ -112,7 +114,7 @@ struct DecodingTests {
         #expect(schmand.packages.first?.count == 2)
         #expect(schmand.leftoverAmount == 100)
         #expect(schmand.uses.first?.date == DayDate(year: 2026, month: 11, day: 18))
-        #expect(schmand.purchaseText(formatter: AmountFormatter(locale: Locale(identifier: "en_US"))) == "2 × Becher 200 g")
+        #expect(schmand.purchaseText(formatter: AmountFormatter(locale: Locale(identifier: "en_US"))) == "2 × Becher 200 g + 3 Stück")
     }
 
     @Test func shoppingListSectionsKeepWalkingOrder() throws {
@@ -135,7 +137,7 @@ struct DecodingTests {
     }
 
     @Test func tags() throws {
-        let tags = try RecipeEndpoints.tags.decode(Fixture.data("tags"))
+        let tags = try ReferenceEndpoints.tags.decode(Fixture.data("tags"))
 
         #expect(tags.filter { $0.type == .meal }.compactMap(\.key) == MealType.allCases.map(\.rawValue))
     }

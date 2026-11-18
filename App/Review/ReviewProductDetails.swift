@@ -29,7 +29,7 @@ struct ReviewProductDetails: View {
         }
         ForEach(product.conversions ?? []) { conversion in
             LabeledContent {
-                value(formatter.string(conversion.amountInBase, unit: product.baseUnit), status: conversion.status)
+                value(conversionText(conversion), status: conversion.status)
             } label: {
                 Text(verbatim: "1 \(conversion.unit.code ?? conversion.unit.name)")
             }
@@ -40,6 +40,10 @@ struct ReviewProductDetails: View {
     }
 
     private static let missing = "–"
+
+    private func conversionText(_ conversion: ProductConversion) -> String {
+        conversion.amountInBase.map { formatter.string($0, unit: product.baseUnit) } ?? String(localized: "cannot be converted")
+    }
 
     private func value(_ text: String, status: ReviewStatus) -> some View {
         HStack(spacing: 4) {

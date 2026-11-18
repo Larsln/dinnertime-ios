@@ -30,6 +30,11 @@ public struct APIClient: Sendable {
         }
     }
 
+    /// The request of an endpoint, for transfers that run outside of this client.
+    public func urlRequest<Response>(for endpoint: Endpoint<Response>) throws -> URLRequest {
+        try builder.request(for: endpoint)
+    }
+
     private func load(_ request: URLRequest) async throws -> (Data, URLResponse) {
         do {
             return try await session.data(for: request)

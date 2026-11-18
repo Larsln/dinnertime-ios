@@ -23,6 +23,7 @@
                     }
                 ],
                 "is_approximate": false,
+                "extra_amounts": [],
                 "checked_at": null,
                 "product": {
                     "id": 2,
@@ -66,6 +67,12 @@
                     }
                 ],
                 "is_approximate": false,
+                "extra_amounts": [
+                    {
+                        "quantity": 3,
+                        "unit_code": "Stück"
+                    }
+                ],
                 "checked_at": "2026-11-17T21:15:35.000000Z",
                 "product": {
                     "id": 1,
@@ -95,6 +102,7 @@
                 "wasted_amount": 0,
                 "uses": [],
                 "is_approximate": false,
+                "extra_amounts": [],
                 "checked_at": null,
                 "product": null
             },
@@ -109,6 +117,7 @@
                 "wasted_amount": 0,
                 "uses": [],
                 "is_approximate": false,
+                "extra_amounts": [],
                 "checked_at": null,
                 "product": null
             }

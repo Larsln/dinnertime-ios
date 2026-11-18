@@ -1,12 +1,52 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Already in your collection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schon in deiner Sammlung"
+          }
+        }
+      }
+    },
     "Close": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Schließen"
+          }
+        }
+      }
+    },
+    "Continue in background": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Im Hintergrund weiter"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertig"
+          }
+        }
+      }
+    },
+    "Recipe imported": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezept importiert"
           }
         }
       }
@@ -51,12 +91,12 @@
         }
       }
     },
-    "This recipe is already in your collection.": {
+    "Try again": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dieses Rezept ist bereits in deiner Sammlung."
+            "value": "Erneut versuchen"
           }
         }
       }

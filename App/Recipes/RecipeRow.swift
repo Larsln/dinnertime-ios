@@ -1,7 +1,7 @@
 import MealplannerKit
 import SwiftUI
 
-/// Cover image, title and tags of a recipe.
+/// Cover image, title, course, tags and marks of a recipe.
 struct RecipeRow: View {
     private static let imageSize: CGFloat = 56
 
@@ -15,13 +15,15 @@ struct RecipeRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(verbatim: recipe.title)
                     .font(.headline)
-                if !recipe.tags.isEmpty {
-                    Text(verbatim: recipe.tags.displayLine)
+                if !recipe.labelLine.isEmpty {
+                    Text(verbatim: recipe.labelLine)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .lineLimit(2)
                 }
             }
+            Spacer(minLength: 0)
+            RecipeMarks(recipe: recipe)
         }
     }
 }

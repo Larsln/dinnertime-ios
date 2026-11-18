@@ -38,6 +38,32 @@ struct FormattingTests {
         #expect(recipe.ingredients[2].text(scaledBy: 2, formatter: english) == IngredientText(amount: nil, name: "Salz und Pfeffer"))
     }
 
+    @Test func averageRatingKeepsOneDecimal() throws {
+        let rated = try RecipeEndpoints.detail(id: 1).decode(Fixture.data("recipe")).summary
+        let unrated = try RecipeEndpoints.list().decode(Fixture.data("recipes-page")).items[0]
+
+        #expect(rated.averageRatingText(locale: Locale(identifier: "en_US")) == "7.5")
+        #expect(rated.averageRatingText(locale: Locale(identifier: "de_DE")) == "7,5")
+        #expect(unrated.averageRatingText() == nil)
+    }
+
+    @Test func labelLineStartsWithTheCourse() throws {
+        let recipe = try RecipeEndpoints.list().decode(Fixture.data("recipes-page")).items[0]
+
+        #expect(recipe.labelLine == "Hauptgericht · Abendessen · Vegetarisch")
+    }
+
+    @Test func purchaseTextOfNeedsThatCannotBeConverted() throws {
+        let json = #"""
+        {"data": {"id": 9, "label": null, "is_manual": false, "needed_amount": null, "purchase_amount": null,
+        "packages": [], "extra_amounts": [{"quantity": 2, "unit_code": "Stück"}, {"quantity": 0.5, "unit_code": "Bund"}],
+        "product": {"id": 2, "name": "Apfel", "plural_name": null, "base_unit": "g", "status": "confirmed"}}}
+        """#
+        let item = try ShoppingEndpoints.setChecked(true, itemID: 9).decode(Data(json.utf8))
+
+        #expect(item.purchaseText(formatter: english) == "2 Stück + 0.5 Bund")
+    }
+
     @Test func weekStartsOnTheFirstWeekdayOfTheCalendar() throws {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = try #require(TimeZone(identifier: "Europe/Berlin"))
@@ -48,6 +74,7 @@ struct FormattingTests {
         #expect(week.start == DayDate(year: 2026, month: 11, day: 16))
         #expect(week.end == DayDate(year: 2026, month: 11, day: 22))
         #expect(week.days.count == 7)
+        #expect(week.number(in: calendar) == 47)
         #expect(week.shifted(byWeeks: -1).start == DayDate(year: 2026, month: 11, day: 9))
         #expect(week.contains(DayDate(year: 2026, month: 11, day: 22)))
         #expect(!week.contains(DayDate(year: 2026, month: 11, day: 23)))

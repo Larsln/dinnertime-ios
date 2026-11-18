@@ -1,6 +1,186 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "%lld / %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld / %2$lld"
+          }
+        }
+      }
+    },
+    "%lld matching recipes for %lld meals": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld passende Rezepte für %2$lld Mahlzeiten"
+          }
+        }
+      }
+    },
+    "%lld meals": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Mahlzeit"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Mahlzeiten"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld meal"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld meals"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld recipes": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Rezept"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Rezepte"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld recipe"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld recipes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld servings": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Portion"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Portionen"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld serving"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld servings"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "(%lld ratings)": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "(%lld Bewertung)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "(%lld Bewertungen)"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "(%lld rating)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "(%lld ratings)"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "(estimated)": {
       "localizations": {
         "de": {
@@ -41,6 +221,76 @@
         }
       }
     },
+    "Add %lld meals": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Mahlzeit eintragen"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Mahlzeiten eintragen"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Add %lld meal"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Add %lld meals"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Add course": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gang hinzufügen"
+          }
+        }
+      }
+    },
+    "Add group": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gruppe hinzufügen"
+          }
+        }
+      }
+    },
+    "Add ingredient": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zutat hinzufügen"
+          }
+        }
+      }
+    },
     "Add item": {
       "localizations": {
         "de": {
@@ -61,12 +311,72 @@
         }
       }
     },
+    "Add package": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Packung"
+          }
+        }
+      }
+    },
+    "Add step": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schritt hinzufügen"
+          }
+        }
+      }
+    },
+    "Add tag": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tag hinzufügen"
+          }
+        }
+      }
+    },
+    "Add to favorites": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu Favoriten hinzufügen"
+          }
+        }
+      }
+    },
     "Add to pantry": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Zum Vorrat hinzufügen"
+          }
+        }
+      }
+    },
+    "Add tool": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utensil hinzufügen"
+          }
+        }
+      }
+    },
+    "Add unit": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einheit hinzufügen"
           }
         }
       }
@@ -81,12 +391,92 @@
         }
       }
     },
-    "All recipes": {
+    "All courses": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Rezepte"
+            "value": "Alle Gänge"
+          }
+        }
+      }
+    },
+    "All days": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Tage"
+          }
+        }
+      }
+    },
+    "All meals": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Mahlzeiten"
+          }
+        }
+      }
+    },
+    "All products": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Produkte"
+          }
+        }
+      }
+    },
+    "All tags": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Tags"
+          }
+        }
+      }
+    },
+    "Allow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erlauben"
+          }
+        }
+      }
+    },
+    "Allow notifications to learn when a recipe you shared was imported or could not be imported.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erlaube Mitteilungen, um zu erfahren, wenn ein geteiltes Rezept importiert wurde oder nicht importiert werden konnte."
+          }
+        }
+      }
+    },
+    "Also known as": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auch bekannt als"
+          }
+        }
+      }
+    },
+    "Always in stock, never on the shopping list": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immer vorrätig, kommt nie auf die Einkaufsliste"
           }
         }
       }
@@ -101,12 +491,32 @@
         }
       }
     },
+    "Average rating: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durchschnittliche Bewertung: %@"
+          }
+        }
+      }
+    },
     "Base unit": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Basiseinheit"
+          }
+        }
+      }
+    },
+    "Bought in": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gekauft in"
           }
         }
       }
@@ -131,12 +541,22 @@
         }
       }
     },
-    "Categories": {
+    "Cannot be converted": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kategorien"
+            "value": "Nicht umrechenbar"
+          }
+        }
+      }
+    },
+    "Change the preferences or choose other days.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ändere die Vorlieben oder wähle andere Tage."
           }
         }
       }
@@ -151,12 +571,42 @@
         }
       }
     },
+    "Choose cover image": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Titelbild wählen"
+          }
+        }
+      }
+    },
+    "Choose product": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produkt auswählen"
+          }
+        }
+      }
+    },
     "Choose recipe": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Rezept auswählen"
+          }
+        }
+      }
+    },
+    "Choose tool": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utensil auswählen"
           }
         }
       }
@@ -181,6 +631,26 @@
         }
       }
     },
+    "Content": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inhalt"
+          }
+        }
+      }
+    },
+    "Conversions (%@)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umrechnungen (%@)"
+          }
+        }
+      }
+    },
     "Cooked": {
       "localizations": {
         "de": {
@@ -197,6 +667,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kochzeit"
+          }
+        }
+      }
+    },
+    "Cooking (min)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garzeit (min)"
+          }
+        }
+      }
+    },
+    "Course": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gang"
           }
         }
       }
@@ -221,6 +711,26 @@
         }
       }
     },
+    "Create “%@”": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ neu anlegen"
+          }
+        }
+      }
+    },
+    "Current week": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktuelle Woche"
+          }
+        }
+      }
+    },
     "Day": {
       "localizations": {
         "de": {
@@ -231,12 +741,62 @@
         }
       }
     },
+    "Days": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tage"
+          }
+        }
+      }
+    },
     "Delete": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Löschen"
+          }
+        }
+      }
+    },
+    "Delete product": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produkt löschen"
+          }
+        }
+      }
+    },
+    "Delete recipe": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezept löschen"
+          }
+        }
+      }
+    },
+    "Delete tool": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utensil löschen"
+          }
+        }
+      }
+    },
+    "Description": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschreibung"
           }
         }
       }
@@ -271,6 +831,26 @@
         }
       }
     },
+    "Edit": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bearbeiten"
+          }
+        }
+      }
+    },
+    "Edit recipe": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezept bearbeiten"
+          }
+        }
+      }
+    },
     "Email": {
       "localizations": {
         "de": {
@@ -287,16 +867,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gib die Adresse des Servers ein, den dein Haushalt betreibt. Adressen außerhalb deines Heimnetzes benötigen HTTPS."
-          }
-        }
-      }
-    },
-    "Every chosen meal without an entry gets a recipe. Recipes are picked so that opened packages are used up.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jede gewählte Mahlzeit ohne Eintrag erhält ein Rezept. Die Rezepte werden so gewählt, dass angebrochene Packungen aufgebraucht werden."
           }
         }
       }
@@ -331,6 +901,36 @@
         }
       }
     },
+    "Favorite": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favorit"
+          }
+        }
+      }
+    },
+    "Favorites more often": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favoriten öfter einplanen"
+          }
+        }
+      }
+    },
+    "Favorites only": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur Favoriten"
+          }
+        }
+      }
+    },
     "Filter": {
       "localizations": {
         "de": {
@@ -341,12 +941,52 @@
         }
       }
     },
-    "Generate": {
+    "Grams": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erzeugen"
+            "value": "Gramm"
+          }
+        }
+      }
+    },
+    "Group name, e.g. base (optional)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name der Gruppe, z. B. Boden (optional)"
+          }
+        }
+      }
+    },
+    "Hide additional meals": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weitere Mahlzeiten ausblenden"
+          }
+        }
+      }
+    },
+    "Household rating": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertung im Haushalt"
+          }
+        }
+      }
+    },
+    "Identify as a browser": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Als Browser ausgeben"
           }
         }
       }
@@ -391,12 +1031,42 @@
         }
       }
     },
+    "Ingredient": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zutat"
+          }
+        }
+      }
+    },
     "Ingredients": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Zutaten"
+          }
+        }
+      }
+    },
+    "Instagram shows some videos to signed-in users only. Export the cookies of a signed-in browser as cookies.txt (Netscape format) and upload the file here. Preferably use a secondary account.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instagram zeigt manche Videos nur angemeldeten Nutzern. Exportiere dafür die Cookies eines angemeldeten Browsers als cookies.txt (Netscape-Format) und lade die Datei hier hoch. Nimm am besten ein Zweitkonto."
+          }
+        }
+      }
+    },
+    "Label, e.g. tub": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bezeichnung, z. B. Becher"
           }
         }
       }
@@ -417,6 +1087,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "Link zu einem Rezept oder Video"
+          }
+        }
+      }
+    },
+    "List": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liste"
+          }
+        }
+      }
+    },
+    "Lock": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fixieren"
+          }
+        }
+      }
+    },
+    "Long-uncooked first": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lange nicht Gekochtes zuerst"
           }
         }
       }
@@ -451,6 +1151,56 @@
         }
       }
     },
+    "Merge": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zusammenführen"
+          }
+        }
+      }
+    },
+    "Merge into": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zusammenführen mit"
+          }
+        }
+      }
+    },
+    "Method": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zubereitung"
+          }
+        }
+      }
+    },
+    "Milliliters": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Milliliter"
+          }
+        }
+      }
+    },
+    "Mon–Fri at most 30 min": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mo–Fr höchstens 30 Min."
+          }
+        }
+      }
+    },
     "Name": {
       "localizations": {
         "de": {
@@ -461,12 +1211,42 @@
         }
       }
     },
+    "New ingredient": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Zutat"
+          }
+        }
+      }
+    },
     "New products from imports appear here with suggested values.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Neue Produkte aus Importen erscheinen hier mit vorgeschlagenen Werten."
+          }
+        }
+      }
+    },
+    "New recipe": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neues Rezept"
+          }
+        }
+      }
+    },
+    "Next": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weiter"
           }
         }
       }
@@ -491,12 +1271,42 @@
         }
       }
     },
+    "No course": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Gang"
+          }
+        }
+      }
+    },
+    "No matching recipes": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine passenden Rezepte"
+          }
+        }
+      }
+    },
     "No recipes": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Keine Rezepte"
+          }
+        }
+      }
+    },
+    "No section": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ohne Bereich"
           }
         }
       }
@@ -511,12 +1321,62 @@
         }
       }
     },
+    "No tools": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Utensilien"
+          }
+        }
+      }
+    },
+    "Not available": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht vorhanden"
+          }
+        }
+      }
+    },
     "Not cooked": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Nicht gekocht"
+          }
+        }
+      }
+    },
+    "Not now": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht jetzt"
+          }
+        }
+      }
+    },
+    "Not rated": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht bewertet"
+          }
+        }
+      }
+    },
+    "Note": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notiz"
           }
         }
       }
@@ -547,6 +1407,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "OK"
+          }
+        }
+      }
+    },
+    "Only from": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur aus"
           }
         }
       }
@@ -587,6 +1457,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Weitere Produkte"
+          }
+        }
+      }
+    },
+    "Package sizes (%@)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Packungsgrößen (%@)"
           }
         }
       }
@@ -651,6 +1531,16 @@
         }
       }
     },
+    "Pieces": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stück"
+          }
+        }
+      }
+    },
     "Plan": {
       "localizations": {
         "de": {
@@ -671,12 +1561,32 @@
         }
       }
     },
+    "Plan week": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Woche planen"
+          }
+        }
+      }
+    },
     "Please enter a valid server address.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Bitte gib eine gültige Serveradresse ein."
+          }
+        }
+      }
+    },
+    "Preferences": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorlieben"
           }
         }
       }
@@ -691,12 +1601,72 @@
         }
       }
     },
+    "Preparation (min)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorbereitung (min)"
+          }
+        }
+      }
+    },
+    "Preview": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschau"
+          }
+        }
+      }
+    },
     "Previous week": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Vorherige Woche"
+          }
+        }
+      }
+    },
+    "Product": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produkt"
+          }
+        }
+      }
+    },
+    "Quantity": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menge"
+          }
+        }
+      }
+    },
+    "Quantity estimated": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menge geschätzt"
+          }
+        }
+      }
+    },
+    "Quick on weekdays": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unter der Woche schnell"
           }
         }
       }
@@ -741,6 +1711,96 @@
         }
       }
     },
+    "Remove": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entfernen"
+          }
+        }
+      }
+    },
+    "Remove from favorites": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus Favoriten entfernen"
+          }
+        }
+      }
+    },
+    "Remove group": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gruppe entfernen"
+          }
+        }
+      }
+    },
+    "Remove product": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produkt entfernen"
+          }
+        }
+      }
+    },
+    "Rename": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umbenennen"
+          }
+        }
+      }
+    },
+    "Rename tool": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utensil umbenennen"
+          }
+        }
+      }
+    },
+    "Reorder": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sortieren"
+          }
+        }
+      }
+    },
+    "Reroll": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neu würfeln"
+          }
+        }
+      }
+    },
+    "Reroll all": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle neu"
+          }
+        }
+      }
+    },
     "Review": {
       "localizations": {
         "de": {
@@ -771,6 +1831,16 @@
         }
       }
     },
+    "Search tools": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utensilien suchen"
+          }
+        }
+      }
+    },
     "Server": {
       "localizations": {
         "de": {
@@ -787,6 +1857,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Serveradresse"
+          }
+        }
+      }
+    },
+    "Servings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portionen"
           }
         }
       }
@@ -841,6 +1921,16 @@
         }
       }
     },
+    "Show more meals": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weitere Mahlzeiten einblenden"
+          }
+        }
+      }
+    },
     "Sign in": {
       "localizations": {
         "de": {
@@ -871,12 +1961,32 @@
         }
       }
     },
+    "Sign-in for video platforms": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anmeldung für Videoplattformen"
+          }
+        }
+      }
+    },
     "Snack": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Snack"
+          }
+        }
+      }
+    },
+    "Some recipe sites turn the importer away. With this option the server fetches pages with the user agent of a browser.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manche Kochseiten weisen den Importer ab. Mit dieser Option ruft der Server Seiten mit der Kennung eines Browsers ab."
           }
         }
       }
@@ -891,12 +2001,32 @@
         }
       }
     },
-    "Steps": {
+    "Source": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schritte"
+            "value": "Quelle"
+          }
+        }
+      }
+    },
+    "Step": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arbeitsschritt"
+          }
+        }
+      }
+    },
+    "Steps can be combined into groups, such as base, filling and decoration.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schritte lassen sich in Gruppen zusammenfassen, etwa Boden, Füllung und Dekoration."
           }
         }
       }
@@ -921,12 +2051,42 @@
         }
       }
     },
+    "Suggest": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschlagen"
+          }
+        }
+      }
+    },
     "Suggested": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Vorschlag"
+          }
+        }
+      }
+    },
+    "Suggestions are pending": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschläge stehen aus"
+          }
+        }
+      }
+    },
+    "Tag": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tag"
           }
         }
       }
@@ -941,12 +2101,82 @@
         }
       }
     },
+    "Tap the cells that should be filled. What is planned already stays as it is.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe die Felder an, die gefüllt werden sollen. Bereits Geplantes bleibt, wie es ist."
+          }
+        }
+      }
+    },
+    "The image could not be read.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Bild konnte nicht gelesen werden."
+          }
+        }
+      }
+    },
+    "Then create the shopping list": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Danach Einkaufsliste erstellen"
+          }
+        }
+      }
+    },
+    "Title": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Titel"
+          }
+        }
+      }
+    },
+    "To review (%lld)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu prüfen (%lld)"
+          }
+        }
+      }
+    },
+    "Today": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heute"
+          }
+        }
+      }
+    },
     "Tools": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Utensilien"
+          }
+        }
+      }
+    },
+    "Tools are added in the recipe editor or by imports.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utensilien entstehen im Rezepteditor oder durch Importe."
           }
         }
       }
@@ -961,12 +2191,62 @@
         }
       }
     },
+    "Unit": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einheit"
+          }
+        }
+      }
+    },
+    "Unlock": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lösen"
+          }
+        }
+      }
+    },
+    "Upload cookie file": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cookie-Datei hochladen"
+          }
+        }
+      }
+    },
     "Use a different server": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Anderen Server verwenden"
+          }
+        }
+      }
+    },
+    "Use up leftovers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reste aufbrauchen"
+          }
+        }
+      }
+    },
+    "Used in ingredient lines": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Zutatenzeilen verwendet"
           }
         }
       }
@@ -991,6 +2271,16 @@
         }
       }
     },
+    "Variety": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abwechslung"
+          }
+        }
+      }
+    },
     "View original": {
       "localizations": {
         "de": {
@@ -1007,6 +2297,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wartet"
+          }
+        }
+      }
+    },
+    "Week %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KW %lld"
+          }
+        }
+      }
+    },
+    "Weekdays": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Werktage"
+          }
+        }
+      }
+    },
+    "Weekend": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wochenende"
+          }
+        }
+      }
+    },
+    "Withdraw rating": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertung zurückziehen"
           }
         }
       }
@@ -1041,6 +2371,16 @@
         }
       }
     },
+    "Your rating": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Bewertung"
+          }
+        }
+      }
+    },
     "approx. %@": {
       "localizations": {
         "de": {
@@ -1051,12 +2391,183 @@
         }
       }
     },
+    "based on the plan so far": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nach dem bisherigen Wochenplan"
+          }
+        }
+      }
+    },
+    "cannot be converted": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nicht umrechenbar"
+          }
+        }
+      }
+    },
+    "favorites and well rated recipes": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favoriten und gut bewertete Rezepte"
+          }
+        }
+      }
+    },
+    "no dish twice, not the same cuisine twice in a row": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kein Gericht doppelt, nicht zweimal hintereinander dieselbe Küche"
+          }
+        }
+      }
+    },
+    "opened packages and pantry first": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "angebrochene Packungen und Vorrat zuerst"
+          }
+        }
+      }
+    },
+    "or free text": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "oder freier Text"
+          }
+        }
+      }
+    },
     "pieces": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Stück"
+          }
+        }
+      }
+    },
+    "planned": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "geplant"
+          }
+        }
+      }
+    },
+    "preset.dinner": {
+      "extractionState": "extracted_with_value",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abends"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dinner"
+          }
+        }
+      }
+    },
+    "preset.lunch": {
+      "extractionState": "extracted_with_value",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mittags"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lunch"
+          }
+        }
+      }
+    },
+    "settings.import": {
+      "extractionState": "extracted_with_value",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Import"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Import"
+          }
+        }
+      }
+    },
+    "stored": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hinterlegt"
+          }
+        }
+      }
+    },
+    "“%@” will be deleted permanently.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ wird endgültig gelöscht."
+          }
+        }
+      }
+    },
+    "“%@” will be deleted unless a recipe uses it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ wird gelöscht, sofern kein Rezept es verwendet."
+          }
+        }
+      }
+    },
+    "“%@” will be deleted. Its recipe lines move to the chosen product and its name is kept as an alias.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ wird gelöscht. Seine Rezeptzeilen gehen auf das gewählte Produkt über, der Name bleibt als Alias erhalten."
+          }
+        }
+      }
+    },
+    "“%@” will be deleted. Its recipes use the chosen tool instead.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ wird gelöscht. Seine Rezepte verwenden stattdessen das gewählte Utensil."
           }
         }
       }

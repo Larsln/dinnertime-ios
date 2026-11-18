@@ -48,13 +48,15 @@ struct RequestBuilderTests {
     }
 
     @Test func buildsRecipeQuery() throws {
-        let request = try builder.request(for: RecipeEndpoints.list(search: "käse kuchen", tagID: 3, page: 2))
+        let request = try builder.request(for: RecipeEndpoints.list(search: "käse kuchen", tagID: 3, course: "main", favoritesOnly: true, page: 2))
         let items = URLComponents(url: try #require(request.url), resolvingAgainstBaseURL: false)?.queryItems
 
         #expect(items == [
             URLQueryItem(name: "page", value: "2"),
             URLQueryItem(name: "search", value: "käse kuchen"),
             URLQueryItem(name: "tag", value: "3"),
+            URLQueryItem(name: "course", value: "main"),
+            URLQueryItem(name: "favorite", value: "1"),
         ])
     }
 
@@ -73,17 +75,6 @@ struct RequestBuilderTests {
         #expect(body["meal"] as? String == "dinner")
         #expect(body["recipe_id"] as? Int == 4)
         #expect(body["servings"] as? Int == 2)
-    }
-
-    @Test func encodesGeneration() throws {
-        let week = Week(start: DayDate(year: 2026, month: 11, day: 16))
-        let endpoint = MealPlanEndpoints.generate(from: week.start, to: week.end, meals: [.lunch, .dinner], servings: 3)
-        let body = try json(builder.request(for: endpoint))
-
-        #expect(body["from"] as? String == "2026-11-16")
-        #expect(body["to"] as? String == "2026-11-22")
-        #expect(body["meals"] as? [String] == ["lunch", "dinner"])
-        #expect(body["servings"] as? Int == 3)
     }
 
     @Test func omitsMissingPantryDates() throws {

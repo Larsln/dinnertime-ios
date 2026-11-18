@@ -26,6 +26,11 @@ public struct Week: Hashable, Sendable {
         start = DayDate(date, calendar: calendar).adding(days: -offset)
     }
 
+    /// Number of the week within its year, as `calendar` counts it.
+    public func number(in calendar: Calendar = .current) -> Int {
+        calendar.component(.weekOfYear, from: start.date(in: calendar))
+    }
+
     /// The week `weeks` after this one; negative values go back.
     public func shifted(byWeeks weeks: Int) -> Week {
         Week(start: start.adding(days: weeks * 7))

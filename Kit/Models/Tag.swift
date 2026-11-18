@@ -2,7 +2,7 @@
 public struct Tag: Decodable, Hashable, Identifiable, Sendable {
     /// Group a tag belongs to.
     public enum Kind: String, Decodable, Sendable {
-        case meal, category, tag
+        case meal, tag
     }
 
     public let id: Int

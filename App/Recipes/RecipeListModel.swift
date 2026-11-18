@@ -1,7 +1,7 @@
 import MealplannerKit
 import Observation
 
-/// Loads the recipes that match a search text and a tag, page by page.
+/// Loads the recipes that match a search text and the chosen filters, page by page.
 @MainActor
 @Observable
 final class RecipeListModel: ErrorReporting {
@@ -9,12 +9,21 @@ final class RecipeListModel: ErrorReporting {
     struct Query: Hashable {
         var text = ""
         var tagID: Int?
+        /// Key of the course to show.
+        var course: String?
+        var favoritesOnly = false
+
+        /// Whether anything but the search text narrows the list.
+        var isFiltered: Bool {
+            tagID != nil || course != nil || favoritesOnly
+        }
     }
 
     var query = Query()
     var errorMessage: String?
     private(set) var recipes: [RecipeSummary] = []
     private(set) var tags: [Tag] = []
+    private(set) var courses: [Course] = []
     private(set) var hasMore = false
     private(set) var hasLoaded = false
 
@@ -33,7 +42,7 @@ final class RecipeListModel: ErrorReporting {
     /// Loads the first page for the current query.
     func reload() async {
         await attempt {
-            let page = try await session.send(RecipeEndpoints.list(search: query.text, tagID: query.tagID))
+            let page = try await session.send(endpoint(page: 1))
             recipes = page.items
             hasMore = page.hasMore
             nextPage = page.currentPage + 1
@@ -44,17 +53,39 @@ final class RecipeListModel: ErrorReporting {
     /// Appends the next page.
     func loadMore() async {
         await attempt {
-            let page = try await session.send(RecipeEndpoints.list(search: query.text, tagID: query.tagID, page: nextPage))
+            let page = try await session.send(endpoint(page: nextPage))
             recipes += page.items
             hasMore = page.hasMore
             nextPage = page.currentPage + 1
         }
     }
 
-    /// Loads the tags to filter by.
-    func loadTags() async {
+    /// Loads the courses and tags to filter by.
+    func loadFilters() async {
         await attempt {
-            tags = try await session.send(RecipeEndpoints.tags)
+            courses = try await session.send(ReferenceEndpoints.courses)
+            tags = try await session.send(ReferenceEndpoints.tags)
         }
+    }
+
+    /// The recipe an import produced; `nil` if it has none or cannot be loaded.
+    func recipe(ofImport importID: Int) async -> RecipeSummary? {
+        try? await session.send(ImportEndpoints.detail(id: importID)).recipe
+    }
+
+    /// Shows the changed state of a recipe that is on the list.
+    func replace(_ recipe: RecipeSummary) {
+        if let index = recipes.firstIndex(where: { $0.id == recipe.id }) {
+            recipes[index] = recipe
+        }
+    }
+
+    /// Takes a deleted recipe off the list.
+    func remove(id: Int) {
+        recipes.removeAll { $0.id == id }
+    }
+
+    private func endpoint(page: Int) -> Endpoint<Page<RecipeSummary>> {
+        RecipeEndpoints.list(search: query.text, tagID: query.tagID, course: query.course, favoritesOnly: query.favoritesOnly, page: page)
     }
 }

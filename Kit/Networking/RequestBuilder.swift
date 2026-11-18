@@ -22,9 +22,15 @@ struct RequestBuilder: Sendable {
         if endpoint.requiresAuthentication, let token {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
-        if let body = endpoint.body {
+        switch endpoint.body {
+        case let .json(value):
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = try JSONCoding.makeEncoder().encode(body)
+            request.httpBody = try JSONCoding.makeEncoder().encode(value)
+        case let .multipart(form):
+            request.setValue(form.contentType, forHTTPHeaderField: "Content-Type")
+            request.httpBody = form.encoded
+        case nil:
+            break
         }
         return request
     }

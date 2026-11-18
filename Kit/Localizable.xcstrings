@@ -11,12 +11,72 @@
         }
       }
     },
+    "Import failed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Import fehlgeschlagen"
+          }
+        }
+      }
+    },
+    "Loading the video": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Video wird geladen"
+          }
+        }
+      }
+    },
+    "Reading the recipe": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezept wird erkannt"
+          }
+        }
+      }
+    },
+    "Recipe imported": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezept importiert"
+          }
+        }
+      }
+    },
+    "Saving": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird gespeichert"
+          }
+        }
+      }
+    },
     "The credentials could not be accessed (%lld).": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Auf die Zugangsdaten konnte nicht zugegriffen werden (%lld)."
+          }
+        }
+      }
+    },
+    "The link could not be imported.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Link konnte nicht importiert werden."
           }
         }
       }

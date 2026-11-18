@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": 3,
+            "name": "Pfanne",
+            "is_owned": true,
+            "recipe_count": 5
+        },
+        {
+            "id": 4,
+            "name": "Pfanne mit Deckel",
+            "is_owned": true,
+            "recipe_count": 1
+        },
+        {
+            "id": 14,
+            "name": "Pfannenwender",
+            "is_owned": true,
+            "recipe_count": 1
+        }
+    ]
+}

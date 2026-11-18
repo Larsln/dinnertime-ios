@@ -1,10 +1,8 @@
 import SwiftUI
 import UIKit
 
-/// Entry point of the share extension: queues the shared link and closes itself.
+/// Entry point of the share extension: queues the shared link and shows the import until the user closes the sheet.
 final class ShareViewController: UIViewController {
-    private static let confirmationDuration: Duration = .seconds(1.5)
-
     private let model = ShareModel()
 
     override func viewDidLoad() {
@@ -14,10 +12,6 @@ final class ShareViewController: UIViewController {
         })
         Task {
             await model.share(extensionContext?.inputItems.compactMap { $0 as? NSExtensionItem } ?? [])
-            if model.didSucceed {
-                try? await Task.sleep(for: Self.confirmationDuration)
-                close()
-            }
         }
     }
 

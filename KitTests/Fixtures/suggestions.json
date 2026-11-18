@@ -1,0 +1,79 @@
+{
+    "data": [
+        {
+            "date": "2026-12-07",
+            "meal": "dinner",
+            "recipe": {
+                "id": 4,
+                "title": "Hähnchen-Kokos-Curry",
+                "slug": "hahnchen-kokos-curry",
+                "description": "Mildes Curry mit Brokkoli.",
+                "course": "main",
+                "course_name": "Hauptgericht",
+                "servings": 2,
+                "yield_text": null,
+                "prep_minutes": 10,
+                "cook_minutes": 20,
+                "cover_url": null,
+                "tags": [
+                    {
+                        "id": 3,
+                        "type": "meal",
+                        "key": "dinner",
+                        "name": "Abendessen"
+                    },
+                    {
+                        "id": 22,
+                        "type": "tag",
+                        "key": "asian",
+                        "name": "Asiatisch"
+                    }
+                ],
+                "rating": null,
+                "is_favorite": false,
+                "average_rating": null,
+                "rating_count": 0
+            },
+            "kept": false
+        },
+        {
+            "date": "2026-12-08",
+            "meal": "lunch",
+            "recipe": {
+                "id": 5,
+                "title": "Brokkoli-Reis-Auflauf",
+                "slug": "brokkoli-reis-auflauf",
+                "description": "Auflauf mit Brokkoli und Kokosmilch.",
+                "course": "main",
+                "course_name": "Hauptgericht",
+                "servings": 2,
+                "yield_text": null,
+                "prep_minutes": 10,
+                "cook_minutes": 30,
+                "cover_url": null,
+                "tags": [
+                    {
+                        "id": 3,
+                        "type": "meal",
+                        "key": "dinner",
+                        "name": "Abendessen"
+                    },
+                    {
+                        "id": 16,
+                        "type": "tag",
+                        "key": "vegetarian",
+                        "name": "Vegetarisch"
+                    }
+                ],
+                "rating": null,
+                "is_favorite": false,
+                "average_rating": null,
+                "rating_count": 0
+            },
+            "kept": true
+        }
+    ],
+    "meta": {
+        "candidate_count": 8
+    }
+}
