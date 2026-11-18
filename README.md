@@ -92,3 +92,22 @@ If the server offers OpenID Connect, the sign-in screen shows a second button.
 The app runs the authorization code flow with PKCE in the system browser and
 exchanges the ID token at the server. Register the redirect URI
 `mealplanner://oidc` for the client at your provider.
+
+## UI tests on a device
+
+The scheme `MealplannerUITests` drives the installed app against a real
+server: it signs in, visits every tab, opens a recipe and shares a page from
+Safari to the share extension. Screenshots are attached to the test result.
+The tests are skipped unless the server and account are given:
+
+```sh
+TEST_RUNNER_MEALPLANNER_SERVER=http://192.168.1.10:8000 \
+TEST_RUNNER_MEALPLANNER_USERNAME=demo \
+TEST_RUNNER_MEALPLANNER_PASSWORD=secret \
+TEST_RUNNER_MEALPLANNER_SHARE_URL=https://example.org/a-recipe \
+xcodebuild test -scheme MealplannerUITests \
+    -destination 'platform=iOS,name=My iPhone' -allowProvisioningUpdates
+```
+
+The device needs Developer Mode and must be unlocked. The share test expects
+the app to be signed in already, so run the walkthrough first.
