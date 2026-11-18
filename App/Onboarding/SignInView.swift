@@ -16,10 +16,12 @@ struct SignInView: View {
             Form {
                 Section {
                     TextField("Username", text: $model.username)
+                        .accessibilityIdentifier("username")
                         .textContentType(.username)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                     SecureField("Password", text: $model.password)
+                        .accessibilityIdentifier("password")
                         .textContentType(.password)
                         .onSubmit(signIn)
                 } footer: {

@@ -82,8 +82,8 @@ final class WalkthroughTests: XCTestCase {
     }
 
     private func signInIfNeeded(with account: Account) {
-        let address = app.textFields["Server address"]
-        let username = app.textFields["Username"]
+        let address = app.textFields["server-address"]
+        let username = app.textFields["username"]
 
         if address.waitForExistence(timeout: 5) {
             address.tap()
@@ -96,8 +96,8 @@ final class WalkthroughTests: XCTestCase {
         if username.waitForExistence(timeout: Self.timeout) {
             username.tap()
             username.typeText(account.username)
-            app.secureTextFields["Password"].tap()
-            app.secureTextFields["Password"].typeText(account.password)
+            app.secureTextFields["password"].tap()
+            app.secureTextFields["password"].typeText(account.password)
             record("Sign in")
             app.buttons["Sign in"].tap()
         }

@@ -19,6 +19,7 @@ struct ServerSetupView: View {
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                         .onSubmit(connect)
+                        .accessibilityIdentifier("server-address")
                 } footer: {
                     Text("Enter the address of the server your household runs. Addresses outside your home network need HTTPS.")
                 }
