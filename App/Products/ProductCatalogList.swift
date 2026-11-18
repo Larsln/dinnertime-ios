@@ -26,7 +26,7 @@ struct ProductCatalogList: View {
             }
         }
         .searchable(text: $model.searchText, prompt: "Search products")
-        .refreshable {
+        .refreshesFromServer {
             await model.search()
         }
         .debouncedSearch(model.searchText, isFirst: !model.hasLoaded, search: model.search)

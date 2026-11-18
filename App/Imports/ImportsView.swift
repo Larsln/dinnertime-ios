@@ -32,6 +32,21 @@ struct ImportsView: View {
                             .disabled(model.url == nil || model.isSubmitting)
                     }
                 }
+                if !session.offline.pendingLinks.isEmpty {
+                    Section("Waiting for a connection") {
+                        ForEach(session.offline.pendingLinks, id: \.self) { link in
+                            Label {
+                                Text(verbatim: link.absoluteString)
+                                    .lineLimit(1)
+                                    .truncationMode(.middle)
+                            } icon: {
+                                Image(systemName: "clock")
+                            }
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                        }
+                    }
+                }
                 Section("Recent imports") {
                     ForEach(model.imports) { item in
                         ImportRow(item: item) {

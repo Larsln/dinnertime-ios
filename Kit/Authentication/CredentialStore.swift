@@ -77,3 +77,49 @@ public struct CredentialStore: Sendable {
         return query
     }
 }
+
+/// Keeps the secret by which the devices of a household recognise each other in the Keychain of the app.
+public struct PeerKeyStore: Sendable {
+    private static let account = "peer-key"
+
+    private let service: String
+
+    /// Creates a store; by default under the Keychain service of ``AppConfiguration``.
+    public init(service: String = AppConfiguration.keychainService) {
+        self.service = service
+    }
+
+    /// The stored secret, if the app synced with the server before.
+    public func load() -> String? {
+        var query = baseQuery
+        query[kSecReturnData as String] = true
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
+        var result: CFTypeRef?
+        guard SecItemCopyMatching(query as CFDictionary, &result) == errSecSuccess, let data = result as? Data else {
+            return nil
+        }
+        return String(data: data, encoding: .utf8)
+    }
+
+    /// Stores the secret, replacing an earlier one.
+    public func save(_ key: String) {
+        delete()
+        var attributes = baseQuery
+        attributes[kSecValueData as String] = Data(key.utf8)
+        attributes[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
+        SecItemAdd(attributes as CFDictionary, nil)
+    }
+
+    /// Removes the secret.
+    public func delete() {
+        SecItemDelete(baseQuery as CFDictionary)
+    }
+
+    private var baseQuery: [String: Any] {
+        [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: Self.account,
+        ]
+    }
+}

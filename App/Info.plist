@@ -40,8 +40,13 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_mealplan-shop._tcp</string>
+		<string>_mealplan-shop._udp</string>
+	</array>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Lets the app reach a server in your home network.</string>
+	<string>Lets the app reach the server in your home network and share the shopping list with phones nearby.</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>UISupportedInterfaceOrientations</key>

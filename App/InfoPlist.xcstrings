@@ -7,13 +7,13 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Damit die App einen Server in deinem Heimnetz erreicht."
+            "value": "Damit die App den Server in deinem Heimnetz erreicht und die Einkaufsliste mit Handys in der Nähe abgleicht."
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lets the app reach a server in your home network."
+            "value": "Lets the app reach the server in your home network and share the shopping list with phones nearby."
           }
         }
       }

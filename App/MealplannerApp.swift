@@ -10,6 +10,7 @@ struct MealplannerApp: App {
         WindowGroup {
             RootView()
                 .environment(session)
+                .environment(session.offline)
         }
     }
 }

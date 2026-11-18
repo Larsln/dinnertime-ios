@@ -51,7 +51,7 @@ struct PantryView: View {
             .sheet(item: $editedItem) { item in
                 EditPantryAmountView(item: item, onSave: model.setAmount)
             }
-            .refreshable {
+            .refreshesFromServer {
                 await model.load()
             }
             .task {

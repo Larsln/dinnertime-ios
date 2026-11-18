@@ -8,6 +8,7 @@ struct PlanWizardView: View {
 
     @State private var model: PlanWizardModel
     @Environment(\.dismiss) private var dismiss
+    @Environment(OfflineCoordinator.self) private var offline
 
     init(session: AppSession, weeks: WeekSelection, plan: PlanModel, servings: Int, onFinish: @escaping (Bool) -> Void) {
         self.onFinish = onFinish
@@ -67,10 +68,21 @@ struct PlanWizardView: View {
         }
         .padding()
         .background(.bar)
+        .safeAreaInset(edge: .top, spacing: 0) {
+            if needsConnection {
+                ConnectionHint()
+                    .padding(.top, 6)
+            }
+        }
+    }
+
+    /// Whether the step asks the server for proposals while it cannot be reached.
+    private var needsConnection: Bool {
+        model.step == .preferences && !offline.isOnline
     }
 
     private var canAdvance: Bool {
-        guard !model.isWorking else {
+        guard !model.isWorking, !needsConnection else {
             return false
         }
         return model.step == .preview ? !model.board.proposals.isEmpty : !model.selection.selected.isEmpty

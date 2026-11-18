@@ -1,28 +1,19 @@
 import Foundation
 import MealplannerKit
-import Observation
 
-/// Listens to the change events of the server and tells the screens which of their data is outdated.
+/// Listens to the change events of the server and has the local copy fetch what changed.
 ///
-/// Every area carries a revision that grows when the server reports a change of it; screens
-/// reload when the revision of their area changes. The connection lives as long as ``run()``
-/// does, which the app starts in the foreground and cancels in the background.
+/// The connection lives as long as ``run()`` does, which the app starts in the foreground
+/// and cancels in the background.
 @MainActor
-@Observable
 final class RealtimeClient {
     private static let notFoundStatus = 404
 
-    private var revisions: [RealtimeArea: Int] = [:]
     private var hasConnected = false
     private let session: AppSession
 
     init(session: AppSession) {
         self.session = session
-    }
-
-    /// How often the server reported a change of `area`, including the times events may have been missed.
-    func revision(of area: RealtimeArea) -> Int {
-        revisions[area, default: 0]
     }
 
     /// Keeps one connection open until the surrounding task is cancelled.
@@ -59,23 +50,17 @@ final class RealtimeClient {
         markReconnected()
         var parser = ServerSentEventParser()
         for try await byte in bytes {
-            if let event = parser.consume(byte) {
-                bump(RealtimeArea.areas(in: event))
+            if let event = parser.consume(byte), !RealtimeArea.areas(in: event).isEmpty {
+                session.offline.refreshSoon()
             }
         }
     }
 
-    /// Treats every area as changed after a reconnect, because events may have been missed in between.
+    /// Fetches the changes after a reconnect, because events may have been missed in between.
     private func markReconnected() {
         if hasConnected {
-            bump(Set(RealtimeArea.allCases))
+            session.offline.refreshSoon()
         }
         hasConnected = true
-    }
-
-    private func bump(_ areas: Set<RealtimeArea>) {
-        for area in areas {
-            revisions[area, default: 0] += 1
-        }
     }
 }

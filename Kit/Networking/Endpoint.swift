@@ -32,6 +32,13 @@ public struct Endpoint<Response: Sendable>: Sendable {
     }
 }
 
+extension Endpoint {
+    /// Decodes the body of a successful answer, for answers that were kept from an earlier call.
+    public func response(from body: Data) throws -> Response {
+        try decode(body)
+    }
+}
+
 extension Endpoint where Response: Decodable {
     /// Endpoint whose answer is wrapped in `{"data": ...}`.
     static func resource(

@@ -21,7 +21,7 @@ struct ProposalRow: View {
                     .foregroundStyle(.secondary)
             }
             .frame(width: 34)
-            CoverImage(url: proposal.recipe.coverURL)
+            CoverImage(url: proposal.recipe.coverThumbURL ?? proposal.recipe.coverURL)
                 .frame(width: Self.imageSize, height: Self.imageSize)
                 .clipShape(.rect(cornerRadius: 10))
             VStack(alignment: .leading, spacing: 2) {

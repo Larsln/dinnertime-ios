@@ -27,7 +27,7 @@ struct RecipeSearchList<Row: View>: View {
             }
         }
         .searchable(text: $model.query.text)
-        .refreshable {
+        .refreshesFromServer {
             await model.reload()
         }
         .task(id: model.query) {

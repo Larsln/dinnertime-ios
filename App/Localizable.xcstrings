@@ -17,6 +17,46 @@
         }
       }
     },
+    "%lld changes waiting": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Änderung wartet"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Änderungen warten"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld change waiting"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld changes waiting"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld matching recipes for %lld meals": {
       "localizations": {
         "de": {
@@ -1097,6 +1137,16 @@
         }
       }
     },
+    "Loading the data of your household…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Daten deines Haushalts werden geladen …"
+          }
+        }
+      }
+    },
     "Lock": {
       "localizations": {
         "de": {
@@ -1217,6 +1267,16 @@
         }
       }
     },
+    "Needs a connection to the server.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benötigt eine Verbindung zum Server."
+          }
+        }
+      }
+    },
     "New ingredient": {
       "localizations": {
         "de": {
@@ -1273,6 +1333,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nein"
+          }
+        }
+      }
+    },
+    "No connection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Verbindung"
           }
         }
       }
@@ -1377,6 +1447,16 @@
         }
       }
     },
+    "Not saved": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht gespeichert"
+          }
+        }
+      }
+    },
     "Note": {
       "localizations": {
         "de": {
@@ -1423,6 +1503,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "OK"
+          }
+        }
+      }
+    },
+    "Offline": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline"
           }
         }
       }
@@ -2137,6 +2227,16 @@
         }
       }
     },
+    "The data of your household is loaded as soon as the server can be reached.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Daten deines Haushalts werden geladen, sobald der Server erreichbar ist."
+          }
+        }
+      }
+    },
     "The image could not be read.": {
       "localizations": {
         "de": {
@@ -2363,6 +2463,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wartet"
+          }
+        }
+      }
+    },
+    "Waiting for a connection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wartet auf Verbindung"
           }
         }
       }

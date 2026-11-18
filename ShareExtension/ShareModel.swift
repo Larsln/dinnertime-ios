@@ -18,6 +18,8 @@ final class ShareModel {
         case imported(RecipeImport, wasKnown: Bool)
         /// The server could not turn the link into a recipe.
         case rejected(RecipeImport)
+        /// There is no connection; the link is kept and imported later.
+        case waiting
         /// The link never reached the import queue.
         case failed(message: String)
     }
@@ -53,8 +55,13 @@ final class ShareModel {
         host = link.host()
         serverURL = credentials.serverURL
         await run(credentials) { client in
-            let created = try await client.send(ImportEndpoints.create(url: link))
-            return (created, created.status == .completed)
+            do {
+                let created = try await client.send(ImportEndpoints.create(url: link))
+                return (created, created.status == .completed)
+            } catch APIError.unreachable {
+                PendingLinks().add(link)
+                throw LinkKept()
+            }
         }
     }
 
@@ -81,6 +88,8 @@ final class ShareModel {
             await follow(item, wasKnown: wasKnown, client: client)
         } catch APIError.unauthorized {
             state = .failed(message: Self.signInMessage)
+        } catch is LinkKept {
+            state = .waiting
         } catch {
             state = .failed(message: error.localizedDescription)
         }
@@ -101,6 +110,9 @@ final class ShareModel {
         await ImportWaitSession.cancel(importID: current.id, on: waitSession)
         state = current.status == .completed ? .imported(current, wasKnown: wasKnown) : .rejected(current)
     }
+
+    /// Thrown when the server could not be reached and the link was kept for later.
+    private struct LinkKept: Error {}
 
     private static var signInMessage: String {
         String(localized: "You are not signed in. Open \(AppConfiguration.displayName) and sign in first.")

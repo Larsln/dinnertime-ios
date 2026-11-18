@@ -28,6 +28,9 @@ final class AppSession {
     /// The signed-in user, once known.
     private(set) var user: User?
 
+    /// The local copy of the data and the queue of changes; every call of the app passes through it.
+    let offline = OfflineCoordinator()
+
     private var client: APIClient?
     private let credentialStore: CredentialStore
     private let defaults: UserDefaults
@@ -90,11 +93,32 @@ final class AppSession {
         guard let client else {
             throw APIError.unauthorized
         }
+        if let answer = try await offline.answer(endpoint) {
+            return answer
+        }
+        if let kept = await offline.keptAnswer(endpoint) {
+            return try decode(endpoint, kept)
+        }
         do {
-            return try await client.send(endpoint)
+            let body = try await client.body(of: endpoint)
+            await offline.serverAnswered(endpoint, with: body)
+            return try decode(endpoint, body)
         } catch APIError.unauthorized {
             await endSession()
             throw APIError.unauthorized
+        } catch APIError.unreachable {
+            guard let kept = await offline.serverUnreachable(endpoint) else {
+                throw APIError.unreachable
+            }
+            return try decode(endpoint, kept)
+        }
+    }
+
+    private func decode<Response>(_ endpoint: Endpoint<Response>, _ body: Data) throws -> Response {
+        do {
+            return try endpoint.response(from: body)
+        } catch {
+            throw APIError.invalidResponse
         }
     }
 
@@ -124,6 +148,9 @@ final class AppSession {
     private func activate(_ credentials: Credentials) {
         client = APIClient(serverURL: credentials.serverURL, token: credentials.token)
         phase = .signedIn(serverURL: credentials.serverURL)
+        Task {
+            await offline.start(credentials)
+        }
     }
 
     private func endSession() async {
@@ -131,6 +158,7 @@ final class AppSession {
             return
         }
         try? credentialStore.delete()
+        await offline.wipe()
         client = nil
         user = nil
         phase = .launching

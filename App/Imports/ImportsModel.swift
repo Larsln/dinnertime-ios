@@ -32,17 +32,26 @@ final class ImportsModel: ErrorReporting {
         }
     }
 
-    /// Queues the entered link.
+    /// Queues the entered link; without a connection it is kept and submitted later.
     func submit() async {
         guard let url else {
             return
         }
         isSubmitting = true
         defer { isSubmitting = false }
+        guard session.offline.isOnline else {
+            session.offline.keep(url)
+            link = ""
+            return
+        }
         await attempt {
-            let created = try await session.send(ImportEndpoints.create(url: url))
-            imports.removeAll { $0.id == created.id }
-            imports.insert(created, at: 0)
+            do {
+                let created = try await session.send(ImportEndpoints.create(url: url))
+                imports.removeAll { $0.id == created.id }
+                imports.insert(created, at: 0)
+            } catch APIError.unreachable {
+                session.offline.keep(url)
+            }
             link = ""
         }
     }

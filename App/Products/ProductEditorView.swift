@@ -11,6 +11,7 @@ struct ProductEditorView: View {
     @State private var confirmsDeletion = false
     @State private var didMerge = false
     @Environment(\.dismiss) private var dismiss
+    @Environment(OfflineCoordinator.self) private var offline
 
     init(session: AppSession, product: Product, onChange: @escaping () async -> Void) {
         self.onChange = onChange
@@ -65,6 +66,10 @@ struct ProductEditorView: View {
             }
             Button("Merge", systemImage: "arrow.triangle.merge") {
                 showsMerge = true
+            }
+            .disabled(!offline.isOnline)
+            if !offline.isOnline {
+                ConnectionHint()
             }
             Button("Delete", systemImage: "trash", role: .destructive) {
                 confirmsDeletion = true

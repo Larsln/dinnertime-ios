@@ -6,6 +6,7 @@ struct ToolCatalogList: View {
     let session: AppSession
     @Bindable var model: ToolCatalogModel
 
+    @Environment(OfflineCoordinator.self) private var offline
     @State private var renamedTool: Tool?
     @State private var mergedTool: Tool?
     @State private var deletedTool: Tool?
@@ -21,8 +22,10 @@ struct ToolCatalogList: View {
                 Button("Delete", systemImage: "trash", role: .destructive) {
                     deletedTool = tool
                 }
-                Button("Merge", systemImage: "arrow.triangle.merge") {
-                    mergedTool = tool
+                if offline.isOnline {
+                    Button("Merge", systemImage: "arrow.triangle.merge") {
+                        mergedTool = tool
+                    }
                 }
                 Button("Rename", systemImage: "pencil") {
                     renamedTool = tool
@@ -36,7 +39,7 @@ struct ToolCatalogList: View {
             }
         }
         .searchable(text: $model.searchText, prompt: "Search tools")
-        .refreshable {
+        .refreshesFromServer {
             await model.search()
         }
         .debouncedSearch(model.searchText, isFirst: !model.hasLoaded, search: model.search)

@@ -65,7 +65,7 @@ struct PlanView: View {
             .sheet(isPresented: $showsWizard) {
                 PlanWizardView(session: session, weeks: selection, plan: model, servings: household.defaultServings, onFinish: finishPlanning)
             }
-            .refreshable {
+            .refreshesFromServer {
                 await model.load(selection.week)
             }
             .task(id: selection.week) {

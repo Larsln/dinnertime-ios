@@ -11,6 +11,16 @@
         }
       }
     },
+    "A product with this name exists already.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Produkt mit diesem Namen gibt es bereits."
+          }
+        }
+      }
+    },
     "Import failed": {
       "localizations": {
         "de": {
@@ -81,6 +91,16 @@
         }
       }
     },
+    "The product is used by a recipe and cannot be deleted.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Produkt wird in einem Rezept verwendet und kann nicht gelöscht werden."
+          }
+        }
+      }
+    },
     "The server answered with an error (%lld).": {
       "localizations": {
         "de": {
@@ -137,6 +157,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Der Anmeldedienst hat die Anmeldung nicht bestätigt."
+          }
+        }
+      }
+    },
+    "The tool is needed by a recipe and cannot be deleted.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Utensil wird in einem Rezept gebraucht und kann nicht gelöscht werden."
           }
         }
       }

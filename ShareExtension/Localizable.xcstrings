@@ -71,6 +71,16 @@
         }
       }
     },
+    "The link is imported as soon as the server can be reached.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Link wird importiert, sobald der Server erreichbar ist."
+          }
+        }
+      }
+    },
     "The recipe is being imported.": {
       "localizations": {
         "de": {
@@ -97,6 +107,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Erneut versuchen"
+          }
+        }
+      }
+    },
+    "Waiting for a connection": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wartet auf Verbindung"
           }
         }
       }

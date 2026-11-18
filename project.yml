@@ -51,7 +51,10 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         NSAppTransportSecurity:
           NSAllowsLocalNetworking: true
-        NSLocalNetworkUsageDescription: Lets the app reach a server in your home network.
+        NSLocalNetworkUsageDescription: Lets the app reach the server in your home network and share the shopping list with phones nearby.
+        NSBonjourServices:
+          - _mealplan-shop._tcp
+          - _mealplan-shop._udp
         KeychainService: $(APP_BUNDLE_ID)
         KeychainGroup: $(KEYCHAIN_GROUP)
         KeychainGroupPrefix: $(AppIdentifierPrefix)

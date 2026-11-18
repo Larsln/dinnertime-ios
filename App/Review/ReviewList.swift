@@ -36,7 +36,7 @@ struct ReviewList: View {
                 ContentUnavailableView("Nothing to review", systemImage: "checkmark.seal", description: Text("New products from imports appear here with suggested values."))
             }
         }
-        .refreshable {
+        .refreshesFromServer {
             await model.reload()
         }
     }

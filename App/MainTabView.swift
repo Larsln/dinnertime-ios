@@ -14,6 +14,7 @@ struct MainTabView: View {
     @State private var realtime: RealtimeClient
     @State private var household: HouseholdStore
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(OfflineCoordinator.self) private var offline
 
     init(session: AppSession) {
         self.session = session
@@ -23,6 +24,27 @@ struct MainTabView: View {
     @State private var weekSelection = WeekSelection()
 
     var body: some View {
+        Group {
+            if offline.hasSynced {
+                tabs
+            } else {
+                FirstSyncView()
+            }
+        }
+        .task(id: scenePhase == .active) {
+            if scenePhase == .active {
+                offline.refreshSoon()
+                await realtime.run()
+            }
+        }
+        .alert("Not saved", isPresented: rejectionIsPresented) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(verbatim: offline.rejectionMessage ?? "")
+        }
+    }
+
+    private var tabs: some View {
         TabView(selection: $area) {
             Tab("Recipes", systemImage: "book", value: Area.recipes) {
                 RecipeListView(session: session)
@@ -42,20 +64,25 @@ struct MainTabView: View {
                 ReviewView(session: session)
             }
         }
-        .environment(realtime)
-        .environment(household)
-        .task {
-            await household.load()
+        .overlay(alignment: .bottom) {
+            OfflineIndicator()
+                .padding(.bottom, 58)
         }
-        .task(id: scenePhase == .active) {
-            if scenePhase == .active {
-                await realtime.run()
-            }
+        .environment(household)
+        .task(id: offline.syncCount) {
+            await household.load()
         }
         .onChange(of: router.destination, initial: true) { _, destination in
             if destination != nil {
                 area = .recipes
             }
         }
+    }
+
+    private var rejectionIsPresented: Binding<Bool> {
+        Binding(
+            get: { offline.rejectionMessage != nil },
+            set: { if !$0 { offline.rejectionMessage = nil } }
+        )
     }
 }

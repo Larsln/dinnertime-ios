@@ -22,6 +22,8 @@ public struct RecipeSummary: Decodable, Hashable, Identifiable, Sendable {
     public let cookMinutes: Int?
     /// Address of the cover image; may be relative to the server.
     public let coverURL: URL?
+    /// Address of a version of the cover 480 pixels wide, for lists.
+    public let coverThumbURL: URL?
     public let tags: [Tag]
     /// Rating of the signed-in user within ``ratingRange``.
     public var rating: Int?
@@ -36,6 +38,7 @@ public struct RecipeSummary: Decodable, Hashable, Identifiable, Sendable {
         case id, title, slug, description, course, courseName, servings, yieldText, prepMinutes, cookMinutes, tags
         case rating, isFavorite, averageRating, ratingCount
         case coverURL = "coverUrl"
+        case coverThumbURL = "coverThumbUrl"
     }
 
     public init(from decoder: any Decoder) throws {
@@ -51,6 +54,7 @@ public struct RecipeSummary: Decodable, Hashable, Identifiable, Sendable {
         prepMinutes = try container.decodeIfPresent(Int.self, forKey: .prepMinutes)
         cookMinutes = try container.decodeIfPresent(Int.self, forKey: .cookMinutes)
         coverURL = try container.decodeIfPresent(URL.self, forKey: .coverURL)
+        coverThumbURL = try container.decodeIfPresent(URL.self, forKey: .coverThumbURL)
         tags = try container.decode([Tag].self, forKey: .tags)
         rating = try container.decodeIfPresent(Int.self, forKey: .rating)
         isFavorite = try container.decodeIfPresent(Bool.self, forKey: .isFavorite) ?? false

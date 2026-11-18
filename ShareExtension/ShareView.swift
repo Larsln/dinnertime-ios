@@ -60,6 +60,14 @@ struct ShareView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }
+        case .waiting:
+            Label("Waiting for a connection", systemImage: "clock")
+                .font(.headline)
+            Text("The link is imported as soon as the server can be reached.")
+                .multilineTextAlignment(.center)
+                .foregroundStyle(.secondary)
+            Button("Done", action: onClose)
+                .buttonStyle(.borderedProminent)
         case let .failed(message):
             failure(message: message)
             Button("Close", action: onClose)

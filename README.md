@@ -79,12 +79,36 @@ signing add it to both App IDs in the developer account.
 |---|---|---|
 | `App` | `Mealplanner` | SwiftUI views and view models, one folder per area |
 | `ShareExtension` | `ShareExtension` | Share sheet extension that queues imports |
-| `Kit` | `MealplannerKit` | Framework shared by both: API client, endpoints, models, formatting, Keychain, OpenID Connect |
+| `Kit` | `MealplannerKit` | Framework shared by both: API client, endpoints, models, formatting, Keychain, OpenID Connect, the offline copy and the queue of changes |
 | `KitTests` | `MealplannerKitTests` | Unit tests of the framework with recorded API answers |
 | `Config` | | Build settings |
 | `Scripts` | | Maintenance scripts |
 
 All user-facing text lives in the `Localizable.xcstrings` catalog of its target.
+
+## Working offline
+
+The app keeps a copy of the household's data on the device and shows every
+screen from it. The copy is filled by `GET /sync`, which only reports what
+changed since the last run, so large collections are never loaded twice.
+
+- **Reading:** `Kit/Offline` answers the calls of the screens from the copy,
+  in the shape the server would answer them.
+- **Writing:** a change is applied to the copy at once and put into a queue on
+  disk with an `Idempotency-Key` and the time the user acted. The queue is
+  sent in order whenever the server can be reached. The server lets the later
+  action win; a change it turns away is dropped and the copy is brought back
+  to the state of the server.
+- **Needs the server:** importing a link, proposals for the plan, creating or
+  refreshing the shopping list and merging products or tools. A link pasted
+  or shared without a connection waits and is submitted later.
+- **Images:** every cover is downloaded once and kept.
+- **In the shop:** while the shopping list is on screen, phones of the
+  household nearby exchange check marks and manual items directly over
+  MultipeerConnectivity. They recognise each other by a secret the server
+  hands out with the sync; it never leaves the device in the clear.
+
+Signing out deletes the copy, the queue and the images.
 
 ## Product icons
 

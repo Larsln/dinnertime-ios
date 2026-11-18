@@ -7,6 +7,7 @@ struct ShoppingView: View {
     let selection: WeekSelection
 
     @State private var model: ShoppingModel
+    @Environment(OfflineCoordinator.self) private var offline
 
     init(session: AppSession, selection: WeekSelection) {
         self.session = session
@@ -24,12 +25,14 @@ struct ShoppingView: View {
                         actions
                     }
                 }
-                .refreshable {
+                .refreshesFromServer {
                     await model.load()
                 }
                 .task {
                     await model.load()
                 }
+                .onAppear(perform: offline.startSharingShoppingList)
+                .onDisappear(perform: offline.stopSharingShoppingList)
                 .reloadsOnChange(of: .shopping) {
                     await model.load()
                 }
@@ -48,7 +51,10 @@ struct ShoppingView: View {
                 Text("Create a list from the plan of the selected week.")
             } actions: {
                 Button(updateTitle, action: update)
-                    .disabled(model.isWorking)
+                    .disabled(model.isWorking || !offline.isOnline)
+                if !offline.isOnline {
+                    ConnectionHint()
+                }
             }
         } else {
             ProgressView()
@@ -57,7 +63,8 @@ struct ShoppingView: View {
 
     private var actions: some View {
         Menu("Actions", systemImage: "ellipsis.circle") {
-            Button(updateTitle, systemImage: "arrow.clockwise", action: update)
+            Button(updateTitle, systemImage: offline.isOnline ? "arrow.clockwise" : "wifi.slash", action: update)
+                .disabled(!offline.isOnline)
             Button("Stock leftovers", systemImage: "refrigerator") {
                 Task {
                     await model.stockLeftovers()

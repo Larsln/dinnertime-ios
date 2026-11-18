@@ -9,7 +9,7 @@ struct PlanEntryRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            CoverImage(url: entry.recipe.coverURL)
+            CoverImage(url: entry.recipe.coverThumbURL ?? entry.recipe.coverURL)
                 .frame(width: Self.imageSize, height: Self.imageSize)
                 .clipShape(.rect(cornerRadius: 12))
             VStack(alignment: .leading, spacing: 4) {
