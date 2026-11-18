@@ -957,6 +957,26 @@
         }
       }
     },
+    "Household": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haushalt"
+          }
+        }
+      }
+    },
+    "Icon on the shopping list": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Symbol auf der Einkaufsliste"
+          }
+        }
+      }
+    },
     "Identify as a browser": {
       "localizations": {
         "de": {
@@ -1263,6 +1283,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keine"
+          }
+        }
+      }
+    },
+    "No matching icon.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein passendes Symbol."
           }
         }
       }
@@ -1673,6 +1703,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rezepte"
+          }
+        }
+      }
+    },
+    "Recipes are shown, planned and shopped for this many servings unless you choose otherwise.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für so viele Portionen werden Rezepte angezeigt, eingeplant und eingekauft, solange du nichts anderes wählst."
           }
         }
       }
@@ -2227,6 +2267,16 @@
         }
       }
     },
+    "Use the icon of the section": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Symbol des Bereichs verwenden"
+          }
+        }
+      }
+    },
     "Use up leftovers": {
       "localizations": {
         "de": {
@@ -2273,6 +2323,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Benutzername"
+          }
+        }
+      }
+    },
+    "Usual number of servings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portionen im Normalfall"
           }
         }
       }

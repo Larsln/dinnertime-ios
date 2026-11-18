@@ -11,6 +11,7 @@ struct RecipeDetailView: View {
     @State private var showsEditor = false
     @State private var confirmsDeletion = false
     @Environment(\.dismiss) private var dismiss
+    @Environment(HouseholdStore.self) private var household
 
     init(
         session: AppSession,
@@ -50,6 +51,7 @@ struct RecipeDetailView: View {
             Text("“\(model.summary.title)” will be deleted permanently.")
         }
         .task {
+            model.open(withServings: household.defaultServings)
             await model.load()
         }
         .onChange(of: model.summary) { _, summary in

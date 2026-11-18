@@ -12,11 +12,13 @@ struct MainTabView: View {
     @State private var area = Area.recipes
     @State private var router = ImportRouter.shared
     @State private var realtime: RealtimeClient
+    @State private var household: HouseholdStore
     @Environment(\.scenePhase) private var scenePhase
 
     init(session: AppSession) {
         self.session = session
         _realtime = State(initialValue: RealtimeClient(session: session))
+        _household = State(initialValue: HouseholdStore(session: session))
     }
     @State private var weekSelection = WeekSelection()
 
@@ -41,6 +43,10 @@ struct MainTabView: View {
             }
         }
         .environment(realtime)
+        .environment(household)
+        .task {
+            await household.load()
+        }
         .task(id: scenePhase == .active) {
             if scenePhase == .active {
                 await realtime.run()

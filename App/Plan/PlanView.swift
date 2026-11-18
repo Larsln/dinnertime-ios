@@ -9,6 +9,7 @@ struct PlanView: View {
 
     @Bindable var selection: WeekSelection
     @State private var model: PlanModel
+    @Environment(HouseholdStore.self) private var household
     @State private var draft: PlanEntryDraft?
     @State private var showsWizard = false
 
@@ -25,7 +26,7 @@ struct PlanView: View {
                 List {
                     ForEach(selection.week.days, id: \.self) { day in
                         PlanDaySection(day: day, model: model) {
-                            draft = PlanEntryDraft(day: day)
+                            draft = PlanEntryDraft(day: day, servings: household.defaultServings)
                         }
                     }
                 }
@@ -54,7 +55,7 @@ struct PlanView: View {
                         showsWizard = true
                     }
                     Button("Plan a meal", systemImage: "plus") {
-                        draft = PlanEntryDraft(day: defaultDay)
+                        draft = PlanEntryDraft(day: defaultDay, servings: household.defaultServings)
                     }
                 }
             }
@@ -62,7 +63,7 @@ struct PlanView: View {
                 AddEntryView(session: session, draft: draft, onAdd: model.add)
             }
             .sheet(isPresented: $showsWizard) {
-                PlanWizardView(session: session, weeks: selection, plan: model, onFinish: finishPlanning)
+                PlanWizardView(session: session, weeks: selection, plan: model, servings: household.defaultServings, onFinish: finishPlanning)
             }
             .refreshable {
                 await model.load(selection.week)

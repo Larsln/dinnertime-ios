@@ -1,20 +1,22 @@
+import MealplannerKit
 import SwiftUI
 import UIKit
 
-/// The line icon of a product, or a neutral basket when the product has none or names an unknown one.
+/// The line icon of a product: its own, else the one of its store section, else the general one.
 struct ProductIcon: View {
-    private static let fallback = "basket"
-
+    /// Key of the icon of the product; `nil` or an unknown key falls back to the store section.
     let key: String?
+    /// Key of the store section of the product.
+    let sectionKey: String?
 
     var body: some View {
-        Image(Self.assetName(for: key))
+        Image(Self.assetName(icon: key, sectionKey: sectionKey))
             .resizable()
             .scaledToFit()
     }
 
-    private static func assetName(for key: String?) -> String {
-        let name = "ProductIcons/\(key ?? fallback)"
-        return UIImage(named: name) == nil ? "ProductIcons/\(fallback)" : name
+    private static func assetName(icon: String?, sectionKey: String?) -> String {
+        let names = ProductIconCatalog.candidates(icon: icon, sectionKey: sectionKey).map { "ProductIcons/\($0)" }
+        return names.first { UIImage(named: $0) != nil } ?? "ProductIcons/\(ProductIconCatalog.fallbackKey)"
     }
 }

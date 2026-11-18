@@ -1,0 +1,2424 @@
+[
+  {
+    "key": "almond",
+    "de": "Mandel",
+    "en": "Almond",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "aluminium-foil",
+    "de": "Alufolie",
+    "en": "Aluminium foil",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "apple",
+    "de": "Apfel",
+    "en": "Apple",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "apricot",
+    "de": "Aprikose",
+    "en": "Apricot",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "artichoke",
+    "de": "Artischocke",
+    "en": "Artichoke",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "asparagus",
+    "de": "Grüner Spargel",
+    "en": "Green asparagus",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "avocado",
+    "de": "Avocado",
+    "en": "Avocado",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "baby-bottle",
+    "de": "Babyflasche",
+    "en": "Baby bottle",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "baby-food",
+    "de": "Babynahrung",
+    "en": "Baby food",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "bacon",
+    "de": "Speck",
+    "en": "Bacon",
+    "section": "meat_fish",
+    "source": "lucide"
+  },
+  {
+    "key": "baguette",
+    "de": "Baguette",
+    "en": "Baguette",
+    "section": "bakery",
+    "source": "tabler"
+  },
+  {
+    "key": "baking-paper",
+    "de": "Backpapier",
+    "en": "Baking paper",
+    "section": "other",
+    "source": "lucide"
+  },
+  {
+    "key": "baking-powder",
+    "de": "Backpulver",
+    "en": "Baking powder",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "balsamic",
+    "de": "Balsamico",
+    "en": "Balsamic vinegar",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "banana",
+    "de": "Banane",
+    "en": "Banana",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "basil",
+    "de": "Basilikum",
+    "en": "Basil",
+    "section": "produce",
+    "source": "lucide"
+  },
+  {
+    "key": "battery",
+    "de": "Batterien",
+    "en": "Batteries",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "bay-leaf",
+    "de": "Lorbeerblatt",
+    "en": "Bay leaf",
+    "section": "spices",
+    "source": "own"
+  },
+  {
+    "key": "bbq-sauce",
+    "de": "Grillsauce",
+    "en": "BBQ sauce",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "bean-sprout",
+    "de": "Sojasprossen",
+    "en": "Bean sprouts",
+    "section": "produce",
+    "source": "lucide"
+  },
+  {
+    "key": "beef",
+    "de": "Rindfleisch",
+    "en": "Beef",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "beer",
+    "de": "Bier",
+    "en": "Beer",
+    "section": "beverages",
+    "source": "lucide"
+  },
+  {
+    "key": "beetroot",
+    "de": "Rote Bete",
+    "en": "Beetroot",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "bell-pepper",
+    "de": "Paprika",
+    "en": "Bell pepper",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "blackberry",
+    "de": "Brombeere",
+    "en": "Blackberry",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "blueberry",
+    "de": "Heidelbeere",
+    "en": "Blueberry",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "bratwurst",
+    "de": "Bratwurst",
+    "en": "Bratwurst",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "bread",
+    "de": "Brot",
+    "en": "Bread",
+    "section": "bakery",
+    "source": "own"
+  },
+  {
+    "key": "bread-roll",
+    "de": "Brötchen",
+    "en": "Bread roll",
+    "section": "bakery",
+    "source": "own"
+  },
+  {
+    "key": "broccoli",
+    "de": "Brokkoli",
+    "en": "Broccoli",
+    "section": "produce",
+    "source": "lucide"
+  },
+  {
+    "key": "brussels-sprout",
+    "de": "Rosenkohl",
+    "en": "Brussels sprout",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "bulgur",
+    "de": "Bulgur",
+    "en": "Bulgur",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "burger",
+    "de": "Burger",
+    "en": "Burger",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "butter",
+    "de": "Butter",
+    "en": "Butter",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "butternut-squash",
+    "de": "Butternut-Kürbis",
+    "en": "Butternut squash",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "cake",
+    "de": "Kuchen",
+    "en": "Cake",
+    "section": "bakery",
+    "source": "tabler"
+  },
+  {
+    "key": "camembert",
+    "de": "Camembert",
+    "en": "Camembert",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "candle",
+    "de": "Kerzen",
+    "en": "Candles",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "candy",
+    "de": "Bonbons",
+    "en": "Candy",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "canned-bean",
+    "de": "Bohnen (Dose)",
+    "en": "Canned beans",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "canned-corn",
+    "de": "Mais",
+    "en": "Corn",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "canned-fruit",
+    "de": "Dosenobst",
+    "en": "Canned fruit",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "canned-tomato",
+    "de": "Dosentomaten",
+    "en": "Canned tomatoes",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "canned-tuna",
+    "de": "Thunfisch",
+    "en": "Tuna",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "carrot",
+    "de": "Karotte",
+    "en": "Carrot",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "cashew",
+    "de": "Cashewkern",
+    "en": "Cashew",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "cat-litter",
+    "de": "Katzenstreu",
+    "en": "Cat litter",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "cauliflower",
+    "de": "Blumenkohl",
+    "en": "Cauliflower",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "celeriac",
+    "de": "Knollensellerie",
+    "en": "Celeriac",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "celery",
+    "de": "Staudensellerie",
+    "en": "Celery",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "chanterelle",
+    "de": "Pfifferling",
+    "en": "Chanterelle",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "chard",
+    "de": "Mangold",
+    "en": "Chard",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "cheese",
+    "de": "Käse",
+    "en": "Cheese",
+    "section": "chilled",
+    "source": "tabler"
+  },
+  {
+    "key": "cherry",
+    "de": "Kirsche",
+    "en": "Cherry",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "cherry-tomato",
+    "de": "Cherrytomate",
+    "en": "Cherry tomato",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "chestnut",
+    "de": "Esskastanie",
+    "en": "Chestnut",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "chia-seed",
+    "de": "Chiasamen",
+    "en": "Chia seed",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "chicken",
+    "de": "Hähnchen",
+    "en": "Chicken",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "chicken-breast",
+    "de": "Hähnchenbrust",
+    "en": "Chicken breast",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "chicken-leg",
+    "de": "Hähnchenschenkel",
+    "en": "Chicken leg",
+    "section": "meat_fish",
+    "source": "lucide"
+  },
+  {
+    "key": "chickpea",
+    "de": "Kichererbsen",
+    "en": "Chickpea",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "chili",
+    "de": "Chili",
+    "en": "Chili pepper",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "chili-flakes",
+    "de": "Chiliflocken",
+    "en": "Chili flakes",
+    "section": "spices",
+    "source": "tabler"
+  },
+  {
+    "key": "chinese-cabbage",
+    "de": "Chinakohl",
+    "en": "Chinese cabbage",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "chips",
+    "de": "Chips",
+    "en": "Chips",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "chives",
+    "de": "Schnittlauch",
+    "en": "Chives",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "chocolate",
+    "de": "Schokolade",
+    "en": "Chocolate",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "chocolate-bar",
+    "de": "Schokoriegel",
+    "en": "Chocolate bar",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "chocolate-chips",
+    "de": "Schokotropfen",
+    "en": "Chocolate chips",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "cinnamon",
+    "de": "Zimt",
+    "en": "Cinnamon",
+    "section": "spices",
+    "source": "own"
+  },
+  {
+    "key": "cleaning-spray",
+    "de": "Reinigungsspray",
+    "en": "Cleaning spray",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "cocoa",
+    "de": "Kakao",
+    "en": "Cocoa",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "cocoa-drink",
+    "de": "Kakao",
+    "en": "Cocoa",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "coconut",
+    "de": "Kokosnuss",
+    "en": "Coconut",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "coconut-flakes",
+    "de": "Kokosraspel",
+    "en": "Coconut flakes",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "coconut-milk",
+    "de": "Kokosmilch",
+    "en": "Coconut milk",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "coffee",
+    "de": "Kaffee",
+    "en": "Coffee",
+    "section": "beverages",
+    "source": "tabler"
+  },
+  {
+    "key": "coffee-beans",
+    "de": "Kaffeebohnen",
+    "en": "Coffee beans",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "coffee-capsule",
+    "de": "Kaffeekapseln",
+    "en": "Coffee capsules",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "cola",
+    "de": "Cola",
+    "en": "Cola",
+    "section": "beverages",
+    "source": "lucide"
+  },
+  {
+    "key": "cold-cuts",
+    "de": "Aufschnitt",
+    "en": "Cold cuts",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "cookie",
+    "de": "Kekse",
+    "en": "Cookies",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "cooking-oil",
+    "de": "Speiseöl",
+    "en": "Cooking oil",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "coriander",
+    "de": "Koriander",
+    "en": "Coriander",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "corn",
+    "de": "Mais",
+    "en": "Corn",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "cornflakes",
+    "de": "Cornflakes",
+    "en": "Cornflakes",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "cotton-pad",
+    "de": "Wattepads",
+    "en": "Cotton pads",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "couscous",
+    "de": "Couscous",
+    "en": "Couscous",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "crab",
+    "de": "Krabbe",
+    "en": "Crab",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "cracker",
+    "de": "Cracker",
+    "en": "Crackers",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "cranberry",
+    "de": "Cranberry",
+    "en": "Cranberry",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "cream",
+    "de": "Sahne",
+    "en": "Cream",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "cream-cheese",
+    "de": "Frischkäse",
+    "en": "Cream cheese",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "creme-fraiche",
+    "de": "Crème fraîche",
+    "en": "Crème fraîche",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "cress",
+    "de": "Kresse",
+    "en": "Cress",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "crispbread",
+    "de": "Knäckebrot",
+    "en": "Crispbread",
+    "section": "bakery",
+    "source": "own"
+  },
+  {
+    "key": "croissant",
+    "de": "Croissant",
+    "en": "Croissant",
+    "section": "bakery",
+    "source": "lucide"
+  },
+  {
+    "key": "cucumber",
+    "de": "Gurke",
+    "en": "Cucumber",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "currant",
+    "de": "Johannisbeere",
+    "en": "Currant",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "curry-powder",
+    "de": "Currypulver",
+    "en": "Curry powder",
+    "section": "spices",
+    "source": "own"
+  },
+  {
+    "key": "date",
+    "de": "Dattel",
+    "en": "Date",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "deodorant",
+    "de": "Deo",
+    "en": "Deodorant",
+    "section": "other",
+    "source": "lucide"
+  },
+  {
+    "key": "diaper",
+    "de": "Windeln",
+    "en": "Diapers",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "dill",
+    "de": "Dill",
+    "en": "Dill",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "dish-soap",
+    "de": "Spülmittel",
+    "en": "Dish soap",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "dishwasher-tab",
+    "de": "Spülmaschinentabs",
+    "en": "Dishwasher tabs",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "donut",
+    "de": "Donut",
+    "en": "Donut",
+    "section": "bakery",
+    "source": "lucide"
+  },
+  {
+    "key": "dried-bean",
+    "de": "Getrocknete Bohnen",
+    "en": "Dried bean",
+    "section": "pasta_rice_cereal",
+    "source": "lucide"
+  },
+  {
+    "key": "dried-fruit",
+    "de": "Trockenobst",
+    "en": "Dried fruit",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "duck",
+    "de": "Ente",
+    "en": "Duck",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "dumpling",
+    "de": "Teigtaschen",
+    "en": "Dumplings",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "edamame",
+    "de": "Edamame",
+    "en": "Edamame",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "egg",
+    "de": "Ei",
+    "en": "Egg",
+    "section": "chilled",
+    "source": "tabler"
+  },
+  {
+    "key": "eggplant",
+    "de": "Aubergine",
+    "en": "Eggplant",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "eggs",
+    "de": "Eier",
+    "en": "Eggs",
+    "section": "chilled",
+    "source": "tabler"
+  },
+  {
+    "key": "energy-drink",
+    "de": "Energydrink",
+    "en": "Energy drink",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "fennel",
+    "de": "Fenchel",
+    "en": "Fennel",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "feta",
+    "de": "Feta",
+    "en": "Feta",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "fig",
+    "de": "Feige",
+    "en": "Fig",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "fish",
+    "de": "Fisch",
+    "en": "Fish",
+    "section": "meat_fish",
+    "source": "tabler"
+  },
+  {
+    "key": "fish-fillet",
+    "de": "Fischfilet",
+    "en": "Fish fillet",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "fish-finger",
+    "de": "Fischstäbchen",
+    "en": "Fish fingers",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "flatbread",
+    "de": "Fladenbrot",
+    "en": "Flatbread",
+    "section": "bakery",
+    "source": "own"
+  },
+  {
+    "key": "flaxseed",
+    "de": "Leinsamen",
+    "en": "Flaxseed",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "flour",
+    "de": "Mehl",
+    "en": "Flour",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "flowers",
+    "de": "Blumen",
+    "en": "Flowers",
+    "section": "other",
+    "source": "lucide"
+  },
+  {
+    "key": "freezer-bag",
+    "de": "Gefrierbeutel",
+    "en": "Freezer bags",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "french-fries",
+    "de": "Pommes frites",
+    "en": "French fries",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "fresh-pasta",
+    "de": "Frische Pasta",
+    "en": "Fresh pasta",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "frozen-berries",
+    "de": "TK-Beeren",
+    "en": "Frozen berries",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "frozen-pizza",
+    "de": "Tiefkühlpizza",
+    "en": "Frozen pizza",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "frozen-vegetables",
+    "de": "TK-Gemüse",
+    "en": "Frozen vegetables",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "fusilli",
+    "de": "Fusilli",
+    "en": "Fusilli",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "garlic",
+    "de": "Knoblauch",
+    "en": "Garlic",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "gelatin",
+    "de": "Gelatine",
+    "en": "Gelatin",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "ginger",
+    "de": "Ingwer",
+    "en": "Ginger",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "gnocchi",
+    "de": "Gnocchi",
+    "en": "Gnocchi",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "grape",
+    "de": "Weintraube",
+    "en": "Grape",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "grapefruit",
+    "de": "Grapefruit",
+    "en": "Grapefruit",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "grated-cheese",
+    "de": "Reibekäse",
+    "en": "Grated cheese",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "green-bean",
+    "de": "Grüne Bohne",
+    "en": "Green bean",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "gummy-bear",
+    "de": "Gummibärchen",
+    "en": "Gummy bears",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "ham",
+    "de": "Schinken",
+    "en": "Ham",
+    "section": "meat_fish",
+    "source": "lucide"
+  },
+  {
+    "key": "hazelnut",
+    "de": "Haselnuss",
+    "en": "Hazelnut",
+    "section": "baking",
+    "source": "lucide"
+  },
+  {
+    "key": "herb-mix",
+    "de": "Kräuter",
+    "en": "Herbs",
+    "section": "spices",
+    "source": "own"
+  },
+  {
+    "key": "honey",
+    "de": "Honig",
+    "en": "Honey",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "honeydew-melon",
+    "de": "Honigmelone",
+    "en": "Honeydew melon",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "horseradish",
+    "de": "Meerrettich",
+    "en": "Horseradish",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "hot-sauce",
+    "de": "Scharfe Sauce",
+    "en": "Hot sauce",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "hummus",
+    "de": "Hummus",
+    "en": "Hummus",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "ice-cream",
+    "de": "Eis",
+    "en": "Ice cream",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "iceberg-lettuce",
+    "de": "Eisbergsalat",
+    "en": "Iceberg lettuce",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "iced-tea",
+    "de": "Eistee",
+    "en": "Iced tea",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "jam",
+    "de": "Marmelade",
+    "en": "Jam",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "jar",
+    "de": "Glas",
+    "en": "Jar",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "juice",
+    "de": "Saft",
+    "en": "Juice",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "kale",
+    "de": "Grünkohl",
+    "en": "Kale",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "ketchup",
+    "de": "Ketchup",
+    "en": "Ketchup",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "kidney-bean",
+    "de": "Kidneybohnen",
+    "en": "Kidney beans",
+    "section": "canned",
+    "source": "lucide"
+  },
+  {
+    "key": "kitchen-roll",
+    "de": "Küchenrolle",
+    "en": "Kitchen roll",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "kiwi",
+    "de": "Kiwi",
+    "en": "Kiwi",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "kohlrabi",
+    "de": "Kohlrabi",
+    "en": "Kohlrabi",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "lamb",
+    "de": "Lammfleisch",
+    "en": "Lamb",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "lambs-lettuce",
+    "de": "Feldsalat",
+    "en": "Lamb's lettuce",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "lasagne-sheet",
+    "de": "Lasagneplatte",
+    "en": "Lasagne sheet",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "laundry-detergent",
+    "de": "Waschmittel",
+    "en": "Laundry detergent",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "leek",
+    "de": "Lauch",
+    "en": "Leek",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "lemon",
+    "de": "Zitrone",
+    "en": "Lemon",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "lemongrass",
+    "de": "Zitronengras",
+    "en": "Lemongrass",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "lentil",
+    "de": "Linsen",
+    "en": "Lentil",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "lettuce",
+    "de": "Kopfsalat",
+    "en": "Lettuce",
+    "section": "produce",
+    "source": "lucide"
+  },
+  {
+    "key": "light-bulb",
+    "de": "Glühbirne",
+    "en": "Light bulb",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "lime",
+    "de": "Limette",
+    "en": "Lime",
+    "section": "produce",
+    "source": "lucide"
+  },
+  {
+    "key": "lollipop",
+    "de": "Lutscher",
+    "en": "Lollipop",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "lychee",
+    "de": "Litschi",
+    "en": "Lychee",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "mandarin",
+    "de": "Mandarine",
+    "en": "Mandarin",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "mango",
+    "de": "Mango",
+    "en": "Mango",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "maple-syrup",
+    "de": "Ahornsirup",
+    "en": "Maple syrup",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "margarine",
+    "de": "Margarine",
+    "en": "Margarine",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "matches",
+    "de": "Streichhölzer",
+    "en": "Matches",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "mayonnaise",
+    "de": "Mayonnaise",
+    "en": "Mayonnaise",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "meatball",
+    "de": "Hackbällchen",
+    "en": "Meatball",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "medicine",
+    "de": "Medikamente",
+    "en": "Medicine",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "milk",
+    "de": "Milch",
+    "en": "Milk",
+    "section": "chilled",
+    "source": "lucide"
+  },
+  {
+    "key": "minced-meat",
+    "de": "Hackfleisch",
+    "en": "Minced meat",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "mint",
+    "de": "Minze",
+    "en": "Mint",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "mixed-nuts",
+    "de": "Nussmischung",
+    "en": "Mixed nuts",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "mixed-salad",
+    "de": "Gemischter Salat",
+    "en": "Mixed salad",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "mozzarella",
+    "de": "Mozzarella",
+    "en": "Mozzarella",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "muesli",
+    "de": "Müsli",
+    "en": "Muesli",
+    "section": "pasta_rice_cereal",
+    "source": "tabler"
+  },
+  {
+    "key": "muffin",
+    "de": "Muffin",
+    "en": "Muffin",
+    "section": "bakery",
+    "source": "lucide"
+  },
+  {
+    "key": "mushroom",
+    "de": "Champignon",
+    "en": "Mushroom",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "mussel",
+    "de": "Muschel",
+    "en": "Mussel",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "mustard",
+    "de": "Senf",
+    "en": "Mustard",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "nectarine",
+    "de": "Nektarine",
+    "en": "Nectarine",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "noodles",
+    "de": "Nudeln",
+    "en": "Noodles",
+    "section": "pasta_rice_cereal",
+    "source": "tabler"
+  },
+  {
+    "key": "nut-spread",
+    "de": "Nuss-Nougat-Creme",
+    "en": "Nut spread",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "nutmeg",
+    "de": "Muskatnuss",
+    "en": "Nutmeg",
+    "section": "spices",
+    "source": "lucide"
+  },
+  {
+    "key": "oats",
+    "de": "Haferflocken",
+    "en": "Oats",
+    "section": "pasta_rice_cereal",
+    "source": "tabler"
+  },
+  {
+    "key": "okra",
+    "de": "Okra",
+    "en": "Okra",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "olive",
+    "de": "Olive",
+    "en": "Olive",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "olive-oil",
+    "de": "Olivenöl",
+    "en": "Olive oil",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "onion",
+    "de": "Zwiebel",
+    "en": "Onion",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "orange",
+    "de": "Orange",
+    "en": "Orange",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "orange-juice",
+    "de": "Orangensaft",
+    "en": "Orange juice",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "oregano",
+    "de": "Oregano",
+    "en": "Oregano",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "oyster-mushroom",
+    "de": "Austernpilz",
+    "en": "Oyster mushroom",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "pak-choi",
+    "de": "Pak Choi",
+    "en": "Pak choi",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "papaya",
+    "de": "Papaya",
+    "en": "Papaya",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "paprika-powder",
+    "de": "Paprikapulver",
+    "en": "Paprika powder",
+    "section": "spices",
+    "source": "own"
+  },
+  {
+    "key": "parmesan",
+    "de": "Parmesan",
+    "en": "Parmesan",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "parsley",
+    "de": "Petersilie",
+    "en": "Parsley",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "parsnip",
+    "de": "Pastinake",
+    "en": "Parsnip",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "passata",
+    "de": "Passierte Tomaten",
+    "en": "Passata",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "passion-fruit",
+    "de": "Passionsfrucht",
+    "en": "Passion fruit",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "pea",
+    "de": "Erbse",
+    "en": "Pea",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "peach",
+    "de": "Pfirsich",
+    "en": "Peach",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "peanut",
+    "de": "Erdnuss",
+    "en": "Peanut",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "pear",
+    "de": "Birne",
+    "en": "Pear",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "pecan",
+    "de": "Pekannuss",
+    "en": "Pecan",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "penne",
+    "de": "Penne",
+    "en": "Penne",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "pepper-mill",
+    "de": "Pfeffer",
+    "en": "Pepper",
+    "section": "spices",
+    "source": "own"
+  },
+  {
+    "key": "persimmon",
+    "de": "Kaki",
+    "en": "Persimmon",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "pesto",
+    "de": "Pesto",
+    "en": "Pesto",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "pet-food",
+    "de": "Tierfutter",
+    "en": "Pet food",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "physalis",
+    "de": "Physalis",
+    "en": "Physalis",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "pickle",
+    "de": "Gewürzgurken",
+    "en": "Pickles",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "pie",
+    "de": "Pie",
+    "en": "Pie",
+    "section": "bakery",
+    "source": "own"
+  },
+  {
+    "key": "pine-nut",
+    "de": "Pinienkern",
+    "en": "Pine nut",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "pineapple",
+    "de": "Ananas",
+    "en": "Pineapple",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "pistachio",
+    "de": "Pistazie",
+    "en": "Pistachio",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "pizza-dough",
+    "de": "Pizzateig",
+    "en": "Pizza dough",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "plant-milk",
+    "de": "Pflanzenmilch",
+    "en": "Plant milk",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "plaster",
+    "de": "Pflaster",
+    "en": "Plasters",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "plum",
+    "de": "Pflaume",
+    "en": "Plum",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "pointed-cabbage",
+    "de": "Spitzkohl",
+    "en": "Pointed cabbage",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "pomegranate",
+    "de": "Granatapfel",
+    "en": "Pomegranate",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "popcorn",
+    "de": "Popcorn",
+    "en": "Popcorn",
+    "section": "other",
+    "source": "lucide"
+  },
+  {
+    "key": "popsicle",
+    "de": "Eis am Stiel",
+    "en": "Popsicle",
+    "section": "other",
+    "source": "lucide"
+  },
+  {
+    "key": "pork",
+    "de": "Schweinefleisch",
+    "en": "Pork",
+    "section": "meat_fish",
+    "source": "tabler"
+  },
+  {
+    "key": "pork-chop",
+    "de": "Kotelett",
+    "en": "Pork chop",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "potato",
+    "de": "Kartoffel",
+    "en": "Potato",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "powdered-sugar",
+    "de": "Puderzucker",
+    "en": "Powdered sugar",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "pretzel",
+    "de": "Brezel",
+    "en": "Pretzel",
+    "section": "bakery",
+    "source": "own"
+  },
+  {
+    "key": "pretzel-stick",
+    "de": "Salzstangen",
+    "en": "Pretzel sticks",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "pudding",
+    "de": "Pudding",
+    "en": "Pudding",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "puff-pastry",
+    "de": "Blätterteig",
+    "en": "Puff pastry",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "pumpkin",
+    "de": "Kürbis",
+    "en": "Pumpkin",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "pumpkin-seed",
+    "de": "Kürbiskern",
+    "en": "Pumpkin seed",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "quark",
+    "de": "Quark",
+    "en": "Quark",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "quince",
+    "de": "Quitte",
+    "en": "Quince",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "quinoa",
+    "de": "Quinoa",
+    "en": "Quinoa",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "radicchio",
+    "de": "Radicchio",
+    "en": "Radicchio",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "radish",
+    "de": "Radieschen",
+    "en": "Radish",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "raisin",
+    "de": "Rosine",
+    "en": "Raisin",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "raspberry",
+    "de": "Himbeere",
+    "en": "Raspberry",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "razor",
+    "de": "Rasierer",
+    "en": "Razor",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "ready-meal",
+    "de": "Fertiggericht",
+    "en": "Ready meal",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "red-cabbage",
+    "de": "Rotkohl",
+    "en": "Red cabbage",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "red-onion",
+    "de": "Rote Zwiebel",
+    "en": "Red onion",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "rhubarb",
+    "de": "Rhabarber",
+    "en": "Rhubarb",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "rice",
+    "de": "Reis",
+    "en": "Rice",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "rocket",
+    "de": "Rucola",
+    "en": "Rocket",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "rosemary",
+    "de": "Rosmarin",
+    "en": "Rosemary",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "sage",
+    "de": "Salbei",
+    "en": "Sage",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "salad-dressing",
+    "de": "Salatdressing",
+    "en": "Salad dressing",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "salami",
+    "de": "Salami",
+    "en": "Salami",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "salmon",
+    "de": "Lachs",
+    "en": "Salmon",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "salt",
+    "de": "Salz",
+    "en": "Salt",
+    "section": "spices",
+    "source": "tabler"
+  },
+  {
+    "key": "sandwich",
+    "de": "Sandwich",
+    "en": "Sandwich",
+    "section": "other",
+    "source": "lucide"
+  },
+  {
+    "key": "sauerkraut",
+    "de": "Sauerkraut",
+    "en": "Sauerkraut",
+    "section": "canned",
+    "source": "own"
+  },
+  {
+    "key": "sausage",
+    "de": "Wurst",
+    "en": "Sausage",
+    "section": "meat_fish",
+    "source": "tabler"
+  },
+  {
+    "key": "savoy-cabbage",
+    "de": "Wirsing",
+    "en": "Savoy cabbage",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "schnitzel",
+    "de": "Schnitzel",
+    "en": "Schnitzel",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "sesame",
+    "de": "Sesam",
+    "en": "Sesame",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "shallot",
+    "de": "Schalotte",
+    "en": "Shallot",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "shampoo",
+    "de": "Shampoo",
+    "en": "Shampoo",
+    "section": "other",
+    "source": "lucide"
+  },
+  {
+    "key": "shiitake",
+    "de": "Shiitake",
+    "en": "Shiitake",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "shower-gel",
+    "de": "Duschgel",
+    "en": "Shower gel",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "shrimp",
+    "de": "Garnele",
+    "en": "Shrimp",
+    "section": "meat_fish",
+    "source": "lucide"
+  },
+  {
+    "key": "sliced-cheese",
+    "de": "Scheibenkäse",
+    "en": "Sliced cheese",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "smoked-fish",
+    "de": "Räucherfisch",
+    "en": "Smoked fish",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "smoothie",
+    "de": "Smoothie",
+    "en": "Smoothie",
+    "section": "beverages",
+    "source": "tabler"
+  },
+  {
+    "key": "soap",
+    "de": "Seife",
+    "en": "Soap",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "soda",
+    "de": "Limonade",
+    "en": "Soda",
+    "section": "beverages",
+    "source": "lucide"
+  },
+  {
+    "key": "soup",
+    "de": "Suppe",
+    "en": "Soup",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "sour-cream",
+    "de": "Saure Sahne",
+    "en": "Sour cream",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "soy-sauce",
+    "de": "Sojasauce",
+    "en": "Soy sauce",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "spaghetti",
+    "de": "Spaghetti",
+    "en": "Spaghetti",
+    "section": "pasta_rice_cereal",
+    "source": "own"
+  },
+  {
+    "key": "sparkling-water",
+    "de": "Sprudelwasser",
+    "en": "Sparkling water",
+    "section": "beverages",
+    "source": "tabler"
+  },
+  {
+    "key": "sparkling-wine",
+    "de": "Sekt",
+    "en": "Sparkling wine",
+    "section": "beverages",
+    "source": "tabler"
+  },
+  {
+    "key": "spice-jar",
+    "de": "Gewürz",
+    "en": "Spice",
+    "section": "spices",
+    "source": "own"
+  },
+  {
+    "key": "spinach",
+    "de": "Spinat",
+    "en": "Spinach",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "spirits",
+    "de": "Spirituosen",
+    "en": "Spirits",
+    "section": "beverages",
+    "source": "tabler"
+  },
+  {
+    "key": "sponge",
+    "de": "Schwamm",
+    "en": "Sponge",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "spring-onion",
+    "de": "Frühlingszwiebel",
+    "en": "Spring onion",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "squid",
+    "de": "Tintenfisch",
+    "en": "Squid",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "steak",
+    "de": "Steak",
+    "en": "Steak",
+    "section": "meat_fish",
+    "source": "lucide"
+  },
+  {
+    "key": "stock",
+    "de": "Brühe",
+    "en": "Stock",
+    "section": "sauces_oils_stock",
+    "source": "lucide"
+  },
+  {
+    "key": "stock-cube",
+    "de": "Brühwürfel",
+    "en": "Stock cube",
+    "section": "spices",
+    "source": "tabler"
+  },
+  {
+    "key": "strawberry",
+    "de": "Erdbeere",
+    "en": "Strawberry",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "sugar",
+    "de": "Zucker",
+    "en": "Sugar",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "sugar-snap",
+    "de": "Zuckerschote",
+    "en": "Sugar snap pea",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "sunflower-seed",
+    "de": "Sonnenblumenkern",
+    "en": "Sunflower seed",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "sushi",
+    "de": "Sushi",
+    "en": "Sushi",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "sweet-potato",
+    "de": "Süßkartoffel",
+    "en": "Sweet potato",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "syrup",
+    "de": "Sirup",
+    "en": "Syrup",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "tea",
+    "de": "Tee",
+    "en": "Tea",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "tea-bag",
+    "de": "Teebeutel",
+    "en": "Tea bags",
+    "section": "beverages",
+    "source": "own"
+  },
+  {
+    "key": "thyme",
+    "de": "Thymian",
+    "en": "Thyme",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "tissue",
+    "de": "Taschentücher",
+    "en": "Tissues",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "toast",
+    "de": "Toastbrot",
+    "en": "Toast",
+    "section": "bakery",
+    "source": "tabler"
+  },
+  {
+    "key": "tofu",
+    "de": "Tofu",
+    "en": "Tofu",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "toilet-paper",
+    "de": "Toilettenpapier",
+    "en": "Toilet paper",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "tomato",
+    "de": "Tomate",
+    "en": "Tomato",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "tomato-paste",
+    "de": "Tomatenmark",
+    "en": "Tomato paste",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "toothbrush",
+    "de": "Zahnbürste",
+    "en": "Toothbrush",
+    "section": "other",
+    "source": "lucide"
+  },
+  {
+    "key": "toothpaste",
+    "de": "Zahnpasta",
+    "en": "Toothpaste",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "tortilla",
+    "de": "Tortilla",
+    "en": "Tortilla",
+    "section": "bakery",
+    "source": "own"
+  },
+  {
+    "key": "trash-bag",
+    "de": "Müllbeutel",
+    "en": "Trash bags",
+    "section": "other",
+    "source": "own"
+  },
+  {
+    "key": "tuna",
+    "de": "Thunfisch",
+    "en": "Tuna",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "turkey",
+    "de": "Pute",
+    "en": "Turkey",
+    "section": "meat_fish",
+    "source": "own"
+  },
+  {
+    "key": "turnip",
+    "de": "Speiserübe",
+    "en": "Turnip",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "vanilla",
+    "de": "Vanille",
+    "en": "Vanilla",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "vinegar",
+    "de": "Essig",
+    "en": "Vinegar",
+    "section": "sauces_oils_stock",
+    "source": "own"
+  },
+  {
+    "key": "waffle",
+    "de": "Waffel",
+    "en": "Waffle",
+    "section": "bakery",
+    "source": "own"
+  },
+  {
+    "key": "walnut",
+    "de": "Walnuss",
+    "en": "Walnut",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "water",
+    "de": "Wasser",
+    "en": "Water",
+    "section": "beverages",
+    "source": "tabler"
+  },
+  {
+    "key": "watermelon",
+    "de": "Wassermelone",
+    "en": "Watermelon",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "white-asparagus",
+    "de": "Weißer Spargel",
+    "en": "White asparagus",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "white-cabbage",
+    "de": "Weißkohl",
+    "en": "White cabbage",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "wine",
+    "de": "Wein",
+    "en": "Wine",
+    "section": "beverages",
+    "source": "lucide"
+  },
+  {
+    "key": "yeast",
+    "de": "Hefe",
+    "en": "Yeast",
+    "section": "baking",
+    "source": "own"
+  },
+  {
+    "key": "yogurt",
+    "de": "Joghurt",
+    "en": "Yogurt",
+    "section": "chilled",
+    "source": "own"
+  },
+  {
+    "key": "zucchini",
+    "de": "Zucchini",
+    "en": "Zucchini",
+    "section": "produce",
+    "source": "own"
+  },
+  {
+    "key": "section-bakery",
+    "de": "Backwaren",
+    "en": "Bakery",
+    "section": "bakery",
+    "source": "tabler"
+  },
+  {
+    "key": "section-baking",
+    "de": "Backzutaten",
+    "en": "Baking",
+    "section": "baking",
+    "source": "tabler"
+  },
+  {
+    "key": "section-beverages",
+    "de": "Getränke",
+    "en": "Beverages",
+    "section": "beverages",
+    "source": "lucide"
+  },
+  {
+    "key": "section-canned",
+    "de": "Konserven",
+    "en": "Canned goods",
+    "section": "canned",
+    "source": "lucide"
+  },
+  {
+    "key": "section-chilled",
+    "de": "Kühlregal",
+    "en": "Chilled",
+    "section": "chilled",
+    "source": "tabler"
+  },
+  {
+    "key": "section-meat-fish",
+    "de": "Fleisch & Fisch",
+    "en": "Meat & fish",
+    "section": "meat_fish",
+    "source": "tabler"
+  },
+  {
+    "key": "section-other",
+    "de": "Sonstiges",
+    "en": "Other",
+    "section": "other",
+    "source": "tabler"
+  },
+  {
+    "key": "section-pasta-rice-cereal",
+    "de": "Nudeln, Reis & Getreide",
+    "en": "Pasta, rice & cereals",
+    "section": "pasta_rice_cereal",
+    "source": "tabler"
+  },
+  {
+    "key": "section-produce",
+    "de": "Obst & Gemüse",
+    "en": "Fruit & vegetables",
+    "section": "produce",
+    "source": "tabler"
+  },
+  {
+    "key": "section-sauces-oils-stock",
+    "de": "Saucen, Öle & Brühen",
+    "en": "Sauces, oils & stock",
+    "section": "sauces_oils_stock",
+    "source": "tabler"
+  },
+  {
+    "key": "section-spices",
+    "de": "Gewürze",
+    "en": "Spices",
+    "section": "spices",
+    "source": "own"
+  }
+]

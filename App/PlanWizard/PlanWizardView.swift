@@ -9,9 +9,9 @@ struct PlanWizardView: View {
     @State private var model: PlanWizardModel
     @Environment(\.dismiss) private var dismiss
 
-    init(session: AppSession, weeks: WeekSelection, plan: PlanModel, onFinish: @escaping (Bool) -> Void) {
+    init(session: AppSession, weeks: WeekSelection, plan: PlanModel, servings: Int, onFinish: @escaping (Bool) -> Void) {
         self.onFinish = onFinish
-        _model = State(initialValue: PlanWizardModel(session: session, weeks: weeks, plan: plan))
+        _model = State(initialValue: PlanWizardModel(session: session, weeks: weeks, plan: plan, servings: servings))
     }
 
     var body: some View {

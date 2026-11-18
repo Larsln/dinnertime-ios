@@ -8,10 +8,12 @@ struct PlanEntryDraft: Identifiable {
     let id = UUID()
     var date: Date
     var meal = MealType.dinner
-    var servings = 2
+    var servings: Int
     var recipe: RecipeSummary?
 
-    init(day: DayDate) {
+    /// Starts a draft for `day` with the usual servings of the household.
+    init(day: DayDate, servings: Int) {
         date = day.date()
+        self.servings = servings
     }
 }

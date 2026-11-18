@@ -35,6 +35,8 @@ struct ProductDraft {
     }
 
     var name: String
+    /// Key of the icon on the shopping list; `nil` shows the icon of the store section.
+    var icon: String?
     var storeSectionID: Int?
     var baseUnit: BaseUnit
     var isPantryStaple: Bool
@@ -45,6 +47,7 @@ struct ProductDraft {
 
     init(_ product: Product) {
         name = product.name
+        icon = product.icon
         storeSectionID = product.storeSection?.id
         baseUnit = product.baseUnit
         isPantryStaple = product.isPantryStaple ?? false
@@ -62,6 +65,7 @@ struct ProductDraft {
     var input: ProductInput {
         ProductInput(
             name: name.nilIfBlank ?? "",
+            icon: icon,
             storeSectionID: storeSectionID,
             baseUnit: baseUnit,
             isPantryStaple: isPantryStaple,

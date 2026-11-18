@@ -16,7 +16,7 @@ final class PlanWizardModel: ErrorReporting {
     var step = Step.days
     /// The slots chosen in the first step.
     var selection: MealSlotSelection
-    var servings = 2
+    var servings: Int
     var preferences = MealPlanPreferences()
     /// Keys of the courses the proposals are restricted to.
     var courseKeys: [String] = []
@@ -33,8 +33,10 @@ final class PlanWizardModel: ErrorReporting {
     private let plan: PlanModel
     private let session: AppSession
 
-    init(session: AppSession, weeks: WeekSelection, plan: PlanModel) {
+    /// Plans the shown week of `weeks`, starting with `servings` per meal.
+    init(session: AppSession, weeks: WeekSelection, plan: PlanModel, servings: Int) {
         self.session = session
+        self.servings = servings
         self.weeks = weeks
         self.plan = plan
         selection = Self.openDinners(of: weeks.week, planned: plan.plannedSlots, showsAllMeals: false)

@@ -25,6 +25,7 @@ struct SettingsView: View {
                         }
                     }
                 }
+                HouseholdSettingsSection()
                 ImportSettingsSection(session: session)
                 Section {
                     Button("Sign out", role: .destructive) {

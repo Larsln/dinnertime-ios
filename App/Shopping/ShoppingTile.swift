@@ -11,7 +11,7 @@ struct ShoppingTile: View {
 
     var body: some View {
         VStack(spacing: 3) {
-            ProductIcon(key: item.product?.icon)
+            ProductIcon(key: item.product?.icon, sectionKey: item.product?.storeSection?.key)
                 .frame(width: 34, height: 34)
             Text(verbatim: item.title)
                 .font(.caption.weight(.medium))

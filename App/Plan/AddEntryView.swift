@@ -40,9 +40,6 @@ struct AddEntryView: View {
 
     private func select(_ recipe: RecipeSummary) {
         draft.recipe = recipe
-        if let servings = recipe.servings {
-            draft.servings = min(servings, PlanEntryDraft.servingsRange.upperBound)
-        }
     }
 
     private func save() {

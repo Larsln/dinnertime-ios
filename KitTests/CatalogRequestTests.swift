@@ -23,17 +23,38 @@ struct CatalogRequestTests {
     }
 
     @Test func updatesProductAndClearsMissingValues() throws {
-        let input = ProductInput(name: "Schmand", storeSectionID: nil, baseUnit: .milliliter, isPantryStaple: true, shelfLifeOpenedDays: nil)
+        let input = ProductInput(name: "Schmand", icon: "milk", storeSectionID: nil, baseUnit: .milliliter, isPantryStaple: true, shelfLifeOpenedDays: nil)
         let request = try builder.request(for: ProductEndpoints.update(id: 4, input))
         let body = try json(request)
 
         #expect(request.httpMethod == "PATCH")
         #expect(request.url?.path() == "/api/v1/products/4")
         #expect(body["name"] as? String == "Schmand")
+        #expect(body["icon"] as? String == "milk")
         #expect(body["base_unit"] as? String == "ml")
         #expect(body["is_pantry_staple"] as? Bool == true)
         #expect(body["store_section_id"] is NSNull)
         #expect(body["shelf_life_opened_days"] is NSNull)
+    }
+
+    @Test func clearsTheIconWithNull() throws {
+        let input = ProductInput(name: "Schmand", icon: nil, storeSectionID: 3, baseUnit: .gram, isPantryStaple: false, shelfLifeOpenedDays: 5)
+        let body = try json(builder.request(for: ProductEndpoints.update(id: 4, input)))
+
+        #expect(body["icon"] is NSNull)
+        #expect(body["store_section_id"] as? Int == 3)
+    }
+
+    @Test func householdSettings() throws {
+        let settings = try HouseholdSettingsEndpoints.settings.decode(Data(#"{"data":{"default_servings":4}}"#.utf8))
+        let change = try builder.request(for: HouseholdSettingsEndpoints.setDefaultServings(3))
+
+        #expect(settings.defaultServings == 4)
+        #expect(HouseholdSettings.fallbackServings == 2)
+        #expect(HouseholdSettings.servingsRange == 1...50)
+        #expect(change.httpMethod == "PATCH")
+        #expect(change.url?.path() == "/api/v1/settings/household")
+        #expect(try json(change) as? [String: Int] == ["default_servings": 3])
     }
 
     @Test func createsProductFromName() throws {

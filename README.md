@@ -82,8 +82,22 @@ signing add it to both App IDs in the developer account.
 | `Kit` | `MealplannerKit` | Framework shared by both: API client, endpoints, models, formatting, Keychain, OpenID Connect |
 | `KitTests` | `MealplannerKitTests` | Unit tests of the framework with recorded API answers |
 | `Config` | | Build settings |
+| `Scripts` | | Maintenance scripts |
 
 All user-facing text lives in the `Localizable.xcstrings` catalog of its target.
+
+## Product icons
+
+The line icons on the shopping list come from the server repository,
+`resources/icons/products`. After that directory changed, regenerate the
+asset catalog and the manifest in the app:
+
+```sh
+Scripts/import-product-icons.py ../backend/resources/icons/products
+```
+
+`App/Resources/ProductIcons-LICENSE.md` names the sources and licenses of the
+drawings.
 
 ## How the share extension gets its credentials
 

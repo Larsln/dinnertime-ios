@@ -23,12 +23,26 @@ final class RecipeDetailModel: ErrorReporting {
     /// Counts the rating and favorite changes, so that only the answer to the latest one is taken over.
     private var markCount = 0
 
+    /// Servings a recipe opens with; the usual number of the household once the view passed it on.
+    private var defaultServings: Int?
+
     private let session: AppSession
 
     init(session: AppSession, summary: RecipeSummary) {
         self.session = session
         self.summary = summary
         servings = summary.servings ?? 1
+    }
+
+    /// Shows a recipe that states servings scaled to the usual number of the household.
+    ///
+    /// Only the first call counts, so that the choice of the user survives when the view appears again.
+    func open(withServings servings: Int) {
+        guard defaultServings == nil else {
+            return
+        }
+        defaultServings = servings
+        self.servings = initialServings(for: summary)
     }
 
     /// Whether the recipe states servings to scale from.
@@ -48,13 +62,18 @@ final class RecipeDetailModel: ErrorReporting {
         }
     }
 
-    /// Shows the recipe as the server holds it and returns to its stated servings if they changed.
+    /// Shows the recipe as the server holds it and returns to the initial servings if the stated ones changed.
     func show(_ recipe: Recipe) {
         if recipe.summary.servings != summary.servings {
-            servings = recipe.summary.servings ?? 1
+            servings = initialServings(for: recipe.summary)
         }
         self.recipe = recipe
         summary = recipe.summary
+    }
+
+    /// A recipe that states servings opens with the default; one without cannot be scaled.
+    private func initialServings(for summary: RecipeSummary) -> Int {
+        summary.servings.map { defaultServings ?? $0 } ?? 1
     }
 
     /// Sets the rating of the user; `nil` withdraws it.
