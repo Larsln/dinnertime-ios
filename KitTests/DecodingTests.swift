@@ -115,6 +115,7 @@ struct DecodingTests {
         #expect(schmand.leftoverAmount == 100)
         #expect(schmand.uses.first?.date == DayDate(year: 2026, month: 11, day: 18))
         #expect(schmand.purchaseText(formatter: AmountFormatter(locale: Locale(identifier: "en_US"))) == "2 × Becher 200 g + 3 Stück")
+        #expect(schmand.shortPurchaseText(formatter: AmountFormatter(locale: Locale(identifier: "en_US"))) == "2 × 200 g + 3 Stück")
     }
 
     @Test func shoppingListSectionsKeepWalkingOrder() throws {

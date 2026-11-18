@@ -139,6 +139,7 @@
 		8A7CF7DF4F8EC3154434A5B4 /* MealSlotSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A298A034A5D6852976855AD3 /* MealSlotSelection.swift */; };
 		8AC8D16F2DEAB80AB8616165 /* RequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475D0BD5DE62E5A8B54D08A5 /* RequestBody.swift */; };
 		8AEB33D8B68E41894A00F15B /* ShareExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C69A255C4F4CB87C813CE5F /* ShareExtensionTests.swift */; };
+		8B8CBF982036176AA334A9AA /* ProductIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D499CB00DDC5B0234EB59 /* ProductIcon.swift */; };
 		8D3EA5373DD057CCD360BCBE /* RecipeBasicsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B913FD710B05954713EA86 /* RecipeBasicsSection.swift */; };
 		8E0F67840301271838E55431 /* ImportWaitCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82A87D2995507550D049DF /* ImportWaitCenter.swift */; };
 		8ECCA7BB359F59854284B106 /* RecipeImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724E2721316164F4D4113E6B /* RecipeImport.swift */; };
@@ -202,6 +203,7 @@
 		BF900E8B95AA7CF01B6858CA /* MealplannerKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C7FDE5A05DC1F275C00B614C /* MealplannerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C011504BAF55AC50F5FB502B /* PreferenceToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6C4E584420E2D8431A2491 /* PreferenceToggle.swift */; };
 		C08E721D4ABBFD0580EB8DA3 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDD2B5DDB1635C305E6E724 /* Course.swift */; };
+		C16CB3DC34E636ED00951D06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E99777F1449A618C8B93D2E3 /* Assets.xcassets */; };
 		C327A2FD0D3AD47FE9E39F66 /* RecipeIngredientsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCF150581E7B26789F9244B /* RecipeIngredientsSection.swift */; };
 		C36009069B9E2561291A1D63 /* RecipePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB4359BC3322F5E5F4408A2 /* RecipePickerView.swift */; };
 		C87C25DD0EA947CB46E7D4E1 /* RecipeMarkEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26FC542D5BAA8A9C8BD3FE7 /* RecipeMarkEndpoints.swift */; };
@@ -367,6 +369,7 @@
 		26E73BF4444FD0EEB6C67EB1 /* MealPlanEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanEntry.swift; sourceTree = "<group>"; };
 		288015B6ECC13067875FC8E2 /* ImportWaitSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWaitSession.swift; sourceTree = "<group>"; };
 		2948C97FD1C55D1EC8B979D5 /* AmountFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountFormatter.swift; sourceTree = "<group>"; };
+		2A5D499CB00DDC5B0234EB59 /* ProductIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductIcon.swift; sourceTree = "<group>"; };
 		2DCF150581E7B26789F9244B /* RecipeIngredientsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeIngredientsSection.swift; sourceTree = "<group>"; };
 		2E9DDF6EF1A602058CEF8B8D /* ShownImportOutcomes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShownImportOutcomes.swift; sourceTree = "<group>"; };
 		2F8EE24E8B54F94E16624CD9 /* recipes-page.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "recipes-page.json"; sourceTree = "<group>"; };
@@ -559,6 +562,7 @@
 		E5F4D4DBCB3C34DCADDC385A /* RecipeStepsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeStepsSection.swift; sourceTree = "<group>"; };
 		E6E5D32429E735D42A269535 /* MergeToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeToolView.swift; sourceTree = "<group>"; };
 		E7A9A1B7CFD867CA278093F5 /* PlanWizardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanWizardView.swift; sourceTree = "<group>"; };
+		E99777F1449A618C8B93D2E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EAC537C79F9CD569C60704FB /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		EDF172E82BF008B362FDA943 /* ImportSettingsEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSettingsEndpoints.swift; sourceTree = "<group>"; };
 		EF48BF6D0D0C197BED0EA64D /* ProposalBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalBoard.swift; sourceTree = "<group>"; };
@@ -709,6 +713,7 @@
 				2EED7646AC8464B5EAE6B37F /* Shopping */,
 				D6285637ADF84315C04B909B /* Support */,
 				D4DB891C08AE9104CBAEF57E /* Tools */,
+				E99777F1449A618C8B93D2E3 /* Assets.xcassets */,
 				D9034E44841BEE1D628D8FA8 /* Info.plist */,
 				8D8B92C5C1451278D6B14AE2 /* InfoPlist.xcstrings */,
 				860CF1CAC3D6BB1F1AA7804F /* Localizable.xcstrings */,
@@ -723,6 +728,7 @@
 		2EED7646AC8464B5EAE6B37F /* Shopping */ = {
 			isa = PBXGroup;
 			children = (
+				2A5D499CB00DDC5B0234EB59 /* ProductIcon.swift */,
 				7157F2B6480E39704B4279D2 /* ShoppingBoard.swift */,
 				F04772D6BC485A8CB5D6CCF4 /* ShoppingItemDetails.swift */,
 				A43F0CCAD1FDDBE8C138B789 /* ShoppingModel.swift */,
@@ -1326,6 +1332,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C16CB3DC34E636ED00951D06 /* Assets.xcassets in Resources */,
 				F6F105265CBE56EB0BFFBD78 /* InfoPlist.xcstrings in Resources */,
 				8A42C8A2D240203538D939FD /* Localizable.xcstrings in Resources */,
 			);
@@ -1525,6 +1532,7 @@
 				70A73E605ADFFD9CF78AF936 /* ProductEditorModel.swift in Sources */,
 				38C3BACFF00843635A44D584 /* ProductEditorView.swift in Sources */,
 				524AFE72076B8739A8332C2A /* ProductFactsSection.swift in Sources */,
+				8B8CBF982036176AA334A9AA /* ProductIcon.swift in Sources */,
 				9316AE8BBFA92E44D23CC1EB /* ProductPackagesSection.swift in Sources */,
 				F26C22F28374E2B6FDC18FE8 /* ProductPickerView.swift in Sources */,
 				7732E9C0C9FBA3BA56211143 /* ProductRow.swift in Sources */,
@@ -1693,7 +1701,7 @@
 		2BA10C1199E5CC1467C5ABDE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Mealplanner.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = App/Info.plist;
@@ -1819,7 +1827,7 @@
 		68033FD561E2E3E344CCD797 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_ENTITLEMENTS = App/Mealplanner.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = App/Info.plist;

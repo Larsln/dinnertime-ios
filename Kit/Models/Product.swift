@@ -20,6 +20,8 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
     public let id: Int
     public let name: String
     public let pluralName: String?
+    /// Key of the line icon that pictures the product on the shopping list.
+    public let icon: String?
     public let baseUnit: BaseUnit
     public let isPantryStaple: Bool?
     /// Days an opened package stays usable.

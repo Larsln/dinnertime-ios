@@ -3,7 +3,7 @@ import SwiftUI
 
 /// The shopping list as tiles: the open items by area of the store, the checked ones in a last section.
 struct ShoppingBoard: View {
-    private static let columns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 3)
+    private static let columns = Array(repeating: GridItem(.flexible(), spacing: 6), count: 4)
 
     let list: ShoppingList
     let model: ShoppingModel
@@ -53,7 +53,7 @@ struct ShoppingBoard: View {
         VStack(alignment: .leading, spacing: 8) {
             title()
                 .font(.headline)
-            LazyVGrid(columns: Self.columns, spacing: 10) {
+            LazyVGrid(columns: Self.columns, spacing: 6) {
                 ForEach(items) { item in
                     ShoppingTile(item: item) {
                         Task {
