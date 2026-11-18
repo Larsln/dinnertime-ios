@@ -78,7 +78,7 @@ struct RecipeDetailView: View {
         case .ingredients:
             RecipeIngredientList(recipe: recipe, model: model)
         case .method:
-            RecipeMethodList(recipe: recipe)
+            RecipeMethodList(recipe: recipe, scale: model.scale)
         }
         if let url = recipe.sourceURL {
             Section {

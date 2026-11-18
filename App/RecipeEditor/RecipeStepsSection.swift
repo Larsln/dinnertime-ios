@@ -31,6 +31,10 @@ struct RecipeStepsSection: View {
                 if group.id == draft.stepGroups.first?.id {
                     ReorderHeader(title: "Method", hint: "Steps can be combined into groups, such as base, filling and decoration.")
                 }
+            } footer: {
+                if group.id == draft.stepGroups.last?.id {
+                    Text("Amounts in curly braces, e.g. {200} g, adapt to the servings.")
+                }
             }
         }
         Section {

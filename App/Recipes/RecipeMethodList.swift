@@ -1,9 +1,11 @@
 import MealplannerKit
 import SwiftUI
 
-/// The tools a recipe needs and its steps, grouped by component.
+/// The tools a recipe needs and its steps, grouped by component, with the amounts in the steps scaled to the wanted servings.
 struct RecipeMethodList: View {
     let recipe: Recipe
+    /// Ratio of wanted to stated servings.
+    let scale: Double
 
     var body: some View {
         if !recipe.tools.isEmpty {
@@ -26,7 +28,7 @@ struct RecipeMethodList: View {
         ForEach(recipe.stepGroups) { group in
             Section {
                 ForEach(group.steps) { step in
-                    Text(verbatim: "\(step.position). \(step.text)")
+                    StepRow(step: step, scale: scale)
                 }
             } header: {
                 if let title = group.title {

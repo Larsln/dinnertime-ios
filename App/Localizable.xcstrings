@@ -537,6 +537,16 @@
         }
       }
     },
+    "Amounts in curly braces, e.g. {200} g, adapt to the servings.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mengen in geschweiften Klammern, z. B. {200} g, passen sich den Portionen an."
+          }
+        }
+      }
+    },
     "Average rating: %@": {
       "localizations": {
         "de": {
