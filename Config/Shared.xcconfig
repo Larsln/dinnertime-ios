@@ -5,7 +5,7 @@
 APP_DISPLAY_NAME = Dinnertime
 
 // Bundle identifier of the app; the share extension appends ".share".
-APP_BUNDLE_ID = io.github.larsln.dinnertime
+APP_BUNDLE_ID = de.larsln.dinnertime
 
 // Keychain access group through which app and share extension share the credentials.
 KEYCHAIN_GROUP = $(APP_BUNDLE_ID).shared
