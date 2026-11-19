@@ -1,6 +1,6 @@
 # Dinnertime for iOS
 
-Native iOS client for the self-hosted Dinnertime server. Every household runs its
+Native iOS client for the self-hosted [Dinnertime server](https://github.com/Larsln/dinnertime). Every household runs its
 own server; the app asks for its address on first launch and talks to nothing else.
 
 - Browse, search and filter recipes by course, tag and favorites, scale
@@ -25,7 +25,7 @@ The interface is available in English and German.
 
 - Xcode 26 or later
 - iOS 18 or later
-- A running Dinnertime server
+- A running [Dinnertime server](https://github.com/Larsln/dinnertime)
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen), only when the project
   structure changes
 
