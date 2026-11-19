@@ -2353,6 +2353,16 @@
         }
       }
     },
+    "Rather something else? Decide together": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lieber was anderes? Gemeinsam aussuchen"
+          }
+        }
+      }
+    },
     "Recent imports": {
       "localizations": {
         "de": {
