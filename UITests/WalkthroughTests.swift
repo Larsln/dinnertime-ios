@@ -140,7 +140,11 @@ final class WalkthroughTests: XCTestCase {
         waitUntilLoaded()
         record("Product editor")
 
-        app.buttons["Add package"].firstMatch.tap()
+        let addPackage = app.buttons["Add package"].firstMatch
+        for _ in 0..<4 where !addPackage.exists {
+            app.swipeUp()
+        }
+        addPackage.tap()
         let amount = app.textFields.matching(NSPredicate(format: "placeholderValue IN %@", ["g", "ml", "pieces"])).allElementsBoundByIndex.last
         amount?.tap()
         XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: Self.timeout), "The number pad did not open")
