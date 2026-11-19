@@ -1,7 +1,7 @@
 import DinnertimeKit
 import SwiftUI
 
-/// Edits a product with its offers, packages and conversions, confirms, merges or deletes it.
+/// Edits a product with its package sizes and conversions, confirms, merges or deletes it.
 ///
 /// Offers are stored as they are entered; everything else is stored with the save button.
 struct ProductEditorView: View {
@@ -30,7 +30,6 @@ struct ProductEditorView: View {
             Section("Note") {
                 ProductNoteField(text: $model.draft.note)
             }
-            ProductPackagesSection(draft: $model.draft)
             ProductConversionsSection(draft: $model.draft, addableUnits: model.addableUnits)
             actions
         }

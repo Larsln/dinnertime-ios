@@ -86,7 +86,7 @@ struct DecodingTests {
         #expect(items[0].product.storeSection?.key == "chilled")
     }
 
-    @Test func productWithConversionsAndPackages() throws {
+    @Test func productWithConversionsAndOffers() throws {
         let product = try ProductEndpoints.confirm(id: 1).decode(Fixture.data("product"))
 
         #expect(product.status == .confirmed)
@@ -94,7 +94,9 @@ struct DecodingTests {
         #expect(product.conversions?.first?.unit.code == "EL")
         #expect(product.conversions?.first?.amountInBase == 15)
         #expect(product.conversions?.last?.amountInBase == nil)
-        #expect(product.packages?.first?.label == "Becher")
+        #expect(product.offers.map(\.store) == ["Lidl", nil])
+        #expect(product.offers.map(\.isSoldEverywhere) == [false, true])
+        #expect(product.offers.map(\.unit) == [.gram, .kilogram])
     }
 
     @Test func productPageOmitsDetailFields() throws {
@@ -102,7 +104,7 @@ struct DecodingTests {
 
         #expect(page.items[0].name == "Zwiebel")
         #expect(page.items[0].baseUnit == .piece)
-        #expect(page.items[0].packages == nil)
+        #expect(page.items[0].offers.isEmpty)
         #expect(page.items[0].recipeCount == nil)
     }
 
@@ -116,7 +118,7 @@ struct DecodingTests {
         #expect(schmand.packages.first?.count == 2)
         #expect(schmand.leftoverAmount == 100)
         #expect(schmand.uses.first?.date == DayDate(year: 2026, month: 11, day: 18))
-        #expect(schmand.purchaseText(formatter: AmountFormatter(locale: Locale(identifier: "en_US"))) == "2 × Becher 200 g + 3 Stück")
+        #expect(schmand.purchaseText(formatter: AmountFormatter(locale: Locale(identifier: "en_US"))) == "2 × Lidl 200 g + 3 Stück")
         #expect(schmand.shortPurchaseText(formatter: AmountFormatter(locale: Locale(identifier: "en_US"))) == "2 × 200 g + 3 Stück")
     }
 

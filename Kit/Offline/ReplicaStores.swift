@@ -16,7 +16,7 @@ extension Replica {
         if request.matches(.post, "stores") {
             let name = request.body["name"] as? String ?? ""
             try requireUnusedStoreName(name, except: nil)
-            let store: JSONObject = ["id": makeTemporaryID(), "name": name, "is_active": request.body["is_active"] as? Bool ?? true]
+            let store: JSONObject = ["id": makeTemporaryID(), "name": name, "is_active": true, "is_preferred": false]
             put(.stores, store)
             return LocalResult(body: resource(shownStore(store)), areas: [.products], change: QueuedChange(created: [store.recordID ?? 0], createdKind: .stores))
         }
@@ -25,7 +25,7 @@ extension Replica {
             if let name = request.body["name"] as? String {
                 try requireUnusedStoreName(name, except: store.recordID)
             }
-            store.merge(request.body.filter { ["name", "is_active"].contains($0.key) }) { _, new in new }
+            store.merge(request.body.filter { ["name", "is_active", "is_preferred"].contains($0.key) }) { _, new in new }
             put(.stores, store)
             return LocalResult(body: resource(shownStore(store)), areas: [.products, .shopping], change: QueuedChange())
         }
@@ -40,6 +40,9 @@ extension Replica {
 
     /// Takes the offers of the shop with `id` off all products.
     mutating func removeOffers(ofStore id: Int?) {
+        guard let id else {
+            return
+        }
         for var product in productsHolding(offersOf: id) {
             product["offers"] = offers(of: product).filter { $0["store_id"] as? Int != id }
             put(.products, product)

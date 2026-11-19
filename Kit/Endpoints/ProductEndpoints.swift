@@ -32,7 +32,7 @@ public enum ProductEndpoints {
         return .plain(.get, "products", query: query)
     }
 
-    /// `GET /products/{id}`: a product with its conversions and packages.
+    /// `GET /products/{id}`: a product with its conversions and offers.
     public static func detail(id: Int) -> Endpoint<Product> {
         .resource(.get, "products/\(id)")
     }
@@ -62,7 +62,7 @@ public enum ProductEndpoints {
         .plain(.get, "review", query: [URLQueryItem(name: "page", value: String(page))])
     }
 
-    /// `POST /products/{id}/confirm`: confirms a product with all conversions and packages.
+    /// `POST /products/{id}/confirm`: confirms a product with all conversions.
     public static func confirm(id: Int) -> Endpoint<Product> {
         .resource(.post, "products/\(id)/confirm")
     }

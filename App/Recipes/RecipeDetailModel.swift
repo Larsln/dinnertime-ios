@@ -23,20 +23,23 @@ final class RecipeDetailModel: ErrorReporting {
     /// Counts the rating and favorite changes, so that only the answer to the latest one is taken over.
     private var markCount = 0
 
-    /// Servings a recipe opens with; the usual number of the household once the view passed it on.
+    /// Servings a recipe opens with: those of the plan entry it was opened from, or the usual number of the household once the view passed it on.
     private var defaultServings: Int?
 
     private let session: AppSession
 
-    init(session: AppSession, summary: RecipeSummary) {
+    /// - Parameter plannedServings: Servings of the plan entry the recipe is opened from; they take the place of the usual number of the household.
+    init(session: AppSession, summary: RecipeSummary, plannedServings: Int? = nil) {
         self.session = session
         self.summary = summary
-        servings = summary.servings ?? 1
+        defaultServings = plannedServings
+        servings = summary.servings.map { plannedServings ?? $0 } ?? 1
     }
 
     /// Shows a recipe that states servings scaled to the usual number of the household.
     ///
-    /// Only the first call counts, so that the choice of the user survives when the view appears again.
+    /// Only the first call counts, so that the choice of the user survives when the view appears again,
+    /// and none counts for a recipe opened with the servings of a plan entry.
     func open(withServings servings: Int) {
         guard defaultServings == nil else {
             return

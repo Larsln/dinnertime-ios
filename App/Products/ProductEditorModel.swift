@@ -1,7 +1,7 @@
 import DinnertimeKit
 import Observation
 
-/// Loads a product with its packages and conversions and applies the changes of its editor.
+/// Loads a product with its conversions and applies the changes of its editor.
 @MainActor
 @Observable
 final class ProductEditorModel: ErrorReporting {
@@ -21,10 +21,9 @@ final class ProductEditorModel: ErrorReporting {
         draft = ProductDraft(product)
     }
 
-    /// Whether the product, a package or a conversion still carries a suggested value.
+    /// Whether the product or a conversion still carries a suggested value.
     var hasSuggestions: Bool {
         product.status == .suggested
-            || (product.packages ?? []).contains { $0.status == .suggested }
             || (product.conversions ?? []).contains { $0.status == .suggested }
     }
 

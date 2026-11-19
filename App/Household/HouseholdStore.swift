@@ -10,8 +10,6 @@ final class HouseholdStore: ErrorReporting {
     private(set) var defaultServings = HouseholdSettings.fallbackServings
     /// ISO 4217 code of the currency prices are shown in; the fallback until the settings are loaded.
     private(set) var currency = HouseholdSettings.fallbackCurrency
-    /// The shop an offer was last entered for in this session, preselected for the next one.
-    var lastStore: String?
 
     private let session: AppSession
 

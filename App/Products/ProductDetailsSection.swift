@@ -1,7 +1,7 @@
 import DinnertimeKit
 import SwiftUI
 
-/// Name, icon, store section, base unit, shelf life and pantry staple mark of a product.
+/// Name, icon, store section, what it is bought by, shelf life and pantry staple mark of a product.
 struct ProductDetailsSection: View {
     @Binding var draft: ProductDraft
     let storeSections: [StoreSection]
@@ -35,9 +35,9 @@ struct ProductDetailsSection: View {
                         .tag(Int?.some(section.id))
                 }
             }
-            Picker("Bought in", selection: $draft.baseUnit) {
+            Picker("Bought by", selection: $draft.baseUnit) {
                 ForEach(BaseUnit.allCases, id: \.self) { unit in
-                    Text(verbatim: unit.name)
+                    Text(verbatim: unit.purchaseKind)
                 }
             }
             NumberField(title: "Shelf life once opened (days)", value: $draft.shelfLife)

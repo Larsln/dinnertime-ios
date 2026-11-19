@@ -1,7 +1,8 @@
 import SwiftUI
 
-/// The choice of a shop: the known ones as chips to tap, and a field to type a new name.
+/// The choice of where a package is sold: everywhere or at one of the known shops as chips to tap, and a field to type a new name.
 struct StoreChips: View {
+    /// Name of the chosen shop; empty for a size sold everywhere.
     @Binding var selection: String
     /// Names of the shops the household buys at, in the order they are offered.
     let stores: [String]
@@ -24,9 +25,9 @@ struct StoreChips: View {
         }
     }
 
-    /// Whether the name is typed: by choice, without known shops, or because the chosen shop is none of them.
+    /// Whether the name is typed: by choice, or because the chosen shop is none of the known ones.
     private var showsField: Bool {
-        isTyping || stores.isEmpty || !(selection.isEmpty || stores.contains(selection))
+        isTyping || !(selection.isEmpty || stores.contains(selection))
     }
 
     private var field: some View {
@@ -39,15 +40,13 @@ struct StoreChips: View {
                 .onAppear {
                     isFocused = isTyping
                 }
-            if !stores.isEmpty {
-                Button("Known shops", systemImage: "xmark.circle.fill") {
-                    selection = ""
-                    isTyping = false
-                }
-                .labelStyle(.iconOnly)
-                .buttonStyle(.borderless)
-                .foregroundStyle(.inkMuted)
+            Button("Known shops", systemImage: "xmark.circle.fill") {
+                selection = ""
+                isTyping = false
             }
+            .labelStyle(.iconOnly)
+            .buttonStyle(.borderless)
+            .foregroundStyle(.inkMuted)
         }
     }
 
@@ -55,8 +54,9 @@ struct StoreChips: View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal) {
                 HStack(spacing: 6) {
+                    chip(for: "", title: Text("Everywhere"))
                     ForEach(stores, id: \.self) { store in
-                        chip(for: store)
+                        chip(for: store, title: Text(verbatim: store))
                     }
                     Button("New shop", systemImage: "plus") {
                         selection = ""
@@ -80,13 +80,14 @@ struct StoreChips: View {
         }
     }
 
-    private func chip(for store: String) -> some View {
+    /// A chip that chooses `store`; the empty name stands for everywhere.
+    private func chip(for store: String, title: Text) -> some View {
         let isChosen = store == selection
         return Button {
             selection = store
             onChoose()
         } label: {
-            Text(verbatim: store)
+            title
                 .font(.subheadline)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)

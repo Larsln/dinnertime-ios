@@ -29,6 +29,7 @@ struct RecipeRatingBlock: View {
                 }
             }
         }
+        .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
     }
 
     private func rate(_ rating: Int?) {

@@ -1,7 +1,7 @@
 import DinnertimeKit
 import SwiftUI
 
-/// All shops of the household with the ways to pause, rename and delete them.
+/// All shops of the household with the ways to prefer, pause, rename and delete them.
 struct StoreCatalogList: View {
     @Bindable var model: StoreCatalogModel
 
@@ -9,19 +9,16 @@ struct StoreCatalogList: View {
     @State private var deletedStore: Store?
 
     var body: some View {
-        PaperList(model.stores) { store in
-            StoreRow(store: store) { isActive in
-                Task {
-                    await model.setActive(isActive, for: store)
-                }
+        PaperList {
+            if !model.stores.isEmpty {
+                Text("Preferred stores decide which package sizes the shopping list uses. Other stores only count for what nothing else sells.")
+                    .font(.footnote)
+                    .foregroundStyle(.inkMuted)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
             }
-            .swipeActions {
-                Button("Delete", systemImage: "trash", role: .destructive) {
-                    deletedStore = store
-                }
-                Button("Rename", systemImage: "pencil") {
-                    renamedStore = store
-                }
+            ForEach(model.stores) { store in
+                row(for: store)
             }
         }
         .overlay {
@@ -50,6 +47,26 @@ struct StoreCatalogList: View {
             Text("“\(store.name)” will be deleted together with what is noted for it.")
         }
         .errorAlert($model.errorMessage)
+    }
+
+    private func row(for store: Store) -> some View {
+        StoreRow(store: store) { isPreferred in
+            Task {
+                await model.setPreferred(isPreferred, for: store)
+            }
+        } onSetActive: { isActive in
+            Task {
+                await model.setActive(isActive, for: store)
+            }
+        }
+        .swipeActions {
+            Button("Delete", systemImage: "trash", role: .destructive) {
+                deletedStore = store
+            }
+            Button("Rename", systemImage: "pencil") {
+                renamedStore = store
+            }
+        }
     }
 
     private var deletionIsPresented: Binding<Bool> {

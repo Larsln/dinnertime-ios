@@ -16,9 +16,9 @@ final class StoreCatalogModel: ErrorReporting {
         self.session = session
     }
 
-    /// The shops whose name contains the search text, by name.
+    /// The shops whose name contains the search text: preferred ones first, each group by name.
     var stores: [Store] {
-        all.matching(searchText)
+        all.matching(searchText).preferredFirst
     }
 
     /// Loads all shops.
@@ -41,13 +41,14 @@ final class StoreCatalogModel: ErrorReporting {
     func setActive(_ isActive: Bool, for store: Store) async {
         var optimistic = store
         optimistic.isActive = isActive
-        replace(optimistic)
-        do {
-            replace(try await session.send(StoreEndpoints.setActive(isActive, id: store.id)))
-        } catch {
-            replace(store)
-            report(error)
-        }
+        await apply(StoreEndpoints.setActive(isActive, id: store.id), to: store, showing: optimistic)
+    }
+
+    /// States whether the household usually goes to a shop; the change shows at once and is undone if it is rejected.
+    func setPreferred(_ isPreferred: Bool, for store: Store) async {
+        var optimistic = store
+        optimistic.isPreferred = isPreferred
+        await apply(StoreEndpoints.setPreferred(isPreferred, id: store.id), to: store, showing: optimistic)
     }
 
     /// Renames a shop and puts it where its new name belongs.
@@ -63,6 +64,16 @@ final class StoreCatalogModel: ErrorReporting {
         await attempt {
             try await session.send(StoreEndpoints.delete(id: store.id))
             all.removeAll { $0.id == store.id }
+        }
+    }
+
+    private func apply(_ change: Endpoint<Store>, to store: Store, showing optimistic: Store) async {
+        replace(optimistic)
+        do {
+            replace(try await session.send(change))
+        } catch {
+            replace(store)
+            report(error)
         }
     }
 

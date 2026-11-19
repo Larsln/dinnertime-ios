@@ -107,6 +107,46 @@
         }
       }
     },
+    "%lld ingredients missing": {
+      "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zutat fehlt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zutaten fehlen"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ingredient missing"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ingredients missing"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld matching recipes for %lld meals": {
       "localizations": {
         "de": {
@@ -153,6 +193,16 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "%lld of %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld von %2$lld"
           }
         }
       }
@@ -287,6 +337,16 @@
         }
       }
     },
+    "A new round brings other recipes.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine neue Runde bringt andere Rezepte."
+          }
+        }
+      }
+    },
     "Account": {
       "localizations": {
         "de": {
@@ -403,16 +463,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Füge angebrochene Packungen hinzu, damit der Plan sie aufbraucht."
-          }
-        }
-      }
-    },
-    "Add package": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Packung"
           }
         }
       }
@@ -617,6 +667,16 @@
         }
       }
     },
+    "At most %lld minutes": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Höchstens %lld Minuten"
+          }
+        }
+      }
+    },
     "Average rating: %@": {
       "localizations": {
         "de": {
@@ -627,22 +687,22 @@
         }
       }
     },
-    "Base unit": {
+    "Both of you say yes or no to a few recipes. The first one you both like is tonight’s dinner.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Basiseinheit"
+            "value": "Sagt beide Ja oder Nein zu ein paar Rezepten. Das erste, das beiden gefällt, gibt es heute."
           }
         }
       }
     },
-    "Bought in": {
+    "Bought by": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gekauft in"
+            "value": "Gekauft nach"
           }
         }
       }
@@ -743,6 +803,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Löschen"
+          }
+        }
+      }
+    },
+    "Close": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließen"
+          }
+        }
+      }
+    },
+    "Close round": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Runde schließen"
           }
         }
       }
@@ -907,6 +987,26 @@
         }
       }
     },
+    "Decide together": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemeinsam entscheiden"
+          }
+        }
+      }
+    },
+    "Deciding together needs a connection to the server.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemeinsam entscheiden braucht eine Verbindung zum Server."
+          }
+        }
+      }
+    },
     "Delete": {
       "localizations": {
         "de": {
@@ -997,6 +1097,16 @@
         }
       }
     },
+    "Discard": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verwerfen"
+          }
+        }
+      }
+    },
     "Done": {
       "localizations": {
         "de": {
@@ -1013,6 +1123,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Erledigt (%lld)"
+          }
+        }
+      }
+    },
+    "Drag the card right for yes, left for no.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karte nach rechts ziehen für Ja, nach links für Nein."
           }
         }
       }
@@ -1047,12 +1167,52 @@
         }
       }
     },
+    "End round": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Runde beenden"
+          }
+        }
+      }
+    },
     "Enter the address of the server your household runs. Addresses outside your home network need HTTPS.": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Gib die Adresse des Servers ein, den dein Haushalt betreibt. Adressen außerhalb deines Heimnetzes benötigen HTTPS."
+          }
+        }
+      }
+    },
+    "Everyone votes on the same recipes on their own device.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jede Person stimmt auf ihrem Gerät über dieselben Rezepte ab."
+          }
+        }
+      }
+    },
+    "Everything at home": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles da"
+          }
+        }
+      }
+    },
+    "Everywhere": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überall"
           }
         }
       }
@@ -1277,6 +1437,16 @@
         }
       }
     },
+    "Just me": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allein"
+          }
+        }
+      }
+    },
     "Known shops": {
       "localizations": {
         "de": {
@@ -1287,22 +1457,22 @@
         }
       }
     },
-    "Label, e.g. tub": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bezeichnung, z. B. Becher"
-          }
-        }
-      }
-    },
     "Leftover": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Rest"
+          }
+        }
+      }
+    },
+    "Let’s go": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los geht’s"
           }
         }
       }
@@ -1363,6 +1533,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mittagessen"
+          }
+        }
+      }
+    },
+    "Match": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Match"
+          }
+        }
+      }
+    },
+    "Match: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Match: %@"
           }
         }
       }
@@ -1507,6 +1697,16 @@
         }
       }
     },
+    "New round": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Runde"
+          }
+        }
+      }
+    },
     "New shop": {
       "localizations": {
         "de": {
@@ -1583,6 +1783,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keine"
+          }
+        }
+      }
+    },
+    "No dinner recipe fits": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Abendessen-Rezept passt"
           }
         }
       }
@@ -1707,6 +1917,26 @@
         }
       }
     },
+    "Nothing for everyone this time": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diesmal war nichts dabei"
+          }
+        }
+      }
+    },
+    "Nothing is left with these limits. Close the round and start again with fewer of them.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit diesen Vorgaben bleibt kein Rezept übrig. Schließe die Runde und starte mit weniger Einschränkungen neu."
+          }
+        }
+      }
+    },
     "Number of pieces or amount": {
       "localizations": {
         "de": {
@@ -1743,6 +1973,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nur aus"
+          }
+        }
+      }
+    },
+    "Only what needs no shopping": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur was ohne Einkaufen geht"
+          }
+        }
+      }
+    },
+    "Open": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnen"
           }
         }
       }
@@ -1787,22 +2037,12 @@
         }
       }
     },
-    "Package sizes (%@)": {
+    "Packages and stores": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Packungsgrößen (%@)"
-          }
-        }
-      }
-    },
-    "Package: %@": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Packung: %@"
+            "value": "Packungen und Läden"
           }
         }
       }
@@ -1877,6 +2117,16 @@
         }
       }
     },
+    "Plan for today": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für heute einplanen"
+          }
+        }
+      }
+    },
     "Plan week": {
       "localizations": {
         "de": {
@@ -1903,6 +2153,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vorlieben"
+          }
+        }
+      }
+    },
+    "Preferred stores decide which package sizes the shopping list uses. Other stores only count for what nothing else sells.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bevorzugte Läden bestimmen, mit welchen Packungsgrößen die Einkaufsliste rechnet. Andere Läden zählen nur für das, was es sonst nirgends gibt."
           }
         }
       }
@@ -2167,6 +2427,26 @@
         }
       }
     },
+    "Round in progress": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Runde läuft"
+          }
+        }
+      }
+    },
+    "Round in progress – your turn": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Runde läuft – du bist dran"
+          }
+        }
+      }
+    },
     "Save": {
       "localizations": {
         "de": {
@@ -2293,6 +2573,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Einkauf"
+          }
+        }
+      }
+    },
+    "Show": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ansehen"
           }
         }
       }
@@ -2547,6 +2837,36 @@
         }
       }
     },
+    "The other person liked this – do you?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das mochte die andere Person – du auch?"
+          }
+        }
+      }
+    },
+    "The round ends for everyone without anything being planned.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Runde endet für alle, ohne dass etwas eingeplant wird."
+          }
+        }
+      }
+    },
+    "The two of us": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu zweit"
+          }
+        }
+      }
+    },
     "Then create the shopping list": {
       "localizations": {
         "de": {
@@ -2563,6 +2883,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Diese Werte hat die KI geschätzt. Bestätige oder korrigiere sie, damit Einkaufsliste und Umrechnungen stimmen."
+          }
+        }
+      }
+    },
+    "This page moves on by itself once everyone is through.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobald alle durch sind, geht es hier von selbst weiter."
           }
         }
       }
@@ -2593,6 +2923,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "Einkaufen"
+          }
+        }
+      }
+    },
+    "Today": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heute"
+          }
+        }
+      }
+    },
+    "Tomorrow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Morgen"
+          }
+        }
+      }
+    },
+    "Tonight’s dinner": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das gibt es heute"
           }
         }
       }
@@ -2757,6 +3117,26 @@
         }
       }
     },
+    "Volume (ml, l)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volumen (ml, l)"
+          }
+        }
+      }
+    },
+    "Vote": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abstimmen"
+          }
+        }
+      }
+    },
     "Waiting": {
       "localizations": {
         "de": {
@@ -2767,12 +3147,32 @@
         }
       }
     },
+    "Waiting for %@ …": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warte auf %@ …"
+          }
+        }
+      }
+    },
     "Waiting for a connection": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Wartet auf Verbindung"
+          }
+        }
+      }
+    },
+    "Waiting for the other person …": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warte auf die andere Person …"
           }
         }
       }
@@ -2807,12 +3207,32 @@
         }
       }
     },
-    "Where to buy": {
+    "Weight (g, kg)": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wo es das gibt"
+            "value": "Gewicht (g, kg)"
+          }
+        }
+      }
+    },
+    "What do we eat tonight?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was essen wir heute?"
+          }
+        }
+      }
+    },
+    "Who decides?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wer entscheidet?"
           }
         }
       }
@@ -2863,6 +3283,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deine Bewertung"
+          }
+        }
+      }
+    },
+    "active": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "aktiv"
           }
         }
       }
@@ -2963,6 +3393,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "geplant"
+          }
+        }
+      }
+    },
+    "preferred": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bevorzugt"
           }
         }
       }

@@ -1,7 +1,7 @@
 import Foundation
 import DinnertimeKit
 
-/// Listens to the change events of the server and has the local copy fetch what changed.
+/// Listens to the change events of the server, has the local copy fetch what changed and announces what lives outside it.
 ///
 /// The connection lives as long as ``run()`` does, which the app starts in the foreground
 /// and cancels in the background.
@@ -50,16 +50,25 @@ final class RealtimeClient {
         markReconnected()
         var parser = ServerSentEventParser()
         for try await byte in bytes {
-            if let event = parser.consume(byte), !RealtimeArea.areas(in: event).isEmpty {
-                session.offline.refreshSoon()
+            if let event = parser.consume(byte) {
+                announce(RealtimeArea.areas(in: event))
             }
         }
+    }
+
+    /// Has the local copy fetch what changed and tells the screens of areas outside the copy to read again.
+    private func announce(_ areas: Set<RealtimeArea>) {
+        if areas.contains(where: \.isSynced) {
+            session.offline.refreshSoon()
+        }
+        session.offline.bump(areas.filter { !$0.isSynced })
     }
 
     /// Fetches the changes after a reconnect, because events may have been missed in between.
     private func markReconnected() {
         if hasConnected {
             session.offline.refreshSoon()
+            session.offline.bump([.dinner])
         }
         hasConnected = true
     }

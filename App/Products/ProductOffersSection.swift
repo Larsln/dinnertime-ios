@@ -1,13 +1,13 @@
 import DinnertimeKit
 import SwiftUI
 
-/// The shops that sell a product, one line each, with the entry for another one below.
+/// The package sizes of a product, one line each with the shop that sells it, and the entry for another one below.
 ///
 /// Swiping a line removes the offer; tapping it puts its values into the entry to correct them.
 /// Offers of paused shops come last and are dimmed.
 struct ProductOffersSection: View {
     @Bindable var model: ProductOffersModel
-    /// Base unit of the product, preselected for the size of a package.
+    /// Base unit of the product, which decides the units a size can be stated in.
     let unit: BaseUnit
 
     @State private var draft: OfferDraft
@@ -24,7 +24,7 @@ struct ProductOffersSection: View {
     }
 
     var body: some View {
-        Section("Where to buy") {
+        Section("Packages and stores") {
             if model.hasOnlyPausedOffers {
                 Text("Currently in no active store.")
                     .font(.footnote)
@@ -42,16 +42,14 @@ struct ProductOffersSection: View {
                 .listRowBackground(draft.offerID == offer.id ? Color.accentSoft : Color.surface)
             }
             .onDelete(perform: delete)
-            ProductOfferEntry(draft: $draft, stores: model.storeNames, currencySymbol: prices.symbol, onSave: save)
+            ProductOfferEntry(draft: $draft, stores: model.storeNames, units: OfferUnit.choices(for: unit), currencySymbol: prices.symbol, onSave: save)
                 .listRowBackground(Color.sunken)
                 .task {
                     await model.load()
-                    if draft == OfferDraft(unit: OfferUnit(unit)) {
-                        draft = newDraft
-                    }
                 }
                 .onChange(of: unit) {
-                    if draft.offerID == nil, lastUnit == nil {
+                    lastUnit = nil
+                    if !draft.unit.fits(unit) {
                         draft.unit = OfferUnit(unit)
                     }
                 }
@@ -63,9 +61,9 @@ struct ProductOffersSection: View {
         PriceFormatter(currencyCode: household.currency)
     }
 
-    /// An empty entry with the shop that was used last, unless that one is paused, and the unit that was used last here.
+    /// An empty entry for a size sold everywhere, with the unit that was used last here.
     private var newDraft: OfferDraft {
-        OfferDraft(store: model.preselected(household.lastStore), unit: lastUnit ?? OfferUnit(unit))
+        OfferDraft(unit: lastUnit ?? OfferUnit(unit))
     }
 
     /// The offer in one line; one of a paused shop is dimmed and says so.
@@ -82,16 +80,15 @@ struct ProductOffersSection: View {
 
     /// Puts the values of an offer into the entry, or empties the entry if they are there already.
     private func edit(_ offer: ProductOffer) {
-        draft = draft.offerID == offer.id ? newDraft : OfferDraft(offer, fallbackUnit: OfferUnit(unit), formatter: amounts)
+        draft = draft.offerID == offer.id ? newDraft : OfferDraft(offer, baseUnit: unit, formatter: amounts)
     }
 
     private func save() {
         let saved = draft
         Task {
             if await model.save(saved) {
-                household.lastStore = model.stores.first(named: saved.store)?.name ?? saved.storedStore
                 lastUnit = saved.unit
-                draft = newDraft
+                draft = saved.offerID == nil ? OfferDraft(store: saved.storedStore ?? "", unit: saved.unit) : newDraft
             }
         }
     }

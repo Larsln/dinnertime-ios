@@ -1,12 +1,17 @@
 import Foundation
 
 extension ProductOffer {
-    /// The offer in one line, such as "Lidl · 1 kg · 2,59 €"; a missing size or price is left out.
+    /// The offer in one line, such as "Lidl · 1 kg · 2,59 €" or "Everywhere · 500 g · 0,99 €"; a missing size or price is left out.
     ///
     /// The size shows in the unit it was entered in, and without one when none is stored.
     public func text(amounts: AmountFormatter = AmountFormatter(), prices: PriceFormatter = PriceFormatter()) -> String {
         let size = amount.map { [amounts.number($0), unit?.label].compactMap { $0 }.joined(separator: " ") }
-        return [store, size, price.map(prices.string)].compactMap { $0 }.joined(separator: " · ")
+        return [store ?? Self.everywhereLabel, size, price.map(prices.string)].compactMap { $0 }.joined(separator: " · ")
+    }
+
+    /// What stands in place of the shop for a size sold everywhere.
+    public static var everywhereLabel: String {
+        String(localized: "Everywhere", bundle: .kit)
     }
 }
 

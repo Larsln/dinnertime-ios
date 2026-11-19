@@ -1,15 +1,21 @@
 import DinnertimeKit
 import SwiftUI
 
-/// A searchable, paginated list of recipes with a caller-defined row.
-struct RecipeSearchList<Row: View>: View {
+/// A searchable, paginated list of recipes with a caller-defined row and, above the recipes, what the caller puts there.
+///
+/// What stands above the recipes makes way while a search text is entered.
+struct RecipeSearchList<Header: View, Row: View>: View {
     private static var searchDelay: Duration { .milliseconds(300) }
 
     @Bindable var model: RecipeListModel
+    @ViewBuilder let header: Header
     @ViewBuilder let row: (RecipeSummary) -> Row
 
     var body: some View {
         List {
+            if model.query.text.isEmpty {
+                header
+            }
             ForEach(model.recipes) { recipe in
                 row(recipe)
                     .cardRow()
@@ -44,5 +50,12 @@ struct RecipeSearchList<Row: View>: View {
             }
         }
         .errorAlert($model.errorMessage)
+    }
+}
+
+extension RecipeSearchList where Header == EmptyView {
+    /// A list with nothing above the recipes.
+    init(model: RecipeListModel, @ViewBuilder row: @escaping (RecipeSummary) -> Row) {
+        self.init(model: model, header: { EmptyView() }, row: row)
     }
 }

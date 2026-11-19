@@ -1,6 +1,6 @@
 import Foundation
 
-/// The shops that sell the products: writes to the offers of a product, on the local copy.
+/// The package sizes of the products and the shops that sell them: writes to the offers of a product, on the local copy.
 extension Replica {
     private static let offerFields = ["store_id", "price"]
 
@@ -17,9 +17,17 @@ extension Replica {
         return ["amount": amount, "unit": body["unit"] as? String ?? product["base_unit"] ?? NSNull()]
     }
 
+    /// The shop a write names by its id; `nil` for a size sold everywhere, and the failure of the server for a shop the copy does not hold.
+    private func statedStore(in body: JSONObject) throws -> JSONObject? {
+        guard let id = body["store_id"], !(id is NSNull) else {
+            return nil
+        }
+        return try existing(.stores, id as? Int)
+    }
+
     /// An offer with the name of its shop as stored now and whether the household buys there at the moment.
     ///
-    /// An offer whose shop the copy does not hold stays as it is and counts as one of an active shop.
+    /// A size sold everywhere and an offer whose shop the copy does not hold stay as they are and count as active.
     func shownOffer(_ offer: JSONObject) -> JSONObject {
         guard let store = (offer["store_id"] as? Int).flatMap({ record(.stores, $0) }) else {
             return offer
@@ -31,10 +39,10 @@ extension Replica {
     mutating func writeOffer(_ request: LocalRequest) throws -> LocalResult? {
         if request.matches(.post, "products", "*", "offers") {
             var product = try existing(.products, request.id(at: 1))
-            let store = try existing(.stores, request.body["store_id"] as? Int)
+            let store = try statedStore(in: request.body)
             let size = statedSize(in: request.body, of: product)
             let offer: JSONObject = [
-                "id": makeTemporaryID(), "store_id": store.recordID ?? 0, "store": store["name"] ?? "",
+                "id": makeTemporaryID(), "store_id": store?.recordID ?? NSNull(), "store": store?["name"] ?? NSNull(),
                 "amount": size["amount"] ?? NSNull(), "unit": size["unit"] ?? NSNull(), "price": request.body["price"] ?? NSNull(),
             ]
             product["offers"] = offers(of: product) + [offer]
@@ -54,8 +62,8 @@ extension Replica {
             if request.method == .delete {
                 offers.remove(at: index)
             } else {
-                if let storeID = request.body["store_id"] as? Int {
-                    offers[index]["store"] = try existing(.stores, storeID)["name"] ?? ""
+                if request.body["store_id"] != nil {
+                    offers[index]["store"] = try statedStore(in: request.body)?["name"] ?? NSNull()
                 }
                 let size = statedSize(in: request.body, of: product)
                 if !size.isEmpty {
@@ -78,7 +86,10 @@ extension Replica {
 
     /// The products with an offer of the shop with `id`.
     func productsHolding(offersOf id: Int?) -> [JSONObject] {
-        all(.products).filter { offers(of: $0).contains { $0["store_id"] as? Int == id } }
+        guard let id else {
+            return []
+        }
+        return all(.products).filter { offers(of: $0).contains { $0["store_id"] as? Int == id } }
     }
 
     /// The offers a product record carries.

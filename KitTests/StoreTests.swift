@@ -35,6 +35,26 @@ struct StoreTests {
         #expect(stores[1].offerCount == nil)
     }
 
+    @Test func aStoreIsPreferredOnlyWhenTheServerSaysSo() throws {
+        let stores = try stores(#"[{"id": 1, "name": "Aldi", "is_preferred": true}, {"id": 2, "name": "Lidl", "is_preferred": false}, {"id": 3, "name": "Rewe"}]"#)
+        let request = try builder.request(for: StoreEndpoints.setPreferred(true, id: 4))
+
+        #expect(stores.map(\.isPreferred) == [true, false, false])
+        #expect(request.httpMethod == "PATCH")
+        #expect(request.url?.path() == "/api/v1/stores/4")
+        #expect(try json(request) as NSDictionary == ["is_preferred": true])
+    }
+
+    @Test func preferredStoresComeFirstInTheListAndInTheChoice() throws {
+        let stores = try stores(#"""
+        [{"id": 1, "name": "Aldi", "offer_count": 1}, {"id": 2, "name": "Edeka", "is_active": false, "is_preferred": true},
+        {"id": 3, "name": "Lidl", "offer_count": 4}, {"id": 4, "name": "Rewe", "is_preferred": true}, {"id": 5, "name": "Bioladen", "is_preferred": true, "offer_count": 2}]
+        """#)
+
+        #expect(stores.preferredFirst.map(\.name) == ["Bioladen", "Edeka", "Rewe", "Aldi", "Lidl"])
+        #expect(stores.choices.map(\.name) == ["Bioladen", "Rewe", "Lidl", "Aldi"])
+    }
+
     @Test func asksForTheStoresAndCreatesOne() throws {
         let list = try builder.request(for: StoreEndpoints.list)
         let creation = try builder.request(for: StoreEndpoints.create(name: "Lidl"))

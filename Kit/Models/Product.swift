@@ -14,8 +14,8 @@ public enum ReviewStatus: String, Decodable, Sendable {
 
 /// Something that can be bought.
 ///
-/// Lists embed a short form; `recipeCount`, `conversions` and `packages` are only
-/// present on the detail and review endpoints. Lists that leave out `offers` decode as none.
+/// Lists embed a short form; `recipeCount` and `conversions` are only present on the detail
+/// and review endpoints. Lists that leave out `offers` decode as none.
 public struct Product: Decodable, Hashable, Identifiable, Sendable {
     /// Longest note the server stores.
     public static let noteLimit = 500
@@ -37,13 +37,12 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
     public let storeSection: StoreSection?
     public let aliases: [String]?
     public let conversions: [ProductConversion]?
-    public let packages: [ProductPackage]?
-    /// The shops that sell the product, with package size and price.
+    /// The package sizes the product is sold in, each with the shop that sells it and its price.
     public var offers: [ProductOffer]
 
     private enum CodingKeys: String, CodingKey {
         case id, name, pluralName, icon, baseUnit, isPantryStaple, shelfLifeOpenedDays, note, status
-        case enrichedAt, recipeCount, storeSection, aliases, conversions, packages, offers
+        case enrichedAt, recipeCount, storeSection, aliases, conversions, offers
     }
 
     public init(from decoder: any Decoder) throws {
@@ -62,7 +61,6 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
         storeSection = try container.decodeIfPresent(StoreSection.self, forKey: .storeSection)
         aliases = try container.decodeIfPresent([String].self, forKey: .aliases)
         conversions = try container.decodeIfPresent([ProductConversion].self, forKey: .conversions)
-        packages = try container.decodeIfPresent([ProductPackage].self, forKey: .packages)
         let baseUnit = baseUnit
         offers = (try container.decodeIfPresent([ProductOffer].self, forKey: .offers) ?? []).map { $0.stated(in: baseUnit) }
     }
@@ -80,16 +78,6 @@ public struct ProductConversion: Decodable, Hashable, Identifiable, Sendable {
     public let unit: MeasureUnit
     /// Amount of the base unit; `nil` when the unit cannot be converted for this product.
     public let amountInBase: Double?
-    public let status: ReviewStatus
-    /// `ai`, `user` or `import`.
-    public let source: String
-}
-
-/// A package size in which a product is sold.
-public struct ProductPackage: Decodable, Hashable, Identifiable, Sendable {
-    public let id: Int
-    public let label: String
-    public let amountInBase: Double
     public let status: ReviewStatus
     /// `ai`, `user` or `import`.
     public let source: String

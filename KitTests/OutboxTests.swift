@@ -211,7 +211,7 @@ struct OutboxTests {
     @Test func repairsNameWhatAChangeTouched() async throws {
         let store = try await OfflineSupport.syncedStore()
         _ = try await store.answer(RecipeEndpoints.delete(id: 98))
-        _ = try await store.answer(ProductValueEndpoints.deletePackage(id: 91))
+        _ = try await store.answer(ProductEndpoints.confirm(id: 94))
         _ = try await store.answer(ToolEndpoints.rename(id: 21, to: "Bratpfanne"))
         _ = try await store.answer(ShoppingEndpoints.addItem(label: "Kerzen", listID: 11))
         _ = try await store.answer(HouseholdSettingsEndpoints.setDefaultServings(3))
@@ -224,6 +224,24 @@ struct OutboxTests {
             [.kind(.shoppingLists)],
             [],
         ])
+    }
+
+    @Test func ratingMovesTheAverageAtOnce() async throws {
+        let store = try await OfflineSupport.syncedStore()
+        let recipe = try #require(await store.answer(RecipeEndpoints.create(RecipeInput(title: "Offline-Kuchen")))).response
+
+        let rated = try #require(await store.answer(RecipeMarkEndpoints.rate(8, id: recipe.id))).response
+        #expect(rated.rating == 8)
+        #expect(rated.averageRating == 8)
+        #expect(rated.ratingCount == 1)
+
+        let changed = try #require(await store.answer(RecipeMarkEndpoints.rate(4, id: recipe.id))).response
+        #expect(changed.averageRating == 4)
+        #expect(changed.ratingCount == 1)
+
+        let withdrawn = try #require(await store.answer(RecipeMarkEndpoints.rate(nil, id: recipe.id))).response
+        #expect(withdrawn.averageRating == nil)
+        #expect(withdrawn.ratingCount == 0)
     }
 
     @Test func repairsOfRecordsCreatedOfflineFollowTheRealId() async throws {

@@ -1,8 +1,8 @@
 extension ShoppingListItem {
-    /// What to buy: the packages such as "2 × Becher 200 g", or the plain amount without packages,
-    /// followed by the needs that cannot be converted, such as "1 × Packung 1 kg + 3 Stück".
+    /// What to buy: the packages such as "1 × Lidl 200 g", or "2 × 200 g" for a size sold everywhere, or the plain
+    /// amount without packages, followed by the needs that cannot be converted, such as "1 × 1 kg + 3 Stück".
     ///
-    /// The size is left out for single pieces, where it only repeats the label.
+    /// The size is left out for single pieces of a shop, where it adds nothing to the name.
     public func purchaseText(formatter: AmountFormatter = AmountFormatter()) -> String? {
         guard let product else {
             return nil
@@ -38,9 +38,10 @@ extension ShoppingListItem {
             return amount.map { [formatter.string($0, unit: product.baseUnit)] } ?? []
         }
         return packages.map { package in
+            let label = package.label.trimmingCharacters(in: .whitespaces)
             let isSinglePiece = product.baseUnit == .piece && package.amount == 1
-            let size = isSinglePiece ? "" : " \(formatter.string(package.amount, unit: product.baseUnit))"
-            return "\(package.count) × \(package.label)\(size)"
+            let size = !label.isEmpty && isSinglePiece ? "" : formatter.string(package.amount, unit: product.baseUnit)
+            return ["\(package.count) ×", label, size].filter { !$0.isEmpty }.joined(separator: " ")
         }
     }
 }

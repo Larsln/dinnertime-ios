@@ -9,7 +9,7 @@ struct ReviewProductDetails: View {
 
     var body: some View {
         LabeledContent("Store section", value: product.storeSection?.name ?? Self.missing)
-        LabeledContent("Base unit", value: product.baseUnit.label)
+        LabeledContent("Bought by", value: product.baseUnit.purchaseKind)
         if let days = product.shelfLifeOpenedDays {
             LabeledContent("Shelf life once opened (days)", value: days, format: .number)
         } else {
@@ -18,13 +18,6 @@ struct ReviewProductDetails: View {
         if let isStaple = product.isPantryStaple {
             LabeledContent("Pantry staple") {
                 Text(isStaple ? "Yes" : "No")
-            }
-        }
-        ForEach(product.packages ?? []) { package in
-            LabeledContent {
-                value(formatter.string(package.amountInBase, unit: product.baseUnit), status: package.status)
-            } label: {
-                Text("Package: \(package.label)")
             }
         }
         ForEach(product.conversions ?? []) { conversion in

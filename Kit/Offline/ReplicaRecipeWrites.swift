@@ -25,7 +25,7 @@ extension Replica {
         if request.matches(.patch, "recipes", "*") {
             fill(&recipe, from: request.body)
         } else if request.matches(.put, "recipes", "*", "rating") {
-            recipe["rating"] = request.body["rating"] ?? NSNull()
+            rate(&recipe, with: (request.body["rating"] as? NSNumber)?.doubleValue)
         } else if request.matches(.put, "recipes", "*", "favorite") {
             recipe["is_favorite"] = request.body["favorite"] as? Bool ?? false
         } else if request.matches(.post, "recipes", "*", "cover") {
@@ -95,6 +95,25 @@ extension Replica {
         let listed = ((cachedAnswers["courses"] as? JSONObject)?["data"] as? [JSONObject] ?? []).first { $0["key"] as? String == key }
         let used = all(.recipes).first { $0["course"] as? String == key }
         return listed?["name"] as? String ?? used?["course_name"] as? String ?? key
+    }
+
+    /// Sets the own rating and moves the household average and the number of ratings along with it,
+    /// so the recipe reads right before the server has answered.
+    private func rate(_ recipe: inout JSONObject, with rating: Double?) {
+        let previous = (recipe["rating"] as? NSNumber)?.doubleValue
+        var count = (recipe["rating_count"] as? NSNumber)?.intValue ?? 0
+        var sum = ((recipe["average_rating"] as? NSNumber)?.doubleValue ?? 0) * Double(count)
+        if let previous {
+            sum -= previous
+            count -= 1
+        }
+        if let rating {
+            sum += rating
+            count += 1
+        }
+        recipe["rating"] = rating.map { NSNumber(value: $0) } ?? NSNull()
+        recipe["rating_count"] = max(count, 0)
+        recipe["average_rating"] = count > 0 ? NSNumber(value: sum / Double(count)) : NSNull()
     }
 }
 

@@ -1,12 +1,15 @@
 import DinnertimeKit
 import SwiftUI
 
-/// The recipe collection with search, filters and access to the editor and the imports; notifications about imports lead here.
+/// The recipe collection with search, filters and access to the editor and the imports, below what matters today:
+/// the next meal to cook and the way to decide tonight's dinner. Notifications about imports lead here.
 struct RecipeListView: View {
     let session: AppSession
 
     @State private var model: RecipeListModel
-    @State private var path: [RecipeSummary] = []
+    @State private var today: TodayModel
+    @State private var path = NavigationPath()
+    @State private var showsDinner = false
     @State private var showsImports = false
     @State private var showsEditor = false
     @State private var router = ImportRouter.shared
@@ -15,11 +18,18 @@ struct RecipeListView: View {
     init(session: AppSession) {
         self.session = session
         _model = State(initialValue: RecipeListModel(session: session))
+        _today = State(initialValue: TodayModel(session: session))
     }
 
     var body: some View {
         NavigationStack(path: $path) {
-            RecipeSearchList(model: model) { recipe in
+            RecipeSearchList(model: model) {
+                TodayPanel(model: today) { planned in
+                    path.append(planned)
+                } onDecide: {
+                    showsDinner = true
+                }
+            } row: { recipe in
                 NavigationLink(value: recipe) {
                     RecipeRow(recipe: recipe)
                 }
@@ -33,6 +43,11 @@ struct RecipeListView: View {
             .navigationDestination(for: RecipeSummary.self) { recipe in
                 RecipeDetailView(session: session, summary: recipe, onUpdate: model.replace) {
                     model.remove(id: recipe.id)
+                }
+            }
+            .navigationDestination(for: PlannedRecipe.self) { planned in
+                RecipeDetailView(session: session, summary: planned.recipe, plannedServings: planned.servings, onUpdate: model.replace) {
+                    model.remove(id: planned.recipe.id)
                 }
             }
             .settingsToolbar(session: session)
@@ -50,6 +65,11 @@ struct RecipeListView: View {
             .sheet(isPresented: $showsImports, onDismiss: reload) {
                 ImportsView(session: session)
             }
+            .sheet(isPresented: $showsDinner) {
+                DinnerRoundView(model: today.dinner) { entry in
+                    path.append(PlannedRecipe(entry))
+                }
+            }
             .sheet(isPresented: $showsEditor) {
                 RecipeEditorView(session: session, recipe: nil, onSave: open)
             }
@@ -60,6 +80,7 @@ struct RecipeListView: View {
             .reloadsOnChange(of: .recipes) {
                 await model.reload()
             }
+            .keepsTodayCurrent(today)
             .task(id: router.destination) {
                 await follow(router.destination)
             }
@@ -73,7 +94,7 @@ struct RecipeListView: View {
         }
         router.destination = nil
         if case let .recipe(importID) = destination, let recipe = await model.recipe(ofImport: importID) {
-            path = [recipe]
+            path = NavigationPath([recipe])
         } else {
             showsImports = true
         }

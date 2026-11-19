@@ -1,7 +1,7 @@
 import DinnertimeKit
 import SwiftUI
 
-/// The fast entry of an offer: the shop as chips, size with its unit and price side by side and one button.
+/// The fast entry of a package size: where it is sold as chips, size with its unit and price side by side and one button.
 struct ProductOfferEntry: View {
     /// The fields the entry moves between.
     private enum Field: Hashable {
@@ -9,8 +9,10 @@ struct ProductOfferEntry: View {
     }
 
     @Binding var draft: OfferDraft
-    /// Names of the shops to choose from, most used first.
+    /// Names of the shops to choose from, preferred ones first.
     let stores: [String]
+    /// The units the size can be stated in.
+    let units: [OfferUnit]
     /// Sign of the currency the price is given in.
     let currencySymbol: String
     let onSave: () -> Void
@@ -54,18 +56,25 @@ struct ProductOfferEntry: View {
         }
     }
 
-    /// The choice of the unit the size is stated in, as a menu right behind the number.
+    /// The choice of the unit the size is stated in, as a menu right behind the number; plain text when there is only one.
+    @ViewBuilder
     private var unitPicker: some View {
-        Picker("Unit", selection: $draft.unit) {
-            ForEach(OfferUnit.allCases, id: \.self) { unit in
-                Text(verbatim: unit.label)
-                    .tag(unit)
+        if units.count > 1 {
+            Picker("Unit", selection: $draft.unit) {
+                ForEach(units, id: \.self) { unit in
+                    Text(verbatim: unit.label)
+                        .tag(unit)
+                }
             }
+            .pickerStyle(.menu)
+            .labelsHidden()
+            .tint(.ink)
+            .fixedSize()
+        } else {
+            Text(verbatim: draft.unit.label)
+                .foregroundStyle(.inkMuted)
+                .padding(.trailing, 8)
         }
-        .pickerStyle(.menu)
-        .labelsHidden()
-        .tint(.ink)
-        .fixedSize()
     }
 
     private func field(_ title: LocalizedStringKey, text: Binding<String>, focus field: Field, @ViewBuilder suffix: () -> some View) -> some View {

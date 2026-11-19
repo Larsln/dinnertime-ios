@@ -44,7 +44,6 @@ struct ProductOfferTests {
 
     @Test func aProductWithoutTheKeyHasNoOffers() throws {
         #expect(try product("").offers.isEmpty)
-        #expect(try ProductEndpoints.detail(id: 1).decode(Fixture.data("product")).offers.isEmpty)
         #expect(try ProductEndpoints.search("").decode(Fixture.data("products-page")).items.allSatisfy(\.offers.isEmpty))
     }
 

@@ -48,13 +48,22 @@
                 "source": "ai"
             }
         ],
-        "packages": [
+        "offers": [
             {
                 "id": 1,
-                "label": "Becher",
-                "amount_in_base": 200,
-                "status": "confirmed",
-                "source": "user"
+                "store_id": 4,
+                "store": "Lidl",
+                "amount": 200,
+                "unit": "g",
+                "price": 0.99
+            },
+            {
+                "id": 2,
+                "store_id": null,
+                "store": null,
+                "amount": 0.5,
+                "unit": "kg",
+                "price": null
             }
         ]
     }

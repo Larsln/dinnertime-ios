@@ -96,13 +96,12 @@ extension Replica {
         return sorted(found, by: "name").map(shownProduct)
     }
 
-    /// Products with details, conversions or packages that still carry a suggested value, sorted by name.
+    /// Products with details or conversions that still carry a suggested value, sorted by name.
     var productsAwaitingReview: [JSONObject] {
         let isSuggested: (JSONObject) -> Bool = { $0["status"] as? String == "suggested" }
         let found = all(.products).filter { product in
             isSuggested(product)
                 || (product["conversions"] as? [JSONObject] ?? []).contains(where: isSuggested)
-                || (product["packages"] as? [JSONObject] ?? []).contains(where: isSuggested)
         }
         return sorted(found, by: "name").map(shownProduct)
     }

@@ -1,15 +1,15 @@
 import Foundation
 
-/// Where a product can be bought: a shop with the size and the price of the package it sells.
+/// A package a product is sold in: its size and price, and the shop that sells it unless it is sold everywhere.
 public struct ProductOffer: Decodable, Hashable, Identifiable, Sendable {
     /// Longest name of a shop the server stores.
     public static let storeLimit = 100
 
     public let id: Int
-    /// Id of the shop in the list of shops; `nil` for offers stored before shops were a list.
+    /// Id of the shop in the list of shops; `nil` for a size sold everywhere.
     public let storeID: Int?
-    /// Name of the shop.
-    public let store: String
+    /// Name of the shop; `nil` for a size sold everywhere.
+    public let store: String?
     /// Whether the household buys at the shop at the moment.
     ///
     /// The server does not send this; the local copy states it from its list of shops.
@@ -31,7 +31,7 @@ public struct ProductOffer: Decodable, Hashable, Identifiable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
         storeID = try container.decodeIfPresent(Int.self, forKey: .storeID)
-        store = try container.decode(String.self, forKey: .store)
+        store = Self.storedStore(try container.decodeIfPresent(String.self, forKey: .store))
         isStoreActive = try container.decodeIfPresent(Bool.self, forKey: .isStoreActive) ?? true
         amount = Self.number(in: container, forKey: container.contains(.amount) ? .amount : .amountInBase)
         unit = amount == nil ? nil : (try? container.decodeIfPresent(String.self, forKey: .unit)).flatMap(OfferUnit.init)
@@ -48,6 +48,11 @@ public struct ProductOffer: Decodable, Hashable, Identifiable, Sendable {
         var offer = self
         offer.unit = OfferUnit(baseUnit)
         return offer
+    }
+
+    /// Whether the size is sold everywhere and not at one shop.
+    public var isSoldEverywhere: Bool {
+        storeID == nil && store == nil
     }
 
     /// The name of a shop as it is stored: without surrounding space, cut to the limit, `nil` when nothing remains.
@@ -78,7 +83,7 @@ extension Sequence where Element == ProductOffer {
 }
 
 extension Product {
-    /// Whether the household stated something about buying the product: a note or a shop it buys at.
+    /// Whether the household stated something about buying the product: a note or a package size that is not at a paused shop.
     public var hasBuyingHints: Bool {
         note != nil || offers.contains(where: \.isStoreActive)
     }

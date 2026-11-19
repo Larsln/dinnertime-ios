@@ -28,6 +28,16 @@ struct OfferUnitTests {
         #expect(unknown.unit == nil)
     }
 
+    @Test func onlyTheUnitsThatMeasureWhatAProductIsBoughtByAreOffered() {
+        #expect(OfferUnit.choices(for: .gram) == [.gram, .kilogram])
+        #expect(OfferUnit.choices(for: .milliliter) == [.milliliter, .liter])
+        #expect(OfferUnit.choices(for: .piece) == [.piece])
+        #expect(OfferUnit.liter.fits(.milliliter))
+        #expect(!OfferUnit.liter.fits(.gram))
+        #expect(!OfferUnit.piece.fits(.milliliter))
+        #expect(BaseUnit.allCases.allSatisfy { OfferUnit($0).fits($0) })
+    }
+
     @Test func aSizeStoredBeforeUnitsReadsInTheBaseUnitOfItsProduct() throws {
         let offers = try product(#", "offers": [{"id": 3, "store": "Lidl", "amount_in_base": 225, "price": 2.59}, {"id": 4, "store": "Rewe", "amount_in_base": null}, {"id": 5, "store": "Aldi", "amount": null, "unit": null, "amount_in_base": 300}]"#).offers
         let alone = try offer(#"{"id": 3, "store": "Lidl", "amount_in_base": 225}"#)

@@ -43,7 +43,7 @@ final class ReviewModel: ErrorReporting {
         }
     }
 
-    /// Confirms a product with all its conversions and packages and takes it off the list.
+    /// Confirms a product with all its conversions and takes it off the list.
     func confirm(_ product: Product) async {
         confirmingIDs.insert(product.id)
         defer { confirmingIDs.remove(product.id) }

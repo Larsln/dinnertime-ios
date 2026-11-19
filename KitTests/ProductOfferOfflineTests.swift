@@ -63,6 +63,53 @@ struct ProductOfferOfflineTests {
         #expect(entry.repairs == [.record(kind: .products, id: 95)])
     }
 
+    @Test func aSizeSoldEverywhereIsAddedOfflineWithoutAStore() async throws {
+        let store = try await OfflineSupport.syncedStore()
+        let answer = try #require(await store.answer(ProductOfferEndpoints.add(productID: 95, amount: 500, unit: .gram, price: 0.99)))
+        let offer = answer.response
+        let entry = try #require(await store.pendingChanges.last)
+        let german = Locale(identifier: "de_DE")
+
+        #expect(offer.id < 0)
+        #expect(offer.isSoldEverywhere)
+        #expect(offer.store == nil)
+        #expect(offer.storeID == nil)
+        #expect(offer.isStoreActive)
+        #expect(offer.text(amounts: AmountFormatter(locale: german), prices: PriceFormatter(currencyCode: "EUR", locale: german)) == "\(ProductOffer.everywhereLabel) · 500 g · 0,99\u{00A0}€")
+        #expect(try #require(await store.answer(ProductEndpoints.detail(id: 95))).response.offers == [offer])
+        #expect(try #require(await store.answer(StoreEndpoints.list)).response.isEmpty)
+        #expect(entry.path == "products/95/offers")
+        #expect(entry.created == [offer.id])
+        #expect(try json(entry.body) as NSDictionary == ["amount": 500, "unit": "g", "price": 0.99])
+    }
+
+    @Test func anOfferMovesOfflineBetweenAStoreAndEverywhere() async throws {
+        let store = try await OfflineSupport.syncedStore()
+        let first = try await OfflineSupport.offer(at: "Lidl", for: 95, in: store, amount: 2, unit: .piece)
+        let lidl = try await OfflineSupport.shop("Lidl", in: store)
+        let everywhere = try #require(await store.answer(ProductOfferEndpoints.update(id: first.id, storeID: nil, amount: 2, unit: .piece, price: nil))).response
+        let entry = try #require(await store.pendingChanges.last)
+        let back = try #require(await store.answer(ProductOfferEndpoints.update(id: first.id, storeID: lidl.id, amount: 2, unit: .piece, price: nil))).response
+
+        #expect(everywhere.id == first.id)
+        #expect(everywhere.isSoldEverywhere)
+        #expect(everywhere.amount == 2)
+        #expect(try json(entry.body)["store_id"] is NSNull)
+        #expect(try #require(await store.answer(StoreEndpoints.list)).response.map(\.offerCount) == [1])
+        #expect(back.store == "Lidl")
+        #expect(back.storeID == lidl.id)
+    }
+
+    @Test func deletingAStoreKeepsTheSizesSoldEverywhere() async throws {
+        let store = try await OfflineSupport.syncedStore()
+        let everywhere = try #require(await store.answer(ProductOfferEndpoints.add(productID: 95, amount: 3, unit: .piece))).response
+        _ = try await OfflineSupport.offer(at: "Lidl", for: 95, in: store)
+        let lidl = try await OfflineSupport.shop("Lidl", in: store)
+        _ = try await store.answer(StoreEndpoints.delete(id: lidl.id))
+
+        #expect(try #require(await store.answer(ProductEndpoints.detail(id: 95))).response.offers == [everywhere])
+    }
+
     @Test func anOfferDeletedOfflineLeavesTheProductAndTheItemsOfTheList() async throws {
         let store = try await OfflineSupport.syncedStore()
         let offer = try await add("Lidl", to: 95, in: store)

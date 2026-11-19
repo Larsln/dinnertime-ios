@@ -14,20 +14,15 @@ extension Replica {
             let product: JSONObject = [
                 "id": makeTemporaryID(), "name": name, "plural_name": NSNull(), "icon": NSNull(), "base_unit": "g",
                 "is_pantry_staple": false, "shelf_life_opened_days": NSNull(), "note": NSNull(), "status": "confirmed", "enriched_at": NSNull(),
-                "store_section": NSNull(), "aliases": [String](), "conversions": [JSONObject](), "packages": [JSONObject](),
-                "offers": [JSONObject](),
+                "store_section": NSNull(), "aliases": [String](), "conversions": [JSONObject](), "offers": [JSONObject](),
             ]
             put(.products, product)
             return LocalResult(body: resource(shownProduct(product)), areas: [.products], change: QueuedChange(created: [product.recordID ?? 0], createdKind: .products))
-        }
-        if request.matches(.patch, "product-packages", "*") || request.matches(.delete, "product-packages", "*") {
-            return try writePackage(request)
         }
         guard request.path.first == "products", let id = request.id(at: 1) else {
             return nil
         }
         var product = try existing(.products, id)
-        var created: [Int] = []
         if request.matches(.delete, "products", "*") {
             guard shownProduct(product)["recipe_count"] as? Int == 0 else {
                 throw failure(409, String(localized: "The product is used by a recipe and cannot be deleted.", bundle: .kit))
@@ -45,16 +40,7 @@ extension Replica {
             }
         } else if request.matches(.post, "products", "*", "confirm") {
             product["status"] = "confirmed"
-            for list in ["conversions", "packages"] {
-                product[list] = (product[list] as? [JSONObject] ?? []).map { $0.merging(["status": "confirmed"]) { _, new in new } }
-            }
-        } else if request.matches(.post, "products", "*", "packages") {
-            let package: JSONObject = [
-                "id": makeTemporaryID(), "label": request.body["label"] ?? "", "amount_in_base": request.body["amount_in_base"] ?? 0,
-                "status": "confirmed", "source": "user",
-            ]
-            product["packages"] = (product["packages"] as? [JSONObject] ?? []) + [package]
-            created = [package.recordID ?? 0]
+            product["conversions"] = (product["conversions"] as? [JSONObject] ?? []).map { $0.merging(["status": "confirmed"]) { _, new in new } }
         } else if request.matches(.put, "products", "*", "conversions", "*") || request.matches(.delete, "products", "*", "conversions", "*") {
             let unit = try existing(.units, request.id(at: 3))
             var conversions = (product["conversions"] as? [JSONObject] ?? []).filter { ($0["unit"] as? JSONObject)?.recordID != unit.recordID }
@@ -66,28 +52,7 @@ extension Replica {
             return nil
         }
         put(.products, product)
-        return LocalResult(body: resource(shownProduct(product)), areas: [.products, .shopping, .pantry, .recipes], change: QueuedChange(created: created))
-    }
-
-    private mutating func writePackage(_ request: LocalRequest) throws -> LocalResult? {
-        let id = request.id(at: 1)
-        guard var product = all(.products).first(where: { ($0["packages"] as? [JSONObject] ?? []).contains { $0.recordID == id } }) else {
-            throw failure(404)
-        }
-        var packages = product["packages"] as? [JSONObject] ?? []
-        var answer: Any?
-        if let index = packages.firstIndex(where: { $0.recordID == id }) {
-            if request.method == .delete {
-                packages.remove(at: index)
-            } else {
-                packages[index].merge(request.body.filter { ["label", "amount_in_base"].contains($0.key) }) { _, new in new }
-                packages[index]["status"] = "confirmed"
-                answer = resource(packages[index])
-            }
-        }
-        product["packages"] = packages
-        put(.products, product)
-        return LocalResult(body: answer, areas: [.products, .shopping], change: QueuedChange())
+        return LocalResult(body: resource(shownProduct(product)), areas: [.products, .shopping, .pantry, .recipes], change: QueuedChange())
     }
 
     /// Answers a write to a tool; `nil` for other calls, among them merging, which needs the server.

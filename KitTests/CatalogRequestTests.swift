@@ -93,26 +93,6 @@ struct CatalogRequestTests {
         #expect(request.url?.path() == "/api/v1/products/4/conversions/8")
     }
 
-    @Test func addsAndCorrectsPackages() throws {
-        let added = try builder.request(for: ProductValueEndpoints.addPackage(productID: 4, label: "Becher", amountInBase: 200))
-        let corrected = try builder.request(for: ProductValueEndpoints.updatePackage(id: 7, label: "Glas", amountInBase: 250))
-
-        #expect(added.httpMethod == "POST")
-        #expect(added.url?.path() == "/api/v1/products/4/packages")
-        #expect(try json(added)["label"] as? String == "Becher")
-        #expect(try json(added)["amount_in_base"] as? Double == 200)
-        #expect(corrected.httpMethod == "PATCH")
-        #expect(corrected.url?.path() == "/api/v1/product-packages/7")
-        #expect(try json(corrected)["amount_in_base"] as? Double == 250)
-    }
-
-    @Test func deletesPackage() throws {
-        let request = try builder.request(for: ProductValueEndpoints.deletePackage(id: 7))
-
-        #expect(request.httpMethod == "DELETE")
-        #expect(request.url?.path() == "/api/v1/product-packages/7")
-    }
-
     @Test func importSettings() throws {
         let settings = try ImportSettingsEndpoints.settings.decode(Data(#"{"data":{"identify_as_browser":false,"has_cookies":true}}"#.utf8))
         let change = try builder.request(for: ImportSettingsEndpoints.setIdentifyAsBrowser(true))

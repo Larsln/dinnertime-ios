@@ -16,13 +16,14 @@ struct RecipeDetailView: View {
     init(
         session: AppSession,
         summary: RecipeSummary,
+        plannedServings: Int? = nil,
         onUpdate: @escaping (RecipeSummary) -> Void = { _ in },
         onDelete: @escaping () -> Void = {}
     ) {
         self.session = session
         self.onUpdate = onUpdate
         self.onDelete = onDelete
-        _model = State(initialValue: RecipeDetailModel(session: session, summary: summary))
+        _model = State(initialValue: RecipeDetailModel(session: session, summary: summary, plannedServings: plannedServings))
     }
 
     var body: some View {

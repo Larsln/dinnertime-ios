@@ -66,6 +66,22 @@ struct FormattingTests {
         #expect(item.purchaseText(formatter: english) == "2 Stück + 0.5 Bund")
     }
 
+    @Test func boughtPackagesNameTheirStoreOrOnlyTheirSize() throws {
+        func item(_ packages: String, unit: String = "g") throws -> ShoppingListItem {
+            let json = #"""
+            {"data": {"id": 9, "label": null, "is_manual": false, "needed_amount": 300, "purchase_amount": 400,
+            "packages": \#(packages), "extra_amounts": [],
+            "product": {"id": 2, "name": "Schmand", "plural_name": null, "base_unit": "\#(unit)", "status": "confirmed"}}}
+            """#
+            return try ShoppingEndpoints.setChecked(true, itemID: 9).decode(Data(json.utf8))
+        }
+        let mixed = try item(#"[{"package_id": 1, "label": "Lidl", "amount": 200, "count": 1}, {"package_id": 2, "label": "", "amount": 200, "count": 2}]"#)
+        let pieces = try item(#"[{"package_id": 1, "label": "Lidl", "amount": 1, "count": 3}, {"package_id": 2, "label": " ", "amount": 1, "count": 2}]"#, unit: "piece")
+
+        #expect(mixed.purchaseText(formatter: english) == "1 × Lidl 200 g + 2 × 200 g")
+        #expect(pieces.purchaseText(formatter: english) == "3 × Lidl + 2 × \(english.string(1, unit: .piece))")
+    }
+
     @Test func weekStartsOnTheFirstWeekdayOfTheCalendar() throws {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = try #require(TimeZone(identifier: "Europe/Berlin"))

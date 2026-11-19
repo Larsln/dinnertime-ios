@@ -17,6 +17,20 @@ public enum OfferUnit: String, Codable, CaseIterable, Sendable {
         }
     }
 
+    /// The units that measure what a product with `unit` as its base unit is bought by, smallest first.
+    public static func choices(for unit: BaseUnit) -> [OfferUnit] {
+        switch unit {
+        case .gram: [.gram, .kilogram]
+        case .milliliter: [.milliliter, .liter]
+        case .piece: [.piece]
+        }
+    }
+
+    /// Whether the unit measures what a product with `unit` as its base unit is bought by.
+    public func fits(_ unit: BaseUnit) -> Bool {
+        Self.choices(for: unit).contains(self)
+    }
+
     /// Short name of the unit behind a number and in the choice of units.
     public var label: String {
         switch self {

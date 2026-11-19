@@ -70,7 +70,7 @@ struct CatalogDecodingTests {
         #expect(product.recipeCount == 1)
         #expect(product.storeSection?.name == "Kühlregal")
         #expect(product.aliases == [])
-        #expect(product.packages?.map(\.amountInBase) == [200])
+        #expect(product.offers.map(\.amount) == [200, 0.5])
         #expect(conversions.map(\.amountInBase) == [15, nil])
         #expect(conversions[1].unit.code == "Stück")
         #expect(conversions[1].status == .suggested)

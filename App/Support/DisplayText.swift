@@ -36,6 +36,17 @@ extension BaseUnit {
     }
 }
 
+extension BaseUnit {
+    /// What the product is bought by, with the units that measure it, for choosing it and in the review.
+    var purchaseKind: String {
+        switch self {
+        case .gram: String(localized: "Weight (g, kg)")
+        case .milliliter: String(localized: "Volume (ml, l)")
+        case .piece: String(localized: "Pieces")
+        }
+    }
+}
+
 extension Duration {
     /// A number of minutes in hours and minutes, such as "1 hr, 5 min".
     static func text(minutes: Int) -> String {

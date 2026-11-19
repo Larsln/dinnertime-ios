@@ -40,9 +40,13 @@ final class WalkthroughTests: XCTestCase {
 
         let firstRecipe = app.collectionViews.cells.firstMatch
         XCTAssertTrue(firstRecipe.waitForExistence(timeout: Self.timeout), "The recipe list is empty")
-        firstRecipe.staticTexts.firstMatch.tap()
+        firstRecipe.tap()
 
-        XCTAssertTrue(app.buttons["Ingredients"].waitForExistence(timeout: Self.timeout), "The recipe did not open")
+        let ingredients = app.buttons["Ingredients"]
+        for _ in 0..<4 where !ingredients.waitForExistence(timeout: 3) {
+            app.swipeUp()
+        }
+        XCTAssertTrue(ingredients.exists, "The recipe did not open")
         waitUntilLoaded()
         record("Recipe detail")
 
@@ -110,6 +114,10 @@ final class WalkthroughTests: XCTestCase {
         guard let shop = ProcessInfo.processInfo.environment["DINNERTIME_TEST_SHOP"] else {
             return
         }
+        let newShop = app.buttons["New shop"].firstMatch
+        if newShop.waitForExistence(timeout: 2) {
+            newShop.tap()
+        }
         app.textFields["Shop"].tap()
         app.typeText("\(shop)\n150")
         let price = app.textFields.matching(NSPredicate(format: "placeholderValue == %@", "Price")).firstMatch
@@ -144,15 +152,16 @@ final class WalkthroughTests: XCTestCase {
         waitUntilLoaded()
         record("Product editor")
 
-        let addPackage = app.buttons["Add package"].firstMatch
-        for _ in 0..<4 where !addPackage.exists {
+        let everywhere = app.buttons["Everywhere"].firstMatch
+        for _ in 0..<4 where !everywhere.exists {
             app.swipeUp()
         }
-        addPackage.tap()
-        let amount = app.textFields.matching(NSPredicate(format: "placeholderValue IN %@", ["g", "ml", "pieces"])).allElementsBoundByIndex.last
-        amount?.tap()
+        XCTAssertTrue(everywhere.waitForExistence(timeout: Self.timeout), "The editor offers no entry for package sizes")
+        XCTAssertTrue(app.buttons["Add"].firstMatch.exists, "The entry for package sizes has no button to add one")
+        let size = app.textFields.matching(NSPredicate(format: "placeholderValue == %@", "Size")).firstMatch
+        size.tap()
         XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: Self.timeout), "The number pad did not open")
-        record("Package amount")
+        record("Package size")
         app.toolbars.buttons["Done"].tap()
         XCTAssertTrue(app.keyboards.firstMatch.waitForNonExistence(timeout: Self.timeout), "The number pad cannot be closed")
         app.navigationBars.buttons.firstMatch.tap()

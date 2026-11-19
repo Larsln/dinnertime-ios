@@ -4,11 +4,13 @@ public struct Store: Decodable, Hashable, Identifiable, Sendable {
     public var name: String
     /// Whether the household buys there at the moment; a shop that is closed for a while is paused.
     public var isActive: Bool
+    /// Whether the household usually goes there; the shopping list buys in the sizes of these shops first.
+    public var isPreferred: Bool
     /// Number of offers noted for the shop.
     public let offerCount: Int?
 
     private enum CodingKeys: String, CodingKey {
-        case id, name, isActive, offerCount
+        case id, name, isActive, isPreferred, offerCount
     }
 
     public init(from decoder: any Decoder) throws {
@@ -16,16 +18,28 @@ public struct Store: Decodable, Hashable, Identifiable, Sendable {
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         isActive = try container.decodeIfPresent(Bool.self, forKey: .isActive) ?? true
+        isPreferred = try container.decodeIfPresent(Bool.self, forKey: .isPreferred) ?? false
         offerCount = try container.decodeIfPresent(Int.self, forKey: .offerCount)
     }
 }
 
 extension Sequence where Element == Store {
-    /// The shops to choose from when an offer is entered: the active ones, most used first and equally used ones by name.
+    /// The shops to choose from when an offer is entered: the active ones, preferred ones first,
+    /// then most used first and equally used ones by name.
     public var choices: [Store] {
         filter(\.isActive).sorted { first, second in
+            if first.isPreferred != second.isPreferred {
+                return first.isPreferred
+            }
             let (firstUses, secondUses) = (first.offerCount ?? 0, second.offerCount ?? 0)
             return firstUses == secondUses ? first.name.localizedStandardCompare(second.name) == .orderedAscending : firstUses > secondUses
+        }
+    }
+
+    /// The shops as their list shows them: preferred ones first, each group by name.
+    public var preferredFirst: [Store] {
+        sorted { first, second in
+            first.isPreferred == second.isPreferred ? first.name.localizedStandardCompare(second.name) == .orderedAscending : first.isPreferred
         }
     }
 

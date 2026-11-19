@@ -54,6 +54,23 @@ struct StoreOfflineTests {
         #expect(listed.map(\.offerCount) == [0, 2])
     }
 
+    @Test func aStorePreferredOfflineStaysSoAndIsSentToTheServer() async throws {
+        let store = try await storeWithShops()
+        let answer = try #require(await store.answer(StoreEndpoints.setPreferred(true, id: 5)))
+        let created = try #require(await store.answer(StoreEndpoints.create(name: "Rewe"))).response
+        let entry = try #require(await store.pendingChanges.first)
+
+        #expect(answer.response.isPreferred)
+        #expect(answer.response.isActive)
+        #expect(answer.areas == [.products, .shopping])
+        #expect(!created.isPreferred)
+        #expect(try await stores(in: store).preferredFirst.map(\.name) == ["Aldi", "Lidl", "Rewe"])
+        #expect(entry.method == .patch)
+        #expect(entry.path == "stores/5")
+        #expect(try json(entry.body) as NSDictionary == ["is_preferred": true])
+        #expect(entry.repairs == [.kind(.stores)])
+    }
+
     @Test func aStoreRenamedOrPausedElsewhereShowsOnTheOffersWithoutTheProducts() async throws {
         let store = try await storeWithShops()
         let progress = try await store.applySync(OfflineSupport.page(version: 131, changed: ["stores": [["id": 4, "name": "Lidl Mitte", "is_active": false]]]))
