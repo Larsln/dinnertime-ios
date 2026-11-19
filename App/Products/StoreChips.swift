@@ -48,12 +48,16 @@ struct StoreChips: View {
             .buttonStyle(.borderless)
             .foregroundStyle(.inkMuted)
         }
+        .entryField()
+        .onTapGesture {
+            isFocused = true
+        }
     }
 
     private var chips: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal) {
-                HStack(spacing: 6) {
+                HStack(spacing: 8) {
                     chip(for: "", title: Text("Everywhere"))
                     ForEach(stores, id: \.self) { store in
                         chip(for: store, title: Text(verbatim: store))
@@ -64,9 +68,10 @@ struct StoreChips: View {
                     }
                     .labelStyle(.iconOnly)
                     .buttonStyle(.borderless)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
+                    .padding(.horizontal, 14)
+                    .frame(minHeight: EntryMetrics.chipHeight)
                     .foregroundStyle(.inkMuted)
+                    .contentShape(.capsule)
                     .overlay {
                         Capsule()
                             .strokeBorder(.inkMuted, style: StrokeStyle(lineWidth: 1, dash: [4, 3]))
@@ -89,8 +94,8 @@ struct StoreChips: View {
         } label: {
             title
                 .font(.subheadline)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
+                .padding(.horizontal, 14)
+                .frame(minHeight: EntryMetrics.chipHeight)
                 .fontWeight(isChosen ? .semibold : .regular)
                 .foregroundStyle(isChosen ? Color.onAccent : Color.ink)
                 .background(isChosen ? Color.accent : Color.surface, in: .capsule)

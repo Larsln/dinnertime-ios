@@ -38,8 +38,12 @@ final class WalkthroughTests: XCTestCase {
         signInIfNeeded(with: account)
         app.tabBars.buttons["Recipes"].tap()
 
-        let firstRecipe = app.collectionViews.cells.firstMatch
-        XCTAssertTrue(firstRecipe.waitForExistence(timeout: Self.timeout), "The recipe list is empty")
+        XCTAssertTrue(app.collectionViews.cells.firstMatch.waitForExistence(timeout: Self.timeout), "The recipe list is empty")
+        waitUntilLoaded()
+        let firstRecipe = try XCTUnwrap(
+            app.collectionViews.cells.allElementsBoundByIndex.first { $0.frame.height > 60 && $0.isHittable },
+            "The recipe list shows no recipe"
+        )
         firstRecipe.tap()
 
         let ingredients = app.buttons["Ingredients"]

@@ -19,6 +19,33 @@ struct FormattingTests {
         #expect(german.string(2250, unit: .gram) == "2,25 kg")
     }
 
+    @Test func amountsToBuyAreWholeGramsAndMilliliters() {
+        #expect(german.wholeString(66.67, unit: .gram) == "67 g")
+        #expect(german.wholeString(62.5, unit: .milliliter) == "63 ml")
+        #expect(german.wholeString(0.4, unit: .gram) == "0 g")
+        #expect(german.wholeString(999.4, unit: .gram) == "999 g")
+    }
+
+    @Test func amountsToBuySwitchToLargeUnitsFromARoundedThousand() {
+        #expect(german.wholeString(999.6, unit: .gram) == "1 kg")
+        #expect(german.wholeString(999.5, unit: .milliliter) == "1 l")
+        #expect(german.wholeString(1000, unit: .gram) == "1 kg")
+        #expect(german.wholeString(1234.5, unit: .gram) == "1,23 kg")
+        #expect(german.wholeString(2250, unit: .milliliter) == "2,25 l")
+    }
+
+    @Test func piecesToBuyKeepTheirDecimals() {
+        #expect(german.wholeString(1.5, unit: .piece) == german.string(1.5, unit: .piece))
+        #expect(german.wholeString(1.5, unit: .piece).hasPrefix("1,5 "))
+    }
+
+    @Test func recipeQuantitiesKeepTheirDecimals() throws {
+        let recipe = try RecipeEndpoints.detail(id: 1).decode(Fixture.data("recipe"))
+
+        #expect(recipe.ingredients[0].text(scaledBy: 0.2225, formatter: german).amount == "66,75 g")
+        #expect(german.string(66.67, unit: .gram) == "66,67 g")
+    }
+
     @Test func roundsToTwoFractionDigits() {
         #expect(english.number(0.333333) == "0.33")
         #expect(english.number(3) == "3")
@@ -64,6 +91,24 @@ struct FormattingTests {
         let item = try ShoppingEndpoints.setChecked(true, itemID: 9).decode(Data(json.utf8))
 
         #expect(item.purchaseText(formatter: english) == "2 Stück + 0.5 Bund")
+    }
+
+    @Test func approximateAmountsStartWithTheSignAndAreWhole() throws {
+        func item(approximate: Bool, packages: String = "[]") throws -> ShoppingListItem {
+            let json = #"""
+            {"data": {"id": 9, "label": null, "is_manual": false, "needed_amount": 62.5, "purchase_amount": 62.5,
+            "is_approximate": \#(approximate), "packages": \#(packages), "extra_amounts": [],
+            "product": {"id": 2, "name": "Parmesan", "plural_name": null, "base_unit": "g", "status": "confirmed"}}}
+            """#
+            return try ShoppingEndpoints.setChecked(true, itemID: 9).decode(Data(json.utf8))
+        }
+        let packed = try item(approximate: true, packages: #"[{"package_id": 1, "label": "Lidl", "amount": 66.67, "count": 2}]"#)
+
+        #expect(try item(approximate: true).shortPurchaseText(formatter: german) == "≈ 63 g")
+        #expect(try item(approximate: true).purchaseText(formatter: german) == "≈ 63 g")
+        #expect(try item(approximate: false).shortPurchaseText(formatter: german) == "63 g")
+        #expect(packed.shortPurchaseText(formatter: german) == "≈ 2 × 67 g")
+        #expect(packed.purchaseText(formatter: german) == "≈ 2 × Lidl 67 g")
     }
 
     @Test func boughtPackagesNameTheirStoreOrOnlyTheirSize() throws {

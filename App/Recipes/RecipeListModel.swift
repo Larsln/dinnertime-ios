@@ -5,20 +5,6 @@ import Observation
 @MainActor
 @Observable
 final class RecipeListModel: ErrorReporting {
-    /// The filter the list is loaded for.
-    struct Query: Hashable {
-        var text = ""
-        var tagID: Int?
-        /// Key of the course to show.
-        var course: String?
-        var favoritesOnly = false
-
-        /// Whether anything but the search text narrows the list.
-        var isFiltered: Bool {
-            tagID != nil || course != nil || favoritesOnly
-        }
-    }
-
     var query = Query()
     var errorMessage: String?
     private(set) var recipes: [RecipeSummary] = []
@@ -34,7 +20,7 @@ final class RecipeListModel: ErrorReporting {
         self.session = session
     }
 
-    /// Tags of one group, for the filter menu.
+    /// Tags of one group, for the filter sheet.
     func tags(of kind: Tag.Kind) -> [Tag] {
         tags.filter { $0.type == kind }
     }
@@ -86,6 +72,6 @@ final class RecipeListModel: ErrorReporting {
     }
 
     private func endpoint(page: Int) -> Endpoint<Page<RecipeSummary>> {
-        RecipeEndpoints.list(search: query.text, tagID: query.tagID, course: query.course, favoritesOnly: query.favoritesOnly, page: page)
+        RecipeEndpoints.list(search: query.text, tagIDs: query.tagIDs, courses: query.courses, favoritesOnly: query.favoritesOnly, page: page)
     }
 }

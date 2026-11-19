@@ -24,17 +24,31 @@ public struct AmountFormatter: Sendable {
     public func string(_ amount: Double, unit: BaseUnit) -> String {
         switch unit {
         case .gram:
-            scaled(amount, small: "g", large: "kg")
+            scaled(amount, switchingAt: amount, small: "g", large: "kg")
         case .milliliter:
-            scaled(amount, small: "ml", large: "l")
+            scaled(amount, switchingAt: amount, small: "ml", large: "l")
         case .piece:
             String(localized: "\(number(amount)) pcs", bundle: .kit)
         }
     }
 
-    private func scaled(_ amount: Double, small: String, large: String) -> String {
-        amount >= Self.largeUnitThreshold
+    /// An amount to buy or to have in stock: grams and milliliters are whole numbers and switch to kilograms and
+    /// liters with up to two decimals from a rounded thousand upwards, pieces keep their decimals.
+    public func wholeString(_ amount: Double, unit: BaseUnit) -> String {
+        switch unit {
+        case .gram:
+            scaled(amount, switchingAt: amount.rounded(), small: "g", large: "kg")
+        case .milliliter:
+            scaled(amount, switchingAt: amount.rounded(), small: "ml", large: "l")
+        case .piece:
+            string(amount, unit: unit)
+        }
+    }
+
+    /// Writes `amount` in the large unit once `shown`, the number that stands in the small unit, reaches a thousand.
+    private func scaled(_ amount: Double, switchingAt shown: Double, small: String, large: String) -> String {
+        shown >= Self.largeUnitThreshold
             ? "\(number(amount / Self.largeUnitThreshold)) \(large)"
-            : "\(number(amount)) \(small)"
+            : "\(number(shown)) \(small)"
     }
 }

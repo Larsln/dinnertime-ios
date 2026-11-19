@@ -48,14 +48,16 @@ struct RequestBuilderTests {
     }
 
     @Test func buildsRecipeQuery() throws {
-        let request = try builder.request(for: RecipeEndpoints.list(search: "käse kuchen", tagID: 3, course: "main", favoritesOnly: true, page: 2))
+        let request = try builder.request(for: RecipeEndpoints.list(search: "käse kuchen", tagIDs: [3, 16], courses: ["main", "soup"], favoritesOnly: true, page: 2))
         let items = URLComponents(url: try #require(request.url), resolvingAgainstBaseURL: false)?.queryItems
 
         #expect(items == [
             URLQueryItem(name: "page", value: "2"),
             URLQueryItem(name: "search", value: "käse kuchen"),
-            URLQueryItem(name: "tag", value: "3"),
-            URLQueryItem(name: "course", value: "main"),
+            URLQueryItem(name: "courses[]", value: "main"),
+            URLQueryItem(name: "courses[]", value: "soup"),
+            URLQueryItem(name: "tags[]", value: "3"),
+            URLQueryItem(name: "tags[]", value: "16"),
             URLQueryItem(name: "favorite", value: "1"),
         ])
     }

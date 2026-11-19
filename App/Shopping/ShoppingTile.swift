@@ -49,7 +49,7 @@ struct ShoppingTile: View {
                 .strikethrough(item.isChecked)
                 .lineLimit(1)
             if let amount = item.shortPurchaseText() {
-                Text(verbatim: item.isApproximate ? "\(amount) ≈" : amount)
+                Text(verbatim: amount)
                     .font(.system(size: 10))
                     .lineLimit(1)
             }

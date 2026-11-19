@@ -54,7 +54,7 @@ struct ShoppingItemDetailsList: View {
                 Section("Used for") {
                     ForEach(item.uses, id: \.self) { use in
                         LabeledContent {
-                            Text(verbatim: formatter.string(use.amount, unit: product.baseUnit))
+                            Text(verbatim: formatter.wholeString(use.amount, unit: product.baseUnit))
                         } label: {
                             Text(verbatim: use.title)
                             Text(verbatim: use.date.longText)
@@ -84,13 +84,13 @@ struct ShoppingItemDetailsList: View {
     @ViewBuilder
     private func amounts(of product: Product) -> some View {
         if let needed = item.neededAmount {
-            LabeledContent("Needed", value: formatter.string(needed, unit: product.baseUnit))
+            LabeledContent("Needed", value: formatter.wholeString(needed, unit: product.baseUnit))
         }
         if let leftover = item.leftoverAmount, leftover > 0 {
-            LabeledContent("Leftover", value: formatter.string(leftover, unit: product.baseUnit))
+            LabeledContent("Leftover", value: formatter.wholeString(leftover, unit: product.baseUnit))
         }
         if let wasted = item.wastedAmount, wasted > 0 {
-            LabeledContent("Expires unused", value: formatter.string(wasted, unit: product.baseUnit))
+            LabeledContent("Expires unused", value: formatter.wholeString(wasted, unit: product.baseUnit))
                 .foregroundStyle(.accentDeep)
         }
     }

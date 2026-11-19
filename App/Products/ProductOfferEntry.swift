@@ -1,7 +1,8 @@
 import DinnertimeKit
 import SwiftUI
 
-/// The fast entry of a package size: where it is sold as chips, size with its unit and price side by side and one button.
+/// The entry of a package size, stacked so that it can be filled in with one hand: where it is sold as chips,
+/// the size with its unit, the price, and one button across the width.
 struct ProductOfferEntry: View {
     /// The fields the entry moves between.
     private enum Field: Hashable {
@@ -17,6 +18,9 @@ struct ProductOfferEntry: View {
     let currencySymbol: String
     let onSave: () -> Void
 
+    /// How strongly the button shows while there is nothing to store yet: the same button, dimmed.
+    private static let dimmedOpacity = 0.4
+
     @FocusState private var focus: Field?
 
     var body: some View {
@@ -24,25 +28,32 @@ struct ProductOfferEntry: View {
             StoreChips(selection: $draft.store, stores: stores) {
                 focus = .amount
             }
-            HStack(spacing: 6) {
-                field("Size", text: $draft.amount, focus: .amount) {
-                    unitPicker
-                }
-                field("Price", text: $draft.price, focus: .price) {
-                    Text(verbatim: currencySymbol)
-                        .foregroundStyle(.inkMuted)
-                        .padding(.trailing, 8)
-                }
-                Button(draft.offerID == nil ? "Add" : "Save") {
-                    focus = nil
-                    onSave()
-                }
-                .buttonStyle(.borderedProminent)
-                .fixedSize()
-                .disabled(!draft.isComplete)
+            field("Size", text: $draft.amount, focus: .amount) {
+                OfferUnitPicker(unit: $draft.unit, units: units)
             }
+            field("Price", text: $draft.price, focus: .price) {
+                Text(verbatim: currencySymbol)
+                    .foregroundStyle(.inkMuted)
+            }
+            Button {
+                guard draft.isComplete else {
+                    return
+                }
+                focus = nil
+                onSave()
+            } label: {
+                Text(draft.offerID == nil ? "Add" : "Save")
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .tint(.accent)
+            .opacity(draft.isComplete ? 1 : Self.dimmedOpacity)
+            .allowsHitTesting(draft.isComplete)
+            .accessibilityRespondsToUserInteraction(draft.isComplete)
         }
-        .padding(.vertical, 2)
+        .padding(.vertical, 6)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 if focus != nil {
@@ -56,38 +67,19 @@ struct ProductOfferEntry: View {
         }
     }
 
-    /// The choice of the unit the size is stated in, as a menu right behind the number; plain text when there is only one.
-    @ViewBuilder
-    private var unitPicker: some View {
-        if units.count > 1 {
-            Picker("Unit", selection: $draft.unit) {
-                ForEach(units, id: \.self) { unit in
-                    Text(verbatim: unit.label)
-                        .tag(unit)
-                }
-            }
-            .pickerStyle(.menu)
-            .labelsHidden()
-            .tint(.ink)
-            .fixedSize()
-        } else {
-            Text(verbatim: draft.unit.label)
-                .foregroundStyle(.inkMuted)
-                .padding(.trailing, 8)
-        }
-    }
-
+    /// A number field across the width with what belongs behind the number at its trailing edge; a tap anywhere on it starts typing.
     private func field(_ title: LocalizedStringKey, text: Binding<String>, focus field: Field, @ViewBuilder suffix: () -> some View) -> some View {
-        HStack(spacing: 0) {
+        HStack(spacing: 8) {
             TextField(title, text: text)
                 .keyboardType(.decimalPad)
                 .focused($focus, equals: field)
-                .multilineTextAlignment(.trailing)
-                .padding(.leading, 8)
-                .padding(.trailing, 4)
-                .padding(.vertical, 9)
+                .font(.body)
+                .frame(maxWidth: .infinity, alignment: .leading)
             suffix()
         }
-        .surface(in: .field)
+        .entryField()
+        .onTapGesture {
+            focus = field
+        }
     }
 }

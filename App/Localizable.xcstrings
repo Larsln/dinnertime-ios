@@ -573,16 +573,6 @@
         }
       }
     },
-    "All courses": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle Speisenkategorien"
-          }
-        }
-      }
-    },
     "All days": {
       "localizations": {
         "de": {
@@ -609,16 +599,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alles geprüft"
-          }
-        }
-      }
-    },
-    "All tags": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle Tags"
           }
         }
       }
@@ -749,6 +729,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nicht umrechenbar"
+          }
+        }
+      }
+    },
+    "Category": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
           }
         }
       }
@@ -1883,6 +1873,16 @@
         }
       }
     },
+    "No recipes with these filters": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Rezepte mit diesen Filtern"
+          }
+        }
+      }
+    },
     "No section": {
       "localizations": {
         "de": {
@@ -2293,6 +2293,16 @@
         }
       }
     },
+    "Properties": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigenschaften"
+          }
+        }
+      }
+    },
     "Quantity": {
       "localizations": {
         "de": {
@@ -2403,6 +2413,26 @@
         }
       }
     },
+    "Remove %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ entfernen"
+          }
+        }
+      }
+    },
+    "Remove all": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle entfernen"
+          }
+        }
+      }
+    },
     "Remove from favorites": {
       "localizations": {
         "de": {
@@ -2489,6 +2519,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alle neu"
+          }
+        }
+      }
+    },
+    "Reset": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurücksetzen"
+          }
+        }
+      }
+    },
+    "Reset filters": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filter zurücksetzen"
           }
         }
       }
@@ -2869,16 +2919,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "KI-Vorschläge stehen aus"
-          }
-        }
-      }
-    },
-    "Tag": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tag"
           }
         }
       }
@@ -3413,6 +3453,16 @@
         }
       }
     },
+    "all of them": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "alle davon"
+          }
+        }
+      }
+    },
     "based on the plan so far": {
       "localizations": {
         "de": {
@@ -3469,6 +3519,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "nicht bewertet"
+          }
+        }
+      }
+    },
+    "one of them": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "eine davon"
           }
         }
       }

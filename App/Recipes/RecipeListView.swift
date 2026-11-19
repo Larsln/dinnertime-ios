@@ -14,6 +14,7 @@ struct RecipeListView: View {
     @State private var showsDinner = false
     @State private var showsImports = false
     @State private var showsEditor = false
+    @State private var showsFilters = false
     @State private var router = ImportRouter.shared
     @State private var permission = NotificationPermission()
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -51,7 +52,9 @@ struct RecipeListView: View {
             .settingsToolbar(session: session)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    RecipeFilterMenu(model: model)
+                    RecipeFilterButton(count: model.query.filterCount) {
+                        showsFilters = true
+                    }
                     Button("Import", systemImage: "square.and.arrow.down") {
                         showsImports = true
                     }
@@ -67,6 +70,9 @@ struct RecipeListView: View {
                 DinnerRoundView(model: today.dinner) { entry in
                     show(PlannedRecipe(entry))
                 }
+            }
+            .sheet(isPresented: $showsFilters) {
+                RecipeFilterSheet(model: model)
             }
             .sheet(isPresented: $showsEditor) {
                 RecipeEditorView(session: session, recipe: nil, onSave: open)

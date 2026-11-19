@@ -6,14 +6,27 @@ struct LocalRequest {
     /// Path below the API base, split at the slashes.
     let path: [String]
     let query: [String: String]
+    /// Values of the query parameters that take several, by their name without the brackets.
+    let lists: [String: [String]]
     let body: JSONObject
     /// The file of a multipart upload, if the call carries one.
     let upload: MultipartForm?
 
-    init(method: HTTPMethod, path: String, query: [String: String] = [:], body: JSONObject = [:], upload: MultipartForm? = nil) {
+    /// Ending of the name of a query parameter that takes several values.
+    private static let listSuffix = "[]"
+
+    init(
+        method: HTTPMethod,
+        path: String,
+        query: [String: String] = [:],
+        lists: [String: [String]] = [:],
+        body: JSONObject = [:],
+        upload: MultipartForm? = nil
+    ) {
         self.method = method
         self.path = path.split(separator: "/").map(String.init)
         self.query = query
+        self.lists = lists
         self.body = body
         self.upload = upload
     }
@@ -30,8 +43,11 @@ struct LocalRequest {
         case nil:
             break
         }
-        let query = Dictionary(endpoint.query.map { ($0.name, $0.value ?? "") }) { first, _ in first }
-        self.init(method: endpoint.method, path: endpoint.path, query: query, body: body, upload: upload)
+        let single = endpoint.query.filter { !$0.name.hasSuffix(Self.listSuffix) }
+        let repeated = endpoint.query.filter { $0.name.hasSuffix(Self.listSuffix) }
+        let query = Dictionary(single.map { ($0.name, $0.value ?? "") }) { first, _ in first }
+        let lists = Dictionary(grouping: repeated) { String($0.name.dropLast(Self.listSuffix.count)) }.mapValues { $0.compactMap(\.value) }
+        self.init(method: endpoint.method, path: endpoint.path, query: query, lists: lists, body: body, upload: upload)
     }
 
     /// The request with temporary ids replaced by the real ones the server has given out since.
@@ -41,7 +57,7 @@ struct LocalRequest {
         }
         let path = path.map { component in Int(component).flatMap { realIDs[$0] }.map(String.init) ?? component }
         let body = realIDs.reduce(body) { body, id in JSONValue.replacing(id.key, with: id.value, in: body) as? JSONObject ?? body }
-        return LocalRequest(method: method, path: path.joined(separator: "/"), query: query, body: body, upload: upload)
+        return LocalRequest(method: method, path: path.joined(separator: "/"), query: query, lists: lists, body: body, upload: upload)
     }
 
     /// The path component at `index` as record id.

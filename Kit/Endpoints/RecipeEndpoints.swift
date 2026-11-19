@@ -2,11 +2,13 @@ import Foundation
 
 /// Reading and changing recipes.
 public enum RecipeEndpoints {
-    /// `GET /recipes`: one page of recipes, optionally filtered by title, tag, course and favorites.
+    /// `GET /recipes`: one page of recipes, optionally filtered by title, courses, tags and favorites.
+    ///
+    /// A recipe has to be of one of the courses, suit one of the meal tags and carry all other tags.
     public static func list(
         search: String = "",
-        tagID: Int? = nil,
-        course: String? = nil,
+        tagIDs: [Int] = [],
+        courses: [String] = [],
         favoritesOnly: Bool = false,
         page: Int = 1
     ) -> Endpoint<Page<RecipeSummary>> {
@@ -14,12 +16,8 @@ public enum RecipeEndpoints {
         if !search.isEmpty {
             query.append(URLQueryItem(name: "search", value: search))
         }
-        if let tagID {
-            query.append(URLQueryItem(name: "tag", value: String(tagID)))
-        }
-        if let course {
-            query.append(URLQueryItem(name: "course", value: course))
-        }
+        query += courses.map { URLQueryItem(name: "courses[]", value: $0) }
+        query += tagIDs.map { URLQueryItem(name: "tags[]", value: String($0)) }
         if favoritesOnly {
             query.append(URLQueryItem(name: "favorite", value: "1"))
         }

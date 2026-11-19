@@ -3,7 +3,8 @@ import SwiftUI
 
 /// A searchable, paginated list of recipes with a caller-defined row and, above the recipes, what the caller puts there.
 ///
-/// What stands above the recipes makes way while a search text is entered. Next to other content the list
+/// What stands above the recipes makes way while a search text or a filter narrows the list; the filters that are
+/// switched on stand there as chips instead. Without recipes the list says so in a row. Next to other content the list
 /// carries its own search field, where the search bar of the system would span that content as well.
 struct RecipeSearchList<Header: View, Row: View>: View {
     private static var searchDelay: Duration { .milliseconds(300) }
@@ -18,8 +19,16 @@ struct RecipeSearchList<Header: View, Row: View>: View {
 
     var body: some View {
         List {
-            if model.query.text.isEmpty {
+            if model.query.isFiltered {
+                RecipeActiveFilters(model: model)
+            }
+            if !model.query.isNarrowed {
                 header
+            }
+            if model.hasLoaded, model.recipes.isEmpty {
+                RecipeEmptyRow(isNarrowed: model.query.isNarrowed) {
+                    model.query = RecipeListModel.Query()
+                }
             }
             ForEach(model.recipes) { recipe in
                 row(recipe)
@@ -37,11 +46,6 @@ struct RecipeSearchList<Header: View, Row: View>: View {
         }
         .listStyle(.plain)
         .paperBackground()
-        .overlay {
-            if model.hasLoaded, model.recipes.isEmpty {
-                ContentUnavailableView("No recipes", systemImage: "book", description: Text("Import a recipe from a link or change the search."))
-            }
-        }
         .modifier(RecipeSearch(text: $model.query.text, isInline: searchesInline))
         .refreshesFromServer {
             await model.reload()

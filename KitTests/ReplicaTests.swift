@@ -79,10 +79,10 @@ struct ReplicaTests {
         }
 
         #expect(try await titles(RecipeEndpoints.list(search: "CHICKEN")) == ["Crispy Chicken Tacos"])
-        #expect(try await titles(RecipeEndpoints.list(course: "starter")) == ["Guacamole", "Hummus"])
-        #expect(try await titles(RecipeEndpoints.list(tagID: 1334)) == ["Crispy Chicken Tacos", "Nudeln mit Hackfleisch und Käse"])
+        #expect(try await titles(RecipeEndpoints.list(courses: ["starter"])) == ["Guacamole", "Hummus"])
+        #expect(try await titles(RecipeEndpoints.list(tagIDs: [1334])) == ["Crispy Chicken Tacos", "Nudeln mit Hackfleisch und Käse"])
         #expect(try await titles(RecipeEndpoints.list(favoritesOnly: true)) == ["Guacamole"])
-        #expect(try await titles(RecipeEndpoints.list(search: "u", course: "starter", favoritesOnly: true)) == ["Guacamole"])
+        #expect(try await titles(RecipeEndpoints.list(search: "u", courses: ["starter"], favoritesOnly: true)) == ["Guacamole"])
         #expect(try await titles(RecipeEndpoints.list(search: "xyz")).isEmpty)
     }
 

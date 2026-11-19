@@ -76,17 +76,6 @@ extension Replica {
         all(.shoppingLists).max { ($0["starts_on"] as? String ?? "") < ($1["starts_on"] as? String ?? "") }
     }
 
-    /// Recipes that match the filters of the list, sorted by title.
-    func recipes(search: String?, tagID: Int?, course: String?, favoritesOnly: Bool) -> [JSONObject] {
-        let found = all(.recipes).filter { recipe in
-            matches(recipe["title"] as? String, search)
-                && (tagID == nil || (recipe["tags"] as? [JSONObject] ?? []).contains { $0.recordID == tagID })
-                && (course == nil || recipe["course"] as? String == course)
-                && (!favoritesOnly || recipe["is_favorite"] as? Bool == true)
-        }
-        return sorted(found, by: "title").map(shownRecipe)
-    }
-
     /// Products whose name or alias contains `search`, sorted by name.
     func products(search: String?) -> [JSONObject] {
         let found = all(.products).filter { product in
@@ -110,8 +99,13 @@ extension Replica {
     func read(_ request: LocalRequest) throws -> Any? {
         let query = request.query
         if request.matches(.get, "recipes") {
-            let found = recipes(search: query["search"], tagID: query["tag"].flatMap(Int.init), course: query["course"], favoritesOnly: query["favorite"] == "1")
-            return page(found)
+            let filter = RecipeFilter(
+                search: query["search"],
+                tagIDs: (request.lists["tags"] ?? []).compactMap(Int.init),
+                courses: request.lists["courses"] ?? [],
+                favoritesOnly: query["favorite"] == "1"
+            )
+            return page(recipes(matching: filter))
         }
         if request.matches(.get, "recipes", "*") {
             return resource(shownRecipe(try existing(.recipes, request.id(at: 1))))

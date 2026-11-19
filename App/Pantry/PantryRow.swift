@@ -21,7 +21,7 @@ struct PantryRow: View {
                 }
             }
             Spacer()
-            Text(verbatim: AmountFormatter().string(item.amount, unit: item.product.baseUnit))
+            Text(verbatim: AmountFormatter().wholeString(item.amount, unit: item.product.baseUnit))
                 .monospacedDigit()
         }
     }
