@@ -63,7 +63,8 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
         aliases = try container.decodeIfPresent([String].self, forKey: .aliases)
         conversions = try container.decodeIfPresent([ProductConversion].self, forKey: .conversions)
         packages = try container.decodeIfPresent([ProductPackage].self, forKey: .packages)
-        offers = try container.decodeIfPresent([ProductOffer].self, forKey: .offers) ?? []
+        let baseUnit = baseUnit
+        offers = (try container.decodeIfPresent([ProductOffer].self, forKey: .offers) ?? []).map { $0.stated(in: baseUnit) }
     }
 
     /// A note as it is stored: without surrounding space, cut to the limit, `nil` when nothing remains.

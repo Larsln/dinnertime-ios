@@ -1,10 +1,12 @@
 import Foundation
 
 extension ProductOffer {
-    /// The offer in one line, such as "Lidl · 225 g · 2,59 €"; a missing size or price is left out.
-    public func text(unit: BaseUnit, amounts: AmountFormatter = AmountFormatter(), prices: PriceFormatter = PriceFormatter()) -> String {
-        let parts = [store, amountInBase.map { amounts.string($0, unit: unit) }, price.map(prices.string)]
-        return parts.compactMap { $0 }.joined(separator: " · ")
+    /// The offer in one line, such as "Lidl · 1 kg · 2,59 €"; a missing size or price is left out.
+    ///
+    /// The size shows in the unit it was entered in, and without one when none is stored.
+    public func text(amounts: AmountFormatter = AmountFormatter(), prices: PriceFormatter = PriceFormatter()) -> String {
+        let size = amount.map { [amounts.number($0), unit?.label].compactMap { $0 }.joined(separator: " ") }
+        return [store, size, price.map(prices.string)].compactMap { $0 }.joined(separator: " · ")
     }
 }
 

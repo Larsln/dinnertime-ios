@@ -16,6 +16,7 @@
 		03C9C2F8B1E91C1987F07592 /* ShoppingEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AADE65794444FAD02DA37 /* ShoppingEndpoints.swift */; };
 		0439D5A176D049D065F2C644 /* CoverImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE421B5BD368979BE1EA65 /* CoverImage.swift */; };
 		044194E7EE084039692CC9AF /* ImportsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B367C0DDBA5E53A359482C /* ImportsModel.swift */; };
+		0535BA9D0850265BCD0F9039 /* OfferUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03EAB6424F44912B577ADFE5 /* OfferUnitTests.swift */; };
 		0596A5BCE98B65B080C881EC /* RenameToolAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561084B932D7A513654890A6 /* RenameToolAlert.swift */; };
 		06D4E2800A6752B8B4DB1C65 /* MealSlotSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66601F101E3670E0362ED810 /* MealSlotSelectionTests.swift */; };
 		08BF222BE6683E48EEF03E88 /* RecipeFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628CA0EC01D9FCB4D30BEE22 /* RecipeFilterMenu.swift */; };
@@ -95,6 +96,7 @@
 		4EF02394166EADFCA8C16583 /* ShoppingItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04772D6BC485A8CB5D6CCF4 /* ShoppingItemDetails.swift */; };
 		502D1D9A8FCAC25C8E7EA3C1 /* StarScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E371FD745FDEC5181FF68FA /* StarScale.swift */; };
 		506F9B8BEFB7950094C32CE0 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36B004D5B14C2BF587A9DDE /* Tool.swift */; };
+		516E53EDD8ABCF1F8BB58C58 /* OfferUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F1D3DFB0BB87A194CFF4BF /* OfferUnit.swift */; };
 		518C588C576914C2249D5451 /* ImportSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4F419C7DBC8AE706A17FCE /* ImportSettingsSection.swift */; };
 		51BFEC177A17A27E14C6F3D6 /* server.json in Resources */ = {isa = PBXBuildFile; fileRef = 1DA91DCE16C1C89ED5876E9A /* server.json */; };
 		523C6BE447ED9A9F9DBD8B53 /* StoreOfflineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C967EFC6EEB56F9E700FF8CB /* StoreOfflineTests.swift */; };
@@ -422,6 +424,7 @@
 		0159B96D8A27D39DCBCA27D0 /* PlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanModel.swift; sourceTree = "<group>"; };
 		03BF6C7F9D43D72808FA61F5 /* StoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTests.swift; sourceTree = "<group>"; };
 		03C8335DA84EF6F93CEA937D /* WeekSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSelection.swift; sourceTree = "<group>"; };
+		03EAB6424F44912B577ADFE5 /* OfferUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferUnitTests.swift; sourceTree = "<group>"; };
 		057EF731AFE305CA4B079AC5 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		061F6B737686A2A12360FB66 /* KitBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KitBundle.swift; sourceTree = "<group>"; };
 		062F37D842ED43177A52EC54 /* ProductDetailsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsSection.swift; sourceTree = "<group>"; };
@@ -601,6 +604,7 @@
 		87C41797B37194988F6FED07 /* recipe.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipe.json; sourceTree = "<group>"; };
 		87E0F096A2FD771285EBF828 /* CatalogDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogDecodingTests.swift; sourceTree = "<group>"; };
 		880889976ACC29DBF14FE47F /* PlanWizardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanWizardModel.swift; sourceTree = "<group>"; };
+		88F1D3DFB0BB87A194CFF4BF /* OfferUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferUnit.swift; sourceTree = "<group>"; };
 		8937C14EB64DA7E56F24D979 /* ImportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportsView.swift; sourceTree = "<group>"; };
 		8987CE2EAB079AB69C4FA915 /* ProductOfferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductOfferTests.swift; sourceTree = "<group>"; };
 		8A5352471D189C170B764061 /* MeasureUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureUnit.swift; sourceTree = "<group>"; };
@@ -844,6 +848,7 @@
 				66C447BF5AB10AF5226D6D9D /* MealSlot.swift */,
 				A298A034A5D6852976855AD3 /* MealSlotSelection.swift */,
 				8A5352471D189C170B764061 /* MeasureUnit.swift */,
+				88F1D3DFB0BB87A194CFF4BF /* OfferUnit.swift */,
 				A682A94F317971455E0F82AB /* PantryItem.swift */,
 				57B86EDA8C3B650B48C6BDF2 /* Product.swift */,
 				DB3560D9F86A4FDC39EB5805 /* ProductIconCatalog.swift */,
@@ -1000,6 +1005,7 @@
 				99B01579DE1C79A8BACF401F /* MealPlanSuggestionTests.swift */,
 				66601F101E3670E0362ED810 /* MealSlotSelectionTests.swift */,
 				6853015C5C138EB23DD819AF /* MultiDishImportTests.swift */,
+				03EAB6424F44912B577ADFE5 /* OfferUnitTests.swift */,
 				6D9B6B3DE54373A453AEE12C /* OfflineFilesTests.swift */,
 				6C478BD2C2072B9B0BE8A64E /* OfflineSupport.swift */,
 				67700CC1A004B2448966F232 /* OIDCTests.swift */,
@@ -1680,6 +1686,7 @@
 				06D4E2800A6752B8B4DB1C65 /* MealSlotSelectionTests.swift in Sources */,
 				CC71579A225352EDBC19A376 /* MultiDishImportTests.swift in Sources */,
 				E1D705E1D0BE66E099A3239B /* OIDCTests.swift in Sources */,
+				0535BA9D0850265BCD0F9039 /* OfferUnitTests.swift in Sources */,
 				A245A216A87DE49885690E50 /* OfflineFilesTests.swift in Sources */,
 				0BC53C8706118D82487AA35B /* OfflineSupport.swift in Sources */,
 				8669A89AC1E364F9D6D43E1A /* OutboxTests.swift in Sources */,
@@ -1758,6 +1765,7 @@
 				ED7F4EA2E0030305E960C683 /* OIDCAuthorizationRequest.swift in Sources */,
 				7C199F48CA526F9DC98F30EC /* OIDCClient.swift in Sources */,
 				5DC02549AFC83B49EA6F7D6A /* OIDCError.swift in Sources */,
+				516E53EDD8ABCF1F8BB58C58 /* OfferUnit.swift in Sources */,
 				CAB3BB4F0B7B697CEFFF61C8 /* OfflineStore+Drain.swift in Sources */,
 				9CB4F8B4B8E93DA2D00A7358 /* OfflineStore+Peers.swift in Sources */,
 				7756718FB7E66AE3EE4E873B /* OfflineStore+Sync.swift in Sources */,

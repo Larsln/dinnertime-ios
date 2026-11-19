@@ -14,13 +14,15 @@ public struct ProductOffer: Decodable, Hashable, Identifiable, Sendable {
     ///
     /// The server does not send this; the local copy states it from its list of shops.
     public let isStoreActive: Bool
-    /// Size of the package in the base unit of the product; `nil` when it is not known.
-    public let amountInBase: Double?
+    /// Size of the package as it was entered; `nil` when it is not known.
+    public let amount: Double?
+    /// Unit the size is stated in; `nil` without a size and for a size stored before units could be chosen.
+    public private(set) var unit: OfferUnit?
     /// Price of the package in the currency of the household; `nil` when it is not known.
     public let price: Double?
 
     private enum CodingKeys: String, CodingKey {
-        case id, store, amountInBase, price
+        case id, store, amount, unit, amountInBase, price
         case storeID = "storeId"
         case isStoreActive = "storeIsActive"
     }
@@ -31,8 +33,21 @@ public struct ProductOffer: Decodable, Hashable, Identifiable, Sendable {
         storeID = try container.decodeIfPresent(Int.self, forKey: .storeID)
         store = try container.decode(String.self, forKey: .store)
         isStoreActive = try container.decodeIfPresent(Bool.self, forKey: .isStoreActive) ?? true
-        amountInBase = Self.number(in: container, forKey: .amountInBase)
+        amount = Self.number(in: container, forKey: container.contains(.amount) ? .amount : .amountInBase)
+        unit = amount == nil ? nil : (try? container.decodeIfPresent(String.self, forKey: .unit)).flatMap(OfferUnit.init)
         price = Self.number(in: container, forKey: .price)
+    }
+
+    /// The offer with a size that names no unit stated in the base unit of its product.
+    ///
+    /// Local copies stored before units could be chosen hold such sizes.
+    func stated(in baseUnit: BaseUnit) -> ProductOffer {
+        guard amount != nil, unit == nil else {
+            return self
+        }
+        var offer = self
+        offer.unit = OfferUnit(baseUnit)
+        return offer
     }
 
     /// The name of a shop as it is stored: without surrounding space, cut to the limit, `nil` when nothing remains.

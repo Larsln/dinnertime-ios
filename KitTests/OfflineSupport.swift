@@ -52,9 +52,9 @@ enum OfflineSupport {
     }
 
     /// Adds an offer of the shop called `name` to a product, creating the shop if needed.
-    static func offer(at name: String, for productID: Int, in store: OfflineStore, amountInBase: Double? = nil, price: Double? = nil) async throws -> ProductOffer {
+    static func offer(at name: String, for productID: Int, in store: OfflineStore, amount: Double? = nil, unit: OfferUnit? = nil, price: Double? = nil) async throws -> ProductOffer {
         let shop = try await shop(name, in: store)
-        guard let added = try await store.answer(ProductOfferEndpoints.add(productID: productID, storeID: shop.id, amountInBase: amountInBase, price: price)) else {
+        guard let added = try await store.answer(ProductOfferEndpoints.add(productID: productID, storeID: shop.id, amount: amount, unit: unit, price: price)) else {
             throw APIError.invalidResponse
         }
         return added.response

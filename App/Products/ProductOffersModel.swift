@@ -59,14 +59,14 @@ final class ProductOffersModel: ErrorReporting {
         guard draft.isComplete, let name = draft.storedStore else {
             return false
         }
-        let (amount, price) = (draft.amountValue, draft.priceValue)
+        let (amount, unit, price) = (draft.amountValue, draft.unit, draft.priceValue)
         let isStored = await attempt {
             let store = try await store(named: name)
             if let id = draft.offerID {
-                let offer = try await session.send(ProductOfferEndpoints.update(id: id, storeID: store.id, amountInBase: amount, price: price))
+                let offer = try await session.send(ProductOfferEndpoints.update(id: id, storeID: store.id, amount: amount, unit: unit, price: price))
                 stored = stored.map { $0.id == id ? offer : $0 }
             } else {
-                stored.append(try await session.send(ProductOfferEndpoints.add(productID: productID, storeID: store.id, amountInBase: amount, price: price)))
+                stored.append(try await session.send(ProductOfferEndpoints.add(productID: productID, storeID: store.id, amount: amount, unit: unit, price: price)))
             }
         }
         await loadStores()

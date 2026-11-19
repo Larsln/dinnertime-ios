@@ -16,7 +16,7 @@ struct ProductOfferOfflineTests {
     @Test func anOfferAddedOfflineShowsOnTheProductAndOnTheItemsOfTheList() async throws {
         let store = try await OfflineSupport.syncedStore()
         let lidl = try await OfflineSupport.shop("Lidl", in: store)
-        let answer = try #require(await store.answer(ProductOfferEndpoints.add(productID: 95, storeID: lidl.id, amountInBase: 2, price: 2.59)))
+        let answer = try #require(await store.answer(ProductOfferEndpoints.add(productID: 95, storeID: lidl.id, amount: 1.5, unit: .kilogram, price: 2.59)))
         let offer = answer.response
         let entry = try #require(await store.pendingChanges.last)
         let list = try #require(await store.answer(ShoppingEndpoints.current)).response
@@ -26,7 +26,8 @@ struct ProductOfferOfflineTests {
         #expect(offer.store == "Lidl")
         #expect(offer.storeID == lidl.id)
         #expect(offer.isStoreActive)
-        #expect(offer.amountInBase == 2)
+        #expect(offer.amount == 1.5)
+        #expect(offer.unit == .kilogram)
         #expect(offer.price == 2.59)
         #expect(answer.areas == [.products, .shopping])
         #expect(try #require(await store.answer(ProductEndpoints.detail(id: 95))).response.offers == [offer])
@@ -37,22 +38,24 @@ struct ProductOfferOfflineTests {
         #expect(entry.path == "products/95/offers")
         #expect(entry.created == [offer.id])
         #expect(entry.repairs == [.record(kind: .products, id: 95)])
-        #expect(try json(entry.body) as NSDictionary == ["store_id": lidl.id, "amount_in_base": 2, "price": 2.59])
+        #expect(try json(entry.body) as NSDictionary == ["store_id": lidl.id, "amount": 1.5, "unit": "kg", "price": 2.59])
     }
 
     @Test func anOfferChangedOfflineKeepsItsPlaceAndLosesClearedValues() async throws {
         let store = try await OfflineSupport.syncedStore()
-        let first = try await OfflineSupport.offer(at: "Lidl", for: 95, in: store, amountInBase: 2, price: 2.59)
+        let first = try await OfflineSupport.offer(at: "Lidl", for: 95, in: store, amount: 2, unit: .liter, price: 2.59)
         let second = try await add("Rewe", to: 95, in: store)
         let aldi = try await OfflineSupport.shop("Aldi", in: store)
-        let changed = try #require(await store.answer(ProductOfferEndpoints.update(id: first.id, storeID: aldi.id, amountInBase: 3, price: nil))).response
+        let changed = try #require(await store.answer(ProductOfferEndpoints.update(id: first.id, storeID: aldi.id, amount: 3, unit: .piece, price: nil))).response
         let offers = try #require(await store.answer(ProductEndpoints.detail(id: 95))).response.offers
         let entry = try #require(await store.pendingChanges.last)
 
         #expect(changed.id == first.id)
         #expect(changed.store == "Aldi")
         #expect(changed.storeID == aldi.id)
-        #expect(changed.amountInBase == 3)
+        #expect(first.unit == .liter)
+        #expect(changed.amount == 3)
+        #expect(changed.unit == .piece)
         #expect(changed.price == nil)
         #expect(offers == [changed, second])
         #expect(entry.method == .patch)
@@ -88,7 +91,7 @@ struct ProductOfferOfflineTests {
         let offer = try await add("Lidl", to: 95, in: store)
         let lidl = try await OfflineSupport.shop("Lidl", in: store)
         let rewe = try await OfflineSupport.shop("Rewe", in: store)
-        _ = try await store.answer(ProductOfferEndpoints.update(id: offer.id, storeID: lidl.id, amountInBase: nil, price: 1.99))
+        _ = try await store.answer(ProductOfferEndpoints.update(id: offer.id, storeID: lidl.id, amount: nil, unit: nil, price: 1.99))
         let report = await store.drain { entry, _ in
             switch (entry.method, entry.path) {
             case (.post, "stores"): OfflineSupport.created(id: entry.created == [lidl.id] ? 71 : 72)
@@ -97,7 +100,7 @@ struct ProductOfferOfflineTests {
             }
         }
         let offers = try #require(await store.answer(ProductEndpoints.detail(id: 95))).response.offers
-        let held = try #require(await store.answer(ProductOfferEndpoints.update(id: offer.id, storeID: rewe.id, amountInBase: nil, price: nil))).response
+        let held = try #require(await store.answer(ProductOfferEndpoints.update(id: offer.id, storeID: rewe.id, amount: nil, unit: nil, price: nil))).response
 
         #expect(report.delivered == 3)
         #expect(offers.map(\.id) == [501])
@@ -112,7 +115,7 @@ struct ProductOfferOfflineTests {
         let store = try await OfflineSupport.syncedStore()
         let avocado: [String: Any] = [
             "id": 95, "name": "Avocado", "base_unit": "piece", "status": "confirmed",
-            "offers": [["id": 8, "store_id": 4, "store": "Lidl", "amount_in_base": 2, "price": 1.79]],
+            "offers": [["id": 8, "store_id": 4, "store": "Lidl", "amount": 2, "unit": "piece", "price": 1.79]],
         ]
         #expect(try #require(await store.answer(HouseholdSettingsEndpoints.settings)).response.currency == "EUR")
 

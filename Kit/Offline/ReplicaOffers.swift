@@ -2,7 +2,20 @@ import Foundation
 
 /// The shops that sell the products: writes to the offers of a product, on the local copy.
 extension Replica {
-    private static let offerFields = ["store_id", "amount_in_base", "price"]
+    private static let offerFields = ["store_id", "price"]
+
+    /// The size a write states for an offer of `product`, as the fields to store; empty when the write names no size.
+    ///
+    /// A size without a unit is taken in the base unit of the product, and without a size no unit is kept.
+    private func statedSize(in body: JSONObject, of product: JSONObject) -> JSONObject {
+        guard let amount = body["amount"] else {
+            return [:]
+        }
+        guard !(amount is NSNull) else {
+            return ["amount": NSNull(), "unit": NSNull()]
+        }
+        return ["amount": amount, "unit": body["unit"] as? String ?? product["base_unit"] ?? NSNull()]
+    }
 
     /// An offer with the name of its shop as stored now and whether the household buys there at the moment.
     ///
@@ -19,9 +32,10 @@ extension Replica {
         if request.matches(.post, "products", "*", "offers") {
             var product = try existing(.products, request.id(at: 1))
             let store = try existing(.stores, request.body["store_id"] as? Int)
+            let size = statedSize(in: request.body, of: product)
             let offer: JSONObject = [
                 "id": makeTemporaryID(), "store_id": store.recordID ?? 0, "store": store["name"] ?? "",
-                "amount_in_base": request.body["amount_in_base"] ?? NSNull(), "price": request.body["price"] ?? NSNull(),
+                "amount": size["amount"] ?? NSNull(), "unit": size["unit"] ?? NSNull(), "price": request.body["price"] ?? NSNull(),
             ]
             product["offers"] = offers(of: product) + [offer]
             put(.products, product)
@@ -43,7 +57,12 @@ extension Replica {
                 if let storeID = request.body["store_id"] as? Int {
                     offers[index]["store"] = try existing(.stores, storeID)["name"] ?? ""
                 }
+                let size = statedSize(in: request.body, of: product)
+                if !size.isEmpty {
+                    offers[index]["amount_in_base"] = nil
+                }
                 offers[index].merge(request.body.filter { Self.offerFields.contains($0.key) }) { _, new in new }
+                offers[index].merge(size) { _, new in new }
                 answer = resource(shownOffer(offers[index]))
             }
         }

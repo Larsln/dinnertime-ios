@@ -27,16 +27,18 @@ struct ProductOfferTests {
     }
 
     @Test func readsTheOffersOfAProduct() throws {
-        let offers = try product(#", "offers": [{"id": 3, "store_id": 7, "store": "Lidl", "amount_in_base": 225, "price": 2.59}, {"id": 4, "store": "Rewe", "amount_in_base": null, "price": null}]"#).offers
+        let offers = try product(#", "offers": [{"id": 3, "store_id": 7, "store": "Lidl", "amount": 1.5, "unit": "kg", "price": 2.59}, {"id": 4, "store": "Rewe", "amount": null, "unit": null, "price": null}]"#).offers
 
         #expect(offers.map(\.id) == [3, 4])
         #expect(offers[0].store == "Lidl")
         #expect(offers[0].storeID == 7)
         #expect(offers[1].storeID == nil)
         #expect(offers.map(\.isStoreActive) == [true, true])
-        #expect(offers[0].amountInBase == 225)
+        #expect(offers[0].amount == 1.5)
+        #expect(offers[0].unit == .kilogram)
         #expect(offers[0].price == 2.59)
-        #expect(offers[1].amountInBase == nil)
+        #expect(offers[1].amount == nil)
+        #expect(offers[1].unit == nil)
         #expect(offers[1].price == nil)
     }
 
@@ -50,13 +52,13 @@ struct ProductOfferTests {
         let offer = try offer(#"{"id": 3, "store": "Lidl", "price": "2.59"}"#)
 
         #expect(offer.price == 2.59)
-        #expect(offer.amountInBase == nil)
+        #expect(offer.amount == nil)
     }
 
     @Test func readsTheOffersOfTheProductOfAShoppingItem() throws {
         let json = #"""
         {"data": {"id": 7, "label": null, "is_manual": true, "packages": [], "uses": [],
-        "product": {"id": 95, "name": "Avocado", "base_unit": "piece", "status": "confirmed", "offers": [{"id": 3, "store": "Lidl", "amount_in_base": 2, "price": 1.79}]}}}
+        "product": {"id": 95, "name": "Avocado", "base_unit": "piece", "status": "confirmed", "offers": [{"id": 3, "store": "Lidl", "amount": 2, "unit": "piece", "price": 1.79}]}}}
         """#
         let item = try ShoppingEndpoints.addItem(productID: 95, listID: 1).decode(Data(json.utf8))
 
@@ -70,21 +72,27 @@ struct ProductOfferTests {
     }
 
     @Test func addsAnOfferWithoutTheMissingValues() throws {
-        let full = try builder.request(for: ProductOfferEndpoints.add(productID: 95, storeID: 7, amountInBase: 225, price: 2.59))
+        let full = try builder.request(for: ProductOfferEndpoints.add(productID: 95, storeID: 7, amount: 1.5, unit: .kilogram, price: 2.59))
         let bare = try builder.request(for: ProductOfferEndpoints.add(productID: 95, storeID: 7))
+        let unitless = try builder.request(for: ProductOfferEndpoints.add(productID: 95, storeID: 7, amount: 6))
+        let unsized = try builder.request(for: ProductOfferEndpoints.add(productID: 95, storeID: 7, unit: .liter, price: 1.99))
 
         #expect(full.httpMethod == "POST")
         #expect(full.url?.path() == "/api/v1/products/95/offers")
-        #expect(try json(full) as NSDictionary == ["store_id": 7, "amount_in_base": 225, "price": 2.59])
+        #expect(try json(full) as NSDictionary == ["store_id": 7, "amount": 1.5, "unit": "kg", "price": 2.59])
         #expect(try json(bare) as NSDictionary == ["store_id": 7])
+        #expect(try json(unitless) as NSDictionary == ["store_id": 7, "amount": 6])
+        #expect(try json(unsized) as NSDictionary == ["store_id": 7, "price": 1.99])
     }
 
     @Test func correctsAnOfferAndClearsMissingValuesWithNull() throws {
-        let request = try builder.request(for: ProductOfferEndpoints.update(id: 3, storeID: 8, amountInBase: nil, price: 1.99))
+        let request = try builder.request(for: ProductOfferEndpoints.update(id: 3, storeID: 8, amount: nil, unit: .piece, price: 1.99))
+        let sized = try builder.request(for: ProductOfferEndpoints.update(id: 3, storeID: 8, amount: 6, unit: .piece, price: nil))
 
         #expect(request.httpMethod == "PATCH")
         #expect(request.url?.path() == "/api/v1/product-offers/3")
-        #expect(try json(request) as NSDictionary == ["store_id": 8, "amount_in_base": NSNull(), "price": 1.99])
+        #expect(try json(request) as NSDictionary == ["store_id": 8, "amount": NSNull(), "unit": NSNull(), "price": 1.99])
+        #expect(try json(sized) as NSDictionary == ["store_id": 8, "amount": 6, "unit": "piece", "price": NSNull()])
     }
 
     @Test func deletesAnOffer() throws {
@@ -113,15 +121,15 @@ struct ProductOfferTests {
     @Test func anOfferIsShownInOneLineWithoutItsMissingParts() throws {
         let amounts = AmountFormatter(locale: german)
         let prices = PriceFormatter(currencyCode: "EUR", locale: german)
-        let full = try offer(#"{"id": 1, "store": "Lidl", "amount_in_base": 225, "price": 2.59}"#)
-        let priced = try offer(#"{"id": 2, "store": "Rewe", "amount_in_base": null, "price": 1.5}"#)
-        let sized = try offer(#"{"id": 3, "store": "Aldi", "amount_in_base": 1500}"#)
+        let full = try offer(#"{"id": 1, "store": "Lidl", "amount": 1, "unit": "kg", "price": 2.59}"#)
+        let priced = try offer(#"{"id": 2, "store": "Rewe", "amount": null, "unit": null, "price": 1.5}"#)
+        let sized = try offer(#"{"id": 3, "store": "Aldi", "amount": 1500, "unit": "g"}"#)
         let bare = try offer(#"{"id": 4, "store": "Markt"}"#)
 
-        #expect(full.text(unit: .gram, amounts: amounts, prices: prices) == "Lidl · 225 g · 2,59\u{00A0}€")
-        #expect(priced.text(unit: .gram, amounts: amounts, prices: prices) == "Rewe · 1,50\u{00A0}€")
-        #expect(sized.text(unit: .gram, amounts: amounts, prices: prices) == "Aldi · 1,5 kg")
-        #expect(bare.text(unit: .gram, amounts: amounts, prices: prices) == "Markt")
+        #expect(full.text(amounts: amounts, prices: prices) == "Lidl · 1 kg · 2,59\u{00A0}€")
+        #expect(priced.text(amounts: amounts, prices: prices) == "Rewe · 1,50\u{00A0}€")
+        #expect(sized.text(amounts: amounts, prices: prices) == "Aldi · 1500 g")
+        #expect(bare.text(amounts: amounts, prices: prices) == "Markt")
     }
 
     @Test func readsTypedNumbersWithCommaOrPoint() {

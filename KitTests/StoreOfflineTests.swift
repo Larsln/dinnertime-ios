@@ -44,7 +44,7 @@ struct StoreOfflineTests {
         #expect(try await stores(in: store).isEmpty)
 
         let shops: [[String: Any]] = [["id": 4, "name": "Lidl", "is_active": true], ["id": 5, "name": "Aldi", "is_active": false]]
-        let offers: [[String: Any]] = [["id": 8, "store_id": 4, "store": "Lidl"], ["id": 9, "store_id": 4, "store": "Lidl", "amount_in_base": 2]]
+        let offers: [[String: Any]] = [["id": 8, "store_id": 4, "store": "Lidl"], ["id": 9, "store_id": 4, "store": "Lidl", "amount": 2, "unit": "piece"]]
         let progress = try await store.applySync(OfflineSupport.page(version: 130, changed: ["stores": shops, "products": [avocado(offers: offers)]]))
         let listed = try await stores(in: store)
 

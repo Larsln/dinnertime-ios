@@ -1,7 +1,7 @@
 import MealplannerKit
 import SwiftUI
 
-/// The fast entry of an offer: the shop as chips, size and price side by side and one button.
+/// The fast entry of an offer: the shop as chips, size with its unit and price side by side and one button.
 struct ProductOfferEntry: View {
     /// The fields the entry moves between.
     private enum Field: Hashable {
@@ -11,8 +11,6 @@ struct ProductOfferEntry: View {
     @Binding var draft: OfferDraft
     /// Names of the shops to choose from, most used first.
     let stores: [String]
-    /// Unit the size is given in.
-    let unit: BaseUnit
     /// Sign of the currency the price is given in.
     let currencySymbol: String
     let onSave: () -> Void
@@ -24,14 +22,21 @@ struct ProductOfferEntry: View {
             StoreChips(selection: $draft.store, stores: stores) {
                 focus = .amount
             }
-            HStack(spacing: 8) {
-                field("Size", text: $draft.amount, suffix: unit.label, keyboard: .numberPad, focus: .amount)
-                field("Price", text: $draft.price, suffix: currencySymbol, keyboard: .decimalPad, focus: .price)
+            HStack(spacing: 6) {
+                field("Size", text: $draft.amount, focus: .amount) {
+                    unitPicker
+                }
+                field("Price", text: $draft.price, focus: .price) {
+                    Text(verbatim: currencySymbol)
+                        .foregroundStyle(.secondary)
+                        .padding(.trailing, 8)
+                }
                 Button(draft.offerID == nil ? "Add" : "Save") {
                     focus = nil
                     onSave()
                 }
                 .buttonStyle(.borderedProminent)
+                .fixedSize()
                 .disabled(!draft.isComplete)
             }
         }
@@ -49,17 +54,31 @@ struct ProductOfferEntry: View {
         }
     }
 
-    private func field(_ title: LocalizedStringKey, text: Binding<String>, suffix: String, keyboard: UIKeyboardType, focus field: Field) -> some View {
-        HStack(spacing: 4) {
+    /// The choice of the unit the size is stated in, as a menu right behind the number.
+    private var unitPicker: some View {
+        Picker("Unit", selection: $draft.unit) {
+            ForEach(OfferUnit.allCases, id: \.self) { unit in
+                Text(verbatim: unit.label)
+                    .tag(unit)
+            }
+        }
+        .pickerStyle(.menu)
+        .labelsHidden()
+        .tint(.secondary)
+        .fixedSize()
+    }
+
+    private func field(_ title: LocalizedStringKey, text: Binding<String>, focus field: Field, @ViewBuilder suffix: () -> some View) -> some View {
+        HStack(spacing: 0) {
             TextField(title, text: text)
-                .keyboardType(keyboard)
+                .keyboardType(.decimalPad)
                 .focused($focus, equals: field)
                 .multilineTextAlignment(.trailing)
-            Text(verbatim: suffix)
-                .foregroundStyle(.secondary)
+                .padding(.leading, 8)
+                .padding(.trailing, 4)
+                .padding(.vertical, 7)
+            suffix()
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 7)
         .background(Color.secondary.opacity(0.12), in: .rect(cornerRadius: 8))
     }
 }
