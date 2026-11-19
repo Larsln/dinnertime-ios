@@ -13,7 +13,7 @@ struct AmountField: View {
                     .numericKeyboard(.decimalPad)
                     .multilineTextAlignment(.trailing)
                 Text(verbatim: unit.label)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
         }
     }

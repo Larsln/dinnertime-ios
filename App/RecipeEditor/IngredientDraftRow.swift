@@ -13,12 +13,12 @@ struct IngredientDraftRow: View {
                     Text(verbatim: name)
                 } else {
                     Text("New ingredient")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                 }
                 if let note = line.note.nilIfBlank {
                     Text(verbatim: note)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                 }
             }
             Spacer()

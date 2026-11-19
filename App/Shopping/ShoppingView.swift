@@ -55,8 +55,10 @@ struct ShoppingView: View {
                     ConnectionHint()
                 }
             }
+            .paperScreen()
         } else {
             ProgressView()
+                .paperScreen()
         }
     }
 

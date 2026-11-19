@@ -11,7 +11,8 @@ struct ServerSetupView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            PaperForm {
+                BrandMarkRow()
                 Section {
                     TextField("Server address", text: $model.address, prompt: Text(verbatim: "https://meals.example.org"))
                         .keyboardType(.URL)

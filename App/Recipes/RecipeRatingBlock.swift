@@ -17,14 +17,14 @@ struct RecipeRatingBlock: View {
                     }
                     .labelStyle(.iconOnly)
                     .buttonStyle(.borderless)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
                 }
                 Spacer(minLength: 0)
                 if let average = model.summary.averageRatingText() {
                     Text(verbatim: "Ø \(average) (\(model.summary.ratingCount))")
                         .font(.subheadline)
                         .monospacedDigit()
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                         .accessibilityLabel("Ø \(average) of 5 from \(model.summary.ratingCount) ratings")
                 }
             }

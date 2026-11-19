@@ -13,7 +13,8 @@ struct SignInView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            PaperForm {
+                BrandMarkRow()
                 Section {
                     TextField("Username", text: $model.username)
                         .accessibilityIdentifier("username")

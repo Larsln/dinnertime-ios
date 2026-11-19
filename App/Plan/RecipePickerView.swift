@@ -21,7 +21,7 @@ struct RecipePickerView: View {
             } label: {
                 RecipeRow(recipe: recipe)
             }
-            .tint(.primary)
+            .tint(.ink)
         }
         .navigationTitle("Choose recipe")
         .navigationBarTitleDisplayMode(.inline)

@@ -50,7 +50,7 @@ struct PlanWizardView: View {
         HStack {
             if model.step == .days {
                 Text("\(model.selection.selected.count) meals")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
             if model.isWorking {
                 ProgressView()
@@ -67,7 +67,7 @@ struct PlanWizardView: View {
             .disabled(!canAdvance)
         }
         .padding()
-        .background(.bar)
+        .background(.paper)
         .safeAreaInset(edge: .top, spacing: 0) {
             if needsConnection {
                 ConnectionHint()

@@ -19,9 +19,9 @@ struct CoverImage: View {
                     .scaledToFill()
             } else {
                 Rectangle()
-                    .fill(.quaternary)
+                    .fill(.accentSoft)
                 Image(systemName: "fork.knife")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.accentDeep)
             }
         }
         .clipped()

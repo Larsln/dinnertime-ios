@@ -69,7 +69,7 @@ struct ReviewView: View {
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 8)
-                .background(.bar)
+                .background(.paper)
             }
             .navigationTitle("Products")
             .navigationBarTitleDisplayMode(.inline)

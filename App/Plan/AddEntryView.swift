@@ -18,7 +18,7 @@ struct AddEntryView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            PaperForm {
                 DatePicker("Day", selection: $draft.date, displayedComponents: .date)
                 Picker("Meal", selection: $draft.meal) {
                     ForEach(MealType.allCases, id: \.self) { meal in

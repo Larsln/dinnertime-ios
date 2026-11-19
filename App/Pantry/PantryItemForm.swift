@@ -16,7 +16,7 @@ struct PantryItemForm: View {
     }
 
     var body: some View {
-        Form {
+        PaperForm {
             Section {
                 AmountField(amount: $draft.amount, unit: draft.product.baseUnit)
             }

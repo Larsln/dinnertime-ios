@@ -1,19 +1,19 @@
 import DinnertimeKit
 import SwiftUI
 
-/// Favorite state and household average of a recipe, as shown at the edge of a list row.
+/// Household average and favorite state of a recipe, as shown below its title in a list row.
 struct RecipeMarks: View {
     let recipe: RecipeSummary
 
     var body: some View {
-        VStack(alignment: .trailing, spacing: 4) {
-            if recipe.isFavorite {
-                Image(systemName: "heart.fill")
-                    .foregroundStyle(.red)
-                    .accessibilityLabel("Favorite")
-            }
+        HStack(spacing: 8) {
             if let average = recipe.averageRatingText() {
                 AverageRatingLabel(text: average)
+            }
+            if recipe.isFavorite {
+                Image(systemName: "heart.fill")
+                    .foregroundStyle(Color.accent)
+                    .accessibilityLabel("Favorite")
             }
         }
         .font(.caption)
@@ -27,9 +27,10 @@ struct AverageRatingLabel: View {
     var body: some View {
         HStack(spacing: 2) {
             Image(systemName: "star.fill")
-                .foregroundStyle(.yellow)
+                .foregroundStyle(Color.accent)
             Text(verbatim: text)
                 .monospacedDigit()
+                .foregroundStyle(.inkMuted)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Average rating: \(text)")

@@ -28,7 +28,7 @@ struct ProductOffersSection: View {
             if model.hasOnlyPausedOffers {
                 Text("Currently in no active store.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
             ForEach(model.offers) { offer in
                 Button {
@@ -39,10 +39,11 @@ struct ProductOffersSection: View {
                         .contentShape(.rect)
                 }
                 .buttonStyle(.plain)
-                .listRowBackground(draft.offerID == offer.id ? Color.accentColor.opacity(0.15) : nil)
+                .listRowBackground(draft.offerID == offer.id ? Color.accentSoft : Color.surface)
             }
             .onDelete(perform: delete)
             ProductOfferEntry(draft: $draft, stores: model.storeNames, currencySymbol: prices.symbol, onSave: save)
+                .listRowBackground(Color.sunken)
                 .task {
                     await model.load()
                     if draft == OfferDraft(unit: OfferUnit(unit)) {
@@ -75,7 +76,7 @@ struct ProductOffersSection: View {
             Text(verbatim: text)
         } else {
             Text("\(text) · paused")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
         }
     }
 

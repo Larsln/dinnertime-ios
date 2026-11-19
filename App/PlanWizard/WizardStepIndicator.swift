@@ -16,7 +16,7 @@ struct WizardStepIndicator: View {
                         badge(for: item)
                         Text(verbatim: item.title)
                             .font(.footnote.weight(item == step ? .semibold : .regular))
-                            .foregroundStyle(item == step ? .primary : .secondary)
+                            .foregroundStyle(item == step ? Color.ink : Color.inkMuted)
                             .lineLimit(1)
                     }
                     .frame(maxWidth: .infinity)
@@ -28,7 +28,7 @@ struct WizardStepIndicator: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
-        .background(.bar)
+        .background(.paper)
     }
 
     @ViewBuilder
@@ -43,9 +43,9 @@ struct WizardStepIndicator: View {
                     .font(.caption.weight(.semibold))
             }
         }
-        .foregroundStyle(item.rawValue <= step.rawValue ? AnyShapeStyle(.white) : AnyShapeStyle(.secondary))
+        .foregroundStyle(item.rawValue <= step.rawValue ? Color.onAccent : Color.inkMuted)
         .frame(width: Self.circleSize, height: Self.circleSize)
-        .background(item.rawValue <= step.rawValue ? AnyShapeStyle(.tint) : AnyShapeStyle(.quaternary), in: .circle)
+        .background(item.rawValue <= step.rawValue ? Color.accent : Color.sunken, in: .circle)
     }
 }
 

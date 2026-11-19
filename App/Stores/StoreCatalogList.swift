@@ -9,7 +9,7 @@ struct StoreCatalogList: View {
     @State private var deletedStore: Store?
 
     var body: some View {
-        List(model.stores) { store in
+        PaperList(model.stores) { store in
             StoreRow(store: store) { isActive in
                 Task {
                     await model.setActive(isActive, for: store)
@@ -22,7 +22,6 @@ struct StoreCatalogList: View {
                 Button("Rename", systemImage: "pencil") {
                     renamedStore = store
                 }
-                .tint(.blue)
             }
         }
         .overlay {

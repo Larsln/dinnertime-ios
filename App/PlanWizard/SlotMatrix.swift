@@ -43,10 +43,10 @@ struct SlotMatrix: View {
             } label: {
                 Image(systemName: "checkmark")
                     .font(.footnote.weight(.bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.onAccent)
                     .opacity(isSelected ? 1 : 0)
                     .frame(maxWidth: .infinity, minHeight: Self.cellHeight)
-                    .background(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(Color.secondary.opacity(0.15)), in: .rect(cornerRadius: 8))
+                    .background(isSelected ? Color.accent : Color.sunken, in: .field)
             }
             .buttonStyle(.borderless)
             .accessibilityLabel(Text(verbatim: "\(slot.date.weekdayDayText), \(slot.meal.label)"))
@@ -56,11 +56,11 @@ struct SlotMatrix: View {
                 .font(.caption2)
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
                 .frame(maxWidth: .infinity, minHeight: Self.cellHeight)
                 .overlay {
-                    RoundedRectangle(cornerRadius: 8)
-                        .strokeBorder(.quaternary)
+                    RoundedRectangle.field
+                        .strokeBorder(.line)
                 }
         }
     }

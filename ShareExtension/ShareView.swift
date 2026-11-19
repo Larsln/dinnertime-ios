@@ -18,14 +18,15 @@ struct ShareView: View {
                     Image(systemName: "link")
                 }
                 .font(.footnote)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
             }
             content
         }
         .frame(maxWidth: 420)
         .padding(24)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.background)
+        .tint(.accent)
+        .background(.paper)
     }
 
     @ViewBuilder
@@ -47,7 +48,7 @@ struct ShareView: View {
             Text("Sending link…")
         case let .importing(item):
             Text("The recipe is being imported.")
-                .font(.headline)
+                .sectionHeadingStyle()
             ImportStepsView(item: item)
             Button("Continue in background", action: onClose)
                 .buttonStyle(.bordered)
@@ -62,7 +63,7 @@ struct ShareView: View {
                 Image(systemName: "checkmark.circle.fill")
             }
             .font(.headline)
-            .foregroundStyle(.green)
+            .foregroundStyle(.doneMark)
             if item.recipes.count > 1 {
                 ImportedRecipeTitles(recipes: item.recipes)
             } else if let recipe = item.recipes.first {
@@ -87,7 +88,7 @@ struct ShareView: View {
                 .font(.headline)
             Text("The link is imported as soon as the server can be reached.")
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
             Button("Done", action: onClose)
                 .buttonStyle(.borderedProminent)
         case let .failed(message):
@@ -101,11 +102,11 @@ struct ShareView: View {
     private func failure(message: String?) -> some View {
         Label("The link could not be imported.", systemImage: "exclamationmark.triangle.fill")
             .font(.headline)
-            .foregroundStyle(.red)
+            .foregroundStyle(.accentDeep)
         if let message {
             Text(verbatim: message)
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
         }
     }
 }

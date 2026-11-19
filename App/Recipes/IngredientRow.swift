@@ -14,7 +14,7 @@ struct IngredientRow: View {
                 if let note = ingredient.note {
                     Text(verbatim: note)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                 }
             }
             Spacer()
@@ -26,7 +26,7 @@ struct IngredientRow: View {
                 if ingredient.isEstimated {
                     Text("(estimated)")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                 }
             }
         }

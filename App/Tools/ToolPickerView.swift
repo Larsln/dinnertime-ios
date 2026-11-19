@@ -16,14 +16,14 @@ struct ToolPickerView: View {
     }
 
     var body: some View {
-        List {
+        PaperList {
             ForEach(model.tools) { tool in
                 Button {
                     choose(tool)
                 } label: {
                     Text(verbatim: tool.name)
                 }
-                .tint(.primary)
+                .tint(.ink)
             }
             if let name = creatableName {
                 Button("Create “\(name)”", systemImage: "plus", action: create)

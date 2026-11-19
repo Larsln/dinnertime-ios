@@ -40,8 +40,10 @@ struct PlanView: View {
                         }
                     }
                     .padding(.vertical, 8)
-                    .background(.bar)
+                    .background(.paper)
                 }
+                .listStyle(.plain)
+                .paperBackground()
             }
             .navigationTitle("Plan")
             .navigationBarTitleDisplayMode(.inline)

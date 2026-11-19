@@ -17,7 +17,7 @@ struct RecipeEditorView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            PaperForm {
                 RecipeBasicsSection(draft: $model.draft, courses: model.courses)
                 RecipeCoverSection(model: model)
                 RecipeTagsSection(model: model)

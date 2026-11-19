@@ -28,7 +28,7 @@ struct ProductOfferEntry: View {
                 }
                 field("Price", text: $draft.price, focus: .price) {
                     Text(verbatim: currencySymbol)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                         .padding(.trailing, 8)
                 }
                 Button(draft.offerID == nil ? "Add" : "Save") {
@@ -64,7 +64,7 @@ struct ProductOfferEntry: View {
         }
         .pickerStyle(.menu)
         .labelsHidden()
-        .tint(.secondary)
+        .tint(.ink)
         .fixedSize()
     }
 
@@ -76,9 +76,9 @@ struct ProductOfferEntry: View {
                 .multilineTextAlignment(.trailing)
                 .padding(.leading, 8)
                 .padding(.trailing, 4)
-                .padding(.vertical, 7)
+                .padding(.vertical, 9)
             suffix()
         }
-        .background(Color.secondary.opacity(0.12), in: .rect(cornerRadius: 8))
+        .surface(in: .field)
     }
 }

@@ -9,11 +9,11 @@ struct ProductFactsSection: View {
         Section {
             if product.status == .suggested {
                 Label("Suggested", systemImage: "sparkles")
-                    .foregroundStyle(.orange)
+                    .foregroundStyle(.accentDeep)
             }
             if product.enrichedAt == nil {
                 Label("Suggestions are pending", systemImage: "hourglass")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
             if let count = product.recipeCount {
                 LabeledContent("Used in ingredient lines", value: count, format: .number)

@@ -11,11 +11,17 @@ struct ShoppingAddField: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            TextField("Add item", text: $text)
-                .textFieldStyle(.roundedBorder)
-                .autocorrectionDisabled()
-                .submitLabel(.done)
-                .onSubmit(addText)
+            HStack(spacing: 8) {
+                Image(systemName: "plus")
+                    .foregroundStyle(.inkMuted)
+                TextField("Add item", text: $text)
+                    .autocorrectionDisabled()
+                    .submitLabel(.done)
+                    .onSubmit(addText)
+            }
+            .padding(.horizontal, 12)
+            .frame(minHeight: 46)
+            .surface(in: .field)
             if let typed = text.nilIfBlank {
                 suggestions(for: typed)
             }
@@ -50,7 +56,7 @@ struct ShoppingAddField: View {
             }
         }
         .buttonStyle(.plain)
-        .background(Color.secondary.opacity(0.12), in: .rect(cornerRadius: 10))
+        .surface(in: .field)
     }
 
     private func row(@ViewBuilder content: () -> some View) -> some View {

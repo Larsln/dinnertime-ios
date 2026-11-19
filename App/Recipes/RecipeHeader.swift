@@ -1,7 +1,7 @@
 import DinnertimeKit
 import SwiftUI
 
-/// Cover image, description, rating, times, course and tags at the top of a recipe.
+/// Cover image, title, description, rating, times, course and tags at the top of a recipe.
 struct RecipeHeader: View {
     private static let imageHeight: CGFloat = 220
 
@@ -15,6 +15,9 @@ struct RecipeHeader: View {
                 .frame(height: Self.imageHeight)
                 .listRowInsets(EdgeInsets())
         }
+        Text(verbatim: recipe.title)
+            .contentTitleStyle()
+            .accessibilityAddTraits(.isHeader)
         if let description = recipe.description {
             Text(verbatim: description)
         }
@@ -31,7 +34,7 @@ struct RecipeHeader: View {
         if !recipe.labelLine.isEmpty {
             Text(verbatim: recipe.labelLine)
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
         }
     }
 }

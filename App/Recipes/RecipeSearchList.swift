@@ -12,15 +12,20 @@ struct RecipeSearchList<Row: View>: View {
         List {
             ForEach(model.recipes) { recipe in
                 row(recipe)
+                    .cardRow()
             }
             if model.hasMore {
                 ProgressView()
                     .frame(maxWidth: .infinity)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                     .task {
                         await model.loadMore()
                     }
             }
         }
+        .listStyle(.plain)
+        .paperBackground()
         .overlay {
             if model.hasLoaded, model.recipes.isEmpty {
                 ContentUnavailableView("No recipes", systemImage: "book", description: Text("Import a recipe from a link or change the search."))

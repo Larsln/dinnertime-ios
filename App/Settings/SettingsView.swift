@@ -11,7 +11,7 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            PaperForm {
                 Section("Server") {
                     if case let .signedIn(serverURL) = session.phase {
                         LabeledContent("Address", value: serverURL.absoluteString)

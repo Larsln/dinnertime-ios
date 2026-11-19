@@ -11,47 +11,29 @@ struct PlanEntryRow: View {
         HStack(spacing: 12) {
             CoverImage(url: entry.recipe.coverThumbURL ?? entry.recipe.coverURL)
                 .frame(width: Self.imageSize, height: Self.imageSize)
-                .clipShape(.rect(cornerRadius: 12))
+                .clipShape(.field)
             VStack(alignment: .leading, spacing: 4) {
                 Text(verbatim: entry.meal.label)
-                    .font(.caption2.weight(.bold))
-                    .textCase(.uppercase)
-                    .foregroundStyle(entry.meal.tint)
+                    .overlineStyle(entry.isCooked ? .inkMuted : .accentDeep)
                 Text(verbatim: entry.recipe.title)
                     .font(.headline)
+                    .foregroundStyle(entry.isCooked ? Color.inkMuted : Color.ink)
                     .lineLimit(2)
                 Label {
                     Text("\(entry.servings) servings")
                 } icon: {
                     Image(systemName: "person.2.fill")
                 }
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 3)
-                .background(.quaternary, in: .capsule)
+                .font(.footnote)
+                .foregroundStyle(.inkMuted)
             }
             Spacer(minLength: 0)
             if entry.isCooked {
                 Label("Cooked", systemImage: "checkmark.circle.fill")
                     .labelStyle(.iconOnly)
                     .font(.title3)
-                    .foregroundStyle(.green)
+                    .foregroundStyle(.doneMark)
             }
-        }
-        .padding(.vertical, 2)
-    }
-}
-
-extension MealType {
-    /// Color of the meal label on plan cards.
-    var tint: Color {
-        switch self {
-        case .breakfast: .orange
-        case .lunch: .teal
-        case .dinner: .indigo
-        case .dessert: .pink
-        case .snack: .brown
         }
     }
 }

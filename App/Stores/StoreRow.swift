@@ -13,9 +13,10 @@ struct StoreRow: View {
                 if let count = store.offerCount {
                     Text("\(count) products")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                 }
             }
         }
+        .tint(.herb)
     }
 }

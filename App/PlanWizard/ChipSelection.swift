@@ -25,7 +25,8 @@ struct ChipSelection<ID: Hashable>: View {
                     .font(.subheadline)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
-                    .background(.tint.opacity(0.15), in: .capsule)
+                    .foregroundStyle(.accentDeep)
+                    .background(.accentSoft, in: .capsule)
                 }
                 .buttonStyle(.borderless)
                 .accessibilityHint("Remove")

@@ -10,7 +10,7 @@ struct ImportedRecipeLink: View {
             HStack(spacing: 12) {
                 CoverImage(url: recipe.coverThumbURL ?? recipe.coverURL)
                     .frame(width: 56, height: 56)
-                    .clipShape(.rect(cornerRadius: 10))
+                    .clipShape(.field)
                 VStack(alignment: .leading, spacing: 4) {
                     Text(verbatim: recipe.title)
                         .font(.headline)
@@ -18,7 +18,7 @@ struct ImportedRecipeLink: View {
                     if !recipe.labelLine.isEmpty {
                         Text(verbatim: recipe.labelLine)
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.inkMuted)
                             .lineLimit(1)
                     }
                 }

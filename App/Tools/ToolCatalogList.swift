@@ -12,7 +12,7 @@ struct ToolCatalogList: View {
     @State private var deletedTool: Tool?
 
     var body: some View {
-        List(model.tools) { tool in
+        PaperList(model.tools) { tool in
             ToolRow(tool: tool) { isOwned in
                 Task {
                     await model.setOwned(isOwned, for: tool)
@@ -30,7 +30,6 @@ struct ToolCatalogList: View {
                 Button("Rename", systemImage: "pencil") {
                     renamedTool = tool
                 }
-                .tint(.blue)
             }
         }
         .overlay {

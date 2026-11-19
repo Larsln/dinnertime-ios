@@ -20,6 +20,7 @@ struct RecipeIngredientList: View {
             } header: {
                 if let title = group.title {
                     Text(verbatim: title)
+                        .sectionHeadingStyle()
                 }
             }
         }

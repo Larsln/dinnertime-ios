@@ -15,7 +15,7 @@ struct ImportRow: View {
                 }
             case .failed:
                 HStack(spacing: 12) {
-                    ImportStatusLine(symbol: "exclamationmark.triangle.fill", tint: .red, title: source, detail: item.errorMessage)
+                    ImportStatusLine(symbol: "exclamationmark.triangle.fill", tint: .accentDeep, title: source, detail: item.errorMessage)
                     Spacer(minLength: 0)
                     Button("Try again", systemImage: "arrow.clockwise", action: onRetry)
                         .labelStyle(.iconOnly)
@@ -23,7 +23,7 @@ struct ImportRow: View {
                         .buttonBorderShape(.circle)
                 }
             default:
-                ImportStatusLine(symbol: "arrow.down.circle", tint: .accentColor, title: source, detail: stageText)
+                ImportStatusLine(symbol: "arrow.down.circle", tint: .accent, title: source, detail: stageText)
                 ProgressView(value: progress)
             }
             footer
@@ -40,7 +40,7 @@ struct ImportRow: View {
             Text(item.createdAt, format: .relative(presentation: .named))
         }
         .font(.caption)
-        .foregroundStyle(.secondary)
+        .foregroundStyle(.inkMuted)
         .lineLimit(1)
     }
 

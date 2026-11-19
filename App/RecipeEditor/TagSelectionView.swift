@@ -8,7 +8,7 @@ struct TagSelectionView: View {
     @Binding var selection: Set<Int>
 
     var body: some View {
-        List(tags) { tag in
+        PaperList(tags) { tag in
             Button {
                 toggle(tag)
             } label: {
@@ -21,7 +21,7 @@ struct TagSelectionView: View {
                     }
                 }
             }
-            .tint(.primary)
+            .tint(.ink)
             .accessibilityAddTraits(selection.contains(tag.id) ? .isSelected : [])
         }
         .navigationTitle(title)

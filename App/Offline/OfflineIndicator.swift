@@ -18,7 +18,12 @@ struct OfflineIndicator: View {
             .font(.caption2.weight(.medium))
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(.regularMaterial, in: .capsule)
+            .foregroundStyle(.inkMuted)
+            .background(.surface, in: .capsule)
+            .overlay {
+                Capsule()
+                    .strokeBorder(.line)
+            }
             .accessibilityElement(children: .combine)
         }
     }
@@ -29,6 +34,6 @@ struct ConnectionHint: View {
     var body: some View {
         Label("Needs a connection to the server.", systemImage: "wifi.slash")
             .font(.footnote)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(.inkMuted)
     }
 }

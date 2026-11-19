@@ -32,7 +32,7 @@ struct SlotPresetRows: View {
                 .minimumScaleFactor(0.8)
         }
         .buttonStyle(.bordered)
-        .tint(isActive ? .accentColor : .secondary)
+        .tint(isActive ? .accent : .inkMuted)
         .accessibilityAddTraits(isActive ? .isSelected : [])
     }
 }

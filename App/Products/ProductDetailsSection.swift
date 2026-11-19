@@ -23,7 +23,7 @@ struct ProductDetailsSection: View {
                         .foregroundStyle(.tint)
                 }
             }
-            .foregroundStyle(.primary)
+            .foregroundStyle(.ink)
             .sheet(isPresented: $picksIcon) {
                 IconPickerView(selection: $draft.icon, sectionKey: sectionKey)
             }
@@ -42,6 +42,7 @@ struct ProductDetailsSection: View {
             }
             NumberField(title: "Shelf life once opened (days)", value: $draft.shelfLife)
             Toggle("Always in stock, never on the shopping list", isOn: $draft.isPantryStaple)
+                .tint(.herb)
         }
     }
 

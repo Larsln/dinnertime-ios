@@ -8,7 +8,7 @@ struct IngredientEditorView: View {
     let session: AppSession
 
     var body: some View {
-        Form {
+        PaperForm {
             Section {
                 NavigationLink {
                     ProductPickerView(session: session, allowsCreation: true) { product in
@@ -40,6 +40,7 @@ struct IngredientEditorView: View {
                     }
                 }
                 Toggle("Quantity estimated", isOn: $line.isEstimated)
+                    .tint(.herb)
             }
             Section {
                 TextField("Note", text: $line.note)

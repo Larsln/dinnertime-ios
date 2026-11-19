@@ -28,7 +28,7 @@ struct ShoppingItemDetails: View {
 
     var body: some View {
         NavigationStack {
-            List {
+            PaperList {
                 if let purchase = item.purchaseText(formatter: formatter) {
                     Section {
                         LabeledContent("To buy", value: purchase)
@@ -71,9 +71,11 @@ struct ShoppingItemDetails: View {
                     }
                 }
             }
-            .navigationTitle(Text(verbatim: item.title))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    ShoppingItemHeader(item: item)
+                }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
                         dismiss()
@@ -105,7 +107,7 @@ struct ShoppingItemDetails: View {
         }
         if let wasted = item.wastedAmount, wasted > 0 {
             LabeledContent("Expires unused", value: formatter.string(wasted, unit: product.baseUnit))
-                .foregroundStyle(.orange)
+                .foregroundStyle(.accentDeep)
         }
     }
 }

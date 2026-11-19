@@ -16,13 +16,13 @@ struct PantryView: View {
 
     var body: some View {
         NavigationStack {
-            List(model.items) { item in
+            PaperList(model.items) { item in
                 Button {
                     editedItem = item
                 } label: {
                     PantryRow(item: item)
                 }
-                .tint(.primary)
+                .tint(.ink)
                 .swipeActions {
                     Button("Delete", systemImage: "trash", role: .destructive) {
                         Task {

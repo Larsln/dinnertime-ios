@@ -24,6 +24,7 @@ struct ProductConversionsSection: View {
                         get: { !conversion.isConvertible },
                         set: { conversion.isConvertible = !$0 }
                     ))
+                        .tint(.herb)
                     .font(.subheadline)
                 }
             }

@@ -8,7 +8,7 @@ struct SearchField: View {
     var body: some View {
         HStack(spacing: 6) {
             Image(systemName: "magnifyingglass")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
             TextField(prompt, text: $text)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)
@@ -18,11 +18,11 @@ struct SearchField: View {
                     text = ""
                 }
                 .labelStyle(.iconOnly)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
             }
         }
         .padding(.horizontal, 10)
         .frame(height: 36)
-        .background(Color(.tertiarySystemFill), in: .capsule)
+        .background(.sunken, in: .capsule)
     }
 }

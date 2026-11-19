@@ -17,7 +17,7 @@ struct RecipeMethodList: View {
                         LabeledContent {
                             Label("Not available", systemImage: "exclamationmark.triangle")
                                 .font(.caption)
-                                .foregroundStyle(.orange)
+                                .foregroundStyle(.accentDeep)
                         } label: {
                             Text(verbatim: tool.name)
                         }
@@ -33,6 +33,7 @@ struct RecipeMethodList: View {
             } header: {
                 if let title = group.title {
                     Text(verbatim: title)
+                        .sectionHeadingStyle()
                 }
             }
         }

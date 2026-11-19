@@ -1707,16 +1707,6 @@
         }
       }
     },
-    "Nothing planned": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nichts geplant"
-          }
-        }
-      }
-    },
     "Number of pieces or amount": {
       "localizations": {
         "de": {
@@ -2603,16 +2593,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Einkaufen"
-          }
-        }
-      }
-    },
-    "Today": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Heute"
           }
         }
       }

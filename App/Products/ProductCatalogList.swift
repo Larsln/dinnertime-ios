@@ -6,7 +6,7 @@ struct ProductCatalogList: View {
     @Bindable var model: ProductSearchModel
 
     var body: some View {
-        List {
+        PaperList {
             ForEach(model.products) { product in
                 NavigationLink(value: product) {
                     ProductRow(product: product)

@@ -6,7 +6,7 @@ struct WizardPreferencesStep: View {
     @Bindable var model: PlanWizardModel
 
     var body: some View {
-        Form {
+        PaperForm {
             Section {
                 PreferenceToggle(title: "Use up leftovers", explanation: "opened packages and pantry first", isOn: $model.preferences.useLeftovers)
                 PreferenceToggle(title: "Quick on weekdays", explanation: "Mon–Fri at most 30 min", isOn: $model.preferences.quickOnWeekdays)

@@ -12,12 +12,12 @@ struct PantryRow: View {
                 if let openedOn = item.openedOn {
                     Text("Opened: \(openedOn.shortText)")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                 }
                 if let expiresOn = item.expiresOn {
                     Text("Expires: \(expiresOn.shortText)")
                         .font(.caption)
-                        .foregroundStyle(expiresOn < DayDate(.now) ? .red : .secondary)
+                        .foregroundStyle(expiresOn < DayDate(.now) ? Color.accentDeep : Color.inkMuted)
                 }
             }
             Spacer()

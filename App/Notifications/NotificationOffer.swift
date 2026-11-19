@@ -23,7 +23,7 @@ struct NotificationOffer: View {
             }
         }
         .padding()
-        .background(.regularMaterial, in: .rect(cornerRadius: 16))
+        .surface(.accentSoft)
         .padding(.horizontal)
         .padding(.bottom, 8)
     }

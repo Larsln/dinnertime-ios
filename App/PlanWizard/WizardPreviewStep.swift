@@ -6,7 +6,7 @@ struct WizardPreviewStep: View {
     @Bindable var model: PlanWizardModel
 
     var body: some View {
-        List {
+        PaperList {
             Section {
                 ForEach(model.board.proposals, id: \.slot) { proposal in
                     ProposalRow(proposal: proposal, isLocked: model.board.isLocked(proposal.slot)) {
@@ -32,6 +32,7 @@ struct WizardPreviewStep: View {
             }
             Section {
                 Toggle("Then create the shopping list", isOn: $model.createsShoppingList)
+                    .tint(.herb)
             }
         }
         .overlay {

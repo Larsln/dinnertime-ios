@@ -12,7 +12,7 @@ struct ImportComposer: View {
                 linkField
                 Text("TikTok, Instagram, YouTube or a web page")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
                     .padding(.leading, 4)
             }
             DishCountPicker(selection: $model.dishCount)
@@ -31,7 +31,7 @@ struct ImportComposer: View {
     private var linkField: some View {
         HStack(spacing: 10) {
             Image(systemName: "link")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
             TextField("Link to a recipe or video", text: $model.link)
                 .keyboardType(.URL)
                 .textInputAutocapitalization(.never)
@@ -50,7 +50,7 @@ struct ImportComposer: View {
         .padding(.leading, 14)
         .padding(.trailing, 8)
         .frame(minHeight: 48)
-        .background(Color(.tertiarySystemFill), in: .rect(cornerRadius: 12))
+        .background(.sunken, in: .field)
     }
 }
 
@@ -59,6 +59,6 @@ extension View {
     func importCard() -> some View {
         padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(.secondarySystemGroupedBackground), in: .rect(cornerRadius: 18))
+            .surface()
     }
 }

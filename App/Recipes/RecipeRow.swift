@@ -3,7 +3,7 @@ import SwiftUI
 
 /// Cover image, title, course, tags and marks of a recipe.
 struct RecipeRow: View {
-    private static let imageSize: CGFloat = 56
+    private static let imageSize: CGFloat = 76
 
     let recipe: RecipeSummary
 
@@ -11,19 +11,19 @@ struct RecipeRow: View {
         HStack(spacing: 12) {
             CoverImage(url: recipe.coverThumbURL ?? recipe.coverURL)
                 .frame(width: Self.imageSize, height: Self.imageSize)
-                .clipShape(.rect(cornerRadius: 8))
+                .clipShape(.field)
             VStack(alignment: .leading, spacing: 4) {
                 Text(verbatim: recipe.title)
                     .font(.headline)
                 if !recipe.labelLine.isEmpty {
                     Text(verbatim: recipe.labelLine)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.footnote)
+                        .foregroundStyle(.inkMuted)
                         .lineLimit(2)
                 }
+                RecipeMarks(recipe: recipe)
             }
             Spacer(minLength: 0)
-            RecipeMarks(recipe: recipe)
         }
     }
 }

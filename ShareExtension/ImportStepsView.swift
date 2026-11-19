@@ -16,7 +16,7 @@ struct ImportStepsView: View {
                         .frame(width: Self.markSize, height: Self.markSize)
                     Text(verbatim: stage.label)
                         .font(state == .active ? .body.weight(.semibold) : .body)
-                        .foregroundStyle(state == .upcoming ? .secondary : .primary)
+                        .foregroundStyle(state == .upcoming ? Color.inkMuted : Color.ink)
                 }
             }
         }
@@ -29,7 +29,7 @@ struct ImportStepsView: View {
         case .done:
             Image(systemName: "checkmark.circle.fill")
                 .font(.title3)
-                .foregroundStyle(.green)
+                .foregroundStyle(.doneMark)
         case .active:
             ProgressView()
         case .upcoming:

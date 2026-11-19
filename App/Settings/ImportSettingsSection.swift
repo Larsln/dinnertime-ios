@@ -16,6 +16,7 @@ struct ImportSettingsSection: View {
             if let settings = model.settings {
                 Section {
                     Toggle("Identify as a browser", isOn: Binding(get: { settings.identifyAsBrowser }, set: setIdentifyAsBrowser))
+                        .tint(.herb)
                 } header: {
                     Text(String(localized: "settings.import", defaultValue: "Import"))
                 } footer: {

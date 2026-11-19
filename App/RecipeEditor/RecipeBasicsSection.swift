@@ -25,7 +25,7 @@ struct RecipeBasicsSection: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Number of pieces or amount")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
                 TextField("e.g. 12 cinnamon rolls or 1 tray", text: $draft.yieldText)
             }
             NumberField(title: "Preparation (min)", value: $draft.prepMinutes)

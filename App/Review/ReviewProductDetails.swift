@@ -50,7 +50,7 @@ struct ReviewProductDetails: View {
             if status == .suggested {
                 Label("Suggested", systemImage: "sparkles")
                     .labelStyle(.iconOnly)
-                    .foregroundStyle(.orange)
+                    .foregroundStyle(.accentDeep)
             }
             Text(verbatim: text)
         }

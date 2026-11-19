@@ -6,6 +6,10 @@ struct DinnertimeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var delegate
     @State private var session = AppSession()
 
+    init() {
+        BrandFont.applyToNavigationTitles()
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView()

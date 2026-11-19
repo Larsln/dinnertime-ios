@@ -7,6 +7,7 @@ struct OptionalDatePicker: View {
 
     var body: some View {
         Toggle(title, isOn: isSet)
+            .tint(.herb)
         if let date {
             DatePicker(title, selection: Binding(get: { date }, set: { self.date = $0 }), displayedComponents: .date)
                 .labelsHidden()

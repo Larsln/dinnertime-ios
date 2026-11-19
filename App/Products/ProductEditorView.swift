@@ -23,7 +23,7 @@ struct ProductEditorView: View {
     }
 
     var body: some View {
-        Form {
+        PaperForm {
             ProductFactsSection(product: model.product)
             ProductDetailsSection(draft: $model.draft, storeSections: model.storeSections)
             ProductOffersSection(model: offers, unit: model.draft.baseUnit)

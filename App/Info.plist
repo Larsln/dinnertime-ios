@@ -47,8 +47,15 @@
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Lets the app reach the server in your home network and share the shopping list with phones nearby.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>BricolageGrotesque.ttf</string>
+	</array>
 	<key>UILaunchScreen</key>
-	<dict/>
+	<dict>
+		<key>UIColorName</key>
+		<string>Paper</string>
+	</dict>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

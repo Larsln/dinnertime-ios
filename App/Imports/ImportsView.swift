@@ -21,7 +21,7 @@ struct ImportsView: View {
                     if !session.offline.pendingLinks.isEmpty {
                         heading("Waiting for a connection")
                         ForEach(session.offline.pendingLinks, id: \.self) { link in
-                            ImportStatusLine(symbol: "clock", tint: .secondary, title: link.url.host() ?? link.url.absoluteString, detail: nil)
+                            ImportStatusLine(symbol: "clock", tint: .inkMuted, title: link.url.host() ?? link.url.absoluteString, detail: nil)
                                 .importCard()
                         }
                     }
@@ -36,7 +36,7 @@ struct ImportsView: View {
                 }
                 .padding(16)
             }
-            .background(Color(.systemGroupedBackground))
+            .background(.paper)
             .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Import")
             .navigationBarTitleDisplayMode(.inline)
@@ -60,7 +60,8 @@ struct ImportsView: View {
 
     private func heading(_ title: LocalizedStringKey) -> some View {
         Text(title)
-            .font(.title3.bold())
+            .sectionHeadingStyle()
+            .accessibilityAddTraits(.isHeader)
             .padding(.top, 12)
             .padding(.leading, 4)
     }

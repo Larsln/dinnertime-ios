@@ -79,6 +79,7 @@ signing add it to both App IDs in the developer account.
 |---|---|---|
 | `App` | `Dinnertime` | SwiftUI views and view models, one folder per area |
 | `ShareExtension` | `ShareExtension` | Share sheet extension that queues imports |
+| `Brand` | `Dinnertime`, `ShareExtension` | The look both share: colors for light and dark appearance, the typeface of titles with its license, shapes |
 | `Kit` | `DinnertimeKit` | Framework shared by both: API client, endpoints, models, formatting, Keychain, OpenID Connect, the offline copy and the queue of changes |
 | `KitTests` | `DinnertimeKitTests` | Unit tests of the framework with recorded API answers |
 | `Config` | | Build settings |
@@ -122,6 +123,21 @@ Scripts/import-product-icons.py ../backend/resources/icons/products
 
 `App/Resources/ProductIcons-LICENSE.md` names the sources and licenses of the
 drawings.
+
+## Look and app icon
+
+Controls stay as the system draws them; content carries the look. The colors are
+color sets in `Brand/Brand.xcassets` and are read through `Brand/Palette.swift`;
+`AccentColor` is the tint of both targets. Large titles and section headings are
+set in Bricolage Grotesque (`Brand/BricolageGrotesque.ttf`, SIL Open Font License,
+see `Brand/BricolageGrotesque-OFL.txt`).
+
+The app icon is drawn by a script that writes the light, dark and tinted variant
+into `App/Assets.xcassets/AppIcon.appiconset`:
+
+```sh
+swift Scripts/render-app-icon.swift
+```
 
 ## How the share extension gets its credentials
 

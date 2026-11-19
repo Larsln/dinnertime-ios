@@ -13,13 +13,13 @@ struct MergeProductView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            PaperForm {
                 Section {
                     Label {
                         Text("“\(product.name)” will be deleted. Its recipe lines move to the chosen product and its name is kept as an alias.")
                     } icon: {
                         Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(.orange)
+                            .foregroundStyle(.accentDeep)
                     }
                 }
                 Section {

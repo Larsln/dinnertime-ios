@@ -15,14 +15,14 @@ struct AddPantryItemView: View {
 
     var body: some View {
         NavigationStack {
-            List(model.products) { product in
+            PaperList(model.products) { product in
                 NavigationLink(value: product) {
                     VStack(alignment: .leading) {
                         Text(verbatim: product.name)
                         if let section = product.storeSection {
                             Text(verbatim: section.name)
                                 .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(.inkMuted)
                         }
                     }
                 }

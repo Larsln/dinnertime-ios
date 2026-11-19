@@ -6,12 +6,12 @@ struct ReviewList: View {
     let model: ReviewModel
 
     var body: some View {
-        List {
+        PaperList {
             if !model.products.isEmpty {
                 Text("These values were estimated by the AI. Confirm or correct them so the shopping list and conversions are right.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
-                    .listRowBackground(Color.clear)
+                    .foregroundStyle(.ink)
+                    .listRowBackground(Color.accentSoft)
             }
             ForEach(model.products) { product in
                 Section {

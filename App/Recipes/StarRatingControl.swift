@@ -3,7 +3,7 @@ import SwiftUI
 
 /// Five stars in half steps that set a rating by tapping or dragging across them; the value is reported on release.
 ///
-/// Without a rating the stars are drawn as faint outlines, with a rating of zero as outlines in the color of the filled ones.
+/// Without a rating the stars are drawn as faint outlines, with a rating of zero as outlines in the accent of the filled ones.
 struct StarRatingControl: View {
     private static let starSize: CGFloat = 30
     private static let spacing: CGFloat = 4
@@ -22,7 +22,7 @@ struct StarRatingControl: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: Self.starSize, height: Self.starSize)
-                    .foregroundStyle(shown == nil ? AnyShapeStyle(.tertiary) : AnyShapeStyle(.yellow))
+                    .foregroundStyle(shown == nil ? AnyShapeStyle(.tertiary) : AnyShapeStyle(Color.accent))
             }
         }
         .contentShape(.rect)

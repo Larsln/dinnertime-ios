@@ -13,13 +13,13 @@ struct MergeToolView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            PaperForm {
                 Section {
                     Label {
                         Text("“\(tool.name)” will be deleted. Its recipes use the chosen tool instead.")
                     } icon: {
                         Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(.orange)
+                            .foregroundStyle(.accentDeep)
                     }
                 }
                 Section {

@@ -13,7 +13,7 @@ struct ImportStatusLine: View {
                 .font(.title2)
                 .foregroundStyle(tint)
                 .frame(width: 56, height: 56)
-                .background(tint.opacity(0.12), in: .rect(cornerRadius: 10))
+                .background(tint.opacity(0.12), in: .field)
             VStack(alignment: .leading, spacing: 4) {
                 Text(verbatim: title)
                     .font(.headline)
@@ -21,7 +21,7 @@ struct ImportStatusLine: View {
                 if let detail {
                     Text(verbatim: detail)
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                 }
             }
         }

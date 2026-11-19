@@ -46,7 +46,7 @@ struct StoreChips: View {
                 }
                 .labelStyle(.iconOnly)
                 .buttonStyle(.borderless)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.inkMuted)
             }
         }
     }
@@ -66,7 +66,11 @@ struct StoreChips: View {
                     .buttonStyle(.borderless)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)
-                    .background(.tint.opacity(0.15), in: .capsule)
+                    .foregroundStyle(.inkMuted)
+                    .overlay {
+                        Capsule()
+                            .strokeBorder(.inkMuted, style: StrokeStyle(lineWidth: 1, dash: [4, 3]))
+                    }
                 }
             }
             .scrollIndicators(.hidden)
@@ -86,8 +90,15 @@ struct StoreChips: View {
                 .font(.subheadline)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
-                .foregroundStyle(isChosen ? AnyShapeStyle(.white) : AnyShapeStyle(.tint))
-                .background(isChosen ? AnyShapeStyle(.tint) : AnyShapeStyle(.tint.opacity(0.15)), in: .capsule)
+                .fontWeight(isChosen ? .semibold : .regular)
+                .foregroundStyle(isChosen ? Color.onAccent : Color.ink)
+                .background(isChosen ? Color.accent : Color.surface, in: .capsule)
+                .overlay {
+                    if !isChosen {
+                        Capsule()
+                            .strokeBorder(.line)
+                    }
+                }
         }
         .buttonStyle(.borderless)
         .accessibilityAddTraits(isChosen ? .isSelected : [])

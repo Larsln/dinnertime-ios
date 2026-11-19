@@ -26,7 +26,7 @@ struct RecipeDetailView: View {
     }
 
     var body: some View {
-        List {
+        PaperList {
             Section {
                 RecipeHeader(model: model)
             }
@@ -39,6 +39,7 @@ struct RecipeDetailView: View {
         }
         .navigationTitle(Text(verbatim: model.summary.title))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(removing: .title)
         .toolbar {
             RecipeDetailToolbar(model: model, showsEditor: $showsEditor, confirmsDeletion: $confirmsDeletion)
         }

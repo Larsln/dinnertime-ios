@@ -7,7 +7,7 @@ struct WizardDaysStep: View {
 
     var body: some View {
         @Bindable var weeks = model.weeks
-        Form {
+        PaperForm {
             Section {
                 PlanWeekHeader(week: $weeks.week)
                     .buttonStyle(.borderless)

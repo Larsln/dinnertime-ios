@@ -18,7 +18,7 @@ struct EditPantryAmountView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            PaperForm {
                 AmountField(amount: $amount, unit: item.product.baseUnit)
             }
             .navigationTitle(Text(verbatim: item.product.name))

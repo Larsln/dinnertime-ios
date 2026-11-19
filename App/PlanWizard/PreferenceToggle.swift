@@ -12,8 +12,9 @@ struct PreferenceToggle: View {
                 Text(title)
                 Text(explanation)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
         }
+        .tint(.herb)
     }
 }

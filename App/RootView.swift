@@ -9,6 +9,7 @@ struct RootView: View {
             switch session.phase {
             case .launching:
                 ProgressView()
+                    .paperScreen()
             case .serverSetup:
                 ServerSetupView(session: session)
             case let .signIn(connection):
@@ -17,6 +18,7 @@ struct RootView: View {
                 MainTabView(session: session)
             }
         }
+        .tint(.accent)
         .task {
             await session.start()
         }

@@ -18,23 +18,23 @@ struct ProposalRow: View {
                     .monospacedDigit()
                 Text(verbatim: proposal.date.weekdayText)
                     .font(.caption2)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
             .frame(width: 34)
             CoverImage(url: proposal.recipe.coverThumbURL ?? proposal.recipe.coverURL)
                 .frame(width: Self.imageSize, height: Self.imageSize)
-                .clipShape(.rect(cornerRadius: 10))
+                .clipShape(.field)
             VStack(alignment: .leading, spacing: 2) {
                 Text(verbatim: proposal.recipe.title)
                     .font(.subheadline.weight(.semibold))
                     .lineLimit(2)
                 Text(verbatim: details)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
             Spacer(minLength: 0)
             Button(isLocked ? "Unlock" : "Lock", systemImage: isLocked ? "lock.fill" : "lock.open", action: onToggleLock)
-                .tint(isLocked ? .accentColor : .secondary)
+                .tint(isLocked ? .accent : .inkMuted)
             Button("Reroll", systemImage: "dice", action: onReroll)
                 .disabled(isLocked)
         }

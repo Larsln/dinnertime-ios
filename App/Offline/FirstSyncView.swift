@@ -15,12 +15,14 @@ struct FirstSyncView: View {
                     offline.refreshSoon()
                 }
             }
+            .paperScreen()
         } else {
             VStack(spacing: 12) {
                 ProgressView()
                 Text("Loading the data of your household…")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
+            .paperScreen()
         }
     }
 }

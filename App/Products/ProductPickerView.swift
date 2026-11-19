@@ -16,14 +16,14 @@ struct ProductPickerView: View {
     }
 
     var body: some View {
-        List {
+        PaperList {
             ForEach(model.products) { product in
                 Button {
                     choose(product)
                 } label: {
                     ProductRow(product: product)
                 }
-                .tint(.primary)
+                .tint(.ink)
             }
             if let name = creatableName {
                 Button("Create “\(name)”", systemImage: "plus", action: create)

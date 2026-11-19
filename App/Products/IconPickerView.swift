@@ -35,6 +35,7 @@ struct IconPickerView: View {
                 }
                 .padding()
             }
+            .paperBackground()
             .overlay {
                 if icons.isEmpty {
                     ContentUnavailableView("No matching icon.", systemImage: "magnifyingglass")
@@ -72,8 +73,8 @@ struct IconPickerView: View {
             }
             .padding(8)
             .frame(maxWidth: .infinity)
-            .foregroundStyle(isChosen ? AnyShapeStyle(.white) : AnyShapeStyle(.primary))
-            .background(isChosen ? AnyShapeStyle(.tint) : AnyShapeStyle(Color.secondary.opacity(0.12)), in: .rect(cornerRadius: 12))
+            .foregroundStyle(isChosen ? Color.onAccent : Color.ink)
+            .surface(isChosen ? Color.accent : Color.surface, in: .tile)
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(isChosen ? .isSelected : [])

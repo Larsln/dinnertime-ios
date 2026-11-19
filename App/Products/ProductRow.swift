@@ -11,17 +11,17 @@ struct ProductRow: View {
                 Text(verbatim: product.name)
                 Text(verbatim: details)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
             Spacer(minLength: 0)
             if product.isPantryStaple == true {
                 Image(systemName: "refrigerator")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
                     .accessibilityLabel("Pantry staple")
             }
             if product.status == .suggested {
                 Image(systemName: "sparkles")
-                    .foregroundStyle(.orange)
+                    .foregroundStyle(.accentDeep)
                     .accessibilityLabel("Suggested")
             }
         }

@@ -16,7 +16,7 @@ struct RecipeStepsSection: View {
                         HStack(alignment: .top, spacing: 8) {
                             Text(verbatim: "\(numbers[step.id] ?? 0).")
                                 .monospacedDigit()
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(.inkMuted)
                             TextField("Step", text: $step.text, axis: .vertical)
                                 .keyboardDoneButton()
                         }

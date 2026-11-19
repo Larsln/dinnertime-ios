@@ -11,6 +11,7 @@ struct ShoppingTile: View {
     let onShowDetails: () -> Void
 
     private static let pressDuration = 0.25
+    private static let markSize: CGFloat = 7
 
     @State private var detailsShown = 0
 
@@ -24,36 +25,56 @@ struct ShoppingTile: View {
             .exclusively(before: TapGesture().onEnded(onToggle))
     }
 
+    /// The icon of the product, or a check mark once the product is checked off.
+    @ViewBuilder
+    private var icon: some View {
+        if item.isChecked {
+            Image(systemName: "checkmark")
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundStyle(.doneMark)
+                .accessibilityHidden(true)
+        } else {
+            ProductIcon(key: item.product?.icon, sectionKey: item.product?.storeSection?.key)
+        }
+    }
+
     var body: some View {
         VStack(spacing: 3) {
-            ProductIcon(key: item.product?.icon, sectionKey: item.product?.storeSection?.key)
+            icon
                 .frame(width: 34, height: 34)
             Text(verbatim: item.title)
-                .font(.caption.weight(.medium))
+                .font(.caption.weight(.semibold))
+                .strikethrough(item.isChecked)
                 .lineLimit(1)
             if let amount = item.shortPurchaseText() {
                 Text(verbatim: item.isApproximate ? "\(amount) ≈" : amount)
                     .font(.system(size: 10))
                     .lineLimit(1)
-                    .opacity(0.75)
             }
         }
         .minimumScaleFactor(0.8)
         .padding(6)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .aspectRatio(1, contentMode: .fit)
-        .foregroundStyle(item.isChecked ? AnyShapeStyle(.secondary) : AnyShapeStyle(.white))
-        .background(item.isChecked ? AnyShapeStyle(Color.secondary.opacity(0.15)) : AnyShapeStyle(.tint), in: .rect(cornerRadius: 12))
+        .foregroundStyle(item.isChecked ? Color.doneInk : Color.onAccent)
+        .background(item.isChecked ? Color.sunken : Color.accent, in: .tile)
+        .overlay {
+            if item.isChecked {
+                RoundedRectangle.tile
+                    .strokeBorder(.line)
+            }
+        }
         .overlay(alignment: .topTrailing) {
             if let product = item.product, product.hasBuyingHints {
-                Image(systemName: "note.text")
-                    .font(.system(size: 9, weight: .semibold))
-                    .foregroundStyle(item.isChecked ? AnyShapeStyle(.secondary) : AnyShapeStyle(.white.opacity(0.85)))
-                    .padding(5)
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(item.isChecked ? Color.doneInk : Color.onAccent)
+                    .frame(width: Self.markSize, height: Self.markSize)
+                    .padding(Self.markSize)
+                    .accessibilityElement()
                     .accessibilityLabel(product.note == nil ? Text("Has a shop") : Text("Has a note"))
             }
         }
-        .contentShape(.rect(cornerRadius: 12))
+        .contentShape(.tile)
         .gesture(press)
         .sensoryFeedback(.selection, trigger: item.isChecked)
         .sensoryFeedback(.impact(weight: .light), trigger: detailsShown)

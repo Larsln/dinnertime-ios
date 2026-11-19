@@ -18,11 +18,11 @@ struct ImportedRecipeView: View {
                         .scaledToFill()
                 } placeholder: {
                     Rectangle()
-                        .fill(.quaternary)
+                        .fill(.accentSoft)
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: Self.imageHeight)
-                .clipShape(.rect(cornerRadius: 14))
+                .clipShape(.tile)
             }
             Text(verbatim: recipe.title)
                 .font(.headline)
@@ -30,7 +30,7 @@ struct ImportedRecipeView: View {
             if !details.isEmpty {
                 Text(verbatim: details)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.inkMuted)
             }
         }
     }

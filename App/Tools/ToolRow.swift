@@ -13,9 +13,10 @@ struct ToolRow: View {
                 if let count = tool.recipeCount {
                     Text("\(count) recipes")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.inkMuted)
                 }
             }
         }
+        .tint(.herb)
     }
 }

@@ -101,7 +101,11 @@ final class WalkthroughTests: XCTestCase {
         sleep(1)
         record("Shopping item details")
 
-        XCTAssertTrue(app.staticTexts["Note"].waitForExistence(timeout: Self.timeout), "The details offer no note")
+        let note = app.staticTexts["Note"]
+        for _ in 0..<4 where !note.exists {
+            app.swipeUp()
+        }
+        XCTAssertTrue(note.waitForExistence(timeout: Self.timeout), "The details offer no note")
 
         guard let shop = ProcessInfo.processInfo.environment["DINNERTIME_TEST_SHOP"] else {
             return
