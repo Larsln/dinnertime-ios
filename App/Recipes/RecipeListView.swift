@@ -9,11 +9,14 @@ struct RecipeListView: View {
     @State private var model: RecipeListModel
     @State private var today: TodayModel
     @State private var path = NavigationPath()
+    /// The recipe shown next to the list on wide screens.
+    @State private var selection: RecipeSelection?
     @State private var showsDinner = false
     @State private var showsImports = false
     @State private var showsEditor = false
     @State private var router = ImportRouter.shared
     @State private var permission = NotificationPermission()
+    @Environment(\.horizontalSizeClass) private var sizeClass
 
     init(session: AppSession) {
         self.session = session
@@ -23,23 +26,18 @@ struct RecipeListView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            RecipeSearchList(model: model) {
-                TodayPanel(model: today) { planned in
-                    path.append(planned)
-                } onDecide: {
-                    showsDinner = true
-                }
-            } row: { recipe in
-                NavigationLink(value: recipe) {
-                    RecipeRow(recipe: recipe)
-                }
-            }
-            .safeAreaInset(edge: .bottom) {
-                if permission.isOffered {
-                    NotificationOffer(permission: permission)
+            Group {
+                if sizeClass == .regular {
+                    RecipeBrowser(session: session, model: model, today: today, permission: permission, selection: $selection) {
+                        showsDinner = true
+                    }
+                } else {
+                    list
+                        .notificationOffer(permission)
                 }
             }
             .navigationTitle("Recipes")
+            .navigationBarTitleDisplayMode(sizeClass == .regular ? .inline : .automatic)
             .navigationDestination(for: RecipeSummary.self) { recipe in
                 RecipeDetailView(session: session, summary: recipe, onUpdate: model.replace) {
                     model.remove(id: recipe.id)
@@ -67,7 +65,7 @@ struct RecipeListView: View {
             }
             .sheet(isPresented: $showsDinner) {
                 DinnerRoundView(model: today.dinner) { entry in
-                    path.append(PlannedRecipe(entry))
+                    show(PlannedRecipe(entry))
                 }
             }
             .sheet(isPresented: $showsEditor) {
@@ -87,6 +85,41 @@ struct RecipeListView: View {
         }
     }
 
+    /// The recipes below what matters today, each leading to a screen of its own.
+    private var list: some View {
+        RecipeSearchList(model: model) {
+            TodayPanel(model: today) { planned in
+                show(planned)
+            } onDecide: {
+                showsDinner = true
+            }
+        } row: { recipe in
+            NavigationLink(value: recipe) {
+                RecipeRow(recipe: recipe)
+            }
+        }
+    }
+
+    /// Opens a recipe with planned servings: next to the list on wide screens, else on a screen of its own.
+    private func show(_ planned: PlannedRecipe) {
+        if sizeClass == .regular {
+            selection = RecipeSelection(planned)
+        } else {
+            path.append(planned)
+        }
+    }
+
+    /// Opens a recipe: next to the list on wide screens, else on a screen of its own.
+    private func show(_ recipe: RecipeSummary, replacingPath: Bool = false) {
+        if sizeClass == .regular {
+            selection = RecipeSelection(recipe: recipe)
+        } else if replacingPath {
+            path = NavigationPath([recipe])
+        } else {
+            path.append(recipe)
+        }
+    }
+
     /// Shows what a tapped notification asks for: the imported recipe, or the imports when there is none.
     private func follow(_ destination: ImportDestination?) async {
         guard let destination else {
@@ -94,14 +127,14 @@ struct RecipeListView: View {
         }
         router.destination = nil
         if case let .recipe(importID) = destination, let recipe = await model.recipe(ofImport: importID) {
-            path = NavigationPath([recipe])
+            show(recipe, replacingPath: true)
         } else {
             showsImports = true
         }
     }
 
     private func open(_ recipe: Recipe) {
-        path.append(recipe.summary)
+        show(recipe.summary)
         reload()
     }
 

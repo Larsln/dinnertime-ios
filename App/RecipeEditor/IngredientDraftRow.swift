@@ -22,7 +22,15 @@ struct IngredientDraftRow: View {
                 }
             }
             Spacer()
-            if let amount {
+            if let unreadable = line.unreadableQuantity {
+                Label {
+                    Text(verbatim: unreadable)
+                } icon: {
+                    Image(systemName: "exclamationmark.triangle")
+                }
+                .foregroundStyle(.accentDeep)
+                .accessibilityLabel("Quantity not readable")
+            } else if let amount {
                 Text(verbatim: amount)
                     .monospacedDigit()
             }
@@ -37,8 +45,9 @@ struct IngredientDraftRow: View {
         guard let quantity = line.quantity else {
             return nil
         }
-        let number = AmountFormatter().number(quantity)
-        guard let unit = units.first(where: { $0.id == line.unitID }) else {
+        let unit = units.first { $0.id == line.unitID }
+        let number = KitchenQuantity.format(quantity, style: unit.quantityStyle)
+        guard let unit else {
             return number
         }
         return "\(number) \(unit.code ?? unit.name)"

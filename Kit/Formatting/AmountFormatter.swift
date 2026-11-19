@@ -15,6 +15,11 @@ public struct AmountFormatter: Sendable {
         value.formatted(.number.precision(.fractionLength(0...2)).grouping(.never).locale(locale))
     }
 
+    /// A number for an input field, with at most three fraction digits, so that it reads back as the same number.
+    public func editableNumber(_ value: Double) -> String {
+        value.formatted(.number.precision(.fractionLength(0...3)).grouping(.never).locale(locale))
+    }
+
     /// An amount given in a base unit; large masses and volumes switch to kilograms and liters.
     public func string(_ amount: Double, unit: BaseUnit) -> String {
         switch unit {

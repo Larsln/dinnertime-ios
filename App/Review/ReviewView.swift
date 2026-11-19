@@ -69,6 +69,8 @@ struct ReviewView: View {
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 8)
+                .frame(maxWidth: ReadableMetrics.form)
+                .frame(maxWidth: .infinity)
                 .background(.paper)
             }
             .navigationTitle("Products")

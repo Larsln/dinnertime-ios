@@ -8,13 +8,15 @@ public struct IngredientText: Equatable, Sendable {
 
 extension Ingredient {
     /// Display text with the quantity multiplied by `factor`, the ratio of wanted to stated servings.
+    ///
+    /// The quantity is written with kitchen fractions unless its unit is a weight or a volume.
     public func text(scaledBy factor: Double = 1, formatter: AmountFormatter = AmountFormatter()) -> IngredientText {
         let scaled = quantity.map { $0 * factor }
         return IngredientText(amount: scaled.map { amountText($0, formatter: formatter) }, name: name(for: scaled))
     }
 
     private func amountText(_ quantity: Double, formatter: AmountFormatter) -> String {
-        let number = formatter.number(quantity)
+        let number = KitchenQuantity.format(quantity, style: unit.quantityStyle, formatter: formatter)
         guard let unit else {
             return number
         }

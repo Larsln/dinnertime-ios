@@ -7,6 +7,8 @@ import SwiftUI
 /// A small mark in the corner tells that the product carries a note or a shop that sells it.
 struct ShoppingTile: View {
     let item: ShoppingListItem
+    /// Whether the details of the item are shown next to the list, which the tile marks with a frame.
+    var isSelected = false
     let onToggle: () -> Void
     let onShowDetails: () -> Void
 
@@ -62,6 +64,12 @@ struct ShoppingTile: View {
             if item.isChecked {
                 RoundedRectangle.tile
                     .strokeBorder(.line)
+            }
+        }
+        .overlay {
+            if isSelected {
+                RoundedRectangle.tile
+                    .strokeBorder(.ink, lineWidth: 3)
             }
         }
         .overlay(alignment: .topTrailing) {

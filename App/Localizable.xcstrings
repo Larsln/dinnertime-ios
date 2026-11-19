@@ -327,6 +327,22 @@
         }
       }
     },
+    "%lld to buy, %lld done": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld offen, %2$lld erledigt"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld to buy, %2$lld done"
+          }
+        }
+      }
+    },
     "(estimated)": {
       "localizations": {
         "de": {
@@ -753,6 +769,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Auswählen"
+          }
+        }
+      }
+    },
+    "Choose a recipe from the list to see its ingredients and method.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wähle ein Rezept aus der Liste, um Zutaten und Zubereitung zu sehen."
           }
         }
       }
@@ -1797,6 +1823,26 @@
         }
       }
     },
+    "No item chosen": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Produkt gewählt"
+          }
+        }
+      }
+    },
+    "No list for this week yet.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für diese Woche gibt es noch keine Liste."
+          }
+        }
+      }
+    },
     "No matching icon.": {
       "localizations": {
         "de": {
@@ -1813,6 +1859,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keine passenden Rezepte"
+          }
+        }
+      }
+    },
+    "No recipe chosen": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Rezept gewählt"
           }
         }
       }
@@ -2257,6 +2313,26 @@
         }
       }
     },
+    "Quantity not readable": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menge nicht lesbar"
+          }
+        }
+      }
+    },
+    "Quantity not readable. Allowed are e.g. 2, 1.5, 1/2 or 1 1/2.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menge nicht lesbar. Erlaubt sind z. B. 2, 1,5, 1/2 oder 1 1/2."
+          }
+        }
+      }
+    },
     "Quick on weekdays": {
       "localizations": {
         "de": {
@@ -2457,6 +2533,16 @@
         }
       }
     },
+    "Search": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suchen"
+          }
+        }
+      }
+    },
     "Search products": {
       "localizations": {
         "de": {
@@ -2573,6 +2659,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Einkauf"
+          }
+        }
+      }
+    },
+    "Shopping for the week": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einkauf für die Woche"
           }
         }
       }
@@ -2797,6 +2893,16 @@
         }
       }
     },
+    "Tap an item to check it off. Press and hold it to see its details here.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe auf ein Produkt, um es abzuhaken. Halte es kurz gedrückt, um hier die Details zu sehen."
+          }
+        }
+      }
+    },
     "Tap the cells that should be filled. What is planned already stays as it is.": {
       "localizations": {
         "de": {
@@ -2923,6 +3029,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Einkaufen"
+          }
+        }
+      }
+    },
+    "To the shopping list": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zur Einkaufsliste"
           }
         }
       }

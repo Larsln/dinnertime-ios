@@ -14,6 +14,7 @@ struct MainTabView: View {
     @State private var realtime: RealtimeClient
     @State private var household: HouseholdStore
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(OfflineCoordinator.self) private var offline
 
     init(session: AppSession) {
@@ -66,7 +67,7 @@ struct MainTabView: View {
         }
         .overlay(alignment: .bottom) {
             OfflineIndicator()
-                .padding(.bottom, 58)
+                .padding(.bottom, sizeClass == .regular ? 16 : 58)
         }
         .environment(household)
         .task(id: offline.syncCount) {

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The favorite toggle and the menu that edits or deletes the recipe.
+/// The favorite toggle and the menu that edits or deletes the recipe, in the navigation bar.
 struct RecipeDetailToolbar: ToolbarContent {
     let model: RecipeDetailModel
     @Binding var showsEditor: Bool
@@ -8,23 +8,7 @@ struct RecipeDetailToolbar: ToolbarContent {
 
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .topBarTrailing) {
-            Button(
-                model.summary.isFavorite ? "Remove from favorites" : "Add to favorites",
-                systemImage: model.summary.isFavorite ? "heart.fill" : "heart"
-            ) {
-                Task {
-                    await model.toggleFavorite()
-                }
-            }
-            Menu("Actions", systemImage: "ellipsis.circle") {
-                Button("Edit", systemImage: "pencil") {
-                    showsEditor = true
-                }
-                Button("Delete", systemImage: "trash", role: .destructive) {
-                    confirmsDeletion = true
-                }
-            }
-            .disabled(model.recipe == nil)
+            RecipeActionButtons(model: model, showsEditor: $showsEditor, confirmsDeletion: $confirmsDeletion)
         }
     }
 }

@@ -20,11 +20,11 @@ struct StepTextTests {
     }
 
     @Test func readsFractions() {
-        #expect(rendered("{1/2} TL Salz", scale: 3) == "1,5 TL Salz")
+        #expect(rendered("{1/2} TL Salz", scale: 3) == "1\u{202F}½ TL Salz")
     }
 
     @Test func scalesSeveralMarkersInOneStep() {
-        #expect(rendered("{2}–{3} EL", scale: 0.5) == "1–1,5 EL")
+        #expect(rendered("{2}–{3} EL", scale: 0.5) == "1–1\u{202F}½ EL")
         #expect(rendered("{250} g Mehl mit {2} Eiern verrühren und 10 Minuten ruhen lassen.", scale: 2)
             == "500 g Mehl mit 4 Eiern verrühren und 10 Minuten ruhen lassen.")
     }
@@ -44,6 +44,18 @@ struct StepTextTests {
     @Test func splitsIntoSegments() {
         #expect(StepText("{250} g Mehl mit {1/2} TL Salz").segments
             == [.amount(250), .text(" g Mehl mit "), .amount(0.5), .text(" TL Salz")])
+    }
+
+    @Test func writesSmallAmountsWithFractions() {
+        #expect(rendered("{1} TL Salz", scale: 0.5) == "½ TL Salz")
+        #expect(rendered("{3} Eier", scale: 0.75) == "2\u{202F}¼ Eier")
+        #expect(rendered("{1} Prise", scale: 0.1) == "0,1 Prise")
+    }
+
+    @Test func keepsAmountsFromTwentyOnDecimal() {
+        #expect(rendered("{13} g Hefe", scale: 1.5) == "19\u{202F}½ g Hefe")
+        #expect(rendered("{41} g Butter", scale: 0.5) == "20,5 g Butter")
+        #expect(rendered("{20} g Butter", scale: 1) == "20 g Butter")
     }
 
     @Test func tellsAmountsFromPlainText() {

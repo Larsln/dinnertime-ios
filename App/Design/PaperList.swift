@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// A list on the background of the screens whose rows are drawn as surface.
+/// A list on the background of the screens whose rows are drawn as surface; on wide screens its content keeps a readable width.
 struct PaperList<Content: View>: View {
     @ViewBuilder let content: Content
 
@@ -12,6 +12,7 @@ struct PaperList<Content: View>: View {
             .surfaceRows()
         }
         .paperBackground()
+        .readableWidth()
     }
 }
 
@@ -25,7 +26,7 @@ extension PaperList {
     }
 }
 
-/// A form on the background of the screens whose rows are drawn as surface.
+/// A form on the background of the screens whose rows are drawn as surface; on wide screens its content keeps a readable width.
 struct PaperForm<Content: View>: View {
     @ViewBuilder let content: Content
 
@@ -37,5 +38,6 @@ struct PaperForm<Content: View>: View {
             .surfaceRows()
         }
         .paperBackground()
+        .readableWidth()
     }
 }

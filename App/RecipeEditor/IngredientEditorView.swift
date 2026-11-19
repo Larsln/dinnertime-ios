@@ -26,11 +26,7 @@ struct IngredientEditorView: View {
                 }
             }
             Section {
-                LabeledContent("Quantity") {
-                    TextField("Quantity", value: $line.quantity, format: .number)
-                        .numericKeyboard(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                }
+                QuantityField(quantity: $line.quantity, unreadable: $line.unreadableQuantity, style: unit.quantityStyle)
                 Picker("Unit", selection: $line.unitID) {
                     Text("pieces")
                         .tag(Int?.none)
@@ -41,6 +37,11 @@ struct IngredientEditorView: View {
                 }
                 Toggle("Quantity estimated", isOn: $line.isEstimated)
                     .tint(.herb)
+            } footer: {
+                if line.unreadableQuantity != nil {
+                    Text("Quantity not readable. Allowed are e.g. 2, 1.5, 1/2 or 1 1/2.")
+                        .foregroundStyle(.accentDeep)
+                }
             }
             Section {
                 TextField("Note", text: $line.note)
@@ -48,5 +49,10 @@ struct IngredientEditorView: View {
         }
         .navigationTitle("Ingredient")
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    /// The chosen unit; `nil` while the line counts pieces.
+    private var unit: MeasureUnit? {
+        units.first { $0.id == line.unitID }
     }
 }

@@ -47,6 +47,13 @@ struct RecipeDraft {
         title.nilIfBlank != nil
     }
 
+    /// Whether a line that would be saved carries a quantity that cannot be read.
+    var hasUnreadableQuantity: Bool {
+        ingredientGroups.contains { group in
+            group.rows.contains { $0.isFilled && $0.unreadableQuantity != nil }
+        }
+    }
+
     /// Adds a tool unless the recipe already lists it.
     mutating func addTool(_ tool: Tool) {
         if !tools.contains(where: { $0.id == tool.id }) {

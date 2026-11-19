@@ -28,3 +28,14 @@ struct NotificationOffer: View {
         .padding(.bottom, 8)
     }
 }
+
+extension View {
+    /// Shows the offer to allow notifications below a list while it stands.
+    func notificationOffer(_ permission: NotificationPermission) -> some View {
+        safeAreaInset(edge: .bottom) {
+            if permission.isOffered {
+                NotificationOffer(permission: permission)
+            }
+        }
+    }
+}

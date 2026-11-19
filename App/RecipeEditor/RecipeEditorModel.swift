@@ -55,9 +55,13 @@ final class RecipeEditorModel: ErrorReporting {
 
     /// Creates or updates the recipe and uploads a newly chosen cover image.
     ///
-    /// Returns the saved recipe, or `nil` if the server rejected a part. A recipe that was created
+    /// Returns the saved recipe, or `nil` if a quantity cannot be read or the server rejected a part. A recipe that was created
     /// before its cover failed is updated by the next attempt instead of created again.
     func save() async -> Recipe? {
+        guard !draft.hasUnreadableQuantity else {
+            errorMessage = String(localized: "Quantity not readable. Allowed are e.g. 2, 1.5, 1/2 or 1 1/2.")
+            return nil
+        }
         isSaving = true
         defer { isSaving = false }
         var saved: Recipe?

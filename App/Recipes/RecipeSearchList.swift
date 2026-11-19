@@ -3,11 +3,16 @@ import SwiftUI
 
 /// A searchable, paginated list of recipes with a caller-defined row and, above the recipes, what the caller puts there.
 ///
-/// What stands above the recipes makes way while a search text is entered.
+/// What stands above the recipes makes way while a search text is entered. Next to other content the list
+/// carries its own search field, where the search bar of the system would span that content as well.
 struct RecipeSearchList<Header: View, Row: View>: View {
     private static var searchDelay: Duration { .milliseconds(300) }
 
     @Bindable var model: RecipeListModel
+    /// The recipe whose row is drawn as selected.
+    var selectedID: Int?
+    /// Whether the search field sits above the list instead of in the navigation bar.
+    var searchesInline = false
     @ViewBuilder let header: Header
     @ViewBuilder let row: (RecipeSummary) -> Row
 
@@ -18,7 +23,7 @@ struct RecipeSearchList<Header: View, Row: View>: View {
             }
             ForEach(model.recipes) { recipe in
                 row(recipe)
-                    .cardRow()
+                    .cardRow(recipe.id == selectedID ? .accentSoft : .surface)
             }
             if model.hasMore {
                 ProgressView()
@@ -37,7 +42,7 @@ struct RecipeSearchList<Header: View, Row: View>: View {
                 ContentUnavailableView("No recipes", systemImage: "book", description: Text("Import a recipe from a link or change the search."))
             }
         }
-        .searchable(text: $model.query.text)
+        .modifier(RecipeSearch(text: $model.query.text, isInline: searchesInline))
         .refreshesFromServer {
             await model.reload()
         }
@@ -50,6 +55,25 @@ struct RecipeSearchList<Header: View, Row: View>: View {
             }
         }
         .errorAlert($model.errorMessage)
+    }
+}
+
+/// Searches the recipes with a field above the list or with the search bar of the system.
+private struct RecipeSearch: ViewModifier {
+    @Binding var text: String
+    let isInline: Bool
+
+    func body(content: Content) -> some View {
+        if isInline {
+            content.safeAreaInset(edge: .top, spacing: 0) {
+                SearchField(prompt: "Search", text: $text)
+                    .padding(.horizontal, CardRowMetrics.margin)
+                    .padding(.vertical, 8)
+                    .background(.paper)
+            }
+        } else {
+            content.searchable(text: $text)
+        }
     }
 }
 

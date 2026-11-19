@@ -12,6 +12,9 @@ public struct StepText: Equatable, Sendable {
         case amount(Double)
     }
 
+    /// Scaled amounts from here on stay decimal; they are usually grams or milliliters.
+    private static let fractionLimit = 20.0
+
     public let segments: [Segment]
 
     public init(_ raw: String) {
@@ -40,15 +43,21 @@ public struct StepText: Equatable, Sendable {
     }
 
     /// The display text of every segment in order, telling scaled amounts from plain text.
+    ///
+    /// Amounts are written with kitchen fractions as long as they stay below the limit for those.
     public func parts(scaledBy factor: Double = 1, formatter: AmountFormatter = AmountFormatter()) -> [(text: String, isAmount: Bool)] {
         segments.map { segment in
             switch segment {
             case .text(let text):
                 (text, false)
             case .amount(let value):
-                (formatter.number(value * factor), true)
+                (Self.amountText(value * factor, formatter: formatter), true)
             }
         }
+    }
+
+    private static func amountText(_ value: Double, formatter: AmountFormatter) -> String {
+        value >= fractionLimit ? formatter.number(value) : KitchenQuantity.format(value, formatter: formatter)
     }
 
     private static func append(_ plain: String, to segments: inout [Segment]) {

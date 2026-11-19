@@ -1,7 +1,8 @@
 import DinnertimeKit
 import SwiftUI
 
-/// The meal plan of one week: a strip of its days above one section of cards per day.
+/// The meal plan of one week: on narrow screens a strip of its days above one section of cards per day,
+/// on wide screens the days as columns side by side.
 struct PlanView: View {
     let session: AppSession
     /// Switches to the shopping list after one was created from the plan.
@@ -12,6 +13,7 @@ struct PlanView: View {
     @Environment(HouseholdStore.self) private var household
     @State private var draft: PlanEntryDraft?
     @State private var showsWizard = false
+    @Environment(\.horizontalSizeClass) private var sizeClass
 
     init(session: AppSession, selection: WeekSelection, onShowShopping: @escaping () -> Void) {
         self.session = session
@@ -22,28 +24,12 @@ struct PlanView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollViewReader { proxy in
-                List {
-                    ForEach(selection.week.days, id: \.self) { day in
-                        PlanDaySection(day: day, model: model) {
-                            draft = PlanEntryDraft(day: day, servings: household.defaultServings)
-                        }
-                    }
+            Group {
+                if sizeClass == .regular {
+                    PlanBoard(session: session, week: $selection.week, model: model, onAdd: plan, onShowShopping: onShowShopping)
+                } else {
+                    days
                 }
-                .safeAreaInset(edge: .top, spacing: 0) {
-                    VStack(spacing: 8) {
-                        PlanWeekHeader(week: $selection.week)
-                        WeekStrip(week: selection.week, plannedDays: model.plannedDays) { day in
-                            withAnimation {
-                                proxy.scrollTo(day, anchor: .top)
-                            }
-                        }
-                    }
-                    .padding(.vertical, 8)
-                    .background(.paper)
-                }
-                .listStyle(.plain)
-                .paperBackground()
             }
             .navigationTitle("Plan")
             .navigationBarTitleDisplayMode(.inline)
@@ -56,7 +42,7 @@ struct PlanView: View {
                         showsWizard = true
                     }
                     Button("Plan a meal", systemImage: "plus") {
-                        draft = PlanEntryDraft(day: defaultDay, servings: household.defaultServings)
+                        plan(on: defaultDay)
                     }
                 }
             }
@@ -77,6 +63,38 @@ struct PlanView: View {
             }
             .errorAlert($model.errorMessage)
         }
+    }
+
+    /// The days below each other, each with its meals as rows.
+    private var days: some View {
+        ScrollViewReader { proxy in
+            List {
+                ForEach(selection.week.days, id: \.self) { day in
+                    PlanDaySection(day: day, model: model) {
+                        plan(on: day)
+                    }
+                }
+            }
+            .safeAreaInset(edge: .top, spacing: 0) {
+                VStack(spacing: 8) {
+                    PlanWeekHeader(week: $selection.week)
+                    WeekStrip(week: selection.week, plannedDays: model.plannedDays) { day in
+                        withAnimation {
+                            proxy.scrollTo(day, anchor: .top)
+                        }
+                    }
+                }
+                .padding(.vertical, 8)
+                .background(.paper)
+            }
+            .listStyle(.plain)
+            .paperBackground()
+        }
+    }
+
+    /// Starts planning a meal on `day` with the usual servings of the household.
+    private func plan(on day: DayDate) {
+        draft = PlanEntryDraft(day: day, servings: household.defaultServings)
     }
 
     /// Reloads the plan after proposals were saved and, if asked to, creates the shopping list and shows it.
