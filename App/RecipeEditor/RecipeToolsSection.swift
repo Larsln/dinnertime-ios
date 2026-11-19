@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The tools of a recipe as removable entries, added from the catalog of the household.

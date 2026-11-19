@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// The content of a recipe while it is created or edited.
 struct RecipeDraft {

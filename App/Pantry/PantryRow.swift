@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// One pantry item with its amount and dates.

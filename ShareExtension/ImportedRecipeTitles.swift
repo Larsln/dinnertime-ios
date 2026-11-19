@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The titles of the recipes an import produced from a video with several dishes.

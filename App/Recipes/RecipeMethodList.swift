@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The tools a recipe needs and its steps, grouped by component, with the amounts in the steps scaled to the wanted servings.

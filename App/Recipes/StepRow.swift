@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// One numbered step whose marked amounts follow the servings and stand out in a heavier weight.

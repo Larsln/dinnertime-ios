@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// The state of planning a week in three steps: days, preferences and the preview of the proposals.

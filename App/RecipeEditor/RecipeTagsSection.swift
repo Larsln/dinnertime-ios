@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The meal tags and tags of a recipe, each group chosen on its own screen.

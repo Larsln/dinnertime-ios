@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The fast entry of an offer: the shop as chips, size with its unit and price side by side and one button.

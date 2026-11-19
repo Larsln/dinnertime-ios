@@ -2,12 +2,12 @@ import XCTest
 
 /// Shares a web page from Safari to the app's share extension.
 ///
-/// Needs the same environment as ``WalkthroughTests`` plus `MEALPLANNER_SHARE_URL`,
+/// Needs the same environment as ``WalkthroughTests`` plus `DINNERTIME_SHARE_URL`,
 /// the page to share. The test is skipped when it is missing.
 @MainActor
 final class ShareExtensionTests: XCTestCase {
     private static let timeout: TimeInterval = 20
-    private static let appName = "Mealplanner"
+    private static let appName = "Dinnertime"
     private static let maximumSwipes = 4
     private static let swipeDistance: CGFloat = 180
 
@@ -21,8 +21,8 @@ final class ShareExtensionTests: XCTestCase {
     private static let shareLabels = NSPredicate(format: "label BEGINSWITH[c] 'Teilen' OR label BEGINSWITH[c] 'Share'")
 
     func testShareLinkFromSafari() throws {
-        guard let address = ProcessInfo.processInfo.environment["MEALPLANNER_SHARE_URL"], let url = URL(string: address) else {
-            throw XCTSkip("Set MEALPLANNER_SHARE_URL to run the share test.")
+        guard let address = ProcessInfo.processInfo.environment["DINNERTIME_SHARE_URL"], let url = URL(string: address) else {
+            throw XCTSkip("Set DINNERTIME_SHARE_URL to run the share test.")
         }
 
         XCUIDevice.shared.system.open(url)

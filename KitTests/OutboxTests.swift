@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Writes that are applied locally, queued and delivered later.
 struct OutboxTests {

@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Shopping items added by product: requests, the local copy, the queue and the exchange between devices.
 struct ShoppingProductItemTests {

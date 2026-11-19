@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// A recipe an import produced, with its cover, that opens the recipe.

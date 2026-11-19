@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Loads the pantry and applies changes to it.

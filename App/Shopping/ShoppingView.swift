@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The current shopping list as tiles, grouped by the areas of the store.
@@ -19,7 +19,6 @@ struct ShoppingView: View {
         NavigationStack {
             content
                 .navigationTitle("Shopping")
-                .settingsToolbar(session: session)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         actions

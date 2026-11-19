@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Sheet that plans a week in three steps and saves the accepted proposals at the end.

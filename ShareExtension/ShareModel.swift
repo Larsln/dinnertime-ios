@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Lets the user say how many dishes a shared link shows, sends it to the import queue of the server and follows the import while the sheet is open.

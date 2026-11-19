@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// A server whose address was validated but where nobody is signed in yet.
 struct ServerConnection: Equatable {

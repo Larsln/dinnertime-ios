@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// The offers of a product: decoding, requests and display.
 struct ProductOfferTests {

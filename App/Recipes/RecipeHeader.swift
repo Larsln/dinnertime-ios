@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Cover image, description, rating, times, course and tags at the top of a recipe.

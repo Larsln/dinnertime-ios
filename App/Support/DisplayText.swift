@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 extension MealType {
     /// Name of the meal in the language of the device.

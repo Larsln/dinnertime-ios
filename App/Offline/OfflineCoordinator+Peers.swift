@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// The exchange of shopping list changes with phones of the household nearby.
 extension OfflineCoordinator {

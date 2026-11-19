@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// What stands behind a position of the shopping list: need, leftovers, spoilage, the recipes that use it,

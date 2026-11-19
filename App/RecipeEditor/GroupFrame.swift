@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The frame around one group of the recipe editor: its title, the rows inside and the buttons that add a row or remove the group.

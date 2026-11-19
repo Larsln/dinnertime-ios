@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Favorite state and household average of a recipe, as shown at the edge of a list row.

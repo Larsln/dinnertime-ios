@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// One day of the plan: its date, a badge on today and its entries as cards, or a compact row when nothing is planned.

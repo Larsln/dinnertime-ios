@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Requests built from endpoints.
 struct RequestBuilderTests {

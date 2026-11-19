@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Images and waiting links on disk.
 struct OfflineFilesTests {

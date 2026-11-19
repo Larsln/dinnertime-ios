@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Selection of the slots to plan in the matrix of days and meals.
 struct MealSlotSelectionTests {

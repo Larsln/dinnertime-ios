@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Shows the server, the account and the settings of the importer and offers to sign out.

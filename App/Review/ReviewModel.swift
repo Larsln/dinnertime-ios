@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Loads the products with suggested values and confirms them.

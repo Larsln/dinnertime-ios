@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// Keeping track of whether the server can be reached and trying again when it cannot.
 extension OfflineCoordinator {

@@ -36,10 +36,10 @@ public enum AppConfiguration {
     }
 
     /// Redirect URI registered at the OpenID Connect provider.
-    public static let oidcRedirectURI = "mealplanner://oidc"
+    public static let oidcRedirectURI = "dinnertime://oidc"
 
     /// URL scheme of ``oidcRedirectURI``.
-    public static let oidcCallbackScheme = "mealplanner"
+    public static let oidcCallbackScheme = "dinnertime"
 
     private static func value(for key: String) -> String? {
         guard let value = Bundle.main.object(forInfoDictionaryKey: key) as? String, !value.isEmpty else {

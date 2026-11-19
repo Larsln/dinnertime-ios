@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 
 /// An offer while it is entered: the shop and, as typed, the size with its unit and the price of the package.
 struct OfferDraft: Equatable {

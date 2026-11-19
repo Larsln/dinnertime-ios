@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Mapping of HTTP answers to errors.
 struct ResponseInterpreterTests {

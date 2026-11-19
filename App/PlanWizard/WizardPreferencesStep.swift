@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Second step: what the planner weighs and which courses and tags it is restricted to.

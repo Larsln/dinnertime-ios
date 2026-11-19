@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// One step of the instructions while it is edited; its component is the group it belongs to.
 struct StepDraft: Identifiable {

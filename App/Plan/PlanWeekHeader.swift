@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Shows the calendar week with its range, steps to the neighboring weeks and returns to the current one.

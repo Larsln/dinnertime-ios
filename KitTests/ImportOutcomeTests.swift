@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Progress of imports, the background wait for their outcome and the notifications about it.
 struct ImportOutcomeTests {

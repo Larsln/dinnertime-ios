@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Entry point of the app.
 @main
-struct MealplannerApp: App {
+struct DinnertimeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var delegate
     @State private var session = AppSession()
 

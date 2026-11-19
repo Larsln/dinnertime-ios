@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Authorization code flow with PKCE.
 struct OIDCTests {
@@ -10,8 +10,8 @@ struct OIDCTests {
     )
 
     private let request = OIDCAuthorizationRequest(
-        clientID: "mealplanner",
-        redirectURI: "mealplanner://oidc",
+        clientID: "dinnertime",
+        redirectURI: "dinnertime://oidc",
         state: "state-1",
         nonce: "nonce-1",
         pkce: PKCE(verifier: "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk")
@@ -37,8 +37,8 @@ struct OIDCTests {
 
         #expect(url.host() == "id.example.org")
         #expect(values["response_type"] == "code")
-        #expect(values["client_id"] == "mealplanner")
-        #expect(values["redirect_uri"] == "mealplanner://oidc")
+        #expect(values["client_id"] == "dinnertime")
+        #expect(values["redirect_uri"] == "dinnertime://oidc")
         #expect(values["scope"] == "openid profile email")
         #expect(values["state"] == "state-1")
         #expect(values["nonce"] == "nonce-1")
@@ -47,13 +47,13 @@ struct OIDCTests {
     }
 
     @Test func readsTheCodeFromTheRedirect() throws {
-        let callback = try #require(URL(string: "mealplanner://oidc?code=abc&state=state-1"))
+        let callback = try #require(URL(string: "dinnertime://oidc?code=abc&state=state-1"))
 
         #expect(try request.authorizationCode(from: callback) == "abc")
     }
 
     @Test func rejectsRedirectsOfOtherRequests() throws {
-        let callback = try #require(URL(string: "mealplanner://oidc?code=abc&state=other"))
+        let callback = try #require(URL(string: "dinnertime://oidc?code=abc&state=other"))
 
         #expect(throws: OIDCError.authorizationFailed(description: nil)) {
             try request.authorizationCode(from: callback)
@@ -61,7 +61,7 @@ struct OIDCTests {
     }
 
     @Test func reportsProviderErrors() throws {
-        let callback = try #require(URL(string: "mealplanner://oidc?error=access_denied&error_description=Denied&state=state-1"))
+        let callback = try #require(URL(string: "dinnertime://oidc?error=access_denied&error_description=Denied&state=state-1"))
 
         #expect(throws: OIDCError.authorizationFailed(description: "Denied")) {
             try request.authorizationCode(from: callback)
@@ -77,8 +77,8 @@ struct OIDCTests {
         #expect(tokenRequest.value(forHTTPHeaderField: "Content-Type") == "application/x-www-form-urlencoded")
         #expect(body.contains("grant_type=authorization_code"))
         #expect(body.contains("code=a%2Bb%2Fc"))
-        #expect(body.contains("redirect_uri=mealplanner%3A%2F%2Foidc"))
-        #expect(body.contains("client_id=mealplanner"))
+        #expect(body.contains("redirect_uri=dinnertime%3A%2F%2Foidc"))
+        #expect(body.contains("client_id=dinnertime"))
         #expect(body.contains("code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"))
     }
 

@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 import Observation
 import PhotosUI
 import SwiftUI

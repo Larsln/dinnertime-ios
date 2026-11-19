@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Requests of the planner and the keeping and avoiding of proposals.
 struct MealPlanSuggestionTests {

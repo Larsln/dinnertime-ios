@@ -3,7 +3,7 @@ import XCTest
 /// Walks through the app against a real server and records a screenshot of every main screen.
 ///
 /// The server and account come from the environment of the test runner:
-/// `MEALPLANNER_SERVER`, `MEALPLANNER_USERNAME` and `MEALPLANNER_PASSWORD`.
+/// `DINNERTIME_SERVER`, `DINNERTIME_USERNAME` and `DINNERTIME_PASSWORD`.
 /// With `xcodebuild` they are passed with the prefix `TEST_RUNNER_`.
 /// The test is skipped when they are missing.
 @MainActor
@@ -103,7 +103,7 @@ final class WalkthroughTests: XCTestCase {
 
         XCTAssertTrue(app.staticTexts["Note"].waitForExistence(timeout: Self.timeout), "The details offer no note")
 
-        guard let shop = ProcessInfo.processInfo.environment["MEALPLANNER_TEST_SHOP"] else {
+        guard let shop = ProcessInfo.processInfo.environment["DINNERTIME_TEST_SHOP"] else {
             return
         }
         app.textFields["Shop"].tap()
@@ -208,11 +208,11 @@ private struct Account {
         let environment = ProcessInfo.processInfo.environment
 
         guard
-            let server = environment["MEALPLANNER_SERVER"],
-            let username = environment["MEALPLANNER_USERNAME"],
-            let password = environment["MEALPLANNER_PASSWORD"]
+            let server = environment["DINNERTIME_SERVER"],
+            let username = environment["DINNERTIME_USERNAME"],
+            let password = environment["DINNERTIME_PASSWORD"]
         else {
-            throw XCTSkip("Set MEALPLANNER_SERVER, MEALPLANNER_USERNAME and MEALPLANNER_PASSWORD to run the walkthrough.")
+            throw XCTSkip("Set DINNERTIME_SERVER, DINNERTIME_USERNAME and DINNERTIME_PASSWORD to run the walkthrough.")
         }
 
         return Account(server: server, username: username, password: password)

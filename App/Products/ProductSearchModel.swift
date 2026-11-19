@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Searches the products of the household by name or alias, page by page.

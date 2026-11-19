@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Lists the shops of the household and applies changes to them.

@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// All products of the household, searchable by name or alias, each opening its editor.

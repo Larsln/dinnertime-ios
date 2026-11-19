@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// One planned meal as a card: cover of the recipe, meal, title, servings and whether it was cooked.

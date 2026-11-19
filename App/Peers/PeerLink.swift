@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 @preconcurrency import MultipeerConnectivity
 
 /// Connects to phones of the household nearby and exchanges shopping list changes with them, without the server.

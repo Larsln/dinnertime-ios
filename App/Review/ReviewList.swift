@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Products whose suggested values wait for confirmation, each with the way to its editor.

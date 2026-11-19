@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Third step: the proposals, which can be locked and re-rolled before they are saved.

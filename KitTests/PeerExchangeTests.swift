@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// The direct exchange of shopping list changes between devices of one household.
 struct PeerExchangeTests {

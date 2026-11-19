@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The recipe collection with search, filters and access to the editor and the imports; notifications about imports lead here.

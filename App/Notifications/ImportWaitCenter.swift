@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 import UserNotifications
 
 /// Turns the outcomes of imports that finished in the background into local notifications.

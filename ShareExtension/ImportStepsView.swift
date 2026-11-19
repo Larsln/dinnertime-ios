@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The stages of an import below each other; finished ones are checked and the current one spins.

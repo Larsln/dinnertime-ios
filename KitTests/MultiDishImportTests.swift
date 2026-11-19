@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Imports of videos with several dishes: decoding, the outcome and links that wait with their number of dishes.
 struct MultiDishImportTests {

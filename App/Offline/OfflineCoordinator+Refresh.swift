@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// Bringing the local copy and the server in step: sending the queue, repairs, the feed, waiting links and images.
 extension OfflineCoordinator {

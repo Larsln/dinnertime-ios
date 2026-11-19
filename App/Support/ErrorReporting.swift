@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 
 /// A view model that keeps the message of its last failure for an alert.
 @MainActor

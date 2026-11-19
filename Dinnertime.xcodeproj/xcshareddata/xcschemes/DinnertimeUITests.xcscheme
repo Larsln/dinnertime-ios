@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9E4F241F487445CC74A82A27"
-               BuildableName = "Mealplanner.app"
-               BlueprintName = "Mealplanner"
-               ReferencedContainer = "container:Mealplanner.xcodeproj">
+               BlueprintIdentifier = "346609ED55060C4FB9FF0576"
+               BuildableName = "Dinnertime.app"
+               BlueprintName = "Dinnertime"
+               ReferencedContainer = "container:Dinnertime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,10 +29,10 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "48E8266891C7AB808D38E385"
-               BuildableName = "MealplannerUITests.xctest"
-               BlueprintName = "MealplannerUITests"
-               ReferencedContainer = "container:Mealplanner.xcodeproj">
+               BlueprintIdentifier = "80F170102C6DBA29729DD3D4"
+               BuildableName = "DinnertimeUITests.xctest"
+               BlueprintName = "DinnertimeUITests"
+               ReferencedContainer = "container:Dinnertime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,10 +46,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9E4F241F487445CC74A82A27"
-            BuildableName = "Mealplanner.app"
-            BlueprintName = "Mealplanner"
-            ReferencedContainer = "container:Mealplanner.xcodeproj">
+            BlueprintIdentifier = "346609ED55060C4FB9FF0576"
+            BuildableName = "Dinnertime.app"
+            BlueprintName = "Dinnertime"
+            ReferencedContainer = "container:Dinnertime.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -58,10 +58,10 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "48E8266891C7AB808D38E385"
-               BuildableName = "MealplannerUITests.xctest"
-               BlueprintName = "MealplannerUITests"
-               ReferencedContainer = "container:Mealplanner.xcodeproj">
+               BlueprintIdentifier = "80F170102C6DBA29729DD3D4"
+               BuildableName = "DinnertimeUITests.xctest"
+               BlueprintName = "DinnertimeUITests"
+               ReferencedContainer = "container:Dinnertime.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -82,10 +82,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9E4F241F487445CC74A82A27"
-            BuildableName = "Mealplanner.app"
-            BlueprintName = "Mealplanner"
-            ReferencedContainer = "container:Mealplanner.xcodeproj">
+            BlueprintIdentifier = "346609ED55060C4FB9FF0576"
+            BuildableName = "Dinnertime.app"
+            BlueprintName = "Dinnertime"
+            ReferencedContainer = "container:Dinnertime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -99,10 +99,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9E4F241F487445CC74A82A27"
-            BuildableName = "Mealplanner.app"
-            BlueprintName = "Mealplanner"
-            ReferencedContainer = "container:Mealplanner.xcodeproj">
+            BlueprintIdentifier = "346609ED55060C4FB9FF0576"
+            BuildableName = "Dinnertime.app"
+            BlueprintName = "Dinnertime"
+            ReferencedContainer = "container:Dinnertime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

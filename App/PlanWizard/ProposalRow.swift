@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// One proposal of the planner with the buttons that lock it or ask for another recipe.

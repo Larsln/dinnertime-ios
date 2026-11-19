@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// The values of a product while they are edited.
 struct ProductDraft {

@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Requests that change products, their values and the tools.
 struct CatalogRequestTests {

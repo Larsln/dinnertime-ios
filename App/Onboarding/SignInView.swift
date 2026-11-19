@@ -1,5 +1,5 @@
 import AuthenticationServices
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Sign-in to the server that was chosen during setup.

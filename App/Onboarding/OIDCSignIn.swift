@@ -1,5 +1,5 @@
 import AuthenticationServices
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Runs the authorization code flow with PKCE against the provider of a server.

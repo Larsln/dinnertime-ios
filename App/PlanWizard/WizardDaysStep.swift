@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// First step: the week, the matrix of days and meals with its presets, and the servings.

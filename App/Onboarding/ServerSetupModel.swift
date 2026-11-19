@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Asks for the address of the server and validates it.

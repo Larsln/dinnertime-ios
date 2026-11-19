@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// A field of several lines for the note of a product, held to the length the server stores.

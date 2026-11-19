@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The products tab: the catalog of all products, the products whose estimated values wait
@@ -76,7 +76,6 @@ struct ReviewView: View {
             .navigationDestination(for: Product.self) { product in
                 ProductEditorView(session: session, product: product, onChange: reload)
             }
-            .settingsToolbar(session: session)
             .toolbar {
                 if segment != .review {
                     ToolbarItem(placement: .topBarTrailing) {

@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// A square tile of the shopping list: a line icon, the product's name and a short amount.

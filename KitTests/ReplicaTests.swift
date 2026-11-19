@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// The local copy: applying the feed, persistence and reads.
 struct ReplicaTests {

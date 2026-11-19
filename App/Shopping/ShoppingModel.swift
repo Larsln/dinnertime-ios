@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Loads the current shopping list and applies changes to it.

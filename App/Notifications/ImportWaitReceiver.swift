@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// Receives the answers of the background transfers that wait for imports.
 final class ImportWaitReceiver: NSObject, URLSessionDownloadDelegate, Sendable {

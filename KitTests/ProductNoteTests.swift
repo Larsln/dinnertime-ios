@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// The note of a product: decoding, requests and the local copy.
 struct ProductNoteTests {

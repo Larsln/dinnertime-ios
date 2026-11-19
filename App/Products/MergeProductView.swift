@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Asks for the product that a duplicate is merged into and warns about the consequences.

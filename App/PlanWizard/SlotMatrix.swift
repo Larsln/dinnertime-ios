@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The days of a week as rows and the meals as columns, each cell a slot that can be selected.

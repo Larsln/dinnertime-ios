@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9E4F241F487445CC74A82A27"
-               BuildableName = "Mealplanner.app"
-               BlueprintName = "Mealplanner"
-               ReferencedContainer = "container:Mealplanner.xcodeproj">
+               BlueprintIdentifier = "346609ED55060C4FB9FF0576"
+               BuildableName = "Dinnertime.app"
+               BlueprintName = "Dinnertime"
+               ReferencedContainer = "container:Dinnertime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,10 +29,10 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04D2A67A08ABC226C71D8F4B"
-               BuildableName = "MealplannerKitTests.xctest"
-               BlueprintName = "MealplannerKitTests"
-               ReferencedContainer = "container:Mealplanner.xcodeproj">
+               BlueprintIdentifier = "6D5334042C8B3162E813B949"
+               BuildableName = "DinnertimeKitTests.xctest"
+               BlueprintName = "DinnertimeKitTests"
+               ReferencedContainer = "container:Dinnertime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,10 +46,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9E4F241F487445CC74A82A27"
-            BuildableName = "Mealplanner.app"
-            BlueprintName = "Mealplanner"
-            ReferencedContainer = "container:Mealplanner.xcodeproj">
+            BlueprintIdentifier = "346609ED55060C4FB9FF0576"
+            BuildableName = "Dinnertime.app"
+            BlueprintName = "Dinnertime"
+            ReferencedContainer = "container:Dinnertime.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -58,10 +58,10 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04D2A67A08ABC226C71D8F4B"
-               BuildableName = "MealplannerKitTests.xctest"
-               BlueprintName = "MealplannerKitTests"
-               ReferencedContainer = "container:Mealplanner.xcodeproj">
+               BlueprintIdentifier = "6D5334042C8B3162E813B949"
+               BuildableName = "DinnertimeKitTests.xctest"
+               BlueprintName = "DinnertimeKitTests"
+               ReferencedContainer = "container:Dinnertime.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -82,10 +82,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9E4F241F487445CC74A82A27"
-            BuildableName = "Mealplanner.app"
-            BlueprintName = "Mealplanner"
-            ReferencedContainer = "container:Mealplanner.xcodeproj">
+            BlueprintIdentifier = "346609ED55060C4FB9FF0576"
+            BuildableName = "Dinnertime.app"
+            BlueprintName = "Dinnertime"
+            ReferencedContainer = "container:Dinnertime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -101,10 +101,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9E4F241F487445CC74A82A27"
-            BuildableName = "Mealplanner.app"
-            BlueprintName = "Mealplanner"
-            ReferencedContainer = "container:Mealplanner.xcodeproj">
+            BlueprintIdentifier = "346609ED55060C4FB9FF0576"
+            BuildableName = "Dinnertime.app"
+            BlueprintName = "Dinnertime"
+            ReferencedContainer = "container:Dinnertime.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

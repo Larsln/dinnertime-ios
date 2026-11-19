@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// Finds the web link in the content another app shared.
 @MainActor

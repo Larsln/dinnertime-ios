@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Loads one recipe, scales its ingredients to the wanted servings and keeps the marks of the user.

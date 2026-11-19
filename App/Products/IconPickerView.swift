@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Sheet that searches the product icons by name and chooses one, or returns to the icon of the store section.

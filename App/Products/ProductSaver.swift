@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 
 /// Sends the difference between a product and its edited draft to the server.
 @MainActor

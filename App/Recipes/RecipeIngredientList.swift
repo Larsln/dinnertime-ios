@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The servings stepper and the ingredients of a recipe, grouped by component.

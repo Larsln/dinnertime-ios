@@ -1,5 +1,5 @@
 import AuthenticationServices
-import MealplannerKit
+import DinnertimeKit
 import Observation
 import SwiftUI
 

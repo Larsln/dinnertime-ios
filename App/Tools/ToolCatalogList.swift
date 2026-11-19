@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// All tools of the household with search and the ways to mark, rename, merge and delete them.

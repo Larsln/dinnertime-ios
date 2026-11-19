@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// A recipe with its rating at the top, its ingredients and method on two segments and the ways to change it.

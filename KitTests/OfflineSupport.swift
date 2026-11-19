@@ -1,5 +1,5 @@
 import Foundation
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Helpers for the tests of the offline core.
 enum OfflineSupport {

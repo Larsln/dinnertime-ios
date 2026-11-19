@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Loads and changes the settings of the importer.

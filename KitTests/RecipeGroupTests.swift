@@ -1,5 +1,5 @@
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Grouping of stored rows by section and the way back.
 struct RecipeGroupTests {

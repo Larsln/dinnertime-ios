@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Loads the recipes that match a search text and the chosen filters, page by page.

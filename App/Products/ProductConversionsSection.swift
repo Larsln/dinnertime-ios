@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The unit conversions of a product, which can be set, marked as impossible and removed.

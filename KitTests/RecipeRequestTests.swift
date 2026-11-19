@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Requests that change recipes and the marks of the user.
 struct RecipeRequestTests {

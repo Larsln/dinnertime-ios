@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Two rows of quick choices that set the selection to a set of days and a set of meals.

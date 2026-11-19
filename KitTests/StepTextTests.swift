@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Amount markers in the text of a step and their scaling to the servings.
 struct StepTextTests {

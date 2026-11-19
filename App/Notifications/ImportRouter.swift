@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Carries the screen a tapped notification asks for to the views that can show it.

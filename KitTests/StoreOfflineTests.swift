@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// The shops on the local copy: what the feed brings, changes made offline and what they do to the offers of the products.
 struct StoreOfflineTests {

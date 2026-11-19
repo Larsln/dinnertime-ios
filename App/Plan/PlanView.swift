@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The meal plan of one week: a strip of its days above one section of cards per day.
@@ -48,7 +48,6 @@ struct PlanView: View {
             .navigationDestination(for: RecipeSummary.self) { recipe in
                 RecipeDetailView(session: session, summary: recipe)
             }
-            .settingsToolbar(session: session)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button("Plan week", systemImage: "wand.and.stars") {

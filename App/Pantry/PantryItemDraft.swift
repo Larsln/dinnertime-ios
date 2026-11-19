@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// The input for a new pantry item.
 struct PantryItemDraft {

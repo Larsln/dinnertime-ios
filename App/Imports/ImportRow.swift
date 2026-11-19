@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// One import as a card: its recipes once it is done, its progress while it runs, or the reason it failed.

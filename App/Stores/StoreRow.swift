@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// A shop with the number of offers noted for it and the switch that says whether the household buys there at the moment.

@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// One ingredient line while it is edited; its component is the group it belongs to.
 struct IngredientDraft: Identifiable {

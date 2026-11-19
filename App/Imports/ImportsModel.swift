@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Queues imports and follows them until they are completed or failed.

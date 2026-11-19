@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Five stars in half steps that set a rating by tapping or dragging across them; the value is reported on release.

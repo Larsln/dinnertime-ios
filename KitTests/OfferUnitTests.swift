@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// The unit the size of an offer is stated in: decoding, sizes stored before units, display and the local copy.
 struct OfferUnitTests {

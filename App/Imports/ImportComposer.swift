@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The form that starts an import: the link, how many dishes it shows and the button to import it.

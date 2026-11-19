@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Edits one ingredient line: its product or free text, amount, note and estimate mark.

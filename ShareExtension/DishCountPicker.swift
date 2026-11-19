@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// A row with a menu to say how many dishes a video shows; by default the server finds out.

@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// The offers of one product: loads them with the shops of the household and adds, corrects and removes them.

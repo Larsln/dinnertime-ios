@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// The shops of the household: decoding, requests, the choice when an offer is entered and what paused shops hide.
 struct StoreTests {

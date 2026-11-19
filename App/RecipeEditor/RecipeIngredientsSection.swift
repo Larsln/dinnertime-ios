@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The ingredient lines of a recipe in freely named groups; lines can be added, opened, reordered and deleted within their group.

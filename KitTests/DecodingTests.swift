@@ -1,13 +1,13 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Decoding of answers recorded from a real server.
 struct DecodingTests {
     @Test func serverWithoutProvider() throws {
         let info = try AuthEndpoints.server.decode(Fixture.data("server"))
 
-        #expect(info.name == "Mealplanner")
+        #expect(info.name == "Dinnertime")
         #expect(info.supportedLocales == ["de", "en"])
         #expect(info.oidcProvider == nil)
     }
@@ -15,7 +15,7 @@ struct DecodingTests {
     @Test func serverWithProvider() throws {
         let info = try AuthEndpoints.server.decode(Fixture.data("server-oidc"))
 
-        #expect(info.oidcProvider?.clientID == "mealplanner")
+        #expect(info.oidcProvider?.clientID == "dinnertime")
         #expect(info.oidcProvider?.issuer == URL(string: "https://id.example.org/realms/home"))
     }
 

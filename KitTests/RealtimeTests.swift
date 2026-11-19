@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Parsing of the event stream and what follows from its events.
 struct RealtimeTests {

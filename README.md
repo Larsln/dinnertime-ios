@@ -1,6 +1,6 @@
-# Mealplanner for iOS
+# Dinnertime for iOS
 
-Native iOS client for the self-hosted Mealplanner server. Every household runs its
+Native iOS client for the self-hosted Dinnertime server. Every household runs its
 own server; the app asks for its address on first launch and talks to nothing else.
 
 - Browse, search and filter recipes by course, tag and favorites, scale
@@ -25,7 +25,7 @@ The interface is available in English and German.
 
 - Xcode 26 or later
 - iOS 18 or later
-- A running Mealplanner server
+- A running Dinnertime server
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen), only when the project
   structure changes
 
@@ -37,14 +37,14 @@ accepted for `localhost`, IP addresses and `.local` names only.
 The Xcode project is checked in and opens without further steps:
 
 ```sh
-open Mealplanner.xcodeproj
+open Dinnertime.xcodeproj
 ```
 
 On the command line:
 
 ```sh
-xcodebuild -scheme Mealplanner -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
-xcodebuild -scheme Mealplanner -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test
+xcodebuild -scheme Dinnertime -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -scheme Dinnertime -destination 'platform=iOS Simulator,name=iPhone 16 Pro' test
 ```
 
 The project is generated from `project.yml`. After adding, moving or removing
@@ -77,10 +77,10 @@ signing add it to both App IDs in the developer account.
 
 | Folder | Target | Content |
 |---|---|---|
-| `App` | `Mealplanner` | SwiftUI views and view models, one folder per area |
+| `App` | `Dinnertime` | SwiftUI views and view models, one folder per area |
 | `ShareExtension` | `ShareExtension` | Share sheet extension that queues imports |
-| `Kit` | `MealplannerKit` | Framework shared by both: API client, endpoints, models, formatting, Keychain, OpenID Connect, the offline copy and the queue of changes |
-| `KitTests` | `MealplannerKitTests` | Unit tests of the framework with recorded API answers |
+| `Kit` | `DinnertimeKit` | Framework shared by both: API client, endpoints, models, formatting, Keychain, OpenID Connect, the offline copy and the queue of changes |
+| `KitTests` | `DinnertimeKitTests` | Unit tests of the framework with recorded API answers |
 | `Config` | | Build settings |
 | `Scripts` | | Maintenance scripts |
 
@@ -152,22 +152,22 @@ without it everything else works the same.
 If the server offers OpenID Connect, the sign-in screen shows a second button.
 The app runs the authorization code flow with PKCE in the system browser and
 exchanges the ID token at the server. Register the redirect URI
-`mealplanner://oidc` for the client at your provider.
+`dinnertime://oidc` for the client at your provider.
 
 ## UI tests on a device
 
-The scheme `MealplannerUITests` drives the installed app against a real
+The scheme `DinnertimeUITests` drives the installed app against a real
 server: it signs in, visits every tab, opens a recipe with its method and its
 editor, opens the editor of a product and shares a page from Safari to the
 share extension. Nothing is saved. Screenshots are attached to the test result.
 The tests are skipped unless the server and account are given:
 
 ```sh
-TEST_RUNNER_MEALPLANNER_SERVER=http://192.168.1.10:8000 \
-TEST_RUNNER_MEALPLANNER_USERNAME=demo \
-TEST_RUNNER_MEALPLANNER_PASSWORD=secret \
-TEST_RUNNER_MEALPLANNER_SHARE_URL=https://example.org/a-recipe \
-xcodebuild test -scheme MealplannerUITests \
+TEST_RUNNER_DINNERTIME_SERVER=http://192.168.1.10:8000 \
+TEST_RUNNER_DINNERTIME_USERNAME=demo \
+TEST_RUNNER_DINNERTIME_PASSWORD=secret \
+TEST_RUNNER_DINNERTIME_SHARE_URL=https://example.org/a-recipe \
+xcodebuild test -scheme DinnertimeUITests \
     -destination 'platform=iOS,name=My iPhone' -allowProvisioningUpdates
 ```
 

@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The shopping list as tiles: the open items by area of the store, the checked ones in a last section.

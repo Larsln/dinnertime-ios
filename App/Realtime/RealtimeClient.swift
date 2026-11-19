@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 /// Listens to the change events of the server and has the local copy fetch what changed.
 ///

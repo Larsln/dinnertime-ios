@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The one place a recipe is rated: the stars with the own rating, the way to withdraw it and, to the right, the household average.

@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// A tool with the number of recipes that need it and the switch that says whether the household has it.

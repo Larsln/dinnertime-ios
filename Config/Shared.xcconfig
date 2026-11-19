@@ -2,10 +2,10 @@
 // which is ignored by git.
 
 // Name shown on the home screen and in the share sheet.
-APP_DISPLAY_NAME = Mealplanner
+APP_DISPLAY_NAME = Dinnertime
 
 // Bundle identifier of the app; the share extension appends ".share".
-APP_BUNDLE_ID = io.github.larsln.mealplanner
+APP_BUNDLE_ID = io.github.larsln.dinnertime
 
 // Keychain access group through which app and share extension share the credentials.
 KEYCHAIN_GROUP = $(APP_BUNDLE_ID).shared

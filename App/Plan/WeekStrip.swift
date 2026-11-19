@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The seven days of a week side by side; today is highlighted and days with entries carry a dot.

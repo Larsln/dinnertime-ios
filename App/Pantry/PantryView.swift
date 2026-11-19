@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Opened and leftover products at home.
@@ -37,7 +37,6 @@ struct PantryView: View {
                 }
             }
             .navigationTitle("Pantry")
-            .settingsToolbar(session: session)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add to pantry", systemImage: "plus") {

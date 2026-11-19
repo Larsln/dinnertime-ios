@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// The offers of a product on the local copy and on their way to the server.
 struct ProductOfferOfflineTests {

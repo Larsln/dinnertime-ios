@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// Decoding of courses, marks, tools and the values of a product.
 struct CatalogDecodingTests {

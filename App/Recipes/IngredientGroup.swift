@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 
 /// Consecutive ingredient lines that share a section heading.
 struct IngredientGroup: Identifiable {

@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// The steps of a recipe in freely named groups, numbered across all groups; steps are edited in place and can be added, reordered and deleted within their group.

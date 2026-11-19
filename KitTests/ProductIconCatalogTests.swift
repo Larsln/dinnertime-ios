@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import MealplannerKit
+@testable import DinnertimeKit
 
 /// The manifest of the product icons and the choice of the icon to show.
 struct ProductIconCatalogTests {

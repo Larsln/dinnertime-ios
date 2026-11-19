@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Menu that restricts the recipe list to favorites, one course and one tag.

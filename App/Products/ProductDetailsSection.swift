@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Name, icon, store section, base unit, shelf life and pantry staple mark of a product.

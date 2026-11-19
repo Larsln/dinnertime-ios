@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Edits a product with its offers, packages and conversions, confirms, merges or deletes it.

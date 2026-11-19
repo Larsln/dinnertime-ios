@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import SwiftUI
 
 /// Lets the user search the products and choose one, optionally creating it from the typed name.

@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// Loads a product with its packages and conversions and applies the changes of its editor.

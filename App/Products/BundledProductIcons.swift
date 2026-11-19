@@ -1,5 +1,5 @@
 import Foundation
-import MealplannerKit
+import DinnertimeKit
 
 extension ProductIconCatalog {
     /// The icon set the app ships, read from the manifest in its resources.

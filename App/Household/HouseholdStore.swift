@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 import Observation
 
 /// The settings of the household, loaded once per session and shared by the screens that preset servings or show prices.

@@ -1,4 +1,4 @@
-import MealplannerKit
+import DinnertimeKit
 
 /// Consecutive steps that share a section heading.
 struct StepGroup: Identifiable {
