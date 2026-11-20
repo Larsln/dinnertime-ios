@@ -13,7 +13,7 @@ private struct NameAlert: ViewModifier {
             .alert(title, isPresented: $isPresented) {
                 TextField("Name", text: $name)
                 Button("Cancel", role: .cancel) {}
-                Button("Create") {
+                Button("Create", role: .confirm) {
                     if let name = name.nilIfBlank {
                         onCreate(name)
                     }

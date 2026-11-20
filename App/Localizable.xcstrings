@@ -2213,16 +2213,6 @@
         }
       }
     },
-    "Preferred stores decide which package sizes the shopping list uses. Other stores only count for what nothing else sells.": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bevorzugte Läden bestimmen, mit welchen Packungsgrößen die Einkaufsliste rechnet. Andere Läden zählen nur für das, was es sonst nirgends gibt."
-          }
-        }
-      }
-    },
     "Preparation": {
       "localizations": {
         "de": {
@@ -2839,6 +2829,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quelle"
+          }
+        }
+      }
+    },
+    "Starred stores decide which package sizes the shopping list uses. Other stores only count for what nothing else sells.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Läden mit Stern bestimmen, mit welchen Packungsgrößen die Einkaufsliste rechnet. Andere Läden zählen nur für das, was es sonst nirgends gibt."
           }
         }
       }

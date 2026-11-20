@@ -10,15 +10,17 @@ struct StoreCatalogList: View {
 
     var body: some View {
         PaperList {
-            if !model.stores.isEmpty {
-                Text("Preferred stores decide which package sizes the shopping list uses. Other stores only count for what nothing else sells.")
-                    .font(.footnote)
-                    .foregroundStyle(.inkMuted)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-            }
-            ForEach(model.stores) { store in
-                row(for: store)
+            Section {
+                ForEach(model.stores) { store in
+                    row(for: store)
+                }
+            } header: {
+                if !model.stores.isEmpty {
+                    Text("Starred stores decide which package sizes the shopping list uses. Other stores only count for what nothing else sells.")
+                        .font(.footnote)
+                        .foregroundStyle(.inkMuted)
+                        .textCase(nil)
+                }
             }
         }
         .overlay {

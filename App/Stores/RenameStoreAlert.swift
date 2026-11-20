@@ -13,7 +13,7 @@ private struct RenameStoreAlert: ViewModifier {
             .alert("Rename store", isPresented: isPresented, presenting: store) { store in
                 TextField("Name", text: $name)
                 Button("Cancel", role: .cancel) {}
-                Button("Save") {
+                Button("Save", role: .confirm) {
                     if let name = ProductOffer.storedStore(name) {
                         onRename(store, name)
                     }

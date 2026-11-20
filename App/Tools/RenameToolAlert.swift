@@ -13,7 +13,7 @@ private struct RenameToolAlert: ViewModifier {
             .alert("Rename tool", isPresented: isPresented, presenting: tool) { tool in
                 TextField("Name", text: $name)
                 Button("Cancel", role: .cancel) {}
-                Button("Save") {
+                Button("Save", role: .confirm) {
                     if let name = name.nilIfBlank {
                         onRename(tool, name)
                     }

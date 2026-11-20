@@ -1,8 +1,8 @@
 import DinnertimeKit
 import SwiftUI
 
-/// A shop with the number of offers noted for it and two switches: whether the household usually goes there
-/// and whether it buys there at the moment.
+/// A shop with the number of offers noted for it, a star for the shops the household usually goes to and a
+/// switch for whether it buys there at the moment.
 struct StoreRow: View {
     let store: Store
     let onSetPreferred: (Bool) -> Void
@@ -10,6 +10,17 @@ struct StoreRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
+            Button {
+                onSetPreferred(!store.isPreferred)
+            } label: {
+                Image(systemName: store.isPreferred ? "star.fill" : "star")
+                    .font(.title3)
+                    .foregroundStyle(store.isPreferred ? Color.accent : Color.inkMuted)
+                    .contentTransition(.symbolEffect(.replace))
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("preferred")
+            .accessibilityAddTraits(store.isPreferred ? .isSelected : [])
             VStack(alignment: .leading, spacing: 2) {
                 Text(verbatim: store.name)
                 if let count = store.offerCount {
@@ -19,7 +30,6 @@ struct StoreRow: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            control("preferred", isOn: store.isPreferred, onSet: onSetPreferred)
             control("active", isOn: store.isActive, onSet: onSetActive)
         }
     }
