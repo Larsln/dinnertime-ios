@@ -13,6 +13,11 @@ public enum MealPlanEndpoints {
         let cooked: Bool
     }
 
+    private struct ShiftBody: Encodable {
+        let from: DayDate
+        let days: Int
+    }
+
     private struct BatchBody: Encodable {
         let entries: [MealPlanBatchEntry]
     }
@@ -29,6 +34,26 @@ public enum MealPlanEndpoints {
     /// `POST /meal-plan`: plans a recipe.
     public static func create(date: DayDate, meal: MealType, recipeID: Int, servings: Int) -> Endpoint<MealPlanEntry> {
         .resource(.post, "meal-plan", body: CreateBody(date: date, meal: meal, recipeId: recipeID, servings: servings))
+    }
+
+    /// `PATCH /meal-plan/{id}`: moves an entry to another day or meal, swaps its recipe or changes its servings.
+    public static func update(id: Int, date: DayDate, meal: MealType, recipeID: Int, servings: Int) -> Endpoint<MealPlanEntry> {
+        .resource(.patch, "meal-plan/\(id)", body: CreateBody(date: date, meal: meal, recipeId: recipeID, servings: servings))
+    }
+
+    /// `POST /meal-plan/shift`: moves every meal not cooked yet from `from` on by `days`, which may be negative,
+    /// and answers with the entries that moved.
+    public static func shift(from: DayDate, days: Int) -> Endpoint<[MealPlanEntry]> {
+        .resource(.post, "meal-plan/shift", body: ShiftBody(from: from, days: days))
+    }
+
+    /// `GET /meal-plan/reasons`: why each entry between two days goes with the others.
+    public static func reasons(from: DayDate, to: DayDate) -> Endpoint<[MealPlanEntryReasons]> {
+        let query = [
+            URLQueryItem(name: "from", value: from.description),
+            URLQueryItem(name: "to", value: to.description),
+        ]
+        return .resource(.get, "meal-plan/reasons", query: query)
     }
 
     /// `PATCH /meal-plan/{id}`: marks an entry as cooked or not cooked.

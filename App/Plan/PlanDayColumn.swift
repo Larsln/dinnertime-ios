@@ -2,12 +2,15 @@ import DinnertimeKit
 import SwiftUI
 
 /// One day of the plan as a column: weekday and date at the top, its meals as cards below, or a dashed cell that plans one.
+///
+/// Pressing a meal offers to change, move or remove it; the menu of the day moves the plan from that day on.
 struct PlanDayColumn: View {
     private static let cellHeight: CGFloat = 64
 
     let day: DayDate
     let model: PlanModel
     let onAdd: () -> Void
+    let onEdit: (MealPlanEntry) -> Void
 
     var body: some View {
         let entries = model.entries(on: day)
@@ -15,19 +18,12 @@ struct PlanDayColumn: View {
             header(showsPlus: !entries.isEmpty)
             ForEach(entries) { entry in
                 NavigationLink(value: entry.recipe) {
-                    PlanBoardCard(entry: entry)
+                    PlanBoardCard(entry: entry, reasons: model.reasons[entry.id] ?? [])
                 }
                 .buttonStyle(.plain)
                 .contextMenu {
-                    Button(entry.isCooked ? "Not cooked" : "Cooked", systemImage: entry.isCooked ? "arrow.uturn.backward" : "checkmark") {
-                        Task {
-                            await model.toggleCooked(entry)
-                        }
-                    }
-                    Button("Delete", systemImage: "trash", role: .destructive) {
-                        Task {
-                            await model.delete(entry)
-                        }
+                    PlanEntryMenu(entry: entry, model: model) {
+                        onEdit(entry)
                     }
                 }
             }
@@ -59,6 +55,12 @@ struct PlanDayColumn: View {
             .accessibilityLabel(Text(verbatim: day.longText))
             .accessibilityAddTraits(.isHeader)
             Spacer(minLength: 0)
+            Menu("Move the plan", systemImage: "ellipsis") {
+                PlanShiftButtons(day: day, model: model)
+            }
+            .labelStyle(.iconOnly)
+            .buttonStyle(.borderless)
+            .accessibilityValue(Text(verbatim: day.longText))
             if showsPlus {
                 Button("Plan a meal", systemImage: "plus", action: onAdd)
                     .labelStyle(.iconOnly)

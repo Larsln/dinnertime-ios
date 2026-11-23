@@ -1,12 +1,17 @@
 import DinnertimeKit
 import Observation
 
-/// Loads and changes the meal plan of one week.
+/// Loads and changes the meal plan of one week, with why each meal goes with the others.
+///
+/// Every change reloads the week, since moving one meal can change what the others share; the server
+/// adjusts the shopping list on its own.
 @MainActor
 @Observable
 final class PlanModel: ErrorReporting {
     var errorMessage: String?
     private(set) var entries: [MealPlanEntry] = []
+    /// Why each entry goes with the others, by entry id; empty while the server cannot be reached.
+    private(set) var reasons: [Int: [PlanReason]] = [:]
 
     private var week: Week?
     private let session: AppSession
@@ -32,16 +37,35 @@ final class PlanModel: ErrorReporting {
                 entries = loaded
             }
         }
+        await loadReasons(of: week)
     }
 
-    /// Plans a recipe; returns whether the server accepted it.
-    func add(_ draft: PlanEntryDraft) async -> Bool {
+    /// Plans a recipe or changes a planned entry; returns whether the server accepted it.
+    func save(_ draft: PlanEntryDraft) async -> Bool {
         guard let recipe = draft.recipe else {
             return false
         }
-        return await attempt {
-            let endpoint = MealPlanEndpoints.create(date: DayDate(draft.date), meal: draft.meal, recipeID: recipe.id, servings: draft.servings)
-            insert([try await session.send(endpoint)])
+        let day = DayDate(draft.date)
+        return await change {
+            if let id = draft.entryID {
+                _ = try await session.send(MealPlanEndpoints.update(id: id, date: day, meal: draft.meal, recipeID: recipe.id, servings: draft.servings))
+            } else {
+                _ = try await session.send(MealPlanEndpoints.create(date: day, meal: draft.meal, recipeID: recipe.id, servings: draft.servings))
+            }
+        }
+    }
+
+    /// Moves an entry by `days`, which may be negative.
+    func move(_ entry: MealPlanEntry, by days: Int) async {
+        await change {
+            _ = try await session.send(MealPlanEndpoints.update(id: entry.id, date: entry.date.adding(days: days), meal: entry.meal, recipeID: entry.recipe.id, servings: entry.servings))
+        }
+    }
+
+    /// Moves every meal not cooked yet from `day` on by `days`, for when the household eats something else.
+    func shift(from day: DayDate, by days: Int) async {
+        await change {
+            _ = try await session.send(MealPlanEndpoints.shift(from: day, days: days))
         }
     }
 
@@ -77,16 +101,26 @@ final class PlanModel: ErrorReporting {
 
     /// Removes an entry from the plan.
     func delete(_ entry: MealPlanEntry) async {
-        await attempt {
+        await change {
             try await session.send(MealPlanEndpoints.delete(id: entry.id))
-            entries.removeAll { $0.id == entry.id }
         }
     }
 
-    private func insert(_ added: [MealPlanEntry]) {
-        guard let week else {
-            return
+    /// Runs a change to the plan and reloads the week once the server accepted it.
+    @discardableResult
+    private func change(_ work: () async throws -> Void) async -> Bool {
+        let succeeded = await attempt(work)
+        if succeeded, let week {
+            await load(week)
         }
-        entries += added.filter { week.contains($0.date) }
+        return succeeded
+    }
+
+    /// Asks the server why the meals of `week` go together. Without a connection the plan simply shows no reasons.
+    private func loadReasons(of week: Week) async {
+        let loaded = try? await session.send(MealPlanEndpoints.reasons(from: week.start, to: week.end))
+        if self.week == week {
+            reasons = Dictionary((loaded ?? []).map { ($0.entryID, $0.reasons) }) { first, _ in first }
+        }
     }
 }

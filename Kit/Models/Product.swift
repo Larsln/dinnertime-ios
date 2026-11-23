@@ -31,6 +31,8 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
     public let shelfLifeOpenedDays: Int?
     /// What the household noted about the product beyond the shops that sell it.
     public var note: String?
+    /// The product this one is bought as: it shares that product's entry on the shopping list.
+    public let buyAs: ProductReference?
     public let status: ReviewStatus
     public let enrichedAt: Date?
     public let recipeCount: Int?
@@ -41,7 +43,7 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
     public var offers: [ProductOffer]
 
     private enum CodingKeys: String, CodingKey {
-        case id, name, pluralName, icon, baseUnit, isPantryStaple, shelfLifeOpenedDays, note, status
+        case id, name, pluralName, icon, baseUnit, isPantryStaple, shelfLifeOpenedDays, note, buyAs, status
         case enrichedAt, recipeCount, storeSection, aliases, conversions, offers
     }
 
@@ -55,6 +57,7 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
         isPantryStaple = try container.decodeIfPresent(Bool.self, forKey: .isPantryStaple)
         shelfLifeOpenedDays = try container.decodeIfPresent(Int.self, forKey: .shelfLifeOpenedDays)
         note = try container.decodeIfPresent(String.self, forKey: .note)
+        buyAs = try container.decodeIfPresent(ProductReference.self, forKey: .buyAs)
         status = try container.decode(ReviewStatus.self, forKey: .status)
         enrichedAt = try container.decodeIfPresent(Date.self, forKey: .enrichedAt)
         recipeCount = try container.decodeIfPresent(Int.self, forKey: .recipeCount)
@@ -69,6 +72,17 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
     public static func storedNote(_ text: String?) -> String? {
         let text = (text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).prefix(noteLimit)
         return text.isEmpty ? nil : String(text)
+    }
+}
+
+/// Names a product another record points to.
+public struct ProductReference: Codable, Hashable, Identifiable, Sendable {
+    public let id: Int
+    public let name: String
+
+    public init(id: Int, name: String) {
+        self.id = id
+        self.name = name
     }
 }
 

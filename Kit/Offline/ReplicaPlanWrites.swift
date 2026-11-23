@@ -30,12 +30,29 @@ extension Replica {
             put(.mealPlanEntries, entry)
             return LocalResult(body: resource(shownEntry(entry)), areas: [.plan], change: QueuedChange())
         }
+        if request.matches(.post, "meal-plan", "shift") {
+            let moved = shiftedEntries(from: request.body["from"] as? String ?? "", days: request.body["days"] as? Int ?? 0)
+            moved.forEach { put(.mealPlanEntries, $0) }
+            return LocalResult(body: resource(moved.map(shownEntry)), areas: [.plan], change: QueuedChange())
+        }
         if request.matches(.delete, "meal-plan", "*") {
             let id = try existing(.mealPlanEntries, request.id(at: 1)).recordID ?? 0
             remove(.mealPlanEntries, id)
             return LocalResult(areas: [.plan], change: QueuedChange())
         }
         return nil
+    }
+
+    /// The entries not cooked yet from `from` on, each moved by `days`, in the order of their days as the server answers.
+    private func shiftedEntries(from: String, days: Int) -> [JSONObject] {
+        all(.mealPlanEntries)
+            .filter { ($0["date"] as? String ?? "") >= from && ($0["cooked_at"] ?? NSNull()) is NSNull }
+            .sorted { ($0["date"] as? String ?? "", $0.recordID ?? 0) < ($1["date"] as? String ?? "", $1.recordID ?? 0) }
+            .map { entry in
+                var moved = entry
+                moved["date"] = (entry["date"] as? String).flatMap { DayDate($0) }.map { $0.adding(days: days).description } ?? entry["date"]
+                return moved
+            }
     }
 
     private mutating func planEntry(from body: JSONObject) throws -> JSONObject {

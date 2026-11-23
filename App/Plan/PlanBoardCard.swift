@@ -1,14 +1,16 @@
 import DinnertimeKit
 import SwiftUI
 
-/// One planned meal as a card in the column of its day: the cover on top, then meal, title and servings.
+/// One planned meal as a card in the column of its day: the cover on top, then meal, title, servings and why
+/// it goes with the rest of the plan.
 ///
-/// A cooked meal stands back: sunken, muted and without its cover.
+/// A cooked meal stands back: sunken, muted and without its cover or reasons.
 struct PlanBoardCard: View {
     private static let coverHeight: CGFloat = 64
     private static let coverCorner: CGFloat = 10
 
     let entry: MealPlanEntry
+    let reasons: [PlanReason]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -30,6 +32,10 @@ struct PlanBoardCard: View {
             Text("\(entry.servings) servings")
                 .font(.caption)
                 .foregroundStyle(.inkMuted)
+            if !entry.isCooked, !reasons.isEmpty {
+                PlanReasonList(reasons: reasons, lineLimit: 4)
+                    .padding(.top, 2)
+            }
         }
         .padding(8)
         .frame(maxWidth: .infinity, alignment: .leading)

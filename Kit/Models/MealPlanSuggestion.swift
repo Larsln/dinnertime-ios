@@ -39,6 +39,8 @@ public struct MealProposal: Decodable, Hashable, Sendable {
     public let recipe: RecipeSummary
     /// Whether the proposal was passed in as one to keep.
     public let kept: Bool
+    /// Why the recipe goes with the rest of the plan.
+    public let reasons: [PlanReason]
 
     /// The day and meal the proposal is for.
     public var slot: MealSlot {
@@ -48,6 +50,19 @@ public struct MealProposal: Decodable, Hashable, Sendable {
     /// The proposal as slot and recipe.
     public var assignment: MealAssignment {
         MealAssignment(date: date, meal: meal, recipeID: recipe.id)
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case date, meal, recipe, kept, reasons
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        date = try container.decode(DayDate.self, forKey: .date)
+        meal = try container.decode(MealType.self, forKey: .meal)
+        recipe = try container.decode(RecipeSummary.self, forKey: .recipe)
+        kept = try container.decode(Bool.self, forKey: .kept)
+        reasons = try container.decodeIfPresent([PlanReason].self, forKey: .reasons) ?? []
     }
 }
 

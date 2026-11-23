@@ -38,6 +38,11 @@ extension Replica {
             if let section = request.body["store_section_id"] {
                 product["store_section"] = (section as? Int).flatMap { record(.storeSections, $0) } ?? NSNull()
             }
+            if let buyAs = request.body["buy_as_id"] {
+                let target = (buyAs as? Int).flatMap { record(.products, $0) }
+                product["buy_as_id"] = target?.recordID ?? NSNull()
+                product["buy_as"] = target.map { ["id": $0.recordID ?? 0, "name": $0["name"] ?? ""] } ?? NSNull()
+            }
         } else if request.matches(.post, "products", "*", "confirm") {
             product["status"] = "confirmed"
             product["conversions"] = (product["conversions"] as? [JSONObject] ?? []).map { $0.merging(["status": "confirmed"]) { _, new in new } }

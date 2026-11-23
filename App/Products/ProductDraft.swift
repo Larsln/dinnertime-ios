@@ -34,6 +34,8 @@ struct ProductDraft {
     var shelfLife: Int?
     /// What the household noted about the product; empty for none.
     var note: String
+    /// The product this one is bought as; `nil` to buy it as itself.
+    var buyAs: ProductReference?
     var conversions: [Conversion]
 
     init(_ product: Product) {
@@ -44,6 +46,7 @@ struct ProductDraft {
         isPantryStaple = product.isPantryStaple ?? false
         shelfLife = product.shelfLifeOpenedDays
         note = product.note ?? ""
+        buyAs = product.buyAs
         conversions = (product.conversions ?? []).map { Conversion(unit: $0.unit, amount: $0.amountInBase, isConvertible: $0.amountInBase != nil) }
     }
 
@@ -61,7 +64,8 @@ struct ProductDraft {
             baseUnit: baseUnit,
             isPantryStaple: isPantryStaple,
             shelfLifeOpenedDays: shelfLife,
-            note: Product.storedNote(note)
+            note: Product.storedNote(note),
+            buyAsID: buyAs?.id
         )
     }
 }

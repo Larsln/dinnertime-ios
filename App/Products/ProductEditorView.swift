@@ -30,6 +30,7 @@ struct ProductEditorView: View {
             Section("Note") {
                 ProductNoteField(text: $model.draft.note)
             }
+            ProductBuyAsSection(session: model.session, product: model.product, buyAs: $model.draft.buyAs)
             ProductConversionsSection(draft: $model.draft, addableUnits: model.addableUnits)
             actions
         }

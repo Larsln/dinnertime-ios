@@ -29,6 +29,7 @@ struct ProductRow: View {
 
     private var details: String {
         let section = product.storeSection?.name ?? String(localized: "No section")
-        return ([section] + (product.aliases ?? [])).joined(separator: " · ")
+        let buyAs = product.buyAs.map { String(localized: "bought as \($0.name)") }
+        return ([section] + (product.aliases ?? []) + [buyAs].compactMap(\.self)).joined(separator: " · ")
     }
 }

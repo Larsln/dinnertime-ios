@@ -26,7 +26,7 @@ struct PlanView: View {
         NavigationStack {
             Group {
                 if sizeClass == .regular {
-                    PlanBoard(session: session, week: $selection.week, model: model, onAdd: plan, onShowShopping: onShowShopping)
+                    PlanBoard(session: session, week: $selection.week, model: model, onAdd: plan, onEdit: edit, onShowShopping: onShowShopping)
                 } else {
                     days
                 }
@@ -47,7 +47,7 @@ struct PlanView: View {
                 }
             }
             .sheet(item: $draft) { draft in
-                AddEntryView(session: session, draft: draft, onAdd: model.add)
+                PlanEntryForm(session: session, draft: draft, onSave: model.save)
             }
             .sheet(isPresented: $showsWizard) {
                 PlanWizardView(session: session, weeks: selection, plan: model, servings: household.defaultServings, onFinish: finishPlanning)
@@ -70,9 +70,7 @@ struct PlanView: View {
         ScrollViewReader { proxy in
             List {
                 ForEach(selection.week.days, id: \.self) { day in
-                    PlanDaySection(day: day, model: model) {
-                        plan(on: day)
-                    }
+                    PlanDaySection(day: day, model: model, onAdd: { plan(on: day) }, onEdit: edit)
                 }
             }
             .safeAreaInset(edge: .top, spacing: 0) {
@@ -95,6 +93,11 @@ struct PlanView: View {
     /// Starts planning a meal on `day` with the usual servings of the household.
     private func plan(on day: DayDate) {
         draft = PlanEntryDraft(day: day, servings: household.defaultServings)
+    }
+
+    /// Opens a planned meal for changes.
+    private func edit(_ entry: MealPlanEntry) {
+        draft = PlanEntryDraft(entry: entry)
     }
 
     /// Reloads the plan after proposals were saved and, if asked to, creates the shopping list and shows it.

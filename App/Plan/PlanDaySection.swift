@@ -2,12 +2,15 @@ import DinnertimeKit
 import SwiftUI
 
 /// One day of the plan: its marker at the left and its meals as cards, or a dashed row that plans one when nothing is planned.
+///
+/// Pressing a meal offers to change, move or remove it.
 struct PlanDaySection: View {
     private static let columnSpacing: CGFloat = 12
 
     let day: DayDate
     let model: PlanModel
     let onAdd: () -> Void
+    let onEdit: (MealPlanEntry) -> Void
 
     var body: some View {
         let entries = model.entries(on: day)
@@ -31,12 +34,17 @@ struct PlanDaySection: View {
                             Color.clear
                                 .frame(width: PlanDayMarker.width, height: 1)
                         }
-                        PlanEntryRow(entry: entry)
+                        PlanEntryRow(entry: entry, reasons: model.reasons[entry.id] ?? [])
                             .padding(.leading, CardRowMetrics.padding)
                     }
                 }
                 .cardRow(entry.isCooked ? .sunken : .surface, shape: .tile, leading: PlanDayMarker.width + Self.columnSpacing)
                 .modifier(DayAnchor(day: entry.id == entries.first?.id ? day : nil))
+                .contextMenu {
+                    PlanEntryMenu(entry: entry, model: model) {
+                        onEdit(entry)
+                    }
+                }
                 .swipeActions(edge: .trailing) {
                     Button("Delete", systemImage: "trash", role: .destructive) {
                         Task {

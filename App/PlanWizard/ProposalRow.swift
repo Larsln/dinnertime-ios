@@ -1,7 +1,7 @@
 import DinnertimeKit
 import SwiftUI
 
-/// One proposal of the planner with the buttons that lock it or ask for another recipe.
+/// One proposal of the planner with why it goes with the others, and the buttons that lock it or ask for another recipe.
 struct ProposalRow: View {
     private static let imageSize: CGFloat = 48
 
@@ -31,6 +31,8 @@ struct ProposalRow: View {
                 Text(verbatim: details)
                     .font(.caption)
                     .foregroundStyle(.inkMuted)
+                PlanReasonList(reasons: proposal.reasons)
+                    .padding(.top, 2)
             }
             Spacer(minLength: 0)
             Button(isLocked ? "Unlock" : "Lock", systemImage: isLocked ? "lock.fill" : "lock.open", action: onToggleLock)

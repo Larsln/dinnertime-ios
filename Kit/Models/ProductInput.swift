@@ -12,8 +12,10 @@ public struct ProductInput: Encodable, Equatable, Sendable {
     public var shelfLifeOpenedDays: Int?
     /// What the household noted about the product; `nil` for none.
     public var note: String?
+    /// The product this one is bought as; `nil` to buy it as itself.
+    public var buyAsID: Int?
 
-    public init(name: String, icon: String?, storeSectionID: Int?, baseUnit: BaseUnit, isPantryStaple: Bool, shelfLifeOpenedDays: Int?, note: String? = nil) {
+    public init(name: String, icon: String?, storeSectionID: Int?, baseUnit: BaseUnit, isPantryStaple: Bool, shelfLifeOpenedDays: Int?, note: String? = nil, buyAsID: Int? = nil) {
         self.name = name
         self.icon = icon
         self.storeSectionID = storeSectionID
@@ -21,11 +23,13 @@ public struct ProductInput: Encodable, Equatable, Sendable {
         self.isPantryStaple = isPantryStaple
         self.shelfLifeOpenedDays = shelfLifeOpenedDays
         self.note = note
+        self.buyAsID = buyAsID
     }
 
     private enum CodingKeys: String, CodingKey {
         case name, icon, baseUnit, isPantryStaple, shelfLifeOpenedDays, note
         case storeSectionID = "storeSectionId"
+        case buyAsID = "buyAsId"
     }
 
     public func encode(to encoder: any Encoder) throws {
@@ -37,5 +41,6 @@ public struct ProductInput: Encodable, Equatable, Sendable {
         try container.encode(isPantryStaple, forKey: .isPantryStaple)
         try container.encode(shelfLifeOpenedDays, forKey: .shelfLifeOpenedDays)
         try container.encode(note, forKey: .note)
+        try container.encode(buyAsID, forKey: .buyAsID)
     }
 }

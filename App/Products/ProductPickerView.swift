@@ -4,20 +4,23 @@ import SwiftUI
 /// Lets the user search the products and choose one, optionally creating it from the typed name.
 struct ProductPickerView: View {
     let allowsCreation: Bool
+    /// Which products may be chosen; the others are left out.
+    var isSelectable: (Product) -> Bool = { _ in true }
     let onSelect: (Product) -> Void
 
     @State private var model: ProductSearchModel
     @Environment(\.dismiss) private var dismiss
 
-    init(session: AppSession, allowsCreation: Bool, onSelect: @escaping (Product) -> Void) {
+    init(session: AppSession, allowsCreation: Bool, isSelectable: @escaping (Product) -> Bool = { _ in true }, onSelect: @escaping (Product) -> Void) {
         self.allowsCreation = allowsCreation
+        self.isSelectable = isSelectable
         self.onSelect = onSelect
         _model = State(initialValue: ProductSearchModel(session: session))
     }
 
     var body: some View {
         PaperList {
-            ForEach(model.products) { product in
+            ForEach(model.products.filter(isSelectable)) { product in
                 Button {
                     choose(product)
                 } label: {

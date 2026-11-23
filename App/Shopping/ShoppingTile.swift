@@ -1,7 +1,8 @@
 import DinnertimeKit
 import SwiftUI
 
-/// A square tile of the shopping list: a line icon, the product's name and a short amount.
+/// A square tile of the shopping list: a line icon, the product's name and a short amount, followed by the names
+/// of the products bought as it, so whoever shops sees the nuance and decides what to take.
 ///
 /// Tapping it checks the product off or brings it back; a short long press opens the details.
 /// A small mark in the corner tells that the product carries a note or a shop that sells it.
@@ -52,6 +53,12 @@ struct ShoppingTile: View {
                 Text(verbatim: amount)
                     .font(.system(size: 10))
                     .lineLimit(1)
+            }
+            if let variants = item.variantNamesText {
+                Text(verbatim: variants)
+                    .font(.system(size: 10))
+                    .lineLimit(1)
+                    .opacity(0.85)
             }
         }
         .minimumScaleFactor(0.8)
