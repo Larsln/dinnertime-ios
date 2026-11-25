@@ -2,15 +2,14 @@ import DinnertimeKit
 import SwiftUI
 
 /// What stands behind a position of the shopping list: need, leftovers, spoilage, the recipes that use it,
-/// the same for every product bought as it, and the shops and the note of its product.
+/// the same for every product bought as it, the shops and the note of its product, and the ways to settle it
+/// without buying it.
 ///
 /// The note is stored when it is submitted and when the list goes away.
 struct ShoppingItemDetailsList: View {
+    let session: AppSession
     let item: ShoppingListItem
-    /// Deletes the item; `nil` for items that come from the plan.
-    let onDelete: (() -> Void)?
-    /// Stores the note of the item's product; `nil` clears it.
-    let onSaveNote: (String?) -> Void
+    let actions: ShoppingItemActions
 
     @State private var note: String
     @State private var savedNote: String?
@@ -18,10 +17,10 @@ struct ShoppingItemDetailsList: View {
 
     private let formatter = AmountFormatter()
 
-    init(session: AppSession, item: ShoppingListItem, onDelete: (() -> Void)?, onSaveNote: @escaping (String?) -> Void) {
+    init(session: AppSession, item: ShoppingListItem, actions: ShoppingItemActions) {
+        self.session = session
         self.item = item
-        self.onDelete = onDelete
-        self.onSaveNote = onSaveNote
+        self.actions = actions
         _note = State(initialValue: item.product?.note ?? "")
         _savedNote = State(initialValue: item.product?.note)
         _offers = State(initialValue: item.product.map { ProductOffersModel(session: session, product: $0) })
@@ -50,6 +49,7 @@ struct ShoppingItemDetailsList: View {
                     uses(of: variant, unit: variant.baseUnit)
                 }
             }
+            ShoppingSettleSection(session: session, item: item, actions: actions)
             if let product = item.product, let offers {
                 ProductOffersSection(model: offers, unit: product.baseUnit)
             }
@@ -64,9 +64,9 @@ struct ShoppingItemDetailsList: View {
                     uses(of: item, unit: product.baseUnit)
                 }
             }
-            if let onDelete {
+            if let delete = actions.delete {
                 Section {
-                    Button("Delete", systemImage: "trash", role: .destructive, action: onDelete)
+                    Button("Delete", systemImage: "trash", role: .destructive, action: delete)
                 }
             }
         }
@@ -80,7 +80,7 @@ struct ShoppingItemDetailsList: View {
             return
         }
         savedNote = edited
-        onSaveNote(edited)
+        actions.saveNote(edited)
     }
 
     @ViewBuilder

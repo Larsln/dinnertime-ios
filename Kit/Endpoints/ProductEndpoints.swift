@@ -6,6 +6,10 @@ public enum ProductEndpoints {
         let name: String
     }
 
+    private struct BaseUnitBody: Encodable {
+        let baseUnit: BaseUnit
+    }
+
     private struct MergeBody: Encodable {
         let into: Int
     }
@@ -50,6 +54,11 @@ public enum ProductEndpoints {
     /// `PATCH /products/{id}`: changes only the note of a product; `nil` clears it.
     public static func setNote(_ note: String?, id: Int) -> Endpoint<Product> {
         .resource(.patch, "products/\(id)", body: NoteBody(note: note))
+    }
+
+    /// `PATCH /products/{id}`: changes only what a product is bought by, so that sizes in the new unit can be stored.
+    public static func setBaseUnit(_ unit: BaseUnit, id: Int) -> Endpoint<Product> {
+        .resource(.patch, "products/\(id)", body: BaseUnitBody(baseUnit: unit))
     }
 
     /// `DELETE /products/{id}`: deletes a product; answers `409` while a recipe uses it.

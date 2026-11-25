@@ -30,76 +30,10 @@ public protocol ShoppingAmounts {
 /// Generated items name a product and the packages to buy. Manual items name a product or
 /// carry free text. Items without a product carry no amounts. Products bought as the item's product
 /// share the item as its variants, each with amounts of its own.
+///
+/// An item is settled by checking it off or by skipping it. A skipped one is not bought at all, and one
+/// checked off with a substitute was replaced by something else.
 public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable, ShoppingAmounts {
-    /// A package size and how often to buy it.
-    public struct PackagePurchase: Decodable, Hashable, Sendable {
-        public let packageID: Int?
-        public let label: String
-        public let amount: Double
-        public let count: Int
-
-        private enum CodingKeys: String, CodingKey {
-            case label, amount, count
-            case packageID = "packageId"
-        }
-    }
-
-    /// A planned recipe that consumes part of the item.
-    public struct Use: Decodable, Hashable, Sendable {
-        public let date: DayDate
-        public let recipeID: Int
-        public let title: String
-        public let amount: Double
-
-        private enum CodingKeys: String, CodingKey {
-            case date, title, amount
-            case recipeID = "recipeId"
-        }
-    }
-
-    /// A need in a recipe unit that cannot be converted for the product and is bought in addition.
-    public struct ExtraAmount: Decodable, Hashable, Sendable {
-        public let quantity: Double
-        public let unitCode: String
-    }
-
-    /// A product bought as the item's product, such as red onions on the item of onions.
-    public struct Variant: Decodable, Hashable, Identifiable, Sendable, ShoppingAmounts {
-        public let productID: Int
-        public let name: String
-        public let baseUnit: BaseUnit
-        public let neededAmount: Double?
-        public let purchaseAmount: Double?
-        public let packages: [PackagePurchase]
-        public let extraAmounts: [ExtraAmount]
-        public let leftoverAmount: Double?
-        public let wastedAmount: Double?
-        public let uses: [Use]
-
-        public var id: Int {
-            productID
-        }
-
-        private enum CodingKeys: String, CodingKey {
-            case name, baseUnit, neededAmount, purchaseAmount, packages, extraAmounts, leftoverAmount, wastedAmount, uses
-            case productID = "productId"
-        }
-
-        public init(from decoder: any Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            productID = try container.decode(Int.self, forKey: .productID)
-            name = try container.decode(String.self, forKey: .name)
-            baseUnit = try container.decode(BaseUnit.self, forKey: .baseUnit)
-            neededAmount = try container.decodeIfPresent(Double.self, forKey: .neededAmount)
-            purchaseAmount = try container.decodeIfPresent(Double.self, forKey: .purchaseAmount)
-            packages = try container.decodeIfPresent([PackagePurchase].self, forKey: .packages) ?? []
-            extraAmounts = try container.decodeIfPresent([ExtraAmount].self, forKey: .extraAmounts) ?? []
-            leftoverAmount = try container.decodeIfPresent(Double.self, forKey: .leftoverAmount)
-            wastedAmount = try container.decodeIfPresent(Double.self, forKey: .wastedAmount)
-            uses = try container.decodeIfPresent([Use].self, forKey: .uses) ?? []
-        }
-    }
-
     public let id: Int
     public let label: String?
     public let isManual: Bool
@@ -118,11 +52,25 @@ public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable, Sho
     /// Products bought as this one, each with what it needs.
     public let variants: [Variant]
     public var checkedAt: Date?
+    /// When the item was struck off the list without buying it.
+    public var skippedAt: Date?
+    /// What was bought in place of the item's product.
+    public var substitute: Substitute?
     public var product: Product?
 
     /// Whether the item was checked off.
     public var isChecked: Bool {
         checkedAt != nil
+    }
+
+    /// Whether the item was struck off the list without buying it.
+    public var isSkipped: Bool {
+        skippedAt != nil
+    }
+
+    /// Whether nothing is left to do about the item.
+    public var isSettled: Bool {
+        isChecked || isSkipped
     }
 
     /// Whether the item's product itself is needed, not only its variants.
@@ -138,7 +86,7 @@ public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable, Sho
 
     private enum CodingKeys: String, CodingKey {
         case id, label, isManual, neededAmount, purchaseAmount, packages, extraAmounts
-        case leftoverAmount, wastedAmount, uses, isApproximate, variants, checkedAt, product
+        case leftoverAmount, wastedAmount, uses, isApproximate, variants, checkedAt, skippedAt, substitute, product
     }
 
     public init(from decoder: any Decoder) throws {
@@ -156,6 +104,8 @@ public struct ShoppingListItem: Decodable, Hashable, Identifiable, Sendable, Sho
         isApproximate = try container.decodeIfPresent(Bool.self, forKey: .isApproximate) ?? false
         variants = try container.decodeIfPresent([Variant].self, forKey: .variants) ?? []
         checkedAt = try container.decodeIfPresent(Date.self, forKey: .checkedAt)
+        skippedAt = try container.decodeIfPresent(Date.self, forKey: .skippedAt)
+        substitute = try container.decodeIfPresent(Substitute.self, forKey: .substitute)
         product = try container.decodeIfPresent(Product.self, forKey: .product)
     }
 }

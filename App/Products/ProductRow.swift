@@ -14,7 +14,7 @@ struct ProductRow: View {
                     .foregroundStyle(.inkMuted)
             }
             Spacer(minLength: 0)
-            if product.isPantryStaple == true {
+            if product.isStaple {
                 Image(systemName: "refrigerator")
                     .foregroundStyle(.inkMuted)
                     .accessibilityLabel("Pantry staple")

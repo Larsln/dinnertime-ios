@@ -703,6 +703,16 @@
         }
       }
     },
+    "Bought a substitute…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersatz gekauft…"
+          }
+        }
+      }
+    },
     "Bought by": {
       "localizations": {
         "de": {
@@ -713,12 +723,32 @@
         }
       }
     },
+    "Bought instead": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stattdessen gekauft"
+          }
+        }
+      }
+    },
     "Breakfast": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "Frühstück"
+          }
+        }
+      }
+    },
+    "Buy after all": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doch kaufen"
           }
         }
       }
@@ -859,6 +889,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Löschen"
+          }
+        }
+      }
+    },
+    "Clear log": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protokoll leeren"
           }
         }
       }
@@ -1163,6 +1203,16 @@
         }
       }
     },
+    "Don't buy": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht kaufen"
+          }
+        }
+      }
+    },
     "Done": {
       "localizations": {
         "de": {
@@ -1239,6 +1289,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gib die Adresse des Servers ein, den dein Haushalt betreibt. Adressen außerhalb deines Heimnetzes benötigen HTTPS."
+          }
+        }
+      }
+    },
+    "Error log": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fehlerprotokoll"
           }
         }
       }
@@ -1409,6 +1469,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Weitere Mahlzeiten ausblenden"
+          }
+        }
+      }
+    },
+    "Hide keyboard": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tastatur ausblenden"
           }
         }
       }
@@ -1783,6 +1853,16 @@
         }
       }
     },
+    "Neither adds this product to the pantry.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beides bringt dieses Produkt nicht in den Vorrat."
+          }
+        }
+      }
+    },
     "New ingredient": {
       "localizations": {
         "de": {
@@ -1923,6 +2003,16 @@
         }
       }
     },
+    "No errors noted": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Fehler notiert"
+          }
+        }
+      }
+    },
     "No item chosen": {
       "localizations": {
         "de": {
@@ -2043,6 +2133,16 @@
         }
       }
     },
+    "Not bought: it does not go to the pantry and stays off the list.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht gekauft: Es kommt nicht in den Vorrat und bleibt von der Liste."
+          }
+        }
+      }
+    },
     "Not cooked": {
       "localizations": {
         "de": {
@@ -2089,6 +2189,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Notiz"
+          }
+        }
+      }
+    },
+    "Notes what went wrong, to send along when you report a problem.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hält fest, was schiefging, zum Mitschicken, wenn du ein Problem meldest."
           }
         }
       }
@@ -3103,6 +3213,16 @@
         }
       }
     },
+    "Suggested by the AI: it only stays off the shopping list once you confirm the product.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorschlag der KI: Erst wenn du das Produkt bestätigst, bleibt es von der Einkaufsliste."
+          }
+        }
+      }
+    },
     "Suggestions are pending": {
       "localizations": {
         "de": {
@@ -3393,6 +3513,16 @@
         }
       }
     },
+    "Use “%@”": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ übernehmen"
+          }
+        }
+      }
+    },
     "Used for": {
       "localizations": {
         "de": {
@@ -3529,6 +3659,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Warte auf die andere Person …"
+          }
+        }
+      }
+    },
+    "Watch video": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Video ansehen"
           }
         }
       }
@@ -3733,12 +3873,32 @@
         }
       }
     },
+    "instead: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "statt dessen: %@"
+          }
+        }
+      }
+    },
     "no dish twice, not the same cuisine twice in a row": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
             "value": "kein Gericht doppelt, nicht zweimal hintereinander dieselbe Küche"
+          }
+        }
+      }
+    },
+    "not bought": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nicht gekauft"
           }
         }
       }

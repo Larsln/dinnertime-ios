@@ -186,4 +186,21 @@ struct ProductOfferOfflineTests {
         #expect(product.offers.isEmpty)
         #expect(try #require(await store.answer(ProductEndpoints.detail(id: product.id))).response.offers == [offer])
     }
+
+    @Test func aChangedBaseUnitIsStoredBeforeAnOfferInItsUnits() async throws {
+        let store = try await OfflineSupport.syncedStore()
+        let before = try #require(await store.answer(ProductEndpoints.detail(id: 95))).response
+        let unit: BaseUnit = before.baseUnit == .milliliter ? .gram : .milliliter
+
+        let changed = try #require(await store.answer(ProductEndpoints.setBaseUnit(unit, id: 95))).response
+        let unitEntry = try #require(await store.pendingChanges.last)
+        let offer = try #require(await store.answer(ProductOfferEndpoints.add(productID: 95, storeID: nil, amount: 2, unit: OfferUnit.choices(for: unit).last, price: nil))).response
+        let paths = await store.pendingChanges.suffix(2).map(\.path)
+
+        #expect(changed.baseUnit == unit)
+        #expect(unitEntry.method == .patch)
+        #expect(try json(unitEntry.body) as NSDictionary == ["base_unit": unit.rawValue])
+        #expect(offer.unit?.fits(unit) == true)
+        #expect(paths == ["products/95", "products/95/offers"])
+    }
 }

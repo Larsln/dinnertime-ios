@@ -25,12 +25,7 @@ extension Replica {
         }
         var answer: Any?
         if request.matches(.patch, "shopping-list-items", "*") {
-            if let checked = request.body["checked"] as? Bool {
-                items[index]["checked_at"] = checked ? JSONValue.timestamp(now) : NSNull()
-            }
-            if let label = request.body["label"] {
-                items[index]["label"] = label
-            }
+            settle(&items[index], as: request.body, now: now)
             answer = resource(shownItem(items[index]))
         } else if request.matches(.delete, "shopping-list-items", "*") {
             items.remove(at: index)
@@ -41,6 +36,30 @@ extension Replica {
         put(.shoppingLists, list)
         itemActionTimes[id] = now
         return LocalResult(body: answer, areas: [.shopping], change: QueuedChange(shoppingItem: id))
+    }
+
+    /// Checks an item off or on, skips it or opens it again, names its substitute or renames it, the way the server does.
+    ///
+    /// A substitute given as text names the product of that name, if there is one. An item that is not checked off forgets its substitute.
+    private func settle(_ item: inout JSONObject, as body: JSONObject, now: Date) {
+        if let checked = body["checked"] as? Bool {
+            item["checked_at"] = checked ? JSONValue.timestamp(now) : NSNull()
+        }
+        if let skipped = body["skipped"] as? Bool {
+            item["skipped_at"] = skipped ? JSONValue.timestamp(now) : NSNull()
+        }
+        if let label = body["label"] {
+            item["label"] = label
+        }
+        if body["substitute_product_id"] != nil || body["substitute_label"] != nil {
+            let label = (body["substitute_label"] as? String).flatMap { $0.isEmpty ? nil : $0 }
+            let product = (body["substitute_product_id"] as? Int).flatMap { record(.products, $0) } ?? label.flatMap(product(named:))
+            let name = product?["name"] as? String ?? label
+            item["substitute"] = name.map { ["product_id": product?.recordID ?? NSNull(), "name": $0] as JSONObject } ?? NSNull()
+        }
+        if item["checked_at"] == nil || item["checked_at"] is NSNull {
+            item["substitute"] = NSNull()
+        }
     }
 
     /// Adds a manual item the way the server does.
@@ -59,6 +78,8 @@ extension Replica {
         let item: JSONObject
         if let known {
             items[known]["checked_at"] = NSNull()
+            items[known]["skipped_at"] = NSNull()
+            items[known]["substitute"] = NSNull()
             item = items[known]
         } else {
             item = manualItem(label: label, product: product, creationKey: key)
@@ -108,7 +129,7 @@ extension Replica {
             "id": makeTemporaryID(), "label": label ?? (product == nil ? "" : NSNull()), "is_manual": true,
             "needed_amount": NSNull(), "purchase_amount": NSNull(), "packages": [JSONObject](), "leftover_amount": 0,
             "wasted_amount": 0, "uses": [JSONObject](), "is_approximate": false, "extra_amounts": [JSONObject](),
-            "checked_at": NSNull(), "product": product ?? NSNull(), "creation_key": creationKey,
+            "checked_at": NSNull(), "skipped_at": NSNull(), "substitute": NSNull(), "product": product ?? NSNull(), "creation_key": creationKey,
         ]
     }
 

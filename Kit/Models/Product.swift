@@ -68,6 +68,13 @@ public struct Product: Decodable, Hashable, Identifiable, Sendable {
         offers = (try container.decodeIfPresent([ProductOffer].self, forKey: .offers) ?? []).map { $0.stated(in: baseUnit) }
     }
 
+    /// Whether the household always has the product in stock, so that it is neither planned nor shopped for.
+    ///
+    /// A suggestion of the server only counts once somebody confirmed the product.
+    public var isStaple: Bool {
+        isPantryStaple == true && status == .confirmed
+    }
+
     /// A note as it is stored: without surrounding space, cut to the limit, `nil` when nothing remains.
     public static func storedNote(_ text: String?) -> String? {
         let text = (text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).prefix(noteLimit)

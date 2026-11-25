@@ -30,6 +30,7 @@
         "average_rating": 7.5,
         "rating_count": 2,
         "source_url": "https://example.com/zwiebelkuchen",
+        "video_url": "/storage/videos/abc123.mp4",
         "source_platform": null,
         "meal_tags_locked": true,
         "ingredients": [

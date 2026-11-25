@@ -13,7 +13,7 @@ final class ShoppingModel: ErrorReporting {
     private(set) var hasLoaded = false
     private(set) var isWorking = false
 
-    private let session: AppSession
+    let session: AppSession
 
     init(session: AppSession) {
         self.session = session
@@ -108,11 +108,16 @@ final class ShoppingModel: ErrorReporting {
         }
     }
 
-    /// Checks an item off or on again; the change shows at once and is undone if the server rejects it.
+    /// Checks an item off or on again, or opens a skipped one; the change shows at once and is undone if the server rejects it.
     func toggle(_ item: ShoppingListItem) async {
+        guard !item.isSkipped else {
+            await setSkipped(false, item)
+            return
+        }
         let checked = !item.isChecked
         var optimistic = item
         optimistic.checkedAt = checked ? .now : nil
+        optimistic.substitute = checked ? optimistic.substitute : nil
         replace(optimistic)
         do {
             replace(try await session.send(ShoppingEndpoints.setChecked(checked, itemID: item.id)))
@@ -142,7 +147,8 @@ final class ShoppingModel: ErrorReporting {
         }
     }
 
-    private func replace(_ item: ShoppingListItem) {
+    /// Shows `item` in place of the one with its id.
+    func replace(_ item: ShoppingListItem) {
         if let index = list?.items.firstIndex(where: { $0.id == item.id }) {
             list?.items[index] = item
         }

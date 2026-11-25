@@ -1,7 +1,7 @@
 import DinnertimeKit
 import SwiftUI
 
-/// The shopping list as tiles: the open items by area of the store, the checked ones in a last section.
+/// The shopping list as tiles: the open items by area of the store, the checked and skipped ones in a last section.
 ///
 /// On narrow screens the details of an item open as a sheet. On wide screens more tiles stand in a row
 /// and the details of the chosen item stand in a panel at the right.
@@ -23,18 +23,14 @@ struct ShoppingBoard: View {
         if sizeClass == .regular {
             HStack(spacing: 0) {
                 tiles
-                ShoppingDetailPanel(session: session, item: list.items.first { $0.id == selectedID }, onDelete: delete) { note, item in
-                    saveNote(note, of: item)
-                }
-                .padding([.vertical, .trailing], ReadableMetrics.panelMargin)
+                ShoppingDetailPanel(session: session, item: list.items.first { $0.id == selectedID }, actions: actions(for:))
+                    .padding([.vertical, .trailing], ReadableMetrics.panelMargin)
             }
             .background(.paper)
         } else {
             tiles
                 .sheet(item: $detailedItem) { item in
-                    ShoppingItemDetails(session: session, item: item, onDelete: item.isManual ? { delete(item) } : nil) { note in
-                        saveNote(note, of: item)
-                    }
+                    ShoppingItemDetails(session: session, item: item, actions: actions(for: item))
                 }
         }
     }
@@ -52,9 +48,9 @@ struct ShoppingBoard: View {
                             .sectionHeadingStyle()
                     }
                 }
-                if !list.checkedItems.isEmpty {
-                    grid(of: list.checkedItems) {
-                        Text("Done (\(list.checkedItems.count))")
+                if !list.settledItems.isEmpty {
+                    grid(of: list.settledItems) {
+                        Text("Done (\(list.settledItems.count))")
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(.doneMark)
                     }
@@ -104,18 +100,23 @@ struct ShoppingBoard: View {
         }
     }
 
-    private func saveNote(_ note: String?, of item: ShoppingListItem) {
-        guard let product = item.product else {
-            return
-        }
-        Task {
-            await model.setNote(note, of: product)
-        }
+    /// What the details of `item` can do about it.
+    private func actions(for item: ShoppingListItem) -> ShoppingItemActions {
+        ShoppingItemActions(
+            delete: item.isManual ? { run { await model.delete(item) } } : nil,
+            saveNote: { note in
+                if let product = item.product {
+                    run { await model.setNote(note, of: product) }
+                }
+            },
+            setSkipped: { skipped in run { await model.setSkipped(skipped, item) } },
+            substitute: { choice in run { await model.substitute(choice, for: item) } }
+        )
     }
 
-    private func delete(_ item: ShoppingListItem) {
+    private func run(_ change: @escaping () async -> Void) {
         Task {
-            await model.delete(item)
+            await change()
         }
     }
 }

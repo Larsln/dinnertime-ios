@@ -10,7 +10,6 @@ struct RecipeBasicsSection: View {
         Section {
             TextField("Title", text: $draft.title)
             TextField("Description", text: $draft.description, axis: .vertical)
-                .keyboardDoneButton()
             Picker("Course", selection: $draft.course) {
                 Text("No course")
                     .tag(String?.none)

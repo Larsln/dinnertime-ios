@@ -9,8 +9,7 @@ struct ShoppingDetailPanel: View {
     let session: AppSession
     /// The chosen item as the list holds it now.
     let item: ShoppingListItem?
-    let onDelete: (ShoppingListItem) -> Void
-    let onSaveNote: (String?, ShoppingListItem) -> Void
+    let actions: (ShoppingListItem) -> ShoppingItemActions
 
     var body: some View {
         Group {
@@ -21,10 +20,8 @@ struct ShoppingDetailPanel: View {
                         .padding(.horizontal, 20)
                         .padding(.top, 20)
                         .padding(.bottom, 4)
-                    ShoppingItemDetailsList(session: session, item: item, onDelete: item.isManual ? { onDelete(item) } : nil) { note in
-                        onSaveNote(note, item)
-                    }
-                    .id(item.id)
+                    ShoppingItemDetailsList(session: session, item: item, actions: actions(item))
+                        .id(item.id)
                 }
             } else {
                 ContentUnavailableView {

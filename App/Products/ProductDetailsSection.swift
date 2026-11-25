@@ -5,6 +5,8 @@ import SwiftUI
 struct ProductDetailsSection: View {
     @Binding var draft: ProductDraft
     let storeSections: [StoreSection]
+    /// Whether the values are still suggestions nobody confirmed.
+    var isSuggested = false
 
     @State private var picksIcon = false
 
@@ -43,6 +45,10 @@ struct ProductDetailsSection: View {
             NumberField(title: "Shelf life once opened (days)", value: $draft.shelfLife)
             Toggle("Always in stock, never on the shopping list", isOn: $draft.isPantryStaple)
                 .tint(.herb)
+        } footer: {
+            if isSuggested, draft.isPantryStaple {
+                Text("Suggested by the AI: it only stays off the shopping list once you confirm the product.")
+            }
         }
     }
 

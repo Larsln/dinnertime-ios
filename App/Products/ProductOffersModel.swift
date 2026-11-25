@@ -12,6 +12,8 @@ final class ProductOffersModel: ErrorReporting {
     private(set) var stores: [Store] = []
 
     private var stored: [ProductOffer]
+    /// What the product is bought by as the server holds it.
+    private var storedBaseUnit: BaseUnit
     private let session: AppSession
     private let productID: Int
 
@@ -19,6 +21,7 @@ final class ProductOffersModel: ErrorReporting {
         self.session = session
         productID = product.id
         stored = product.offers
+        storedBaseUnit = product.baseUnit
     }
 
     /// The offers in the order they are listed: those of paused shops last.
@@ -40,6 +43,7 @@ final class ProductOffersModel: ErrorReporting {
     func load() async {
         if let product = try? await session.send(ProductEndpoints.detail(id: productID)) {
             stored = product.offers
+            storedBaseUnit = product.baseUnit
         }
         await loadStores()
     }
@@ -47,12 +51,17 @@ final class ProductOffersModel: ErrorReporting {
     /// Adds the offer of `draft`, or corrects the one it was made from; returns whether it was stored.
     ///
     /// A shop the household does not have yet is created from the typed name; without a name the size is sold everywhere.
-    func save(_ draft: OfferDraft) async -> Bool {
+    /// `baseUnit` is what the product is bought by in its editor. The server only takes sizes in units of the stored
+    /// one, so a base unit that was changed and not saved yet is stored first.
+    func save(_ draft: OfferDraft, baseUnit: BaseUnit) async -> Bool {
         guard draft.isComplete else {
             return false
         }
         let (amount, unit, price) = (draft.amountValue, draft.unit, draft.priceValue)
         let isStored = await attempt {
+            if baseUnit != storedBaseUnit {
+                storedBaseUnit = try await session.send(ProductEndpoints.setBaseUnit(baseUnit, id: productID)).baseUnit
+            }
             let storeID = try await storeID(named: draft.storedStore)
             if let id = draft.offerID {
                 let offer = try await session.send(ProductOfferEndpoints.update(id: id, storeID: storeID, amount: amount, unit: unit, price: price))

@@ -35,12 +35,12 @@ extension ShoppingList {
     ///
     /// Items added on this device stand at the end of the list, so the areas are put in order here.
     public var openSections: [ShoppingSection] {
-        Self.sections(of: items.filter { !$0.isChecked })
+        Self.sections(of: items.filter { !$0.isSettled })
     }
 
-    /// The items that were checked off, in the order of the list.
-    public var checkedItems: [ShoppingListItem] {
-        items.filter(\.isChecked)
+    /// The items that were checked off or skipped, in the order of the list.
+    public var settledItems: [ShoppingListItem] {
+        items.filter(\.isSettled)
     }
 
     private static func sections(of items: [ShoppingListItem]) -> [ShoppingSection] {

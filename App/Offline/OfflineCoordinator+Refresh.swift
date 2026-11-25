@@ -42,6 +42,7 @@ extension OfflineCoordinator {
         if let message = report.rejections.first {
             rejectionMessage = message
         }
+        report.rejections.forEach { ErrorLog.shared.record($0, context: "Offline queue") }
         do {
             try? await repair(client)
             try await sync(client)
@@ -51,6 +52,7 @@ extension OfflineCoordinator {
             await fetchImages()
         } catch {
             firstSyncFailed = !hasSynced
+            ErrorLog.shared.record(error, context: "Sync")
             if error as? APIError == .unreachable {
                 markUnreachable()
             }

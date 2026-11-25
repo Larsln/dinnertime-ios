@@ -22,9 +22,10 @@ extension ErrorReporting {
         }
     }
 
-    /// Keeps the message of `error`, unless the user needs no alert for it.
+    /// Keeps the message of `error`, unless the user needs no alert for it, and notes it in the error log.
     func report(_ error: any Error) {
         if let message = error.userMessage {
+            ErrorLog.shared.record(message, context: String(describing: Self.self))
             errorMessage = message
         }
     }

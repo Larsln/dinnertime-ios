@@ -4,7 +4,8 @@ import SwiftUI
 /// A square tile of the shopping list: a line icon, the product's name and a short amount, followed by the names
 /// of the products bought as it, so whoever shops sees the nuance and decides what to take.
 ///
-/// Tapping it checks the product off or brings it back; a short long press opens the details.
+/// Tapping it checks the product off or brings it back; a short long press opens the details, which also
+/// offer to skip it or to note a substitute. A skipped tile shows a crossed circle instead of a check.
 /// A small mark in the corner tells that the product carries a note or a shop that sells it.
 struct ShoppingTile: View {
     let item: ShoppingListItem
@@ -28,11 +29,11 @@ struct ShoppingTile: View {
             .exclusively(before: TapGesture().onEnded(onToggle))
     }
 
-    /// The icon of the product, or a check mark once the product is checked off.
+    /// The icon of the product, or a mark once the item is settled: a check for a bought one, a crossed circle for a skipped one.
     @ViewBuilder
     private var icon: some View {
-        if item.isChecked {
-            Image(systemName: "checkmark")
+        if item.isSettled {
+            Image(systemName: item.isSkipped ? "nosign" : "checkmark")
                 .font(.system(size: 22, weight: .semibold))
                 .foregroundStyle(.doneMark)
                 .accessibilityHidden(true)
@@ -41,20 +42,32 @@ struct ShoppingTile: View {
         }
     }
 
+    /// How a settled item ended when its product was not bought: skipped, or replaced by something else.
+    private var outcome: Text? {
+        if item.isSkipped {
+            return Text("not bought")
+        }
+        return item.substitute.map { Text("instead: \($0.name)") }
+    }
+
     var body: some View {
         VStack(spacing: 3) {
             icon
                 .frame(width: 34, height: 34)
             Text(verbatim: item.title)
                 .font(.caption.weight(.semibold))
-                .strikethrough(item.isChecked)
+                .strikethrough(item.isSettled)
                 .lineLimit(1)
-            if let amount = item.shortPurchaseText() {
+            if let outcome {
+                outcome
+                    .font(.system(size: 10))
+                    .lineLimit(1)
+            } else if let amount = item.shortPurchaseText() {
                 Text(verbatim: amount)
                     .font(.system(size: 10))
                     .lineLimit(1)
             }
-            if let variants = item.variantNamesText {
+            if !item.isSettled, let variants = item.variantNamesText {
                 Text(verbatim: variants)
                     .font(.system(size: 10))
                     .lineLimit(1)
@@ -65,10 +78,10 @@ struct ShoppingTile: View {
         .padding(6)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .aspectRatio(1, contentMode: .fit)
-        .foregroundStyle(item.isChecked ? Color.doneInk : Color.onAccent)
-        .background(item.isChecked ? Color.sunken : Color.accent, in: .tile)
+        .foregroundStyle(item.isSettled ? Color.doneInk : Color.onAccent)
+        .background(item.isSettled ? Color.sunken : Color.accent, in: .tile)
         .overlay {
-            if item.isChecked {
+            if item.isSettled {
                 RoundedRectangle.tile
                     .strokeBorder(.line)
             }
@@ -82,7 +95,7 @@ struct ShoppingTile: View {
         .overlay(alignment: .topTrailing) {
             if let product = item.product, product.hasBuyingHints {
                 RoundedRectangle(cornerRadius: 2)
-                    .fill(item.isChecked ? Color.doneInk : Color.onAccent)
+                    .fill(item.isSettled ? Color.doneInk : Color.onAccent)
                     .frame(width: Self.markSize, height: Self.markSize)
                     .padding(Self.markSize)
                     .accessibilityElement()
@@ -91,10 +104,10 @@ struct ShoppingTile: View {
         }
         .contentShape(.tile)
         .gesture(press)
-        .sensoryFeedback(.selection, trigger: item.isChecked)
+        .sensoryFeedback(.selection, trigger: item.isSettled)
         .sensoryFeedback(.impact(weight: .light), trigger: detailsShown)
         .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(item.isChecked ? [.isButton, .isSelected] : .isButton)
+        .accessibilityAddTraits(item.isSettled ? [.isButton, .isSelected] : .isButton)
         .accessibilityAction(named: Text("Details"), onShowDetails)
     }
 }

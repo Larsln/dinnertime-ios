@@ -8,7 +8,6 @@ struct ProductNoteField: View {
     var body: some View {
         TextField("Note", text: $text, axis: .vertical)
             .lineLimit(1...6)
-            .keyboardDoneButton()
             .onChange(of: text) {
                 if text.count > Product.noteLimit {
                     text = String(text.prefix(Product.noteLimit))

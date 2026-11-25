@@ -29,6 +29,13 @@ struct SettingsView: View {
                 HouseholdSettingsSection()
                 ImportSettingsSection(session: session)
                 Section {
+                    NavigationLink("Error log") {
+                        ErrorLogView()
+                    }
+                } footer: {
+                    Text("Notes what went wrong, to send along when you report a problem.")
+                }
+                Section {
                     Button("Sign out", role: .destructive) {
                         if session.offline.pendingCount > 0 {
                             confirmsSignOut = true

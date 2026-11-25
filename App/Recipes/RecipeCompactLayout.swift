@@ -39,11 +39,9 @@ struct RecipeCompactLayout: View {
         case .method:
             RecipeMethodList(recipe: recipe, scale: model.scale)
         }
-        if let url = recipe.sourceURL {
+        if recipe.sourceURL != nil || recipe.videoURL != nil {
             Section {
-                Link(destination: url) {
-                    Label("View original", systemImage: "safari")
-                }
+                RecipeSourceLinks(recipe: recipe)
             }
         }
     }

@@ -61,10 +61,6 @@ struct RecipeWideLayout<Actions: View>: View {
             RecipeIngredientColumn(recipe: recipe, model: model)
             RecipeMethodColumn(recipe: recipe, scale: model.scale)
         }
-        if let url = recipe.sourceURL {
-            Link(destination: url) {
-                Label("View original", systemImage: "safari")
-            }
-        }
+        RecipeSourceLinks(recipe: recipe)
     }
 }

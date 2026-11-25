@@ -84,4 +84,15 @@ struct CatalogDecodingTests {
         #expect(schmand.extraAmounts == [ShoppingListItem.ExtraAmount(quantity: 3, unitCode: "Stück")])
         #expect(onions.extraAmounts.isEmpty)
     }
+
+    @Test func aSuggestedStapleOnlyCountsOnceTheProductIsConfirmed() throws {
+        func product(status: String, staple: Bool) throws -> Product {
+            let json = #"{"data": {"id": 1, "name": "Öl", "base_unit": "ml", "is_pantry_staple": \#(staple), "status": "\#(status)"}}"#
+            return try ProductEndpoints.detail(id: 1).decode(Data(json.utf8))
+        }
+
+        #expect(try product(status: "confirmed", staple: true).isStaple)
+        #expect(try !product(status: "suggested", staple: true).isStaple)
+        #expect(try !product(status: "confirmed", staple: false).isStaple)
+    }
 }

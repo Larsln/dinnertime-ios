@@ -95,9 +95,9 @@ struct RealtimeTests {
     @Test func checkedItemsLeaveTheirSections() throws {
         let list = try ShoppingEndpoints.current.decode(Fixture.data("shopping-list"))
 
-        #expect(list.checkedItems.map(\.title) == ["Schmand"])
+        #expect(list.settledItems.map(\.title) == ["Schmand"])
         #expect(!list.openSections.flatMap(\.items).contains { $0.isChecked })
-        #expect(list.openSections.flatMap(\.items).count + list.checkedItems.count == list.items.count)
+        #expect(list.openSections.flatMap(\.items).count + list.settledItems.count == list.items.count)
         #expect(list.openSections.last?.kind == .freeText)
     }
 }

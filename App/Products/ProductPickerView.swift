@@ -6,14 +6,23 @@ struct ProductPickerView: View {
     let allowsCreation: Bool
     /// Which products may be chosen; the others are left out.
     var isSelectable: (Product) -> Bool = { _ in true }
+    /// Takes the typed text as it is, for choices that need no product; `nil` offers only products.
+    var onUseText: ((String) -> Void)?
     let onSelect: (Product) -> Void
 
     @State private var model: ProductSearchModel
     @Environment(\.dismiss) private var dismiss
 
-    init(session: AppSession, allowsCreation: Bool, isSelectable: @escaping (Product) -> Bool = { _ in true }, onSelect: @escaping (Product) -> Void) {
+    init(
+        session: AppSession,
+        allowsCreation: Bool,
+        isSelectable: @escaping (Product) -> Bool = { _ in true },
+        onUseText: ((String) -> Void)? = nil,
+        onSelect: @escaping (Product) -> Void
+    ) {
         self.allowsCreation = allowsCreation
         self.isSelectable = isSelectable
+        self.onUseText = onUseText
         self.onSelect = onSelect
         _model = State(initialValue: ProductSearchModel(session: session))
     }
@@ -31,6 +40,12 @@ struct ProductPickerView: View {
             if let name = creatableName {
                 Button("Create “\(name)”", systemImage: "plus", action: create)
             }
+            if let onUseText, let text = model.creatableName {
+                Button("Use “\(text)”", systemImage: "character.cursor.ibeam") {
+                    onUseText(text)
+                    dismiss()
+                }
+            }
             if model.hasMore {
                 ProgressView()
                     .frame(maxWidth: .infinity)
@@ -40,7 +55,7 @@ struct ProductPickerView: View {
             }
         }
         .overlay {
-            if model.hasLoaded, model.products.isEmpty, creatableName == nil {
+            if model.hasLoaded, model.products.isEmpty, creatableName == nil, onUseText == nil {
                 ContentUnavailableView.search(text: model.searchText)
             }
         }

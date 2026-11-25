@@ -54,17 +54,6 @@ struct ProductOfferEntry: View {
             .accessibilityRespondsToUserInteraction(draft.isComplete)
         }
         .padding(.vertical, 6)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                if focus != nil {
-                    Spacer()
-                    Button("Done") {
-                        focus = nil
-                    }
-                    .fontWeight(.semibold)
-                }
-            }
-        }
     }
 
     /// A number field across the width with what belongs behind the number at its trailing edge; a tap anywhere on it starts typing.

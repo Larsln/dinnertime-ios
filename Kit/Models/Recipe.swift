@@ -5,6 +5,8 @@ public struct Recipe: Decodable, Hashable, Identifiable, Sendable {
     public var summary: RecipeSummary
     public let sourceURL: URL?
     public let sourcePlatform: String?
+    /// Address of the copy of the video the server keeps, for recipes imported from one.
+    public let videoURL: URL?
     public let mealTagsLocked: Bool
     public let ingredients: [Ingredient]
     public let steps: [RecipeStep]
@@ -17,12 +19,14 @@ public struct Recipe: Decodable, Hashable, Identifiable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case sourcePlatform, mealTagsLocked, ingredients, steps, tools
         case sourceURL = "sourceUrl"
+        case videoURL = "videoUrl"
     }
 
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         summary = try RecipeSummary(from: decoder)
         sourceURL = try container.decodeIfPresent(URL.self, forKey: .sourceURL)
+        videoURL = try container.decodeIfPresent(URL.self, forKey: .videoURL)
         sourcePlatform = try container.decodeIfPresent(String.self, forKey: .sourcePlatform)
         mealTagsLocked = try container.decode(Bool.self, forKey: .mealTagsLocked)
         ingredients = try container.decode([Ingredient].self, forKey: .ingredients)

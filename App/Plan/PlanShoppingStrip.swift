@@ -41,7 +41,7 @@ struct PlanShoppingStrip: View {
         guard let list, list.startsOn == week.start, list.endsOn == week.end else {
             return String(localized: "No list for this week yet.")
         }
-        let done = list.checkedItems.count
+        let done = list.settledItems.count
         return String(localized: "\(list.items.count - done) to buy, \(done) done")
     }
 

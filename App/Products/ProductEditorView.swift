@@ -25,7 +25,7 @@ struct ProductEditorView: View {
     var body: some View {
         PaperForm {
             ProductFactsSection(product: model.product)
-            ProductDetailsSection(draft: $model.draft, storeSections: model.storeSections)
+            ProductDetailsSection(draft: $model.draft, storeSections: model.storeSections, isSuggested: model.product.status == .suggested)
             ProductOffersSection(model: offers, unit: model.draft.baseUnit)
             Section("Note") {
                 ProductNoteField(text: $model.draft.note)

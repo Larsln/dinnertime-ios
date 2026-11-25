@@ -6,7 +6,7 @@ import SwiftUI
 /// While the field is not edited it shows the value the way the recipe does: with fractions, or as
 /// decimal for weights and volumes. Input that cannot be read leaves the value untouched and is kept
 /// as `unreadable`, so that the editor can refuse to save it. The decimal pad has no slash, so the
-/// common fractions stand as buttons above the keyboard.
+/// common fractions stand as buttons below the field while it is edited.
 struct QuantityField: View {
     private static let glyphs = ["½", "⅓", "¼", "¾"]
 
@@ -19,31 +19,16 @@ struct QuantityField: View {
     @FocusState private var isFocused: Bool
 
     var body: some View {
-        LabeledContent("Quantity") {
-            TextField("Quantity", text: $text)
-                .keyboardType(.decimalPad)
-                .multilineTextAlignment(.trailing)
-                .foregroundStyle(unreadable != nil && !isFocused ? Color.accentDeep : Color.ink)
-                .focused($isFocused)
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                if isFocused {
-                    ForEach(Self.glyphs, id: \.self) { glyph in
-                        Button {
-                            text += glyph
-                        } label: {
-                            Text(verbatim: glyph)
-                                .font(.title3)
-                                .frame(minWidth: 32)
-                        }
-                    }
-                    Spacer()
-                    Button("Done") {
-                        isFocused = false
-                    }
-                    .fontWeight(.semibold)
-                }
+        Group {
+            LabeledContent("Quantity") {
+                TextField("Quantity", text: $text)
+                    .keyboardType(.decimalPad)
+                    .multilineTextAlignment(.trailing)
+                    .foregroundStyle(unreadable != nil && !isFocused ? Color.accentDeep : Color.ink)
+                    .focused($isFocused)
+            }
+            if isFocused {
+                fractions
             }
         }
         .onAppear {
@@ -60,6 +45,22 @@ struct QuantityField: View {
         .onChange(of: style) {
             if !isFocused {
                 showStoredValue()
+            }
+        }
+    }
+
+    /// The common fractions as buttons that append to what is typed.
+    private var fractions: some View {
+        HStack {
+            ForEach(Self.glyphs, id: \.self) { glyph in
+                Button {
+                    text += glyph
+                } label: {
+                    Text(verbatim: glyph)
+                        .font(.title3)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
             }
         }
     }

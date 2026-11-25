@@ -43,6 +43,7 @@ struct DecodingTests {
 
         #expect(recipe.summary.servings == 4)
         #expect(recipe.sourceURL == URL(string: "https://example.com/zwiebelkuchen"))
+        #expect(recipe.videoURL?.relativeString == "/storage/videos/abc123.mp4")
         #expect(recipe.ingredients.count == 3)
         #expect(recipe.ingredients[0].unit?.code == "g")
         #expect(recipe.ingredients[0].product?.baseUnit == .gram)

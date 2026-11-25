@@ -88,8 +88,17 @@ final class AppSession {
         await endSession()
     }
 
-    /// Performs an API call as the signed-in user.
+    /// Performs an API call as the signed-in user and notes its failure in the error log.
     func send<Response>(_ endpoint: Endpoint<Response>) async throws -> Response {
+        do {
+            return try await perform(endpoint)
+        } catch {
+            ErrorLog.shared.record(error, of: endpoint)
+            throw error
+        }
+    }
+
+    private func perform<Response>(_ endpoint: Endpoint<Response>) async throws -> Response {
         guard let client else {
             throw APIError.unauthorized
         }
@@ -118,6 +127,7 @@ final class AppSession {
         do {
             return try endpoint.response(from: body)
         } catch {
+            ErrorLog.shared.record(error, of: endpoint)
             throw APIError.invalidResponse
         }
     }

@@ -86,7 +86,7 @@ struct ProductOffersSection: View {
     private func save() {
         let saved = draft
         Task {
-            if await model.save(saved) {
+            if await model.save(saved, baseUnit: unit) {
                 lastUnit = saved.unit
                 draft = saved.offerID == nil ? OfferDraft(store: saved.storedStore ?? "", unit: saved.unit) : newDraft
             }
