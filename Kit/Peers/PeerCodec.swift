@@ -37,10 +37,21 @@ public struct PeerCodec: Sendable {
     }
 
     /// Decodes a message; `nil` when it does not come from a device of this household or cannot be read.
+    ///
+    /// Changes of a kind this version does not know are left out, so that the others still arrive.
     public func open(_ message: Data) -> [PeerChange]? {
         guard let box = try? ChaChaPoly.SealedBox(combined: message), let payload = try? ChaChaPoly.open(box, using: key) else {
             return nil
         }
-        return try? JSONDecoder().decode([PeerChange].self, from: payload)
+        return (try? JSONDecoder().decode([Readable].self, from: payload))?.compactMap(\.change)
+    }
+
+    /// A change of a message, or nothing where it could not be read.
+    private struct Readable: Decodable {
+        let change: PeerChange?
+
+        init(from decoder: Decoder) throws {
+            change = try? PeerChange(from: decoder)
+        }
     }
 }

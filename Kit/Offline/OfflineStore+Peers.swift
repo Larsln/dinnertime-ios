@@ -28,10 +28,23 @@ extension OfflineStore {
         if entry.method == .delete {
             return PeerChange(key: entry.key, clientTime: entry.clientTime, item: item, action: .delete)
         }
-        guard let checked = body["checked"] as? Bool else {
+        guard let action = settlement(in: body) else {
             return nil
         }
-        return PeerChange(key: entry.key, clientTime: entry.clientTime, item: item, action: .check(checked))
+        return PeerChange(key: entry.key, clientTime: entry.clientTime, item: item, action: action)
+    }
+
+    /// How the body of a queued change settles its item or opens it again; `nil` when it does neither.
+    private func settlement(in body: JSONObject) -> PeerChange.Action? {
+        if let skipped = body["skipped"] as? Bool {
+            return .skip(skipped)
+        }
+        let productID = body["substitute_product_id"] as? Int
+        let name = body["substitute_label"] as? String ?? productID.flatMap { replica.record(.products, $0)?["name"] as? String }
+        if let name, !name.isEmpty {
+            return .substitute(name: name, productID: productID.flatMap { $0 > 0 ? $0 : nil })
+        }
+        return (body["checked"] as? Bool).map(PeerChange.Action.check)
     }
 
     /// Takes over changes another device made.
@@ -87,6 +100,13 @@ extension OfflineStore {
             return LocalRequest(method: .post, path: "shopping-lists/\(listID)/items", body: body)
         case let .check(checked):
             return itemID(for: change.item).map { LocalRequest(method: .patch, path: "shopping-list-items/\($0)", body: ["checked": checked]) }
+        case let .skip(skipped):
+            return itemID(for: change.item).map { LocalRequest(method: .patch, path: "shopping-list-items/\($0)", body: ["skipped": skipped]) }
+        case let .substitute(name, productID):
+            let knownProductID = productID.flatMap { replica.record(.products, $0)?.recordID }
+            let substitute: JSONObject = knownProductID.map { ["substitute_product_id": $0] } ?? ["substitute_label": name]
+            let body = substitute.merging(["checked": true]) { first, _ in first }
+            return itemID(for: change.item).map { LocalRequest(method: .patch, path: "shopping-list-items/\($0)", body: body) }
         case .delete:
             return itemID(for: change.item).map { LocalRequest(method: .delete, path: "shopping-list-items/\($0)") }
         }

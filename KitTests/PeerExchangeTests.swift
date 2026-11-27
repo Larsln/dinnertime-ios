@@ -1,3 +1,4 @@
+import CryptoKit
 import Foundation
 import Testing
 @testable import DinnertimeKit
@@ -17,6 +18,8 @@ struct PeerExchangeTests {
             PeerChange(key: "k1", clientTime: early, item: PeerChange.Item(serverID: 39, creationKey: nil), action: .check(true)),
             PeerChange(key: "k2", clientTime: late, item: PeerChange.Item(serverID: nil, creationKey: "k2"), action: .add(label: "Kerzen", listID: 11)),
             PeerChange(key: "k3", clientTime: late, item: PeerChange.Item(serverID: nil, creationKey: "k2"), action: .delete),
+            PeerChange(key: "k4", clientTime: late, item: PeerChange.Item(serverID: 39, creationKey: nil), action: .skip(true)),
+            PeerChange(key: "k5", clientTime: late, item: PeerChange.Item(serverID: 39, creationKey: nil), action: .substitute(name: "Peperoni", productID: 7)),
         ]
 
         #expect(codec.open(try codec.seal(changes)) == changes)
@@ -166,6 +169,37 @@ struct PeerExchangeTests {
 
         #expect(!list.items.contains { $0.label == "Kerzen" })
         #expect(await second.pendingCount == 2)
+    }
+
+    @Test func skippingAndSubstitutingReachTheOtherDevice() async throws {
+        let first = try await OfflineSupport.syncedStore()
+        let second = try await OfflineSupport.syncedStore()
+        _ = try await first.answer(ShoppingEndpoints.setSkipped(true, itemID: 39), now: early)
+        _ = await second.apply(await first.shoppingChanges)
+        let skipped = try #require(await second.answer(ShoppingEndpoints.current)).response.items.first { $0.id == 39 }
+
+        #expect(await first.shoppingChanges.map(\.action) == [.skip(true)])
+        #expect(skipped?.isSkipped == true)
+
+        _ = try await first.answer(ShoppingEndpoints.setSkipped(false, itemID: 39), now: late)
+        _ = try await first.answer(ShoppingEndpoints.substitute(label: "Peperoni aus dem Glas", itemID: 39), now: late.addingTimeInterval(5))
+        _ = await second.apply(await first.shoppingChanges)
+        let replaced = try #require(await second.answer(ShoppingEndpoints.current)).response.items.first { $0.id == 39 }
+
+        #expect(replaced?.isSkipped == false)
+        #expect(replaced?.isChecked == true)
+        #expect(replaced?.substitute?.name == "Peperoni aus dem Glas")
+        #expect(await second.pendingChanges.map(\.key) == first.pendingChanges.map(\.key))
+    }
+
+    @Test func changesOfAnUnknownKindDoNotHoldBackTheOthers() throws {
+        let known = PeerChange(key: "k1", clientTime: early, item: PeerChange.Item(serverID: 39, creationKey: nil), action: .check(true))
+        let payload = try JSONSerialization.jsonObject(with: JSONEncoder().encode([known, known])) as? [[String: Any]]
+        var changes = try #require(payload)
+        changes[0]["action"] = ["somethingNew": [:]]
+        let message = try ChaChaPoly.seal(try JSONSerialization.data(withJSONObject: changes), using: SymmetricKey(data: SHA256.hash(data: Data("household-secret".utf8)))).combined
+
+        #expect(codec.open(message) == [known])
     }
 
     @Test func changesToUnknownItemsAreSkipped() async throws {

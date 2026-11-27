@@ -15,6 +15,12 @@ public struct PeerChange: Codable, Equatable, Sendable {
         case add(label: String, listID: Int, productID: Int? = nil)
         /// The manual item was deleted.
         case delete
+        /// The item was set aside as not bought, or brought back.
+        case skip(Bool)
+        /// Something else was bought in place of the item: the product with `productID`, or anything named.
+        ///
+        /// The name is that of the product, for devices that do not know it.
+        case substitute(name: String, productID: Int? = nil)
     }
 
     /// Names an item across devices.
