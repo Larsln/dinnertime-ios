@@ -1,6 +1,16 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "%@ (in stock)": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (im Vorrat)"
+          }
+        }
+      }
+    },
     "%@ of %lld": {
       "localizations": {
         "de": {
@@ -1553,6 +1563,16 @@
         }
       }
     },
+    "In stock": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Im Vorrat"
+          }
+        }
+      }
+    },
     "Ingredient": {
       "localizations": {
         "de": {
@@ -1759,6 +1779,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mahlzeiten"
+          }
+        }
+      }
+    },
+    "Meals of this list": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerichte dieser Liste"
           }
         }
       }
@@ -2053,6 +2083,16 @@
         }
       }
     },
+    "No meals planned": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Gerichte geplant"
+          }
+        }
+      }
+    },
     "No recipe chosen": {
       "localizations": {
         "de": {
@@ -2219,6 +2259,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mit diesen Vorgaben bleibt kein Rezept übrig. Schließe die Runde und starte mit weniger Einschränkungen neu."
+          }
+        }
+      }
+    },
+    "Nothing is planned for the days of this list.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für die Tage dieser Liste ist nichts geplant."
           }
         }
       }
@@ -3033,6 +3083,16 @@
         }
       }
     },
+    "Show what is in stock on the shopping list": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorrätiges auf der Einkaufsliste zeigen"
+          }
+        }
+      }
+    },
     "Sign in": {
       "localizations": {
         "de": {
@@ -3729,6 +3789,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Was essen wir heute?"
+          }
+        }
+      }
+    },
+    "What the planned meals need and is at home already is noted below the list, so that you can check it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was die geplanten Gerichte brauchen und schon zu Hause ist, steht als Notiz unter der Liste, damit du es prüfen kannst."
           }
         }
       }

@@ -11,14 +11,17 @@ public struct HouseholdSettings: Decodable, Equatable, Sendable {
     public var defaultServings: Int
     /// ISO 4217 code of the currency prices are given in.
     public var currency: String
+    /// Whether the shopping list also notes what the meals need that is at home already.
+    public var showStockedNeeds: Bool
 
     private enum CodingKeys: String, CodingKey {
-        case defaultServings, currency
+        case defaultServings, currency, showStockedNeeds
     }
 
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         defaultServings = try container.decode(Int.self, forKey: .defaultServings)
         currency = try container.decodeIfPresent(String.self, forKey: .currency) ?? Self.fallbackCurrency
+        showStockedNeeds = try container.decodeIfPresent(Bool.self, forKey: .showStockedNeeds) ?? false
     }
 }

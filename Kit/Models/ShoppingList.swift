@@ -7,8 +7,24 @@ public struct ShoppingList: Decodable, Hashable, Identifiable, Sendable {
     public let endsOn: DayDate
     /// When the leftovers were moved to the pantry.
     public let leftoversStockedAt: Date?
+    /// What the meals of the period need that is at home already, by name.
+    public let inStock: [StockedNeed]
     /// Positions in walking order through the store.
     public var items: [ShoppingListItem]
+
+    private enum CodingKeys: String, CodingKey {
+        case id, startsOn, endsOn, leftoversStockedAt, inStock, items
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        startsOn = try container.decode(DayDate.self, forKey: .startsOn)
+        endsOn = try container.decode(DayDate.self, forKey: .endsOn)
+        leftoversStockedAt = try container.decodeIfPresent(Date.self, forKey: .leftoversStockedAt)
+        inStock = try container.decodeIfPresent([StockedNeed].self, forKey: .inStock) ?? []
+        items = try container.decode([ShoppingListItem].self, forKey: .items)
+    }
 }
 
 /// What one product of a shopping item needs and what to buy of it.

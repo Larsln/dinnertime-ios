@@ -2,6 +2,7 @@ import DinnertimeKit
 import SwiftUI
 
 /// The shopping list as tiles: the open items by area of the store, the checked and skipped ones in a last section.
+/// If the household wants it, a note between them names what is at home already.
 ///
 /// On narrow screens the details of an item open as a sheet. On wide screens more tiles stand in a row
 /// and the details of the chosen item stand in a panel at the right.
@@ -18,6 +19,7 @@ struct ShoppingBoard: View {
     /// The item whose details the panel shows on wide screens.
     @State private var selectedID: Int?
     @Environment(\.horizontalSizeClass) private var sizeClass
+    @Environment(HouseholdStore.self) private var household
 
     var body: some View {
         if sizeClass == .regular {
@@ -47,6 +49,9 @@ struct ShoppingBoard: View {
                         title(of: section.kind)
                             .sectionHeadingStyle()
                     }
+                }
+                if household.showStockedNeeds, !list.inStock.isEmpty {
+                    ShoppingStockNote(needs: list.inStock)
                 }
                 if !list.settledItems.isEmpty {
                     grid(of: list.settledItems) {

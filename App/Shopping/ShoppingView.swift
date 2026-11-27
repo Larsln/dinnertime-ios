@@ -7,7 +7,9 @@ struct ShoppingView: View {
     let selection: WeekSelection
 
     @State private var model: ShoppingModel
+    @State private var showsDishes = false
     @Environment(OfflineCoordinator.self) private var offline
+    @Environment(HouseholdStore.self) private var household
 
     init(session: AppSession, selection: WeekSelection) {
         self.session = session
@@ -21,7 +23,18 @@ struct ShoppingView: View {
                 .navigationTitle("Shopping")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
+                        Button("Meals of this list", systemImage: "info.circle") {
+                            showsDishes = true
+                        }
+                        .disabled(model.list == nil)
+                    }
+                    ToolbarItem(placement: .topBarTrailing) {
                         actions
+                    }
+                }
+                .sheet(isPresented: $showsDishes) {
+                    if let list = model.list {
+                        ShoppingDishesSheet(session: session, list: list)
                     }
                 }
                 .refreshesFromServer {
@@ -29,6 +42,7 @@ struct ShoppingView: View {
                 }
                 .task {
                     await model.load()
+                    await household.load()
                 }
                 .onAppear(perform: offline.startSharingShoppingList)
                 .onDisappear(perform: offline.stopSharingShoppingList)
