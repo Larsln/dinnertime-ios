@@ -16,6 +16,10 @@ public struct RecipeSummary: Decodable, Hashable, Identifiable, Sendable {
     public let course: String?
     /// Name of the course in the requested language.
     public let courseName: String?
+    /// Key of what the recipe is based on as a side dish; `nil` for a dish that is no side.
+    public let sideKind: String?
+    /// Keys of the kinds of side the dish is served with; empty for a dish served without sides.
+    public let sideOptions: [String]
     public let servings: Int?
     public let yieldText: String?
     public let prepMinutes: Int?
@@ -35,7 +39,7 @@ public struct RecipeSummary: Decodable, Hashable, Identifiable, Sendable {
     public let ratingCount: Int
 
     private enum CodingKeys: String, CodingKey {
-        case id, title, slug, description, course, courseName, servings, yieldText, prepMinutes, cookMinutes, tags
+        case id, title, slug, description, course, courseName, sideKind, sideOptions, servings, yieldText, prepMinutes, cookMinutes, tags
         case rating, isFavorite, averageRating, ratingCount
         case coverURL = "coverUrl"
         case coverThumbURL = "coverThumbUrl"
@@ -49,6 +53,8 @@ public struct RecipeSummary: Decodable, Hashable, Identifiable, Sendable {
         description = try container.decodeIfPresent(String.self, forKey: .description)
         course = try container.decodeIfPresent(String.self, forKey: .course)
         courseName = try container.decodeIfPresent(String.self, forKey: .courseName)
+        sideKind = try container.decodeIfPresent(String.self, forKey: .sideKind)
+        sideOptions = try container.decodeIfPresent([String].self, forKey: .sideOptions) ?? []
         servings = try container.decodeIfPresent(Int.self, forKey: .servings)
         yieldText = try container.decodeIfPresent(String.self, forKey: .yieldText)
         prepMinutes = try container.decodeIfPresent(Int.self, forKey: .prepMinutes)
@@ -60,5 +66,15 @@ public struct RecipeSummary: Decodable, Hashable, Identifiable, Sendable {
         isFavorite = try container.decodeIfPresent(Bool.self, forKey: .isFavorite) ?? false
         averageRating = try container.decodeIfPresent(Double.self, forKey: .averageRating)
         ratingCount = try container.decodeIfPresent(Int.self, forKey: .ratingCount) ?? 0
+    }
+
+    /// Whether the dish is served with sides, so that some can be planned with it.
+    public var takesSides: Bool {
+        !sideOptions.isEmpty
+    }
+
+    /// Whether the recipe is a side of a kind that `dish` is served with.
+    public func isSide(for dish: RecipeSummary) -> Bool {
+        sideKind.map(dish.sideOptions.contains) ?? false
     }
 }

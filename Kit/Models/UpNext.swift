@@ -1,12 +1,11 @@
 import Foundation
 
-
-extension Sequence where Element == MealPlanEntry {
+extension Collection where Element == MealPlanEntry {
     /// The meal to cook next: the first planned meal from `today` on that is not cooked yet,
-    /// earlier days first and the meals of a day in the order they are eaten.
+    /// earlier days first and the meals of a day in the order they are eaten. Sides are cooked with their meal.
     public func nextMeal(from today: DayDate) -> MealPlanEntry? {
         let order = MealType.allCases
-        return filter { !$0.isCooked && $0.date >= today }
+        return meals.filter { !$0.isCooked && $0.date >= today }
             .min { first, second in
                 (first.date, order.firstIndex(of: first.meal) ?? 0, first.id) < (second.date, order.firstIndex(of: second.meal) ?? 0, second.id)
             }

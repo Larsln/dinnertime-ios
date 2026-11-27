@@ -7,6 +7,10 @@ struct RecipeDraft {
     var description = ""
     /// Key of the course.
     var course: String?
+    /// Key of what the recipe is based on as a side dish; `nil` for a dish that is no side.
+    var sideKind: String?
+    /// Keys of the kinds of side the dish is served with.
+    var sideOptions: Set<String> = []
     var servings: Int?
     var yieldText = ""
     var prepMinutes: Int?
@@ -27,6 +31,8 @@ struct RecipeDraft {
         title = recipe.summary.title
         description = recipe.summary.description ?? ""
         course = recipe.summary.course
+        sideKind = recipe.summary.sideKind
+        sideOptions = Set(recipe.summary.sideOptions)
         servings = recipe.summary.servings
         yieldText = recipe.summary.yieldText ?? ""
         prepMinutes = recipe.summary.prepMinutes
@@ -62,11 +68,14 @@ struct RecipeDraft {
     }
 
     /// The draft as the API accepts it, without empty lines and steps; every row carries the title of its group as section.
+    /// A side is not served with sides itself.
     var input: RecipeInput {
         RecipeInput(
             title: title.nilIfBlank ?? "",
             description: description.nilIfBlank,
             course: course,
+            sideKind: sideKind,
+            sideOptions: sideKind == nil ? sideOptions.sorted() : [],
             servings: servings,
             yieldText: yieldText.nilIfBlank,
             prepMinutes: prepMinutes,

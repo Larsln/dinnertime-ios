@@ -11,6 +11,8 @@ struct PlanDayColumn: View {
     let model: PlanModel
     let onAdd: () -> Void
     let onEdit: (MealPlanEntry) -> Void
+    /// Opens the side picker for a meal.
+    let onAddSide: (MealPlanEntry) -> Void
 
     var body: some View {
         let entries = model.entries(on: day)
@@ -24,8 +26,11 @@ struct PlanDayColumn: View {
                 .contextMenu {
                     PlanEntryMenu(entry: entry, model: model) {
                         onEdit(entry)
+                    } onAddSide: {
+                        onAddSide(entry)
                     }
                 }
+                PlanSideCards(entry: entry, model: model)
             }
             if entries.isEmpty {
                 addCell

@@ -3,7 +3,7 @@ import SwiftUI
 
 /// One day of the plan: its marker at the left and its meals as cards, or a dashed row that plans one when nothing is planned.
 ///
-/// Pressing a meal offers to change, move or remove it.
+/// Pressing a meal offers to change, move or remove it. The sides of a meal follow it as small rows.
 struct PlanDaySection: View {
     private static let columnSpacing: CGFloat = 12
 
@@ -11,6 +11,8 @@ struct PlanDaySection: View {
     let model: PlanModel
     let onAdd: () -> Void
     let onEdit: (MealPlanEntry) -> Void
+    /// Opens the side picker for a meal.
+    let onAddSide: (MealPlanEntry) -> Void
 
     var body: some View {
         let entries = model.entries(on: day)
@@ -43,6 +45,8 @@ struct PlanDaySection: View {
                 .contextMenu {
                     PlanEntryMenu(entry: entry, model: model) {
                         onEdit(entry)
+                    } onAddSide: {
+                        onAddSide(entry)
                     }
                 }
                 .swipeActions(edge: .trailing) {
@@ -60,6 +64,7 @@ struct PlanDaySection: View {
                     }
                     .tint(.herb)
                 }
+                PlanSideRows(entry: entry, model: model)
             }
         }
     }

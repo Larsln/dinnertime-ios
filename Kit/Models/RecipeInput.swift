@@ -67,6 +67,10 @@ public struct RecipeInput: Encodable, Equatable, Sendable {
     public var description: String?
     /// Key of the course.
     public var course: String?
+    /// Key of what the recipe is based on as a side dish.
+    public var sideKind: String?
+    /// Keys of the kinds of side the dish is served with.
+    public var sideOptions: [String]
     public var servings: Int?
     public var yieldText: String?
     public var prepMinutes: Int?
@@ -83,6 +87,8 @@ public struct RecipeInput: Encodable, Equatable, Sendable {
         title: String,
         description: String? = nil,
         course: String? = nil,
+        sideKind: String? = nil,
+        sideOptions: [String] = [],
         servings: Int? = nil,
         yieldText: String? = nil,
         prepMinutes: Int? = nil,
@@ -96,6 +102,8 @@ public struct RecipeInput: Encodable, Equatable, Sendable {
         self.title = title
         self.description = description
         self.course = course
+        self.sideKind = sideKind
+        self.sideOptions = sideOptions
         self.servings = servings
         self.yieldText = yieldText
         self.prepMinutes = prepMinutes
@@ -108,7 +116,7 @@ public struct RecipeInput: Encodable, Equatable, Sendable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case title, description, course, servings, yieldText, prepMinutes, cookMinutes, ingredients, steps
+        case title, description, course, sideKind, sideOptions, servings, yieldText, prepMinutes, cookMinutes, ingredients, steps
         case sourceURL = "sourceUrl"
         case tagIDs = "tagIds"
         case toolIDs = "toolIds"
@@ -119,6 +127,8 @@ public struct RecipeInput: Encodable, Equatable, Sendable {
         try container.encode(title, forKey: .title)
         try container.encode(description, forKey: .description)
         try container.encode(course, forKey: .course)
+        try container.encode(sideKind, forKey: .sideKind)
+        try container.encode(sideOptions, forKey: .sideOptions)
         try container.encode(servings, forKey: .servings)
         try container.encode(yieldText, forKey: .yieldText)
         try container.encode(prepMinutes, forKey: .prepMinutes)

@@ -14,6 +14,8 @@ struct PlanBoard: View {
     let onAdd: (DayDate) -> Void
     /// Opens a planned meal for changes.
     let onEdit: (MealPlanEntry) -> Void
+    /// Opens the side picker for a meal.
+    let onAddSide: (MealPlanEntry) -> Void
     let onShowShopping: () -> Void
 
     var body: some View {
@@ -23,7 +25,7 @@ struct PlanBoard: View {
             ScrollView {
                 HStack(alignment: .top, spacing: Self.columnSpacing) {
                     ForEach(week.days, id: \.self) { day in
-                        PlanDayColumn(day: day, model: model, onAdd: { onAdd(day) }, onEdit: onEdit)
+                        PlanDayColumn(day: day, model: model, onAdd: { onAdd(day) }, onEdit: onEdit, onAddSide: onAddSide)
                     }
                 }
                 .padding(.horizontal, Self.margin)

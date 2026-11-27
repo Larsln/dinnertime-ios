@@ -2,7 +2,7 @@ import DinnertimeKit
 import SwiftUI
 
 /// Form that plans a recipe for a day and meal, or changes a planned one: another recipe, day or meal,
-/// other people who eat.
+/// other people who eat, other sides.
 struct PlanEntryForm: View {
     let session: AppSession
     let onSave: (PlanEntryDraft) async -> Bool
@@ -32,6 +32,7 @@ struct PlanEntryForm: View {
                 } label: {
                     LabeledContent("Recipe", value: draft.recipe?.title ?? String(localized: "Choose"))
                 }
+                PlanSidesSection(session: session, draft: $draft)
                 PlanEatersSection(draft: $draft, members: household.members)
             }
             .navigationTitle(draft.isChange ? "Change dish" : "Plan a meal")
@@ -41,7 +42,7 @@ struct PlanEntryForm: View {
     }
 
     private func select(_ recipe: RecipeSummary) {
-        draft.recipe = recipe
+        draft.choose(recipe)
     }
 
     private func save() {

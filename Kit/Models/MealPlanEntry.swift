@@ -9,8 +9,11 @@ public enum MealType: String, Codable, CaseIterable, Sendable {
 ///
 /// `servings` counts the people who eat. `eaters` names the members of the household among them and `guests`
 /// counts the others, who get a standard portion each. `portions` is what is cooked and shopped for.
+/// An entry with a `parentID` is a side served with that meal.
 public struct MealPlanEntry: Decodable, Hashable, Identifiable, Sendable {
     public let id: Int
+    /// The meal a side is served with; `nil` for a meal of its own.
+    public let parentID: Int?
     public let date: DayDate
     public let meal: MealType
     public let servings: Int
@@ -25,12 +28,13 @@ public struct MealPlanEntry: Decodable, Hashable, Identifiable, Sendable {
     public let recipe: RecipeSummary
 
     private enum CodingKeys: String, CodingKey {
-        case id, date, meal, servings, portions, guests, eaters, portionFeedback, cookedAt, recipe
+        case id, date, meal, parentID = "parentId", servings, portions, guests, eaters, portionFeedback, cookedAt, recipe
     }
 
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
+        parentID = try container.decodeIfPresent(Int.self, forKey: .parentID)
         date = try container.decode(DayDate.self, forKey: .date)
         meal = try container.decode(MealType.self, forKey: .meal)
         servings = try container.decode(Int.self, forKey: .servings)

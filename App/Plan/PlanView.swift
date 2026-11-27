@@ -12,6 +12,8 @@ struct PlanView: View {
     @State private var model: PlanModel
     @Environment(HouseholdStore.self) private var household
     @State private var draft: PlanEntryDraft?
+    /// The meal a side is being chosen for.
+    @State private var sideTarget: MealPlanEntry?
     @State private var showsWizard = false
     @Environment(\.horizontalSizeClass) private var sizeClass
 
@@ -26,7 +28,7 @@ struct PlanView: View {
         NavigationStack {
             Group {
                 if sizeClass == .regular {
-                    PlanBoard(session: session, week: $selection.week, model: model, onAdd: plan, onEdit: edit, onShowShopping: onShowShopping)
+                    PlanBoard(session: session, week: $selection.week, model: model, onAdd: plan, onEdit: edit, onAddSide: addSide, onShowShopping: onShowShopping)
                 } else {
                     days
                 }
@@ -35,6 +37,9 @@ struct PlanView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: RecipeSummary.self) { recipe in
                 RecipeDetailView(session: session, summary: recipe)
+            }
+            .navigationDestination(for: PlannedRecipe.self) { planned in
+                RecipeDetailView(session: session, summary: planned.recipe, plannedServings: planned.servings)
             }
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
@@ -48,6 +53,13 @@ struct PlanView: View {
             }
             .sheet(item: $draft) { draft in
                 PlanEntryForm(session: session, draft: draft, onSave: model.save)
+            }
+            .sheet(item: $sideTarget) { entry in
+                SidePickerSheet(session: session, dish: entry.recipe, excludedIDs: Set(model.sides(of: entry).map(\.recipe.id))) { side in
+                    Task {
+                        await model.addSide(side, to: entry)
+                    }
+                }
             }
             .sheet(isPresented: $showsWizard) {
                 PlanWizardView(session: session, weeks: selection, plan: model, servings: household.defaultServings, onFinish: finishPlanning)
@@ -70,7 +82,7 @@ struct PlanView: View {
         ScrollViewReader { proxy in
             List {
                 ForEach(selection.week.days, id: \.self) { day in
-                    PlanDaySection(day: day, model: model, onAdd: { plan(on: day) }, onEdit: edit)
+                    PlanDaySection(day: day, model: model, onAdd: { plan(on: day) }, onEdit: edit, onAddSide: addSide)
                 }
             }
             .safeAreaInset(edge: .top, spacing: 0) {
@@ -97,7 +109,12 @@ struct PlanView: View {
 
     /// Opens a planned meal for changes.
     private func edit(_ entry: MealPlanEntry) {
-        draft = PlanEntryDraft(entry: entry)
+        draft = PlanEntryDraft(entry: entry, sides: model.sides(of: entry))
+    }
+
+    /// Opens the side picker for a planned meal.
+    private func addSide(to entry: MealPlanEntry) {
+        sideTarget = entry
     }
 
     /// Reloads the plan after proposals were saved and, if asked to, creates the shopping list and shows it.

@@ -21,6 +21,7 @@ struct RecipeEditorView: View {
                 RecipeBasicsSection(draft: $model.draft, courses: model.courses)
                 RecipeCoverSection(model: model)
                 RecipeTagsSection(model: model)
+                RecipeSidesSection(draft: $model.draft, kinds: model.sideKinds)
                 RecipeIngredientsSection(draft: $model.draft, units: model.units, session: model.session)
                 RecipeToolsSection(draft: $model.draft, session: model.session)
                 RecipeStepsSection(draft: $model.draft)

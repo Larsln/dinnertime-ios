@@ -14,16 +14,16 @@ final class PlanModel: ErrorReporting {
     private(set) var reasons: [Int: [PlanReason]] = [:]
 
     private var week: Week?
-    private let session: AppSession
+    let session: AppSession
 
     init(session: AppSession) {
         self.session = session
     }
 
-    /// Entries of one day in the order of the meals.
+    /// The meals of one day in the order they are eaten; sides are listed with ``sides(of:)``.
     func entries(on day: DayDate) -> [MealPlanEntry] {
         let order = MealType.allCases
-        return entries
+        return entries.meals
             .filter { $0.date == day }
             .sorted { (order.firstIndex(of: $0.meal) ?? 0, $0.id) < (order.firstIndex(of: $1.meal) ?? 0, $1.id) }
     }
@@ -40,17 +40,18 @@ final class PlanModel: ErrorReporting {
         await loadReasons(of: week)
     }
 
-    /// Plans a recipe or changes a planned entry; returns whether the server accepted it.
+    /// Plans a recipe or changes a planned entry, together with its sides; returns whether the server accepted it.
     func save(_ draft: PlanEntryDraft) async -> Bool {
         guard let recipe = draft.recipe else {
             return false
         }
         let day = DayDate(draft.date)
         return await change {
-            if let id = draft.entryID {
-                _ = try await session.send(MealPlanEndpoints.update(id: id, date: day, meal: draft.meal, recipeID: recipe.id, eaterIDs: draft.eaterIDs.sorted(), guests: draft.guests))
-            } else {
-                _ = try await session.send(MealPlanEndpoints.create(date: day, meal: draft.meal, recipeID: recipe.id, eaterIDs: draft.eaterIDs.sorted(), guests: draft.guests))
+            try await saveSides(of: draft) {
+                if let id = draft.entryID {
+                    return try await session.send(MealPlanEndpoints.update(id: id, date: day, meal: draft.meal, recipeID: recipe.id, eaterIDs: draft.eaterIDs.sorted(), guests: draft.guests))
+                }
+                return try await session.send(MealPlanEndpoints.create(date: day, meal: draft.meal, recipeID: recipe.id, eaterIDs: draft.eaterIDs.sorted(), guests: draft.guests))
             }
         }
     }
@@ -124,7 +125,7 @@ final class PlanModel: ErrorReporting {
 
     /// Runs a change to the plan and reloads the week once the server accepted it.
     @discardableResult
-    private func change(_ work: () async throws -> Void) async -> Bool {
+    func change(_ work: () async throws -> Void) async -> Bool {
         let succeeded = await attempt(work)
         if succeeded, let week {
             await load(week)

@@ -110,6 +110,9 @@ extension Replica {
         if request.matches(.get, "recipes", "*") {
             return resource(shownRecipe(try existing(.recipes, request.id(at: 1))))
         }
+        if request.matches(.get, "recipes", "*", "sides") {
+            return resource(try sideOptions(forRecipe: request.id(at: 1)))
+        }
         if request.matches(.get, "products") {
             return page(products(search: query["search"]))
         }

@@ -14,6 +14,10 @@ extension Replica {
             entries.forEach { put(.mealPlanEntries, $0) }
             return LocalResult(body: resource(entries.map(shownEntry)), areas: [.plan], change: QueuedChange(created: entries.compactMap(\.recordID), createdKind: .mealPlanEntries))
         }
+        if request.matches(.post, "meal-plan", "*", "sides") {
+            let side = try addSide(toEntry: request.id(at: 1), from: request.body)
+            return LocalResult(body: resource(shownEntry(side)), areas: [.plan], change: QueuedChange(created: [side.recordID ?? 0], createdKind: .mealPlanEntries))
+        }
         if request.matches(.put, "meal-plan", "*", "portion-feedback") {
             var entry = try existing(.mealPlanEntries, request.id(at: 1))
             notePortionVerdict(in: &entry, from: request.body)
@@ -21,7 +25,8 @@ extension Replica {
             return LocalResult(body: resource(shownEntry(entry)), areas: [.plan], change: QueuedChange())
         }
         if request.matches(.patch, "meal-plan", "*") {
-            var entry = try existing(.mealPlanEntries, request.id(at: 1))
+            let before = try existing(.mealPlanEntries, request.id(at: 1))
+            var entry = before
             for field in ["date", "meal"] {
                 if let value = request.body[field] {
                     entry[field] = value
@@ -34,6 +39,7 @@ extension Replica {
             if let recipeID = request.body["recipe_id"] as? Int {
                 entry["recipe"] = try existing(.recipes, recipeID)
             }
+            keepSides(with: &entry, before: before)
             put(.mealPlanEntries, entry)
             return LocalResult(body: resource(shownEntry(entry)), areas: [.plan], change: QueuedChange())
         }
@@ -43,8 +49,7 @@ extension Replica {
             return LocalResult(body: resource(moved.map(shownEntry)), areas: [.plan], change: QueuedChange())
         }
         if request.matches(.delete, "meal-plan", "*") {
-            let id = try existing(.mealPlanEntries, request.id(at: 1)).recordID ?? 0
-            remove(.mealPlanEntries, id)
+            removeEntry(try existing(.mealPlanEntries, request.id(at: 1)).recordID ?? 0)
             return LocalResult(areas: [.plan], change: QueuedChange())
         }
         return nil

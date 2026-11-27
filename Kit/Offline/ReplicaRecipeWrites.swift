@@ -17,7 +17,7 @@ extension Replica {
             _ = try existing(.recipes, id)
             remove(.recipes, id)
             for entry in all(.mealPlanEntries) where (entry["recipe"] as? JSONObject)?.recordID == id {
-                remove(.mealPlanEntries, entry.recordID ?? 0)
+                removeEntry(entry.recordID ?? 0)
             }
             return LocalResult(areas: [.recipes, .plan], change: QueuedChange())
         }
@@ -41,6 +41,7 @@ extension Replica {
     private func emptyRecipe(id: Int) -> JSONObject {
         [
             "id": id, "title": "", "slug": "", "description": NSNull(), "course": NSNull(), "course_name": NSNull(),
+            "side_kind": NSNull(), "side_options": [String](),
             "servings": NSNull(), "yield_text": NSNull(), "prep_minutes": NSNull(), "cook_minutes": NSNull(),
             "cover_url": NSNull(), "cover_thumb_url": NSNull(), "tags": [JSONObject](), "rating": NSNull(), "is_favorite": false,
             "average_rating": NSNull(), "rating_count": 0, "source_url": NSNull(), "source_platform": NSNull(),
@@ -50,7 +51,7 @@ extension Replica {
 
     /// Takes over the fields a recipe input carries; nested lists replace the stored ones as a whole.
     private mutating func fill(_ recipe: inout JSONObject, from body: JSONObject) {
-        for field in ["title", "description", "servings", "yield_text", "prep_minutes", "cook_minutes", "source_url"] {
+        for field in ["title", "description", "side_kind", "side_options", "servings", "yield_text", "prep_minutes", "cook_minutes", "source_url"] {
             if let value = body[field] {
                 recipe[field] = value
             }

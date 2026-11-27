@@ -29,6 +29,11 @@ public enum RecipeEndpoints {
         .resource(.get, "recipes/\(id)")
     }
 
+    /// `GET /recipes/{id}/sides`: the recipes that may be served with a dish, those served with it most recently first.
+    public static func sides(of id: Int) -> Endpoint<[RecipeSummary]> {
+        .resource(.get, "recipes/\(id)/sides")
+    }
+
     /// `POST /recipes`: creates a recipe.
     public static func create(_ input: RecipeInput) -> Endpoint<Recipe> {
         .resource(.post, "recipes", body: input)

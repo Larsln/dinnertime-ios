@@ -28,6 +28,11 @@ final class TodayModel {
         entries?.nextMeal(from: today)
     }
 
+    /// The sides served with the next meal to cook.
+    var upNextSides: [MealPlanEntry] {
+        upNext.map { entries?.sides(of: $0) ?? [] } ?? []
+    }
+
     /// Whether the plan is known and holds nothing for today, cooked or not.
     var isTodayOpen: Bool {
         entries.map { !$0.isPlanned(on: today) } ?? false

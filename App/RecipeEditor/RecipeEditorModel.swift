@@ -13,6 +13,8 @@ final class RecipeEditorModel: ErrorReporting {
     /// The newly chosen cover image as JPEG; `nil` keeps the stored one.
     private(set) var cover: Data?
     private(set) var courses: [Course] = []
+    /// What a side can be based on; empty while the server does not tell.
+    private(set) var sideKinds: [SideKind] = []
     private(set) var units: [MeasureUnit] = []
     private(set) var tags: [Tag] = []
     private(set) var isSaving = false
@@ -32,8 +34,9 @@ final class RecipeEditorModel: ErrorReporting {
         tags.filter { $0.type == kind }
     }
 
-    /// Loads the courses, units and tags to choose from.
+    /// Loads the courses, units, tags and kinds of side to choose from.
     func loadReferences() async {
+        sideKinds = (try? await session.send(ReferenceEndpoints.sideKinds)) ?? []
         await attempt {
             courses = try await session.send(ReferenceEndpoints.courses)
             units = try await session.send(ReferenceEndpoints.units)

@@ -7,6 +7,11 @@ public enum ReferenceEndpoints {
         .resource(.get, "courses")
     }
 
+    /// `GET /side-kinds`: what a side dish can be based on, in the requested language.
+    public static var sideKinds: Endpoint<[SideKind]> {
+        .resource(.get, "side-kinds")
+    }
+
     /// `GET /tags`: all tags in the requested language.
     public static var tags: Endpoint<[Tag]> {
         .resource(.get, "tags")

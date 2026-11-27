@@ -1,11 +1,14 @@
 import DinnertimeKit
 import SwiftUI
 
-/// The next meal to cook as a wide card: the cover of the recipe, when and for which meal it is planned, its title and the servings.
+/// The next meal to cook as a wide card: the cover of the recipe, when and for which meal it is planned, its title,
+/// its sides and the servings.
 struct UpNextBanner: View {
     private static let coverRatio: CGFloat = 16 / 9
 
     let entry: MealPlanEntry
+    /// The sides served with the meal.
+    var sides: [MealPlanEntry] = []
     /// The day the banner is shown on.
     let today: DayDate
 
@@ -25,6 +28,12 @@ struct UpNextBanner: View {
                     .foregroundStyle(.ink)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
+                if !sides.isEmpty {
+                    Text("With it: \(sides.map(\.recipe.title).formatted(.list(type: .and)))")
+                        .font(.subheadline)
+                        .foregroundStyle(.inkMuted)
+                        .multilineTextAlignment(.leading)
+                }
                 Label {
                     PortionsText(entry: entry)
                 } icon: {

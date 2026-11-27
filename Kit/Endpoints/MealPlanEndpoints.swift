@@ -32,6 +32,10 @@ public enum MealPlanEndpoints {
         }
     }
 
+    private struct SideBody: Encodable {
+        let recipeId: Int
+    }
+
     private struct CookedBody: Encodable {
         let cooked: Bool
     }
@@ -67,6 +71,11 @@ public enum MealPlanEndpoints {
     /// `PATCH /meal-plan/{id}`: moves an entry, swaps its recipe or changes who eats.
     public static func update(id: Int, date: DayDate, meal: MealType, recipeID: Int, eaterIDs: [Int], guests: Int) -> Endpoint<MealPlanEntry> {
         .resource(.patch, "meal-plan/\(id)", body: EatersBody(date: date, meal: meal, recipeId: recipeID, eaterIds: eaterIDs, guests: guests))
+    }
+
+    /// `POST /meal-plan/{id}/sides`: serves a side with a planned meal and answers with the side as an entry.
+    public static func addSide(recipeID: Int, to entryID: Int) -> Endpoint<MealPlanEntry> {
+        .resource(.post, "meal-plan/\(entryID)/sides", body: SideBody(recipeId: recipeID))
     }
 
     /// `PUT /meal-plan/{id}/portion-feedback`: says how the portion was for the signed-in user; `nil` withdraws it.

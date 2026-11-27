@@ -21,7 +21,7 @@ struct TodayPanel: View {
             Button {
                 onOpen(PlannedRecipe(entry))
             } label: {
-                UpNextBanner(entry: entry, today: model.today)
+                UpNextBanner(entry: entry, sides: model.upNextSides, today: model.today)
             }
             .buttonStyle(.plain)
             .todayRow()

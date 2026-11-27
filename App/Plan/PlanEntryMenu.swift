@@ -1,15 +1,20 @@
 import DinnertimeKit
 import SwiftUI
 
-/// What can be done with a planned meal: change it, move it or everything from its day on, mark it as cooked
-/// or remove it. Shown as the context menu of a meal.
+/// What can be done with a planned meal: change it, serve a side with it, move it or everything from its day on,
+/// mark it as cooked or remove it. Shown as the context menu of a meal.
 struct PlanEntryMenu: View {
     let entry: MealPlanEntry
     let model: PlanModel
     let onEdit: () -> Void
+    /// Opens the side picker for the meal.
+    let onAddSide: () -> Void
 
     var body: some View {
         Button("Change dish", systemImage: "pencil", action: onEdit)
+        if entry.parentID == nil, entry.recipe.takesSides {
+            Button("Add side", systemImage: "plus.circle", action: onAddSide)
+        }
         Section {
             Button("One day later", systemImage: "arrow.right") {
                 run { await model.move(entry, by: 1) }

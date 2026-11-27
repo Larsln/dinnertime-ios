@@ -503,6 +503,16 @@
         }
       }
     },
+    "Add side": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beilage hinzufügen"
+          }
+        }
+      }
+    },
     "Add step": {
       "localizations": {
         "de": {
@@ -889,6 +899,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rezept auswählen"
+          }
+        }
+      }
+    },
+    "Choose side": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beilage wählen"
           }
         }
       }
@@ -1443,6 +1463,16 @@
         }
       }
     },
+    "Fitting sides": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passende Beilagen"
+          }
+        }
+      }
+    },
     "Grams": {
       "localizations": {
         "de": {
@@ -1649,6 +1679,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "passend"
+          }
+        }
+      }
+    },
+    "Kind of side": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Art der Beilage"
           }
         }
       }
@@ -2199,6 +2239,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keine Utensilien"
+          }
+        }
+      }
+    },
+    "Not a side": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Beilage"
           }
         }
       }
@@ -3163,6 +3213,16 @@
         }
       }
     },
+    "Sides": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beilagen"
+          }
+        }
+      }
+    },
     "Sign in": {
       "localizations": {
         "de": {
@@ -3433,6 +3493,16 @@
         }
       }
     },
+    "The recipe is offered as a side for dishes that are served with this kind.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Rezept wird als Beilage zu Gerichten angeboten, zu denen diese Art passt."
+          }
+        }
+      }
+    },
     "The round ends for everyone without anything being planned.": {
       "localizations": {
         "de": {
@@ -3459,6 +3529,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Danach Einkaufsliste erstellen"
+          }
+        }
+      }
+    },
+    "There is no recipe of a fitting kind of side yet. Give a recipe a kind of side when you edit it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es gibt noch kein Rezept einer passenden Beilagen-Art. Gib einem Rezept beim Bearbeiten eine Art der Beilage."
           }
         }
       }
@@ -3893,6 +3973,16 @@
         }
       }
     },
+    "When you plan this dish, only sides of the kinds switched on are offered.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beim Einplanen dieses Gerichts werden nur Beilagen der eingeschalteten Arten angeboten."
+          }
+        }
+      }
+    },
     "Who decides?": {
       "localizations": {
         "de": {
@@ -3909,6 +3999,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wer isst mit"
+          }
+        }
+      }
+    },
+    "With it: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dazu: %@"
           }
         }
       }

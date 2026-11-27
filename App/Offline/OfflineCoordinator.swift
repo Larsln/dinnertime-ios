@@ -12,7 +12,7 @@ import Observation
 @Observable
 final class OfflineCoordinator {
     /// Paths of read-only answers outside the feed that are kept to be shown without a connection.
-    private static let rememberedPaths: Set<String> = ["auth/user", "courses", "imports", "settings/import"]
+    private static let rememberedPaths: Set<String> = ["auth/user", "courses", "imports", "settings/import", "side-kinds"]
 
     /// Whether the last attempt to reach the server worked and the device has a network.
     var isOnline = true
