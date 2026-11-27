@@ -4,9 +4,9 @@ import DinnertimeKit
 struct RecipeSelection: Equatable {
     let recipe: RecipeSummary
     /// Servings of the plan entry the recipe was opened from; `nil` when it was chosen from the list.
-    let servings: Int?
+    let servings: Double?
 
-    init(recipe: RecipeSummary, servings: Int? = nil) {
+    init(recipe: RecipeSummary, servings: Double? = nil) {
         self.recipe = recipe
         self.servings = servings
     }
@@ -17,7 +17,7 @@ struct RecipeSelection: Equatable {
     }
 
     /// Tells one opening of a recipe from another, so that the recipe is loaded anew.
-    var id: [Int?] {
-        [recipe.id, servings]
+    var id: [Double?] {
+        [Double(recipe.id), servings]
     }
 }

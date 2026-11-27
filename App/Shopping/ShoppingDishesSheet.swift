@@ -58,7 +58,7 @@ private struct ShoppingDishRow: View {
                 .foregroundStyle(.secondary)
             Text(verbatim: dish.entry.recipe.title)
                 .font(.headline)
-            Text("\(dish.entry.servings) servings")
+            PortionsText(entry: dish.entry)
                 .font(.caption)
                 .foregroundStyle(.secondary)
             if !dish.ingredients.isEmpty {

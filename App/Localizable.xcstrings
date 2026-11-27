@@ -27,6 +27,16 @@
         }
       }
     },
+    "%@ servings": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Portionen"
+          }
+        }
+      }
+    },
     "%@ · paused": {
       "localizations": {
         "de": {
@@ -1453,6 +1463,26 @@
         }
       }
     },
+    "Guests count with a standard portion. Whoever rates portions gets a size of their own.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gäste zählen mit einer Standardportion. Wer Portionen bewertet, bekommt seine eigene Größe."
+          }
+        }
+      }
+    },
+    "Guests: %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gäste: %lld"
+          }
+        }
+      }
+    },
     "Has a note": {
       "localizations": {
         "de": {
@@ -1609,6 +1639,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Allein"
+          }
+        }
+      }
+    },
+    "Just right": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "passend"
           }
         }
       }
@@ -2503,6 +2543,26 @@
         }
       }
     },
+    "Portion": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portion"
+          }
+        }
+      }
+    },
+    "Portion: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portion: %@"
+          }
+        }
+      }
+    },
     "Preferences": {
       "localizations": {
         "de": {
@@ -2969,6 +3029,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Portionen"
+          }
+        }
+      }
+    },
+    "Servings: %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portionen: %@"
           }
         }
       }
@@ -3483,6 +3553,26 @@
         }
       }
     },
+    "Too big": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zu groß"
+          }
+        }
+      }
+    },
+    "Too small": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zu klein"
+          }
+        }
+      }
+    },
     "Tools": {
       "localizations": {
         "de": {
@@ -3809,6 +3899,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wer entscheidet?"
+          }
+        }
+      }
+    },
+    "Who eats": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wer isst mit"
           }
         }
       }

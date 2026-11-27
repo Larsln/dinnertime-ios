@@ -19,6 +19,7 @@ struct PlanEntryMenu: View {
             }
         }
         PlanShiftButtons(day: entry.date, model: model)
+        PortionVerdictMenu(entry: entry, model: model)
         Section {
             Button(entry.isCooked ? "Not cooked" : "Cooked", systemImage: entry.isCooked ? "arrow.uturn.backward" : "checkmark") {
                 run { await model.toggleCooked(entry) }

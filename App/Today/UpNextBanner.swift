@@ -26,7 +26,7 @@ struct UpNextBanner: View {
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
                 Label {
-                    Text("\(entry.servings) servings")
+                    PortionsText(entry: entry)
                 } icon: {
                     Image(systemName: "person.2.fill")
                 }

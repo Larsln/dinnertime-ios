@@ -10,13 +10,13 @@ final class RecipeDetailModel: ErrorReporting {
         case ingredients, method
     }
 
-    static let servingsRange = 1...100
+    static let servingsRange = 0.5...100.0
 
     var errorMessage: String?
     /// The part of the content that is shown.
     var segment = Segment.ingredients
     /// Servings the ingredient amounts are shown for.
-    var servings: Int
+    var servings: Double
     /// What is known about the recipe before and after it is loaded, including the marks of the user.
     private(set) var summary: RecipeSummary
     private(set) var recipe: Recipe?
@@ -24,16 +24,16 @@ final class RecipeDetailModel: ErrorReporting {
     private var markCount = 0
 
     /// Servings a recipe opens with: those of the plan entry it was opened from, or the usual number of the household once the view passed it on.
-    private var defaultServings: Int?
+    private var defaultServings: Double?
 
     private let session: AppSession
 
     /// - Parameter plannedServings: Servings of the plan entry the recipe is opened from; they take the place of the usual number of the household.
-    init(session: AppSession, summary: RecipeSummary, plannedServings: Int? = nil) {
+    init(session: AppSession, summary: RecipeSummary, plannedServings: Double? = nil) {
         self.session = session
         self.summary = summary
         defaultServings = plannedServings
-        servings = summary.servings.map { plannedServings ?? $0 } ?? 1
+        servings = summary.servings.map { plannedServings ?? Double($0) } ?? 1
     }
 
     /// Shows a recipe that states servings scaled to the usual number of the household.
@@ -44,8 +44,13 @@ final class RecipeDetailModel: ErrorReporting {
         guard defaultServings == nil else {
             return
         }
-        defaultServings = servings
+        defaultServings = Double(servings)
         self.servings = initialServings(for: summary)
+    }
+
+    /// The servings as a number: whole ones without decimals, others with up to two.
+    var servingsText: String {
+        servings.formatted(.number.precision(.fractionLength(0...2)))
     }
 
     /// Whether the recipe states servings to scale from.
@@ -55,7 +60,7 @@ final class RecipeDetailModel: ErrorReporting {
 
     /// Ratio of wanted to stated servings.
     var scale: Double {
-        summary.servings.map { Double(servings) / Double($0) } ?? 1
+        summary.servings.map { servings / Double($0) } ?? 1
     }
 
     /// Loads the complete recipe.
@@ -75,8 +80,8 @@ final class RecipeDetailModel: ErrorReporting {
     }
 
     /// A recipe that states servings opens with the default; one without cannot be scaled.
-    private func initialServings(for summary: RecipeSummary) -> Int {
-        summary.servings.map { defaultServings ?? $0 } ?? 1
+    private func initialServings(for summary: RecipeSummary) -> Double {
+        summary.servings.map { defaultServings ?? Double($0) } ?? 1
     }
 
     /// Sets the rating of the user; `nil` withdraws it.

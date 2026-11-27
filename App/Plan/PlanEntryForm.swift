@@ -2,7 +2,7 @@ import DinnertimeKit
 import SwiftUI
 
 /// Form that plans a recipe for a day and meal, or changes a planned one: another recipe, day or meal,
-/// more or fewer servings.
+/// other people who eat.
 struct PlanEntryForm: View {
     let session: AppSession
     let onSave: (PlanEntryDraft) async -> Bool
@@ -10,6 +10,7 @@ struct PlanEntryForm: View {
     @State private var draft: PlanEntryDraft
     @State private var isSaving = false
     @Environment(\.dismiss) private var dismiss
+    @Environment(HouseholdStore.self) private var household
 
     init(session: AppSession, draft: PlanEntryDraft, onSave: @escaping (PlanEntryDraft) async -> Bool) {
         self.session = session
@@ -31,11 +32,11 @@ struct PlanEntryForm: View {
                 } label: {
                     LabeledContent("Recipe", value: draft.recipe?.title ?? String(localized: "Choose"))
                 }
-                Stepper("Servings: \(draft.servings)", value: $draft.servings, in: PlanEntryDraft.servingsRange)
+                PlanEatersSection(draft: $draft, members: household.members)
             }
             .navigationTitle(draft.isChange ? "Change dish" : "Plan a meal")
             .navigationBarTitleDisplayMode(.inline)
-            .sheetToolbar(confirm: draft.isChange ? "Save" : "Add", isEnabled: draft.recipe != nil && !isSaving, onCancel: { dismiss() }, onConfirm: save)
+            .sheetToolbar(confirm: draft.isChange ? "Save" : "Add", isEnabled: draft.isComplete && !isSaving, onCancel: { dismiss() }, onConfirm: save)
         }
     }
 

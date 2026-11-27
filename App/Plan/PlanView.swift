@@ -92,7 +92,7 @@ struct PlanView: View {
 
     /// Starts planning a meal on `day` with the usual servings of the household.
     private func plan(on day: DayDate) {
-        draft = PlanEntryDraft(day: day, servings: household.defaultServings)
+        draft = PlanEntryDraft(day: day, servings: household.defaultServings, members: household.members)
     }
 
     /// Opens a planned meal for changes.

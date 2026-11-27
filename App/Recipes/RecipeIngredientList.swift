@@ -9,7 +9,7 @@ struct RecipeIngredientList: View {
     var body: some View {
         if model.canScale {
             Section {
-                Stepper("Servings: \(model.servings)", value: $model.servings, in: RecipeDetailModel.servingsRange)
+                Stepper("Servings: \(model.servingsText)", value: $model.servings, in: RecipeDetailModel.servingsRange)
             }
         }
         ForEach(recipe.ingredientGroups) { group in

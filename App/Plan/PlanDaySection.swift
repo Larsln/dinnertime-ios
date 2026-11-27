@@ -34,7 +34,7 @@ struct PlanDaySection: View {
                             Color.clear
                                 .frame(width: PlanDayMarker.width, height: 1)
                         }
-                        PlanEntryRow(entry: entry, reasons: model.reasons[entry.id] ?? [])
+                        PlanEntryRow(entry: entry, reasons: model.reasons[entry.id] ?? [], verdict: model.ownVerdict(on: entry))
                             .padding(.leading, CardRowMetrics.padding)
                     }
                 }

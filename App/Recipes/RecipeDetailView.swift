@@ -21,7 +21,7 @@ struct RecipeDetailView: View {
     init(
         session: AppSession,
         summary: RecipeSummary,
-        plannedServings: Int? = nil,
+        plannedServings: Double? = nil,
         isEmbedded: Bool = false,
         onUpdate: @escaping (RecipeSummary) -> Void = { _ in },
         onDelete: @escaping () -> Void = {}

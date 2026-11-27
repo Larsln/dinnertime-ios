@@ -11,6 +11,7 @@ struct PlanBoardCard: View {
 
     let entry: MealPlanEntry
     let reasons: [PlanReason]
+    var verdict: PortionVerdict?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -29,9 +30,10 @@ struct PlanBoardCard: View {
                 .foregroundStyle(entry.isCooked ? Color.inkMuted : Color.ink)
                 .lineLimit(3)
                 .multilineTextAlignment(.leading)
-            Text("\(entry.servings) servings")
+            PortionsText(entry: entry)
                 .font(.caption)
                 .foregroundStyle(.inkMuted)
+            PortionVerdictNote(verdict: verdict)
             if !entry.isCooked, !reasons.isEmpty {
                 PlanReasonList(reasons: reasons, lineLimit: 4)
                     .padding(.top, 2)

@@ -18,7 +18,7 @@ struct PlanDayColumn: View {
             header(showsPlus: !entries.isEmpty)
             ForEach(entries) { entry in
                 NavigationLink(value: entry.recipe) {
-                    PlanBoardCard(entry: entry, reasons: model.reasons[entry.id] ?? [])
+                    PlanBoardCard(entry: entry, reasons: model.reasons[entry.id] ?? [], verdict: model.ownVerdict(on: entry))
                 }
                 .buttonStyle(.plain)
                 .contextMenu {

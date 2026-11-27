@@ -9,6 +9,29 @@ public enum MealPlanEndpoints {
         let servings: Int
     }
 
+    private struct EatersBody: Encodable {
+        let date: DayDate
+        let meal: MealType
+        let recipeId: Int
+        let eaterIds: [Int]
+        let guests: Int
+    }
+
+    private struct VerdictBody: Encodable {
+        let verdict: PortionVerdict?
+        let userId: Int
+
+        private enum CodingKeys: String, CodingKey {
+            case verdict, userId
+        }
+
+        func encode(to encoder: any Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(verdict, forKey: .verdict)
+            try container.encode(userId, forKey: .userId)
+        }
+    }
+
     private struct CookedBody: Encodable {
         let cooked: Bool
     }
@@ -34,6 +57,23 @@ public enum MealPlanEndpoints {
     /// `POST /meal-plan`: plans a recipe.
     public static func create(date: DayDate, meal: MealType, recipeID: Int, servings: Int) -> Endpoint<MealPlanEntry> {
         .resource(.post, "meal-plan", body: CreateBody(date: date, meal: meal, recipeId: recipeID, servings: servings))
+    }
+
+    /// `POST /meal-plan`: plans a recipe for the members with `eaterIDs` and a number of guests.
+    public static func create(date: DayDate, meal: MealType, recipeID: Int, eaterIDs: [Int], guests: Int) -> Endpoint<MealPlanEntry> {
+        .resource(.post, "meal-plan", body: EatersBody(date: date, meal: meal, recipeId: recipeID, eaterIds: eaterIDs, guests: guests))
+    }
+
+    /// `PATCH /meal-plan/{id}`: moves an entry, swaps its recipe or changes who eats.
+    public static func update(id: Int, date: DayDate, meal: MealType, recipeID: Int, eaterIDs: [Int], guests: Int) -> Endpoint<MealPlanEntry> {
+        .resource(.patch, "meal-plan/\(id)", body: EatersBody(date: date, meal: meal, recipeId: recipeID, eaterIds: eaterIDs, guests: guests))
+    }
+
+    /// `PUT /meal-plan/{id}/portion-feedback`: says how the portion was for the signed-in user; `nil` withdraws it.
+    ///
+    /// The server knows who is signed in. `userID` is sent along for the local copy, which does not.
+    public static func setPortionVerdict(_ verdict: PortionVerdict?, id: Int, userID: Int) -> Endpoint<MealPlanEntry> {
+        .resource(.put, "meal-plan/\(id)/portion-feedback", body: VerdictBody(verdict: verdict, userId: userID))
     }
 
     /// `PATCH /meal-plan/{id}`: moves an entry to another day or meal, swaps its recipe or changes its servings.

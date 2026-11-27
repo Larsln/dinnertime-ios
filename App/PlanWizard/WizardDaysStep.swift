@@ -23,7 +23,7 @@ struct WizardDaysStep: View {
                 Text("Tap the cells that should be filled. What is planned already stays as it is.")
             }
             Section {
-                Stepper("Servings: \(model.servings)", value: $model.servings, in: PlanEntryDraft.servingsRange)
+                Stepper("Servings: \(model.servings)", value: $model.servings, in: HouseholdSettings.servingsRange)
             }
         }
         .onChange(of: model.weeks.week) {

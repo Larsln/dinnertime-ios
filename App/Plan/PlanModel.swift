@@ -48,9 +48,9 @@ final class PlanModel: ErrorReporting {
         let day = DayDate(draft.date)
         return await change {
             if let id = draft.entryID {
-                _ = try await session.send(MealPlanEndpoints.update(id: id, date: day, meal: draft.meal, recipeID: recipe.id, servings: draft.servings))
+                _ = try await session.send(MealPlanEndpoints.update(id: id, date: day, meal: draft.meal, recipeID: recipe.id, eaterIDs: draft.eaterIDs.sorted(), guests: draft.guests))
             } else {
-                _ = try await session.send(MealPlanEndpoints.create(date: day, meal: draft.meal, recipeID: recipe.id, servings: draft.servings))
+                _ = try await session.send(MealPlanEndpoints.create(date: day, meal: draft.meal, recipeID: recipe.id, eaterIDs: draft.eaterIDs.sorted(), guests: draft.guests))
             }
         }
     }
@@ -97,6 +97,22 @@ final class PlanModel: ErrorReporting {
                 entries[index] = updated
             }
         }
+    }
+
+    /// Says how the portion of an entry was for the signed-in user; choosing the same verdict again withdraws it.
+    func judgePortion(of entry: MealPlanEntry, as verdict: PortionVerdict) async {
+        guard let userID = session.user?.id else {
+            return
+        }
+        let chosen = entry.verdict(of: userID) == verdict ? nil : verdict
+        await change {
+            _ = try await session.send(MealPlanEndpoints.setPortionVerdict(chosen, id: entry.id, userID: userID))
+        }
+    }
+
+    /// The verdict of the signed-in user on the portion of an entry.
+    func ownVerdict(on entry: MealPlanEntry) -> PortionVerdict? {
+        entry.verdict(of: session.user?.id)
     }
 
     /// Removes an entry from the plan.

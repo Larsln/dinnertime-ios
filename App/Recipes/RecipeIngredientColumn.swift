@@ -12,7 +12,7 @@ struct RecipeIngredientColumn: View {
                 .sectionHeadingStyle()
                 .accessibilityAddTraits(.isHeader)
             if model.canScale {
-                Stepper("Servings: \(model.servings)", value: $model.servings, in: RecipeDetailModel.servingsRange)
+                Stepper("Servings: \(model.servingsText)", value: $model.servings, in: RecipeDetailModel.servingsRange)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
                     .background(.sunken, in: .tile)

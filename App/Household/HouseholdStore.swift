@@ -12,6 +12,8 @@ final class HouseholdStore: ErrorReporting {
     private(set) var currency = HouseholdSettings.fallbackCurrency
     /// Whether the shopping list also notes what is at home already.
     private(set) var showStockedNeeds = false
+    /// The users of the household, to choose who eats a meal.
+    private(set) var members: [HouseholdMember] = []
 
     private let session: AppSession
 
@@ -25,6 +27,7 @@ final class HouseholdStore: ErrorReporting {
             defaultServings = settings.defaultServings
             currency = settings.currency
             showStockedNeeds = settings.showStockedNeeds
+            members = settings.members
         }
     }
 

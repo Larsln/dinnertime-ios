@@ -14,13 +14,20 @@ extension Replica {
             entries.forEach { put(.mealPlanEntries, $0) }
             return LocalResult(body: resource(entries.map(shownEntry)), areas: [.plan], change: QueuedChange(created: entries.compactMap(\.recordID), createdKind: .mealPlanEntries))
         }
+        if request.matches(.put, "meal-plan", "*", "portion-feedback") {
+            var entry = try existing(.mealPlanEntries, request.id(at: 1))
+            notePortionVerdict(in: &entry, from: request.body)
+            put(.mealPlanEntries, entry)
+            return LocalResult(body: resource(shownEntry(entry)), areas: [.plan], change: QueuedChange())
+        }
         if request.matches(.patch, "meal-plan", "*") {
             var entry = try existing(.mealPlanEntries, request.id(at: 1))
-            for field in ["date", "meal", "servings"] {
+            for field in ["date", "meal"] {
                 if let value = request.body[field] {
                     entry[field] = value
                 }
             }
+            seat(&entry, as: request.body)
             if let cooked = request.body["cooked"] as? Bool {
                 entry["cooked_at"] = cooked ? JSONValue.timestamp(now) : NSNull()
             }
@@ -56,14 +63,17 @@ extension Replica {
     }
 
     private mutating func planEntry(from body: JSONObject) throws -> JSONObject {
-        [
+        var entry: JSONObject = [
             "id": makeTemporaryID(),
             "date": body["date"] ?? "",
             "meal": body["meal"] ?? "",
-            "servings": body["servings"] ?? 1,
+            "servings": 1,
             "cooked_at": NSNull(),
+            "portion_feedback": [JSONObject](),
             "recipe": try existing(.recipes, body["recipe_id"] as? Int),
         ]
+        seat(&entry, as: body)
+        return entry
     }
 
     /// Answers a write to the pantry; `nil` for other calls.

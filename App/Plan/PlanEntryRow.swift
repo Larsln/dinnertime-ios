@@ -8,6 +8,7 @@ struct PlanEntryRow: View {
 
     let entry: MealPlanEntry
     let reasons: [PlanReason]
+    var verdict: PortionVerdict?
 
     var body: some View {
         HStack(spacing: 12) {
@@ -22,12 +23,13 @@ struct PlanEntryRow: View {
                     .foregroundStyle(entry.isCooked ? Color.inkMuted : Color.ink)
                     .lineLimit(2)
                 Label {
-                    Text("\(entry.servings) servings")
+                    PortionsText(entry: entry)
                 } icon: {
                     Image(systemName: "person.2.fill")
                 }
                 .font(.footnote)
                 .foregroundStyle(.inkMuted)
+                PortionVerdictNote(verdict: verdict)
                 if !entry.isCooked, !reasons.isEmpty {
                     PlanReasonList(reasons: reasons)
                         .padding(.top, 2)

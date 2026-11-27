@@ -13,9 +13,11 @@ public struct HouseholdSettings: Decodable, Equatable, Sendable {
     public var currency: String
     /// Whether the shopping list also notes what the meals need that is at home already.
     public var showStockedNeeds: Bool
+    /// The users of the household, to choose who eats a meal.
+    public var members: [HouseholdMember]
 
     private enum CodingKeys: String, CodingKey {
-        case defaultServings, currency, showStockedNeeds
+        case defaultServings, currency, showStockedNeeds, members
     }
 
     public init(from decoder: any Decoder) throws {
@@ -23,5 +25,6 @@ public struct HouseholdSettings: Decodable, Equatable, Sendable {
         defaultServings = try container.decode(Int.self, forKey: .defaultServings)
         currency = try container.decodeIfPresent(String.self, forKey: .currency) ?? Self.fallbackCurrency
         showStockedNeeds = try container.decodeIfPresent(Bool.self, forKey: .showStockedNeeds) ?? false
+        members = try container.decodeIfPresent([HouseholdMember].self, forKey: .members) ?? []
     }
 }
